@@ -14,7 +14,7 @@ ENV logging=normal
 ENV role=monolith
 
 WORKDIR /app
-COPY --from=build /app/bin/main /app/
+COPY --from=build /app/bin/ /app/bin/
 COPY --from=build /app/config/ /app/config/
 
 EXPOSE 8080
