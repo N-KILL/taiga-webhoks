@@ -13,11 +13,9 @@ ENV serverid=default
 ENV logging=normal
 ENV role=monolith
 
-COPY --from=build /runtime/ /
-COPY --from=build /app/bin/main /app/bin/main
+WORKDIR /app
+COPY --from=build /app/bin/main /app/
 COPY --from=build /app/config/ /app/config/
-COPY --from=build /app/generated/ /app/generated/
-COPY --from=build /app/web/ /app/web/
 
 EXPOSE 8080
 EXPOSE 8081
