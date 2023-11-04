@@ -23,7 +23,7 @@ insightsServer:
 # Configuration for the web server.
 webServer:
   port: 8082
-  publicHost: localhost
+  publicHost: roundhouse.proxy.rlwy.net:28323
   publicPort: 8082
   publicScheme: http
 
@@ -39,3 +39,5 @@ redis:
   enabled: false
   host: localhost
   port: 8091
+
+  # roundhouse.proxy.rlwy.net:28323
