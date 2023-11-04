@@ -7,6 +7,8 @@ import 'package:serverpod/serverpod.dart';
 class RouteRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
+    print('Webhook received : ${await utf8.decodeStream(request)}');
+    session.log('Webhook received : ${await utf8.decodeStream(request)}');
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
     return WebHooksView(webhookData: body);
