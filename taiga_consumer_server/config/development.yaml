@@ -23,7 +23,7 @@ insightsServer:
 # Configuration for the web server.
 webServer:
   port: 8082
-  publicHost: roundhouse.proxy.rlwy.net:28323
+  publicHost: taiga-webhoks-production.up.railway.app
   publicPort: 8082
   publicScheme: http
 
