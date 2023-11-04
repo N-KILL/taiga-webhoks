@@ -12,3 +12,10 @@ class RouteRoot extends WidgetRoute {
     return WebHooksView(webhookData: body);
   }
 }
+
+class DefaultRouteRoot extends WidgetRoute {
+  @override
+  Future<Widget> build(Session session, HttpRequest request) async {
+    return DefaultPageWidget();
+  }
+}

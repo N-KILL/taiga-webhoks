@@ -21,7 +21,7 @@ void run(List<String> args) async {
   // pod.registerFutureCall(ExampleFutureCall(), 'exampleFutureCall');
 
   // Setup a default page at the web root.
-  // pod.webServer.addRoute(RouteRoot(), '/');
+  pod.webServer.addRoute(DefaultRouteRoot(), '/');
   pod.webServer.addRoute(
     RouteRoot(),
     '/webhook',
