@@ -4,6 +4,7 @@ class DefaultPageWidget extends Widget {
   DefaultPageWidget() : super(name: 'default') {
     values = {
       'served': DateTime.now(),
+      'runmode': 'Development',
     };
   }
 }
