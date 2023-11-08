@@ -23,7 +23,7 @@ insightsServer:
 # Configuration for the web server.
 webServer:
   port: 8082
-  publicHost: taiga-webhoks-production.up.railway.app
+  publicHost: taiga-webhoks-production-ea99.up.railway.app
   publicPort: 8082
   publicScheme: http
 
