@@ -29,8 +29,8 @@ webServer:
 
 # This is the database setup for your server.
 database:
-  host: viaduct.proxy.rlwy.net
-  port: 25247
+  host: monorail.proxy.rlwy.net
+  port: 46802
   name: railway
   user: postgres
 
