@@ -8,8 +8,8 @@ class RouteRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
     final decodedBody = await utf8.decodeStream(request);
-    print('Webhook received : $decodedBody');
     final body = json.decode(decodedBody);
+    print('Webhook received : $body');
     return WebHooksView(webhookData: body);
   }
 }
