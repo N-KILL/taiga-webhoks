@@ -10,18 +10,12 @@ class RouteRoot extends WidgetRoute {
   Future<Widget> build(Session session, HttpRequest request) async {
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
+    Map<String, dynamic> jsonData = json.decode(decodedBody);
     print('Webhook received:');
     print('DecodedBody: $decodedBody');
-    print('Body as JSON FORMAT: $body');
 
-    final bodyMap = Issue(
-        data: body.data,
-        type: body.type,
-        action: body.action,
-        date: body.date,
-        by: body.by);
-        
-    print(bodyMap);
+    final model = TaigaPayload.fromJson(jsonData);
+    print(model.action);
     return WebHooksView(webhookData: body);
   }
 }
