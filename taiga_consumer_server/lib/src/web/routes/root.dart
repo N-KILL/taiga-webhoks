@@ -11,11 +11,10 @@ class RouteRoot extends WidgetRoute {
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
     Map<String, dynamic> jsonData = json.decode(decodedBody);
+    final model = TaigaPayload.fromJson(jsonData);
     print('Webhook received:');
     print('DecodedBody: $decodedBody');
-
-    final model = TaigaPayload.fromJson(jsonData);
-    print(model.action);
+    print('Model.Action: ${model.action}');
     return WebHooksView(webhookData: body);
   }
 }
