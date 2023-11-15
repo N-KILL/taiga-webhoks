@@ -15,7 +15,9 @@ class RouteRoot extends WidgetRoute {
     print('DecodedBody: $decodedBody');
     print('This is jsonData: $jsonData');
     final payload = TaigaPayload.fromJson(jsonData);
-    print('This is the payload: ${payload.toString()}');
+    final printData = jsonEncode(payload);
+    print('This is the payload $payload');
+    print('This is the payload in jsonEncode: $printData');
     return WebHooksView(webhookData: body);
   }
 }
