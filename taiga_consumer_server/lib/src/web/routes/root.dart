@@ -14,18 +14,8 @@ class RouteRoot extends WidgetRoute {
     print('Webhook received:');
     print('DecodedBody: $decodedBody');
     print('This is jsonData: $jsonData');
-    final model = TaigaPayload.fromJson(jsonData);
-    print('This is model: $model');
-    print('By Id: ${model.by.id}');
-    print('Deleted By: ${model.by.fullName}');
-    print('Date.id: ${model.data.id}');
-    print('Date.ref: ${model.data.ref}');
-    print('Date.createdDate: ${model.data.createdDate}');
-    print('Date.permalink: ${model.data.permalink}');
-    print('Date.ProjectName: ${model.data.project.name}');
-    print('Date.TypeId: ${model.data.type.id}');
-    print('Date.Type: ${model.data.type.color}');
-    print('Date.TypeName: ${model.data.type.name}');
+    final payload = TaigaPayload.fromJson(jsonData);
+    print('This is the payload: ${payload.toString()}');
     return WebHooksView(webhookData: body);
   }
 }
