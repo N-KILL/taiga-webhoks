@@ -31,9 +31,12 @@ class RouteRoot extends WidgetRoute {
     print('This is the Change(commentHtml): ${payload.change?.commentHtml}');
     print('This is the Change(commentVersions): ${payload.change?.commentVersions}');
     print('This is the Change(editCommentDate): ${payload.change?.editCommentDate}');
+    print('This is the Change(diff(descriptionDiff)): ${payload.change?.diff?.descriptionDiff}');
     print('This is the Change(diff(attachments.new)): ${payload.change?.diff?.attachments?.attachmentsNew}');
     print('This is the Change(diff(attachments.changed)): ${payload.change?.diff?.attachments?.changed}');
     print('This is the Change(diff(attachments.deleted)): ${payload.change?.diff?.attachments?.deleted}');
+    print('This is the Change(diff(tags.from)): ${payload.change?.diff?.tags?.from}');
+    print('This is the Change(diff(tags.to)): ${payload.change?.diff?.tags?.to}');
     print('This is the Change(diff(assignedTo.from)): ${payload.change?.diff?.assignedTo?.from}');
     print('This is the Change(diff(assignedTo.to)): ${payload.change?.diff?.assignedTo?.to}');
     print('This is the Change(diff(dueDate.from)): ${payload.change?.diff?.dueDate?.from}');
