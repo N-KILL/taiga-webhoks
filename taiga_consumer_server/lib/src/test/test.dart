@@ -5,11 +5,11 @@ void main() {
   final data = TaigaPayload.fromJson(bodyIssue);
   print(data.data.customAttributesValues?.figmaUrl);
   print(
-      'attributesNew:${data.change?.diff?.customAttributesChange?.attributesNew}');
+      'attributesNew:${data.change?.diff?.customAttributes?.attributesNew}');
   print(
-      'attributesChanged:${data.change?.diff?.customAttributesChange?.attributesChanged[0].type}');
+      'attributesChanged:${data.change?.diff?.customAttributes?.attributesChanged[0].type}');
   print(
-      'attributesDeleted:${data.change?.diff?.customAttributesChange?.attributesDeleted}');
+      'attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
 }
 
 final bodyIssue = {
