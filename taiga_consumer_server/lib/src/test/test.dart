@@ -2,8 +2,11 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 
 void main() {
   //final data = TaigaIssue.fromJson(body);
-  final data = TaigaPayload.fromJson(bodyEpic);
-  print(data);
+  final data = TaigaPayload.fromJson(bodyUserStory);
+  print(data.data.customAttributesValues?.figmaUrl);
+  print('attributesNew:${data.change?.diff?.customAttributesChange?.attributesNew}');
+  print('attributesChanged:${data.change?.diff?.customAttributesChange?.attributesChanged[0].type}');
+  print('attributesDeleted:${data.change?.diff?.customAttributesChange?.attributesDeleted}');
 }
 
 final bodyIssue = {
@@ -108,20 +111,20 @@ final bodyUserStory = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVdivA%3ARVslqFL46bHqK4_f0xC3QKnCYXsY80IqaxCCitOuVHmhokgtBQQrb8Nj3eZvWfrT5c3GslGzTvV3Qkj5z5hYkg",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVeENw%3AZWKZaXITdxmXkDJ7wDvQMz8JTQgvJ_yCs7NhN7e2B9SvqagBrirGzEaHnmamL6R2Y7p2bnLETFJsxTNCy0XlJw",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 5291652,
-    "ref": 28,
-    "tags": [],
+    "id": 5287705,
+    "ref": 15,
+    "tags": ["custom tag :d"],
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVdivA%3ARVslqFL46bHqK4_f0xC3QKnCYXsY80IqaxCCitOuVHmhokgtBQQrb8Nj3eZvWfrT5c3GslGzTvV3Qkj5z5hYkg",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVeENw%3AZWKZaXITdxmXkDJ7wDvQMz8JTQgvJ_yCs7NhN7e2B9SvqagBrirGzEaHnmamL6R2Y7p2bnLETFJsxTNCy0XlJw",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
@@ -147,7 +150,7 @@ final bodyUserStory = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "New Task",
+    "subject": "New test",
     "due_date": null,
     "watchers": [],
     "is_closed": false,
@@ -158,7 +161,7 @@ final bodyUserStory = {
       "owner": {
         "id": 541426,
         "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVdivA%3A5rtdCTSkWXgP88rhh2HrkxAVWOqsSc6gImuM_A5PJgbusGXwNyy_xy1RqsoxQbZMLhdg9RXNvq-Z2fF2dGLFfQ",
+            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVeENw%3AbKp0-r2DSrF0txuDIDcNOgkrbiYRcrsZBxMoXPhloI8a3WV2Woofzt9tmdsP5_yFk-k58FD8SqB-75TqkKqz-g",
         "username": "guillermobianchi1990",
         "full_name": "Guillermo Bianchi",
         "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
@@ -181,28 +184,52 @@ final bodyUserStory = {
       "estimated_finish": "2023-11-23"
     },
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/28",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/15",
     "tribe_gig": null,
     "is_blocked": false,
     "assigned_to": null,
-    "description": "Editado",
+    "description": "123414135",
     "finish_date": null,
     "blocked_note": "",
-    "created_date": "2023-11-17T12:55:17.462Z",
-    "from_task_ref": "Task #17",
-    "modified_date": "2023-11-17T12:55:17.579Z",
-    "assigned_users": [588936],
+    "created_date": "2023-11-16T12:12:00.713Z",
+    "from_task_ref": null,
+    "modified_date": "2023-11-16T12:13:20.316Z",
+    "assigned_users": [],
     "due_date_reason": "",
     "team_requirement": false,
     "client_requirement": false,
     "external_reference": null,
     "generated_from_task": null,
     "generated_from_issue": null,
-    "custom_attributes_values": {}
+    "custom_attributes_values": {"Pestaña del Figma": "asdsad2.com"}
   },
-  "date": "2023-11-17T12:55:24.742Z",
+  "date": "2023-11-17T15:18:15.860Z",
   "type": "userstory",
-  "action": "create"
+  "action": "change",
+  "change": {
+    "diff": {
+      "custom_attributes": {
+        "new": [],
+        "changed": [
+          {
+            "name": "Pestaña del Figma",
+            "type": "url",
+            "changes": {
+              "value": ["asdsad.com", "asdsad2.com"]
+            },
+            "value_diff":
+                "<span>asdsad</span><ins style=\"background:#e6ffe6;\">2</ins><span>.com</span>"
+          }
+        ],
+        "deleted": []
+      }
+    },
+    "comment": "",
+    "comment_html": "",
+    "comment_versions": null,
+    "edit_comment_date": null,
+    "delete_comment_date": null
+  }
 };
 
 final bodyTask = {

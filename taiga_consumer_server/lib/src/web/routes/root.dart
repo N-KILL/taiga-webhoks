@@ -79,6 +79,11 @@ class RouteRoot extends WidgetRoute {
         print('tags:${data.change?.diff?.tags?.from}');
         print('tags:${data.change?.diff?.tags?.from}');
       }
+      if (data.change!.diff!.customAttributesChange != null) {
+        print('attributesNew:${data.change?.diff?.customAttributesChange?.attributesNew}');
+        print('attributesChanged:${data.change?.diff?.customAttributesChange?.attributesChanged}');
+        print('attributesDeleted:${data.change?.diff?.customAttributesChange?.attributesDeleted}');
+      }
     
     }
     if (data.type == 'userstory') {
