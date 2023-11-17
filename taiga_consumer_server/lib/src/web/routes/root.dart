@@ -21,17 +21,65 @@ class RouteRoot extends WidgetRoute {
       print(':${data.change?.comment}');
       print(':${data.change?.commentHtml}');
       print('DIFF:');
-      print('assignedTo:${data.change?.diff?.assignedTo}');
-      print('attachments:${data.change?.diff?.attachments}');
-      print('descriptionDiff:${data.change?.diff?.descriptionDiff}');
-      print('dueDate:${data.change?.diff?.dueDate}');
-      print('finishDate:${data.change?.diff?.finishDate}');
-      print('isClosed:${data.change?.diff?.isClosed}');
-      print('kanbanOrder:${data.change?.diff?.kanbanOrder}');
-      print('milestone:${data.change?.diff?.milestone}');
-      print('promotedTo:${data.change?.diff?.promotedTo}');
-      print('status:${data.change?.diff?.status}');
-      print('tags:${data.change?.diff?.tags}');
+      if (data.change!.diff!.assignedTo != null) {
+        print('assignedTo:${data.change?.diff?.assignedTo?.from}');
+        print('assignedTo:${data.change?.diff?.assignedTo?.from}');
+      }
+      if (data.change!.diff!.attachments != null) {
+        print('assignedTo:${data.change?.diff?.attachments}');
+      }
+      if (data.change!.diff!.blockedNoteDiff!= null) {
+        print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.from}');
+        print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.to}');
+      }
+      if (data.change!.diff!.blockedNoteHtml != null) {
+        print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.from}');
+        print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.from}');
+      }
+      if (data.change!.diff!.clientRequirement != null) {
+        print('clientRequirement:${data.change?.diff?.clientRequirement?.from}');
+        print('clientRequirement:${data.change?.diff?.clientRequirement?.from}');
+      }
+      if (data.change!.diff!.descriptionDiff != null) {
+        print('descriptionDiff:${data.change?.diff?.descriptionDiff}');
+      }
+      if (data.change!.diff!.dueDate != null) {
+        print('dueDate:${data.change?.diff?.dueDate?.from}');
+        print('dueDate:${data.change?.diff?.dueDate?.from}');
+      }
+      if (data.change!.diff!.finishDate != null) {
+        print('finishDate:${data.change?.diff?.finishDate?.from}');
+        print('finishDate:${data.change?.diff?.finishDate?.from}');
+      }
+      if (data.change!.diff!.isBlocked != null) {
+        print('isBlocked:${data.change?.diff?.isBlocked?.from}');
+        print('isBlocked:${data.change?.diff?.isBlocked?.from}');
+      }
+      if (data.change!.diff!.isClosed != null) {
+        print('isClosed:${data.change?.diff?.isClosed?.from}');
+        print('isClosed:${data.change?.diff?.isClosed?.from}');
+      }
+      if (data.change!.diff!.kanbanOrder != null) {
+        print('kanbanOrder:${data.change?.diff?.kanbanOrder?.from}');
+        print('kanbanOrder:${data.change?.diff?.kanbanOrder?.from}');
+      }
+      if (data.change!.diff!.milestone != null) {
+        print('milestone:${data.change?.diff?.milestone?.from}');
+        print('milestone:${data.change?.diff?.milestone?.from}');
+      }
+      if (data.change!.diff!.promotedTo != null) {
+        print('promotedTo:${data.change?.diff?.promotedTo?.from}');
+        print('promotedTo:${data.change?.diff?.promotedTo?.from}');
+      }
+      if (data.change!.diff!.status != null) {
+        print('status:${data.change?.diff?.status?.from}');
+        print('status:${data.change?.diff?.status?.from}');
+      }
+      if (data.change!.diff!.tags != null) {
+        print('tags:${data.change?.diff?.tags?.from}');
+        print('tags:${data.change?.diff?.tags?.from}');
+      }
+    
     }
     if (data.type == 'userstory') {
       TaigaUserStoryData printData = data.data as TaigaUserStoryData;
@@ -147,7 +195,6 @@ class RouteRoot extends WidgetRoute {
       print('epicsOrder:${printData.epicsOrder}');
       print('teamRequirement:${printData.teamRequirement}');
     }
-
 
     return WebHooksView(webhookData: body);
   }
