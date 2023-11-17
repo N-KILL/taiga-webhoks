@@ -16,8 +16,7 @@ class RouteRoot extends WidgetRoute {
     final data = TaigaPayload.fromJson(body);
     print('FullName of by:${data.by.fullName}');
     print('Action:${data.action}');
-    print('Action:${data.type}');
-    print('Action:${data.action}');
+    print('type:${data.type}');
     if (data.action == 'change') {
       print(':${data.change?.comment}');
       print(':${data.change?.commentHtml}');
@@ -58,7 +57,7 @@ class RouteRoot extends WidgetRoute {
       print('description:${printData.description}');
       print('id:${printData.id}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('owner:${printData.owner}');
+      print('owner FullName:${printData.owner.fullName}');
       print('permalink:${printData.permalink}');
       print('project:${printData.project}');
       print('ref:${printData.ref}');
@@ -81,7 +80,7 @@ class RouteRoot extends WidgetRoute {
       print('description:${printData.description}');
       print('id:${printData.id}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('owner:${printData.owner}');
+      print('owner FullName:${printData.owner.fullName}');
       print('permalink:${printData.permalink}');
       print('project:${printData.project}');
       print('ref:${printData.ref}');
@@ -114,7 +113,7 @@ class RouteRoot extends WidgetRoute {
       print('description:${printData.description}');
       print('id:${printData.id}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('owner:${printData.owner}');
+      print('owner FullName:${printData.owner.fullName}');
       print('permalink:${printData.permalink}');
       print('project:${printData.project}');
       print('ref:${printData.ref}');
@@ -136,7 +135,7 @@ class RouteRoot extends WidgetRoute {
       print('description:${printData.description}');
       print('id:${printData.id}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('owner:${printData.owner}');
+      print('owner FullName:${printData.owner.fullName}');
       print('permalink:${printData.permalink}');
       print('project:${printData.project}');
       print('ref:${printData.ref}');
