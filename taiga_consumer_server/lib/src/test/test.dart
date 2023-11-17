@@ -2,42 +2,45 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 
 void main() {
   //final data = TaigaIssue.fromJson(body);
-  final data = TaigaPayload.fromJson(bodyUserStory);
+  final data = TaigaPayload.fromJson(bodyIssue);
   print(data.data.customAttributesValues?.figmaUrl);
-  print('attributesNew:${data.change?.diff?.customAttributesChange?.attributesNew}');
-  print('attributesChanged:${data.change?.diff?.customAttributesChange?.attributesChanged[0].type}');
-  print('attributesDeleted:${data.change?.diff?.customAttributesChange?.attributesDeleted}');
+  print(
+      'attributesNew:${data.change?.diff?.customAttributesChange?.attributesNew}');
+  print(
+      'attributesChanged:${data.change?.diff?.customAttributesChange?.attributesChanged[0].type}');
+  print(
+      'attributesDeleted:${data.change?.diff?.customAttributesChange?.attributesDeleted}');
 }
 
 final bodyIssue = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVYS5Q%3AQRcf2PJVngqhKK_7uVHikrU9J5a5ZbagioPNgI-O7i9xqGLgVj9MG4xL1EMLpfczvB_iOexWTqaJj2EG8gu-lA",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVeRkw%3AOrKTcWdZU5a9NF0LCNNaRZPpJ1qmhaT5ig9F3JtwhAzvIsyr0nkjPtlWDkyt-FGkWFWunhPdrGwiG_dFyx_chQ",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 1685619,
-    "ref": 14,
-    "tags": ["custom tag :d"],
-    "type": {"id": 3547928, "name": "Bug", "color": "#E44057"},
+    "id": 1686781,
+    "ref": 33,
+    "tags": [],
+    "type": {"id": 3547927, "name": "Enhancement", "color": "#40E4CE"},
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVYS5Q%3AQRcf2PJVngqhKK_7uVHikrU9J5a5ZbagioPNgI-O7i9xqGLgVj9MG4xL1EMLpfczvB_iOexWTqaJj2EG8gu-lA",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVeRkw%3AOrKTcWdZU5a9NF0LCNNaRZPpJ1qmhaT5ig9F3JtwhAzvIsyr0nkjPtlWDkyt-FGkWFWunhPdrGwiG_dFyx_chQ",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
       "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
     "status": {
-      "id": 8259990,
-      "name": "Por aprobarse",
-      "slug": "por-aprobarse",
-      "color": "#D38050",
+      "id": 8259988,
+      "name": "New",
+      "slug": "new",
+      "color": "#70728F",
       "is_closed": false
     },
     "project": {
@@ -46,65 +49,27 @@ final bodyIssue = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "New test",
-    "due_date": "2023-11-30",
-    "priority": {"id": 3541291, "name": "Poco importante", "color": "#A8E440"},
-    "severity": {"id": 5894936, "name": "Minor", "color": "#40A8E4"},
+    "subject": "Test void description",
+    "due_date": null,
+    "priority": {"id": 3541292, "name": "Relevante", "color": "#E4CE40"},
+    "severity": {"id": 5894934, "name": "N/A", "color": "#A9AABC"},
     "watchers": [],
-    "milestone": {
-      "id": 369042,
-      "name": "Sprint de prueba",
-      "slug": "sprint-de-prueba-5",
-      "owner": {
-        "id": 541426,
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVYS5Q%3AdjMKZz1wbCjBfQk7QZTe5xY5ls2S9WSYNg_Y2HhfAb9y4vBdiB-bcC7SzdyPBAOWp4m-vB5CToeDyNy0XIWzow",
-        "username": "guillermobianchi1990",
-        "full_name": "Guillermo Bianchi",
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-      },
-      "closed": false,
-      "project": {
-        "id": 1179467,
-        "name": "Esteban se la come",
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "logo_big_url": null
-      },
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-      "created_date": "2023-11-09T17:41:42.747Z",
-      "disponibility": 0,
-      "modified_date": "2023-11-09T17:41:42.759Z",
-      "estimated_start": "2023-11-09",
-      "estimated_finish": "2023-11-23"
-    },
+    "milestone": null,
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/14",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/33",
     "assigned_to": null,
-    "description": "123414135",
-    "promoted_to": [5287705],
-    "created_date": "2023-11-15T16:09:57.739Z",
+    "description": "",
+    "promoted_to": [],
+    "created_date": "2023-11-17T16:15:15.197Z",
     "finished_date": null,
-    "modified_date": "2023-11-16T13:02:29.770Z",
-    "due_date_reason": "Bc of yes",
+    "modified_date": "2023-11-17T16:15:15.217Z",
+    "due_date_reason": "",
     "external_reference": null,
     "custom_attributes_values": {}
   },
-  "date": "2023-11-16T13:02:29.838Z",
+  "date": "2023-11-17T16:15:15.315Z",
   "type": "issue",
-  "action": "change",
-  "change": {
-    "diff": {
-      "status": {"to": "Por aprobarse", "from": "Needs Info"}
-    },
-    "comment": "",
-    "comment_html": "",
-    "comment_versions": null,
-    "edit_comment_date": null,
-    "delete_comment_date": null
-  }
+  "action": "create"
 };
 
 final bodyUserStory = {
