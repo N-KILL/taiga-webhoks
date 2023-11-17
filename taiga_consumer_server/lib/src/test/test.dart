@@ -2,7 +2,7 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 
 void main() {
   //final data = TaigaIssue.fromJson(body);
-  final data = TaigaPayload.fromJson(bodyUserStory);
+  final data = TaigaPayload.fromJson(bodyEpic);
   print(data);
 }
 
@@ -386,21 +386,21 @@ final bodyEpic = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVZZWw%3Ac4QQf3oqYPW7LS8NYABdJ3fH1-Zwfiv8y38SQvD1TRQv5oP7s9d39Jz9_hzafH_BRGUEiaDlE1S2GsJPDzmpdg",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVd6lg%3AJ8Iw_-B0LwOnlQIF6UdgtKQtuzm8BEr68luh6lztMpufmg-sDx_cIgrrVJX7KfIw1K8Jb_kFOY6MqKXuEIhvhA",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 212079,
-    "ref": 18,
-    "tags": ["test"],
-    "color": "#5551D3",
+    "id": 212130,
+    "ref": 32,
+    "tags": [],
+    "color": "#51D355",
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVZZWw%3Ac4QQf3oqYPW7LS8NYABdJ3fH1-Zwfiv8y38SQvD1TRQv5oP7s9d39Jz9_hzafH_BRGUEiaDlE1S2GsJPDzmpdg",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVd6lg%3AJ8Iw_-B0LwOnlQIF6UdgtKQtuzm8BEr68luh6lztMpufmg-sDx_cIgrrVJX7KfIw1K8Jb_kFOY6MqKXuEIhvhA",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
@@ -419,38 +419,20 @@ final bodyEpic = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "Testing EPICA",
+    "subject": "New epic test",
     "watchers": [],
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/epic/18",
-    "assigned_to": {
-      "id": 588936,
-      "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVZZWw%3Ac4QQf3oqYPW7LS8NYABdJ3fH1-Zwfiv8y38SQvD1TRQv5oP7s9d39Jz9_hzafH_BRGUEiaDlE1S2GsJPDzmpdg",
-      "username": "CardozoIgnacio",
-      "full_name": "Ignacio Cardozo",
-      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
-      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
-    },
-    "description": "asdasdasd",
-    "epics_order": 1700155283978,
-    "created_date": "2023-11-16T17:21:23.995Z",
-    "modified_date": "2023-11-16T18:03:05.378Z",
-    "team_requirement": true,
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/epic/32",
+    "assigned_to": null,
+    "description": "adas",
+    "epics_order": 1700231830498,
+    "created_date": "2023-11-17T14:37:10.516Z",
+    "modified_date": "2023-11-17T14:37:10.526Z",
+    "team_requirement": false,
     "client_requirement": false,
     "custom_attributes_values": {}
   },
-  "date": "2023-11-16T18:03:05.423Z",
+  "date": "2023-11-17T14:37:10.590Z",
   "type": "epic",
-  "action": "change",
-  "change": {
-    "diff": {
-      "assigned_to": {"to": "Ignacio Cardozo", "from": null}
-    },
-    "comment": "",
-    "comment_html": "",
-    "comment_versions": null,
-    "edit_comment_date": null,
-    "delete_comment_date": null
-  }
+  "action": "create"
 };
