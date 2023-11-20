@@ -105,7 +105,8 @@ class RouteRoot extends WidgetRoute {
       print('tribeGig:${printData.tribeGig}');
       print('assignedTo:${printData.assignedTo}');
       print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
+      print('customAttributesValues:${printData.customAttributesValues?.bounty}');
+      print('customAttributesValues:${printData.customAttributesValues?.figmaUrl}');
       print('description:${printData.description}');
       print('id:${printData.id}');
       print('modifiedDate:${printData.modifiedDate}');

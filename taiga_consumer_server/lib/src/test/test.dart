@@ -74,39 +74,39 @@ void main() {
           'attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
     }
   }
-  // if (data.type == 'userstory') {
-  //   TaigaUserStoryData printData = data.data as TaigaUserStoryData;
-  //   print('assignedUsers:${printData.assignedUsers}');
-  //   print('blockedNote:${printData.blockedNote}');
-  //   print('clientRequirement:${printData.clientRequirement}');
-  //   print('dueDate:${printData.dueDate}');
-  //   print('dueDateReason:${printData.dueDateReason}');
-  //   print('externalReference:${printData.externalReference}');
-  //   print('finishDate:${printData.finishDate}');
-  //   print('fromTaskRef:${printData.fromTaskRef}');
-  //   print('generatedFromIssue:${printData.generatedFromIssue}');
-  //   print('generatedFromTask:${printData.generatedFromTask}');
-  //   print('isBlocked:${printData.isBlocked}');
-  //   print('isClosed:${printData.isClosed}');
-  //   print('milestone:${printData.milestone}');
-  //   print('points:${printData.points}');
-  //   print('teamRequirement:${printData.teamRequirement}');
-  //   print('tribeGig:${printData.tribeGig}');
-  //   print('assignedTo:${printData.assignedTo}');
-  //   print('createdDate:${printData.createdDate}');
-  //   print('customAttributesValues:${printData.customAttributesValues}');
-  //   print('description:${printData.description}');
-  //   print('id:${printData.id}');
-  //   print('modifiedDate:${printData.modifiedDate}');
-  //   print('owner FullName:${printData.owner.fullName}');
-  //   print('permalink:${printData.permalink}');
-  //   print('project:${printData.project}');
-  //   print('ref:${printData.ref}');
-  //   print('status:${printData.status}');
-  //   print('subject:${printData.subject}');
-  //   print('tags:${printData.tags}');
-  //   print('watchers:${printData.watchers}');
-  // }
+  if (data.type == 'userstory') {
+    TaigaUserStoryData printData = data.data as TaigaUserStoryData;
+    print('assignedUsers:${printData.assignedUsers}');
+    print('blockedNote:${printData.blockedNote}');
+    print('clientRequirement:${printData.clientRequirement}');
+    print('dueDate:${printData.dueDate}');
+    print('dueDateReason:${printData.dueDateReason}');
+    print('externalReference:${printData.externalReference}');
+    print('finishDate:${printData.finishDate}');
+    print('fromTaskRef:${printData.fromTaskRef}');
+    print('generatedFromIssue:${printData.generatedFromIssue}');
+    print('generatedFromTask:${printData.generatedFromTask}');
+    print('isBlocked:${printData.isBlocked}');
+    print('isClosed:${printData.isClosed}');
+    print('milestone:${printData.milestone}');
+    print('points:${printData.points}');
+    print('teamRequirement:${printData.teamRequirement}');
+    print('tribeGig:${printData.tribeGig}');
+    print('assignedTo:${printData.assignedTo}');
+    print('createdDate:${printData.createdDate}');
+    print('customAttributesValues:${printData.customAttributesValues}');
+    print('description:${printData.description}');
+    print('id:${printData.id}');
+    print('modifiedDate:${printData.modifiedDate}');
+    print('owner FullName:${printData.owner.fullName}');
+    print('permalink:${printData.permalink}');
+    print('project:${printData.project}');
+    print('ref:${printData.ref}');
+    print('status:${printData.status}');
+    print('subject:${printData.subject}');
+    print('tags:${printData.tags}');
+    print('watchers:${printData.watchers}');
+  }
   if (data.type == 'task') {
     TaigaTaskData printData = data.data as TaigaTaskData;
     // print('blockedNote:${printData.blockedNote}');
@@ -196,31 +196,38 @@ final body = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AdP6MYkPFV5W5RlqgqjM51EvVLnlg0ZDNDYmxxMszEo1YnYzdLFPJWZdu7qvy2y9wefPk796AC7Iz8kAdxhGk7g",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtexw%3AcRwPXZ96V-7WO-bZeN8nSvI0rJKyx_AbQwcIqcKdz9SQLz6Zvbwj6j-LALO8ym71EnMG5ItyTbd2NaGXlPdx2A",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 5170702,
-    "ref": 5,
-    "tags": [],
+    "id": 5271868,
+    "ref": 9,
+    "tags": ["creada por nidus"],
     "owner": {
-      "id": 541426,
+      "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
-      "username": "guillermobianchi1990",
-      "full_name": "Guillermo Bianchi",
-      "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-      "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtexw%3AcRwPXZ96V-7WO-bZeN8nSvI0rJKyx_AbQwcIqcKdz9SQLz6Zvbwj6j-LALO8ym71EnMG5ItyTbd2NaGXlPdx2A",
+      "username": "CardozoIgnacio",
+      "full_name": "Ignacio Cardozo",
+      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
+    "points": [
+      {"name": "?", "role": "Design", "value": null},
+      {"name": "40", "role": "Front", "value": 40},
+      {"name": "1/2", "role": "Back", "value": 0.5},
+      {"name": "3", "role": "Project Manager", "value": 3}
+    ],
     "status": {
-      "id": 5890300,
-      "name": "In progress",
-      "slug": "in-progress",
-      "color": "#E47C40",
-      "is_closed": false
+      "id": 7101919,
+      "name": "Lista",
+      "slug": "lista",
+      "color": "#A8E440",
+      "is_closed": true,
+      "is_archived": false
     },
     "project": {
       "id": 1179467,
@@ -228,159 +235,46 @@ final body = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "Tarea 2",
+    "subject": "New Test after mapper :D",
     "due_date": null,
-    "us_order": 1699551827706,
     "watchers": [],
-    "milestone": {
-      "id": 369042,
-      "name": "Sprint de prueba",
-      "slug": "sprint-de-prueba-5",
-      "owner": {
-        "id": 541426,
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
-        "username": "guillermobianchi1990",
-        "full_name": "Guillermo Bianchi",
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-      },
-      "closed": false,
-      "project": {
-        "id": 1179467,
-        "name": "Esteban se la come",
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "logo_big_url": null
-      },
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-      "created_date": "2023-11-09T17:41:42.747Z",
-      "disponibility": 0,
-      "modified_date": "2023-11-09T17:41:42.759Z",
-      "estimated_start": "2023-11-09",
-      "estimated_finish": "2023-11-23"
-    },
+    "is_closed": true,
+    "milestone": null,
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/task/5",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/9",
+    "tribe_gig": null,
     "is_blocked": false,
-    "is_iocaine": false,
-    "user_story": {
-      "id": 5247286,
-      "ref": 2,
-      "tags": [],
-      "owner": {
-        "id": 541426,
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
-        "username": "guillermobianchi1990",
-        "full_name": "Guillermo Bianchi",
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-      },
-      "points": [
-        {"name": "?", "role": "Design", "value": null},
-        {"name": "?", "role": "Front", "value": null},
-        {"name": "?", "role": "Back", "value": null},
-        {"name": "?", "role": "Project Manager", "value": null}
-      ],
-      "status": {
-        "id": 7101919,
-        "name": "Lista",
-        "slug": "lista",
-        "color": "#A8E440",
-        "is_closed": true,
-        "is_archived": false
-      },
-      "project": {
-        "id": 1179467,
-        "name": "Esteban se la come",
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "logo_big_url": null
-      },
-      "subject": "Se me ocurrio una idea",
-      "due_date": null,
-      "watchers": [],
-      "is_closed": false,
-      "milestone": {
-        "id": 369042,
-        "name": "Sprint de prueba",
-        "slug": "sprint-de-prueba-5",
-        "owner": {
-          "id": 541426,
-          "photo":
-              "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
-          "username": "guillermobianchi1990",
-          "full_name": "Guillermo Bianchi",
-          "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-          "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-        },
-        "closed": false,
-        "project": {
-          "id": 1179467,
-          "name": "Esteban se la come",
-          "permalink":
-              "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-          "logo_big_url": null
-        },
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-        "created_date": "2023-11-09T17:41:42.747Z",
-        "disponibility": 0,
-        "modified_date": "2023-11-09T17:41:42.759Z",
-        "estimated_start": "2023-11-09",
-        "estimated_finish": "2023-11-23"
-      },
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/2",
-      "tribe_gig": null,
-      "is_blocked": false,
-      "assigned_to": null,
-      "description": "efwfwf",
-      "finish_date": null,
-      "blocked_note": "",
-      "created_date": "2023-11-09T17:39:43.407Z",
-      "from_task_ref": null,
-      "modified_date": "2023-11-09T17:39:43.407Z",
-      "assigned_users": [],
-      "due_date_reason": "",
-      "team_requirement": false,
-      "client_requirement": false,
-      "external_reference": null,
-      "generated_from_task": null,
-      "generated_from_issue": 1683488,
-      "custom_attributes_values": {}
+    "assigned_to": {
+      "id": 588936,
+      "photo":
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtexw%3AcRwPXZ96V-7WO-bZeN8nSvI0rJKyx_AbQwcIqcKdz9SQLz6Zvbwj6j-LALO8ym71EnMG5ItyTbd2NaGXlPdx2A",
+      "username": "CardozoIgnacio",
+      "full_name": "Ignacio Cardozo",
+      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
-    "assigned_to": null,
-    "description": "",
-    "promoted_to": [],
+    "description": "Test facherito lo mas cargado posible",
+    "finish_date": "2023-11-16T15:37:04.045Z",
     "blocked_note": "",
-    "created_date": "2023-11-09T17:43:47.725Z",
-    "finished_date": null,
-    "modified_date": "2023-11-20T11:57:40.819Z",
+    "created_date": "2023-11-13T15:10:42.666Z",
+    "from_task_ref": null,
+    "modified_date": "2023-11-20T13:27:35.094Z",
+    "assigned_users": [588936],
     "due_date_reason": "",
-    "taskboard_order": 0,
+    "team_requirement": false,
+    "client_requirement": false,
     "external_reference": null,
-    "custom_attributes_values": {"Bounty": 5}
+    "generated_from_task": null,
+    "generated_from_issue": null,
+    "custom_attributes_values": {}
   },
-  "date": "2023-11-20T12:27:13.185Z",
-  "type": "task",
+  "date": "2023-11-20T13:27:35.191Z",
+  "type": "userstory",
   "action": "change",
   "change": {
     "diff": {
-      "custom_attributes": {
-        "new": [
-          {
-            "id": 22180,
-            "name": "Bounty",
-            "type": "number",
-            "value": 5,
-            "value_diff": [null, 5]
-          }
-        ],
-        "changed": [],
-        "deleted": []
+      "points": {
+        "Design": {"to": "?", "from": "3"}
       }
     },
     "comment": "",
