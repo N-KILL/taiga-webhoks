@@ -143,32 +143,38 @@ final body = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtvqQ%3ApOvZEcEmbLtptDIkZyS0VFgQacuhgciWQlws2KlIppdRYbmUT1vTPh4_xbrsDQhfATfTpgA1VJSfNIFtJY746A",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtdIg%3ANuORoAiUq3iOlvPyAU1ZqdMfr7Q_PRiuwSkrJ8Z0lMzELb0TDAHZtDIwb-O6EWbD-wAUtfh3lddePC1VDdJg-g",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 1687388,
-    "ref": 44,
-    "tags": [],
-    "type": {"id": 3547927, "name": "Enhancement", "color": "#40E4CE"},
+    "id": 5271868,
+    "ref": 9,
+    "tags": ["creada por nidus"],
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtvqQ%3ApOvZEcEmbLtptDIkZyS0VFgQacuhgciWQlws2KlIppdRYbmUT1vTPh4_xbrsDQhfATfTpgA1VJSfNIFtJY746A",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtdIg%3ANuORoAiUq3iOlvPyAU1ZqdMfr7Q_PRiuwSkrJ8Z0lMzELb0TDAHZtDIwb-O6EWbD-wAUtfh3lddePC1VDdJg-g",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
       "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
+    "points": [
+      {"name": "3", "role": "Design", "value": 3},
+      {"name": "40", "role": "Front", "value": 40},
+      {"name": "1/2", "role": "Back", "value": 0.5},
+      {"name": "?", "role": "Project Manager", "value": null}
+    ],
     "status": {
-      "id": 8259988,
-      "name": "New",
-      "slug": "new",
-      "color": "#70728F",
-      "is_closed": false
+      "id": 7101919,
+      "name": "Lista",
+      "slug": "lista",
+      "color": "#A8E440",
+      "is_closed": true,
+      "is_archived": false
     },
     "project": {
       "id": 1179467,
@@ -176,32 +182,46 @@ final body = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "Void Description issue",
+    "subject": "New Test after mapper :D",
     "due_date": null,
-    "priority": {"id": 3541292, "name": "Relevante", "color": "#E4CE40"},
-    "severity": {"id": 5894934, "name": "N/A", "color": "#A9AABC"},
     "watchers": [],
+    "is_closed": true,
     "milestone": null,
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/44",
-    "assigned_to": null,
-    "description": "",
-    "promoted_to": [5299449],
-    "created_date": "2023-11-20T14:38:40.251Z",
-    "finished_date": null,
-    "modified_date": "2023-11-20T14:38:40.267Z",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/9",
+    "tribe_gig": null,
+    "is_blocked": false,
+    "assigned_to": {
+      "id": 588936,
+      "photo":
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtdIg%3ANuORoAiUq3iOlvPyAU1ZqdMfr7Q_PRiuwSkrJ8Z0lMzELb0TDAHZtDIwb-O6EWbD-wAUtfh3lddePC1VDdJg-g",
+      "username": "CardozoIgnacio",
+      "full_name": "Ignacio Cardozo",
+      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
+    },
+    "description": "Test facherito lo mas cargado posible",
+    "finish_date": "2023-11-16T15:37:04.045Z",
+    "blocked_note": "",
+    "created_date": "2023-11-13T15:10:42.666Z",
+    "from_task_ref": null,
+    "modified_date": "2023-11-20T13:20:33.696Z",
+    "assigned_users": [588936],
     "due_date_reason": "",
+    "team_requirement": false,
+    "client_requirement": false,
     "external_reference": null,
+    "generated_from_task": null,
+    "generated_from_issue": null,
     "custom_attributes_values": {}
   },
-  "date": "2023-11-20T14:39:32.245Z",
-  "type": "issue",
+  "date": "2023-11-20T13:20:33.784Z",
+  "type": "userstory",
   "action": "change",
   "change": {
     "diff": {
-      "promoted_to": {
-        "to": [5299449],
-        "from": []
+      "points": {
+        "Front": {"to": "40", "from": "?"}
       }
     },
     "comment": "",
