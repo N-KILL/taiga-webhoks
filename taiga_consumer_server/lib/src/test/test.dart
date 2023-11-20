@@ -4,188 +4,190 @@ void main() {
   //final data = TaigaIssue.fromJson(body);
   final data = TaigaPayload.fromJson(bodyUserStory);
   if (data.action == 'change') {
-      print(':${data.change?.comment}');
-      print(':${data.change?.commentHtml}');
-      print('DIFF:');
-      if (data.change!.diff!.assignedTo != null) {
-        print('assignedTo:${data.change?.diff?.assignedTo?.from}');
-        print('assignedTo:${data.change?.diff?.assignedTo?.from}');
-      }
-      if (data.change!.diff!.attachments != null) {
-        print('assignedTo:${data.change?.diff?.attachments}');
-      }
-      if (data.change!.diff!.blockedNoteDiff!= null) {
-        print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.from}');
-        print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.to}');
-      }
-      if (data.change!.diff!.blockedNoteHtml != null) {
-        print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.from}');
-        print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.from}');
-      }
-      if (data.change!.diff!.clientRequirement != null) {
-        print('clientRequirement:${data.change?.diff?.clientRequirement?.from}');
-        print('clientRequirement:${data.change?.diff?.clientRequirement?.from}');
-      }
-      if (data.change!.diff!.descriptionDiff != null) {
-        print('descriptionDiff:${data.change?.diff?.descriptionDiff}');
-      }
-      if (data.change!.diff!.dueDate != null) {
-        print('dueDate:${data.change?.diff?.dueDate?.from}');
-        print('dueDate:${data.change?.diff?.dueDate?.from}');
-      }
-      if (data.change!.diff!.finishDate != null) {
-        print('finishDate:${data.change?.diff?.finishDate?.from}');
-        print('finishDate:${data.change?.diff?.finishDate?.from}');
-      }
-      if (data.change!.diff!.isBlocked != null) {
-        print('isBlocked:${data.change?.diff?.isBlocked?.from}');
-        print('isBlocked:${data.change?.diff?.isBlocked?.from}');
-      }
-      if (data.change!.diff!.isClosed != null) {
-        print('isClosed:${data.change?.diff?.isClosed?.from}');
-        print('isClosed:${data.change?.diff?.isClosed?.from}');
-      }
-      if (data.change!.diff!.kanbanOrder != null) {
-        print('kanbanOrder:${data.change?.diff?.kanbanOrder?.from}');
-        print('kanbanOrder:${data.change?.diff?.kanbanOrder?.from}');
-      }
-      if (data.change!.diff!.milestone != null) {
-        print('milestone:${data.change?.diff?.milestone?.from}');
-        print('milestone:${data.change?.diff?.milestone?.from}');
-      }
-      if (data.change!.diff!.promotedTo != null) {
-        print('promotedTo:${data.change?.diff?.promotedTo?.from}');
-        print('promotedTo:${data.change?.diff?.promotedTo?.from}');
-      }
-      if (data.change!.diff!.status != null) {
-        print('status:${data.change?.diff?.status?.from}');
-        print('status:${data.change?.diff?.status?.from}');
-      }
-      if (data.change!.diff!.tags != null) {
-        print('tags:${data.change?.diff?.tags?.from}');
-        print('tags:${data.change?.diff?.tags?.from}');
-      }
-      if (data.change!.diff!.customAttributes != null) {
-        print('attributesNew:${data.change?.diff?.customAttributes?.attributesNew}');
-        print('attributesChanged:${data.change?.diff?.customAttributes?.attributesChanged}');
-        print('attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
-      }
-    
+    print('Comment:${data.change?.comment}');
+    print('Comment:${data.change?.commentHtml}');
+    print('DIFF:');
+    if (data.change!.diff!.assignedTo != null) {
+      print('assignedTo:${data.change?.diff?.assignedTo?.from}');
+      print('assignedTo:${data.change?.diff?.assignedTo?.to}');
     }
-    if (data.type == 'userstory') {
-      TaigaUserStoryData printData = data.data as TaigaUserStoryData;
-      print('assignedUsers:${printData.assignedUsers}');
-      print('blockedNote:${printData.blockedNote}');
-      print('clientRequirement:${printData.clientRequirement}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('finishDate:${printData.finishDate}');
-      print('fromTaskRef:${printData.fromTaskRef}');
-      print('generatedFromIssue:${printData.generatedFromIssue}');
-      print('generatedFromTask:${printData.generatedFromTask}');
-      print('isBlocked:${printData.isBlocked}');
-      print('isClosed:${printData.isClosed}');
-      print('milestone:${printData.milestone}');
-      print('points:${printData.points}');
-      print('teamRequirement:${printData.teamRequirement}');
-      print('tribeGig:${printData.tribeGig}');
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
-      print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
-      print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('watchers:${printData.watchers}');
+    if (data.change!.diff!.attachments != null) {
+      print('assignedTo:${data.change?.diff?.attachments}');
     }
-    if (data.type == 'task') {
-      TaigaTaskData printData = data.data as TaigaTaskData;
-      print('blockedNote:${printData.blockedNote}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('isBlocked:${printData.isBlocked}');
-      print('milestone:${printData.milestone}');
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
-      print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
-      print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('watchers:${printData.watchers}');
-      print('blockedNote:${printData.blockedNote}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('finishedDate:${printData.finishedDate}');
-      print('isBlocked:${printData.isBlocked}');
-      print('isIocaine:${printData.isIocaine}');
-      print('milestone:${printData.milestone}');
-      print('promotedTo:${printData.promotedTo}');
-      print('taskboardOrder:${printData.taskboardOrder}');
-      print('usOrder:${printData.usOrder}');
-      print('userStory:${printData.userStory}');
+    if (data.change!.diff!.blockedNoteDiff != null) {
+      print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.from}');
+      print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.to}');
     }
-    if (data.type == 'issue') {
-      TaigaIssueData printData = data.data as TaigaIssueData;
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('milestone:${printData.milestone}');
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
-      print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
-      print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('finishedDate:${printData.finishedDate}');
-      print('milestone:${printData.milestone}');
-      print('promotedTo:${printData.promotedTo}');
+    if (data.change!.diff!.blockedNoteHtml != null) {
+      print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.from}');
+      print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.to}');
     }
-    if (data.type == 'epic') {
-      TaigaEpicData printData = data.data as TaigaEpicData;
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
-      print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
-      print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('clientRequirement:${printData.clientRequirement}');
-      print('color:${printData.color}');
-      print('epicsOrder:${printData.epicsOrder}');
-      print('teamRequirement:${printData.teamRequirement}');
+    if (data.change!.diff!.clientRequirement != null) {
+      print('clientRequirement:${data.change?.diff?.clientRequirement?.from}');
+      print('clientRequirement:${data.change?.diff?.clientRequirement?.to}');
     }
+    if (data.change!.diff!.descriptionDiff != null) {
+      print('descriptionDiff:${data.change?.diff?.descriptionDiff}');
+    }
+    if (data.change!.diff!.dueDate != null) {
+      print('dueDate:${data.change?.diff?.dueDate?.from}');
+      print('dueDate:${data.change?.diff?.dueDate?.to}');
+    }
+    if (data.change!.diff!.finishDate != null) {
+      print('finishDate:${data.change?.diff?.finishDate?.from}');
+      print('finishDate:${data.change?.diff?.finishDate?.to}');
+    }
+    if (data.change!.diff!.isBlocked != null) {
+      print('isBlocked:${data.change?.diff?.isBlocked?.from}');
+      print('isBlocked:${data.change?.diff?.isBlocked?.to}');
+    }
+    if (data.change!.diff!.isClosed != null) {
+      print('isClosed:${data.change?.diff?.isClosed?.from}');
+      print('isClosed:${data.change?.diff?.isClosed?.to}');
+    }
+    if (data.change!.diff!.kanbanOrder != null) {
+      print('kanbanOrder:${data.change?.diff?.kanbanOrder?.from}');
+      print('kanbanOrder:${data.change?.diff?.kanbanOrder?.to}');
+    }
+    if (data.change!.diff!.milestone != null) {
+      print('milestone:${data.change?.diff?.milestone?.from}');
+      print('milestone:${data.change?.diff?.milestone?.to}');
+    }
+    if (data.change!.diff!.promotedTo != null) {
+      print('promotedTo:${data.change?.diff?.promotedTo?.from}');
+      print('promotedTo:${data.change?.diff?.promotedTo?.to}');
+    }
+    if (data.change!.diff!.status != null) {
+      print('status:${data.change?.diff?.status?.from}');
+      print('status:${data.change?.diff?.status?.to}');
+    }
+    if (data.change!.diff!.tags != null) {
+      print('tags:${data.change?.diff?.tags?.from}');
+      print('tags:${data.change?.diff?.tags?.to}');
+    }
+    if (data.change!.diff!.customAttributes != null) {
+      print(
+          'attributesNew:${data.change?.diff?.customAttributes?.attributesNew}');
+      print(
+          'attributesChanged:${data.change?.diff?.customAttributes!.attributesChanged[0].changes?.value}');
+      print(
+          'attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
+    }
+  }
+  // if (data.type == 'userstory') {
+  //   TaigaUserStoryData printData = data.data as TaigaUserStoryData;
+  //   print('assignedUsers:${printData.assignedUsers}');
+  //   print('blockedNote:${printData.blockedNote}');
+  //   print('clientRequirement:${printData.clientRequirement}');
+  //   print('dueDate:${printData.dueDate}');
+  //   print('dueDateReason:${printData.dueDateReason}');
+  //   print('externalReference:${printData.externalReference}');
+  //   print('finishDate:${printData.finishDate}');
+  //   print('fromTaskRef:${printData.fromTaskRef}');
+  //   print('generatedFromIssue:${printData.generatedFromIssue}');
+  //   print('generatedFromTask:${printData.generatedFromTask}');
+  //   print('isBlocked:${printData.isBlocked}');
+  //   print('isClosed:${printData.isClosed}');
+  //   print('milestone:${printData.milestone}');
+  //   print('points:${printData.points}');
+  //   print('teamRequirement:${printData.teamRequirement}');
+  //   print('tribeGig:${printData.tribeGig}');
+  //   print('assignedTo:${printData.assignedTo}');
+  //   print('createdDate:${printData.createdDate}');
+  //   print('customAttributesValues:${printData.customAttributesValues}');
+  //   print('description:${printData.description}');
+  //   print('id:${printData.id}');
+  //   print('modifiedDate:${printData.modifiedDate}');
+  //   print('owner FullName:${printData.owner.fullName}');
+  //   print('permalink:${printData.permalink}');
+  //   print('project:${printData.project}');
+  //   print('ref:${printData.ref}');
+  //   print('status:${printData.status}');
+  //   print('subject:${printData.subject}');
+  //   print('tags:${printData.tags}');
+  //   print('watchers:${printData.watchers}');
+  // }
+  // if (data.type == 'task') {
+  //   TaigaTaskData printData = data.data as TaigaTaskData;
+  //   print('blockedNote:${printData.blockedNote}');
+  //   print('dueDate:${printData.dueDate}');
+  //   print('dueDateReason:${printData.dueDateReason}');
+  //   print('externalReference:${printData.externalReference}');
+  //   print('isBlocked:${printData.isBlocked}');
+  //   print('milestone:${printData.milestone}');
+  //   print('assignedTo:${printData.assignedTo}');
+  //   print('createdDate:${printData.createdDate}');
+  //   print('customAttributesValues:${printData.customAttributesValues}');
+  //   print('description:${printData.description}');
+  //   print('id:${printData.id}');
+  //   print('modifiedDate:${printData.modifiedDate}');
+  //   print('owner FullName:${printData.owner.fullName}');
+  //   print('permalink:${printData.permalink}');
+  //   print('project:${printData.project}');
+  //   print('ref:${printData.ref}');
+  //   print('status:${printData.status}');
+  //   print('subject:${printData.subject}');
+  //   print('tags:${printData.tags}');
+  //   print('watchers:${printData.watchers}');
+  //   print('blockedNote:${printData.blockedNote}');
+  //   print('dueDate:${printData.dueDate}');
+  //   print('dueDateReason:${printData.dueDateReason}');
+  //   print('externalReference:${printData.externalReference}');
+  //   print('finishedDate:${printData.finishedDate}');
+  //   print('isBlocked:${printData.isBlocked}');
+  //   print('isIocaine:${printData.isIocaine}');
+  //   print('milestone:${printData.milestone}');
+  //   print('promotedTo:${printData.promotedTo}');
+  //   print('taskboardOrder:${printData.taskboardOrder}');
+  //   print('usOrder:${printData.usOrder}');
+  //   print('userStory:${printData.userStory}');
+  // }
+  // if (data.type == 'issue') {
+  //   TaigaIssueData printData = data.data as TaigaIssueData;
+  //   print('dueDate:${printData.dueDate}');
+  //   print('dueDateReason:${printData.dueDateReason}');
+  //   print('externalReference:${printData.externalReference}');
+  //   print('milestone:${printData.milestone}');
+  //   print('assignedTo:${printData.assignedTo}');
+  //   print('createdDate:${printData.createdDate}');
+  //   print('customAttributesValues:${printData.customAttributesValues}');
+  //   print('description:${printData.description}');
+  //   print('id:${printData.id}');
+  //   print('modifiedDate:${printData.modifiedDate}');
+  //   print('owner FullName:${printData.owner.fullName}');
+  //   print('permalink:${printData.permalink}');
+  //   print('project:${printData.project}');
+  //   print('ref:${printData.ref}');
+  //   print('status:${printData.status}');
+  //   print('subject:${printData.subject}');
+  //   print('tags:${printData.tags}');
+  //   print('dueDate:${printData.dueDate}');
+  //   print('dueDateReason:${printData.dueDateReason}');
+  //   print('externalReference:${printData.externalReference}');
+  //   print('finishedDate:${printData.finishedDate}');
+  //   print('milestone:${printData.milestone}');
+  //   print('promotedTo:${printData.promotedTo}');
+  // }
+  // if (data.type == 'epic') {
+  //   TaigaEpicData printData = data.data as TaigaEpicData;
+  //   print('assignedTo:${printData.assignedTo}');
+  //   print('createdDate:${printData.createdDate}');
+  //   print('customAttributesValues:${printData.customAttributesValues}');
+  //   print('description:${printData.description}');
+  //   print('id:${printData.id}');
+  //   print('modifiedDate:${printData.modifiedDate}');
+  //   print('owner FullName:${printData.owner.fullName}');
+  //   print('permalink:${printData.permalink}');
+  //   print('project:${printData.project}');
+  //   print('ref:${printData.ref}');
+  //   print('status:${printData.status}');
+  //   print('subject:${printData.subject}');
+  //   print('tags:${printData.tags}');
+  //   print('clientRequirement:${printData.clientRequirement}');
+  //   print('color:${printData.color}');
+  //   print('epicsOrder:${printData.epicsOrder}');
+  //   print('teamRequirement:${printData.teamRequirement}');
+  // }
 }
 
 final bodyIssue = {
@@ -252,20 +254,20 @@ final bodyUserStory = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtE5g%3A2u5yrzRV8YwUk3kDRawIBnqfzzyBYfMesNdEMbKQf4B2vJ4CsnLzpEFyL35v9cy4k9Iken-vy8b54DGcxS0fug",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtNmw%3AXABtNRjvjNm_3L7qbdj3GPJxh2ru2kyJMrFZ--LqzAcA7PFRvJy-hfwS6px4L5C_JY5Iyu3-aDRn12QgFLbSvw",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 5291733,
-    "ref": 30,
-    "tags": ["new tag"],
+    "id": 5291652,
+    "ref": 28,
+    "tags": [],
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtE5g%3A2u5yrzRV8YwUk3kDRawIBnqfzzyBYfMesNdEMbKQf4B2vJ4CsnLzpEFyL35v9cy4k9Iken-vy8b54DGcxS0fug",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtNmw%3AXABtNRjvjNm_3L7qbdj3GPJxh2ru2kyJMrFZ--LqzAcA7PFRvJy-hfwS6px4L5C_JY5Iyu3-aDRn12QgFLbSvw",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
@@ -278,11 +280,11 @@ final bodyUserStory = {
       {"name": "?", "role": "Project Manager", "value": null}
     ],
     "status": {
-      "id": 7101915,
-      "name": "Refinándose",
-      "slug": "refinandose",
-      "color": "#E44057",
-      "is_closed": false,
+      "id": 7101919,
+      "name": "Lista",
+      "slug": "lista",
+      "color": "#A8E440",
+      "is_closed": true,
       "is_archived": false
     },
     "project": {
@@ -291,10 +293,10 @@ final bodyUserStory = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "asd",
+    "subject": "New Task",
     "due_date": null,
     "watchers": [],
-    "is_closed": false,
+    "is_closed": true,
     "milestone": {
       "id": 369042,
       "name": "Sprint de prueba",
@@ -302,7 +304,7 @@ final bodyUserStory = {
       "owner": {
         "id": 541426,
         "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtE5g%3AQTKKW2iTCTagyMwtEPb2i62d3NmNbTZsdISW4V4dCHM4fcba-GrD17k63XYWidV0sJfvaSDStp_NyjyI4Twobw",
+            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtNmw%3A-UfPqGPgjWqkFagB_Z3hKxu_RJL_xke76r8OfvHeK6LepY9boFYepdq8lmUBLdVXpjypt4_jI_zYzWs5sfQedw",
         "username": "guillermobianchi1990",
         "full_name": "Guillermo Bianchi",
         "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
@@ -325,24 +327,16 @@ final bodyUserStory = {
       "estimated_finish": "2023-11-23"
     },
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/30",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/28",
     "tribe_gig": null,
     "is_blocked": false,
-    "assigned_to": {
-      "id": 588936,
-      "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtE5g%3A2u5yrzRV8YwUk3kDRawIBnqfzzyBYfMesNdEMbKQf4B2vJ4CsnLzpEFyL35v9cy4k9Iken-vy8b54DGcxS0fug",
-      "username": "CardozoIgnacio",
-      "full_name": "Ignacio Cardozo",
-      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
-      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
-    },
-    "description": "asdsadsadasd",
-    "finish_date": null,
+    "assigned_to": null,
+    "description": "Editado",
+    "finish_date": "2023-11-20T12:03:22.278Z",
     "blocked_note": "",
-    "created_date": "2023-11-17T13:34:09.759Z",
-    "from_task_ref": "Task #29",
-    "modified_date": "2023-11-20T11:35:36.118Z",
+    "created_date": "2023-11-17T12:55:17.462Z",
+    "from_task_ref": "Task #17",
+    "modified_date": "2023-11-17T12:55:17.579Z",
     "assigned_users": [588936],
     "due_date_reason": "",
     "team_requirement": false,
@@ -350,41 +344,26 @@ final bodyUserStory = {
     "external_reference": null,
     "generated_from_task": null,
     "generated_from_issue": null,
-    "custom_attributes_values": {"Pestaña del Figma": "figma.com"}
+    "custom_attributes_values": {"Pestaña del Figma": "figma2.com"}
   },
-  "date": "2023-11-20T11:37:10.283Z",
+  "date": "2023-11-20T12:14:18.181Z",
   "type": "userstory",
   "action": "change",
   "change": {
     "diff": {
-      "attachments": {
-        "new": [
+      "custom_attributes": {
+        "new": [],
+        "changed": [
           {
-            "id": 2040016,
-            "url":
-                "https://media-protected.taiga.io/attachments/0/1/a/2/98ecc79e44b3295915ccc36bbfd373695eaa46fb62021a80551a38734990/inscripcion-para-rendir-prog.pdf?token=ZVtE5g%3AM-S2UmjFRVAPfat-FukUmdRTZjDOskUpo8itKgrhOyvZmQ8UCaHptCASLxFyLr7RYNzmbErsTJw9BzGhdacghQ",
-            "order": 0,
-            "filename": "inscripcion-para-rendir-prog.pdf",
-            "description": "",
-            "attached_file":
-                "attachments/0/1/a/2/98ecc79e44b3295915ccc36bbfd373695eaa46fb62021a80551a38734990/inscripcion-para-rendir-prog.pdf",
-            "is_deprecated": false,
-            "thumbnail_file": null
-          },
-          {
-            "id": 2040017,
-            "url":
-                "https://media-protected.taiga.io/attachments/e/0/2/8/86f8137bd81338fd2be1ed28409fde07031320e7cf73d6c7fd2b9a234d33/inscripcion-para-rendir-arquitectura.pdf?token=ZVtE5g%3A5DqmuTVMLALgYOcbko22-VGwFFbaXwrT2q6-3Xk75YqlD1QBlPaaRUPaecvy5VRqkYulY0rNUBPsBdKdclLTtg",
-            "order": 0,
-            "filename": "inscripcion-para-rendir-arquitectura.pdf",
-            "description": "",
-            "attached_file":
-                "attachments/e/0/2/8/86f8137bd81338fd2be1ed28409fde07031320e7cf73d6c7fd2b9a234d33/inscripcion-para-rendir-arquitectura.pdf",
-            "is_deprecated": false,
-            "thumbnail_file": null
+            "name": "Pestaña del Figma",
+            "type": "url",
+            "changes": {
+              "value": ["figma.com", "figma2.com"]
+            },
+            "value_diff":
+                "<span>figma</span><ins style=\"background:#e6ffe6;\">2</ins><span>.com</span>"
           }
         ],
-        "changed": [],
         "deleted": []
       }
     },
