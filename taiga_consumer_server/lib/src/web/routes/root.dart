@@ -87,21 +87,23 @@ class RouteRoot extends WidgetRoute {
         print(
             'attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
       }
-      if (data.change!.diff!.pmPoints != null) {
-        print('attributesNew:${data.change?.diff?.pmPoints?.from}');
-        print('attributesNew:${data.change?.diff?.pmPoints?.to}');
-      }
-      if (data.change!.diff!.backPoints != null) {
-        print('attributesNew:${data.change?.diff?.backPoints?.from}');
-        print('attributesNew:${data.change?.diff?.backPoints?.to}');
-      }
-      if (data.change!.diff!.frontPoints != null) {
-        print('attributesNew:${data.change?.diff?.frontPoints?.from}');
-        print('attributesNew:${data.change?.diff?.frontPoints?.to}');
-      }
-      if (data.change!.diff!.designPoints != null) {
-        print('attributesNew:${data.change?.diff?.designPoints?.from}');
-        print('attributesNew:${data.change?.diff?.designPoints?.to}');
+      if (data.change!.diff!.points != null) {
+        if (data.change?.diff?.points?.backPoints != null) {
+          print('backPointsFrom:${data.change?.diff?.points?.backPoints?.from}');
+          print('backPointsTo:${data.change?.diff?.points?.backPoints?.to}');
+        }
+        if (data.change?.diff?.points?.designPoints != null) {
+          print('designPointsFrom:${data.change?.diff?.points?.designPoints?.from}');
+          print('designPointsTo:${data.change?.diff?.points?.designPoints?.to}');
+        }
+        if (data.change?.diff?.points?.frontPoints != null) {
+          print('frontPointsFrom:${data.change?.diff?.points?.frontPoints?.from}');
+          print('frontPointsTo:${data.change?.diff?.points?.frontPoints?.to}');
+        }
+        if (data.change?.diff?.points?.pmPoints != null) {
+          print('pmPointsFrom:${data.change?.diff?.points?.pmPoints?.from}');
+          print('pmPointsTo:${data.change?.diff?.points?.pmPoints?.to}');
+        }
       }
     }
     if (data.type == 'userstory') {
@@ -139,13 +141,13 @@ class RouteRoot extends WidgetRoute {
       print('tags:${printData.tags}');
       print('watchers:${printData.watchers}');
       if (printData.points.isNotEmpty) {
-      for (var element in printData.points) {
-        print('data');
-        print('Name:${element.name}');
-        print('Role ${element.role}');
-        print('Value: ${element.value}');
+        for (var element in printData.points) {
+          print('data');
+          print('Name:${element.name}');
+          print('Role ${element.role}');
+          print('Value: ${element.value}');
+        }
       }
-    }
     }
     if (data.type == 'task') {
       TaigaTaskData printData = data.data as TaigaTaskData;
