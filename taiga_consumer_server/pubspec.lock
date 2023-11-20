@@ -286,7 +286,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "62b2cf1c6fd62783aa4909a0701ee8ea8076598a"
+      resolved-ref: "226515e385d8f6dbb0055732f38a6be097b94df3"
       url: "https://github.com/Eficetti/taigaREST_models.git"
     source: git
     version: "0.1.0+1"
