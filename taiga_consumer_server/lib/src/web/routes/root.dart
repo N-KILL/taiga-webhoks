@@ -27,7 +27,7 @@ class RouteRoot extends WidgetRoute {
       if (data.change!.diff!.attachments != null) {
         print('assignedTo:${data.change?.diff?.attachments}');
       }
-      if (data.change!.diff!.blockedNoteDiff!= null) {
+      if (data.change!.diff!.blockedNoteDiff != null) {
         print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.from}');
         print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.to}');
       }
@@ -36,7 +36,8 @@ class RouteRoot extends WidgetRoute {
         print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.to}');
       }
       if (data.change!.diff!.clientRequirement != null) {
-        print('clientRequirement:${data.change?.diff?.clientRequirement?.from}');
+        print(
+            'clientRequirement:${data.change?.diff?.clientRequirement?.from}');
         print('clientRequirement:${data.change?.diff?.clientRequirement?.to}');
       }
       if (data.change!.diff!.descriptionDiff != null) {
@@ -79,11 +80,29 @@ class RouteRoot extends WidgetRoute {
         print('tags:${data.change?.diff?.tags?.to}');
       }
       if (data.change!.diff!.customAttributes != null) {
-        print('attributesNew:${data.change?.diff?.customAttributes?.attributesNew}');
-        print('attributesChanged:${data.change?.diff?.customAttributes?.attributesChanged}');
-        print('attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
+        print(
+            'attributesNew:${data.change?.diff?.customAttributes?.attributesNew}');
+        print(
+            'attributesChanged:${data.change?.diff?.customAttributes?.attributesChanged}');
+        print(
+            'attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
       }
-    
+      if (data.change!.diff!.pmPoints != null) {
+        print('attributesNew:${data.change?.diff?.pmPoints?.from}');
+        print('attributesNew:${data.change?.diff?.pmPoints?.to}');
+      }
+      if (data.change!.diff!.backPoints != null) {
+        print('attributesNew:${data.change?.diff?.backPoints?.from}');
+        print('attributesNew:${data.change?.diff?.backPoints?.to}');
+      }
+      if (data.change!.diff!.frontPoints != null) {
+        print('attributesNew:${data.change?.diff?.frontPoints?.from}');
+        print('attributesNew:${data.change?.diff?.frontPoints?.to}');
+      }
+      if (data.change!.diff!.designPoints != null) {
+        print('attributesNew:${data.change?.diff?.designPoints?.from}');
+        print('attributesNew:${data.change?.diff?.designPoints?.to}');
+      }
     }
     if (data.type == 'userstory') {
       TaigaUserStoryData printData = data.data as TaigaUserStoryData;
@@ -100,13 +119,14 @@ class RouteRoot extends WidgetRoute {
       print('isBlocked:${printData.isBlocked}');
       print('isClosed:${printData.isClosed}');
       print('milestone:${printData.milestone}');
-      print('points:${printData.points}');
       print('teamRequirement:${printData.teamRequirement}');
       print('tribeGig:${printData.tribeGig}');
       print('assignedTo:${printData.assignedTo}');
       print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues?.bounty}');
-      print('customAttributesValues:${printData.customAttributesValues?.figmaUrl}');
+      print(
+          'customAttributesValues:${printData.customAttributesValues?.bounty}');
+      print(
+          'customAttributesValues:${printData.customAttributesValues?.figmaUrl}');
       print('description:${printData.description}');
       print('id:${printData.id}');
       print('modifiedDate:${printData.modifiedDate}');
@@ -118,6 +138,14 @@ class RouteRoot extends WidgetRoute {
       print('subject:${printData.subject}');
       print('tags:${printData.tags}');
       print('watchers:${printData.watchers}');
+      if (printData.points.isNotEmpty) {
+      for (var element in printData.points) {
+        print('data');
+        print('Name:${element.name}');
+        print('Role ${element.role}');
+        print('Value: ${element.value}');
+      }
+    }
     }
     if (data.type == 'task') {
       TaigaTaskData printData = data.data as TaigaTaskData;
