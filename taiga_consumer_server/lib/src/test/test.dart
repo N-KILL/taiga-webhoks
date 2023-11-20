@@ -196,7 +196,7 @@ final body = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtRgg%3A6H9a8MRg8KAHvfiIRZ9uynBM4H-usCJRy5JPfqoNkLH0C_9rpi8Fmz56RlDUkPx4Vf5MdhqT4GlJUudg5oADuw",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AdP6MYkPFV5W5RlqgqjM51EvVLnlg0ZDNDYmxxMszEo1YnYzdLFPJWZdu7qvy2y9wefPk796AC7Iz8kAdxhGk7g",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
@@ -209,7 +209,7 @@ final body = {
     "owner": {
       "id": 541426,
       "photo":
-          "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtRgg%3AbUZtn4_p_5aRItM4jyryv9unv-6GFWsHidv5csqOTF4ARtSFCYz7xmoou1xTPngg1vNoF53b8PL7jHlKWvC87A",
+          "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
       "username": "guillermobianchi1990",
       "full_name": "Guillermo Bianchi",
       "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
@@ -239,7 +239,7 @@ final body = {
       "owner": {
         "id": 541426,
         "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtRgg%3AbUZtn4_p_5aRItM4jyryv9unv-6GFWsHidv5csqOTF4ARtSFCYz7xmoou1xTPngg1vNoF53b8PL7jHlKWvC87A",
+            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
         "username": "guillermobianchi1990",
         "full_name": "Guillermo Bianchi",
         "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
@@ -272,7 +272,7 @@ final body = {
       "owner": {
         "id": 541426,
         "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtRgg%3AbUZtn4_p_5aRItM4jyryv9unv-6GFWsHidv5csqOTF4ARtSFCYz7xmoou1xTPngg1vNoF53b8PL7jHlKWvC87A",
+            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
         "username": "guillermobianchi1990",
         "full_name": "Guillermo Bianchi",
         "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
@@ -310,7 +310,7 @@ final body = {
         "owner": {
           "id": 541426,
           "photo":
-              "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtRgg%3AbUZtn4_p_5aRItM4jyryv9unv-6GFWsHidv5csqOTF4ARtSFCYz7xmoou1xTPngg1vNoF53b8PL7jHlKWvC87A",
+              "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZVtQoQ%3AsMj0obPdMNbrpx7OlehQu_HmyUM8C40m7qd1ozppNvDGH1Y43qJROJ5WH9eoUq5sWOzcQAq0SfTY4GbKPB8d1Q",
           "username": "guillermobianchi1990",
           "full_name": "Guillermo Bianchi",
           "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
@@ -362,12 +362,9 @@ final body = {
     "due_date_reason": "",
     "taskboard_order": 0,
     "external_reference": null,
-    "custom_attributes_values": {
-      "Bounty": 5,
-      "Componente en el Figma": "figma.com"
-    }
+    "custom_attributes_values": {"Bounty": 5}
   },
-  "date": "2023-11-20T12:30:58.162Z",
+  "date": "2023-11-20T12:27:13.185Z",
   "type": "task",
   "action": "change",
   "change": {
@@ -375,11 +372,11 @@ final body = {
       "custom_attributes": {
         "new": [
           {
-            "id": 22181,
-            "name": "Componente en el Figma",
-            "type": "url",
-            "value": "figma.com",
-            "value_diff": "<ins style=\"background:#e6ffe6;\">figma.com</ins>"
+            "id": 22180,
+            "name": "Bounty",
+            "type": "number",
+            "value": 5,
+            "value_diff": [null, 5]
           }
         ],
         "changed": [],
