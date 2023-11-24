@@ -137,7 +137,7 @@ class RouteRoot extends WidgetRoute {
       }
     }
     if (payload.jobType == 'milestone') {
-      DataSprint printData = DataSprint.fromJson(jsonEncode(payload.data));
+      DataSprint printData = payload.data as DataSprint;
       print('THIS IS DATA: type SPRINT');
       print('createdBy:${printData.createdBy}');
       print('createdDate:${printData.creationDate}');
