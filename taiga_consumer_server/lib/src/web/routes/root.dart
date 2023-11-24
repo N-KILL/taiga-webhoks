@@ -12,7 +12,9 @@ class RouteRoot extends WidgetRoute {
     final body = json.decode(decodedBody);
     print('Webhook received:');
     print('DecodedBody: $decodedBody');
-    final payload = TaigaPayloadMPBLE.fromJson(body);
+    print('DecodedBody: ${decodedBody.runtimeType}');
+    print('body: ${body.runtimeType}');
+    final payload = TaigaPayloadMPBLE.fromJson(decodedBody);
     print('FullName of performer:${payload.performer.fullName}');
     print('actionType:${payload.actionType}');
     print('jobType:${payload.jobType}');
