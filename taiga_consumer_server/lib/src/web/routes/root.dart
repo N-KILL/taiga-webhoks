@@ -12,134 +12,121 @@ class RouteRoot extends WidgetRoute {
     final body = json.decode(decodedBody);
     print('Webhook received:');
     print('DecodedBody: $decodedBody');
-    final data = TaigaPayload.fromJson(body);
-    print('FullName of by:${data.by.fullName}');
-    print('Action:${data.action}');
-    print('type:${data.type}');
-    if (data.action == 'change') {
-      print(':${data.change?.comment}');
-      print(':${data.change?.commentHtml}');
-      print('DIFF:');
-      if (data.change!.diff!.assignedTo != null) {
-        print('assignedTo:${data.change?.diff?.assignedTo?.from}');
-        print('assignedTo:${data.change?.diff?.assignedTo?.to}');
-      }
-      if (data.change!.diff!.attachments != null) {
-        print('assignedTo:${data.change?.diff?.attachments}');
-      }
-      if (data.change!.diff!.blockedNoteDiff != null) {
-        print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.from}');
-        print('blockedNoteDiff:${data.change?.diff?.blockedNoteDiff?.to}');
-      }
-      if (data.change!.diff!.blockedNoteHtml != null) {
-        print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.from}');
-        print('blockedNoteHtml:${data.change?.diff?.blockedNoteHtml?.to}');
-      }
-      if (data.change!.diff!.clientRequirement != null) {
-        print(
-            'clientRequirement:${data.change?.diff?.clientRequirement?.from}');
-        print('clientRequirement:${data.change?.diff?.clientRequirement?.to}');
-      }
-      if (data.change!.diff!.descriptionDiff != null) {
-        print('descriptionDiff:${data.change?.diff?.descriptionDiff}');
-      }
-      if (data.change!.diff!.dueDate != null) {
-        print('dueDate:${data.change?.diff?.dueDate?.from}');
-        print('dueDate:${data.change?.diff?.dueDate?.to}');
-      }
-      if (data.change!.diff!.finishDate != null) {
-        print('finishDate:${data.change?.diff?.finishDate?.from}');
-        print('finishDate:${data.change?.diff?.finishDate?.to}');
-      }
-      if (data.change!.diff!.isBlocked != null) {
-        print('isBlocked:${data.change?.diff?.isBlocked?.from}');
-        print('isBlocked:${data.change?.diff?.isBlocked?.to}');
-      }
-      if (data.change!.diff!.isClosed != null) {
-        print('isClosed:${data.change?.diff?.isClosed?.from}');
-        print('isClosed:${data.change?.diff?.isClosed?.to}');
-      }
-      if (data.change!.diff!.kanbanOrder != null) {
-        print('kanbanOrder:${data.change?.diff?.kanbanOrder?.from}');
-        print('kanbanOrder:${data.change?.diff?.kanbanOrder?.to}');
-      }
-      if (data.change!.diff!.milestone != null) {
-        print('milestone:${data.change?.diff?.milestone?.from}');
-        print('milestone:${data.change?.diff?.milestone?.to}');
-      }
-      if (data.change!.diff!.promotedTo != null) {
-        print('promotedTo:${data.change?.diff?.promotedTo?.from}');
-        print('promotedTo:${data.change?.diff?.promotedTo?.to}');
-      }
-      if (data.change!.diff!.status != null) {
-        print('status:${data.change?.diff?.status?.from}');
-        print('status:${data.change?.diff?.status?.to}');
-      }
-      if (data.change!.diff!.tags != null) {
-        print('tags:${data.change?.diff?.tags?.from}');
-        print('tags:${data.change?.diff?.tags?.to}');
-      }
-      if (data.change!.diff!.customAttributes != null) {
-        print(
-            'attributesNew:${data.change?.diff?.customAttributes?.attributesNew}');
-        print(
-            'attributesChanged:${data.change?.diff?.customAttributes?.attributesChanged}');
-        print(
-            'attributesDeleted:${data.change?.diff?.customAttributes?.attributesDeleted}');
-      }
-      if (data.change!.diff!.points != null) {
-        if (data.change?.diff?.points?.backPoints != null) {
-          print('backPointsFrom:${data.change?.diff?.points?.backPoints?.from}');
-          print('backPointsTo:${data.change?.diff?.points?.backPoints?.to}');
-        }
-        if (data.change?.diff?.points?.designPoints != null) {
-          print('designPointsFrom:${data.change?.diff?.points?.designPoints?.from}');
-          print('designPointsTo:${data.change?.diff?.points?.designPoints?.to}');
-        }
-        if (data.change?.diff?.points?.frontPoints != null) {
-          print('frontPointsFrom:${data.change?.diff?.points?.frontPoints?.from}');
-          print('frontPointsTo:${data.change?.diff?.points?.frontPoints?.to}');
-        }
-        if (data.change?.diff?.points?.pmPoints != null) {
-          print('pmPointsFrom:${data.change?.diff?.points?.pmPoints?.from}');
-          print('pmPointsTo:${data.change?.diff?.points?.pmPoints?.to}');
-        }
-      }
+    final payload = TaigaPayloadMPBLE.fromJson(body);
+    print('FullName of performer:${payload.performer.fullName}');
+    print('actionType:${payload.actionType}');
+    print('jobType:${payload.jobType}');
+    print('date:${payload.date}');
+    if (payload.jobType == 'epic') {
+      TaigaEpicDataMPBLE printData = payload.data as TaigaEpicDataMPBLE;
+      print('THIS IS DATA: type EPIC');
+      print('creationDate:${printData.creationDate}');
+      print('customValues:${printData.customValues}');
+      print('fromProject:${printData.fromProject}');
+      print('jobDescription:${printData.jobDescription}');
+      print('jobId:${printData.jobId}');
+      print('jobName:${printData.jobName}');
+      print('jobOwner:${printData.jobOwner}');
+      print('jobStatus:${printData.jobStatus}');
+      print('jobWatchers:${printData.jobWatchers}');
+      print('modifiedDate:${printData.modifiedDate}');
+      print('permalink:${printData.permalink}');
+      print('referenceNumber:${printData.referenceNumber}');
+      print('tags:${printData.tags}');
+      print('userAssigned:${printData.userAssigned}');
+      print('clientRequirement:${printData.clientRequirement}');
+      print('color:${printData.color}');
+      print('epicsOrder:${printData.epicsOrder}');
+      print('teamRequirement:${printData.teamRequirement}');
     }
-    if (data.type == 'userstory') {
-      TaigaUserStoryData printData = data.data as TaigaUserStoryData;
+    if (payload.jobType == 'task') {
+      TaigaTaskDataMPBLE printData = payload.data as TaigaTaskDataMPBLE;
+      print('THIS IS DATA: type TASK');
+      print('dueDate:${printData.dueDate}');
+      print('dueDateReason:${printData.dueDateReason}');
+      print('finishedDate:${printData.finishedDate}');
+      print('promotedTo:${printData.promotedTo}');
+      print('creationDate:${printData.creationDate}');
+      print('customValues:${printData.customValues}');
+      print('fromProject:${printData.fromProject}');
+      print('jobDescription:${printData.jobDescription}');
+      print('jobId:${printData.jobId}');
+      print('jobName:${printData.jobName}');
+      print('jobOwner:${printData.jobOwner}');
+      print('jobStatus:${printData.jobStatus}');
+      print('jobWatchers:${printData.jobWatchers}');
+      print('modifiedDate:${printData.modifiedDate}');
+      print('permalink:${printData.permalink}');
+      print('referenceNumber:${printData.referenceNumber}');
+      print('tags:${printData.tags}');
+      print('userAssigned:${printData.userAssigned}');
+      print('isBlocked:${printData.isBlocked}');
+      print('blockedNote:${printData.blockedNote}');
+      print('isIocaine:${printData.isIocaine}');
+      print('promotedTo:${printData.promotedTo}');
+      print('relatedSprint:${printData.relatedSprint}');
+      print('taskboardOrder:${printData.taskboardOrder}');
+      print('usOrder:${printData.usOrder}');
+      print('userStory:${printData.userStory}');
+    }
+    if (payload.jobType == 'issue') {
+      TaigaIssueDataMPBLE printData = payload.data as TaigaIssueDataMPBLE;
+      print('THIS IS DATA: type ISSUE');
+      print('dueDate:${printData.dueDate}');
+      print('dueDateReason:${printData.dueDateReason}');
+      print('finishedDate:${printData.finishedDate}');
+      print('priority:${printData.priority}');
+      print('promotedTo:${printData.promotedTo}');
+      print('severity:${printData.severity}');
+      print('sprint:${printData.sprint}');
+      print('type:${printData.type}');
+      print('creationDate:${printData.creationDate}');
+      print('customValues:${printData.customValues}');
+      print('fromProject:${printData.fromProject}');
+      print('jobDescription:${printData.jobDescription}');
+      print('jobId:${printData.jobId}');
+      print('jobName:${printData.jobName}');
+      print('jobOwner:${printData.jobOwner}');
+      print('jobStatus:${printData.jobStatus}');
+      print('jobWatchers:${printData.jobWatchers}');
+      print('modifiedDate:${printData.modifiedDate}');
+      print('permalink:${printData.permalink}');
+      print('referenceNumber:${printData.referenceNumber}');
+      print('tags:${printData.tags}');
+      print('userAssigned:${printData.userAssigned}');
+    }
+    if (payload.jobType == 'userstory') {
+      TaigaUserStoryDataMPBLE printData =
+          payload.data as TaigaUserStoryDataMPBLE;
+      print('THIS IS DATA: type USERSTORY');
       print('assignedUsers:${printData.assignedUsers}');
       print('blockedNote:${printData.blockedNote}');
       print('clientRequirement:${printData.clientRequirement}');
       print('dueDate:${printData.dueDate}');
       print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('finishDate:${printData.finishDate}');
-      print('fromTaskRef:${printData.fromTaskRef}');
-      print('generatedFromIssue:${printData.generatedFromIssue}');
-      print('generatedFromTask:${printData.generatedFromTask}');
+      print('finishDate:${printData.finishedDate}');
+      print('fromTaskRef:${printData.taskReference}');
+      print('generatedFromIssue:${printData.issueReference}');
       print('isBlocked:${printData.isBlocked}');
       print('isClosed:${printData.isClosed}');
-      print('milestone:${printData.milestone}');
+      print('sprint:${printData.relatedSprint}');
+      print('points:${printData.points}');
       print('teamRequirement:${printData.teamRequirement}');
-      print('tribeGig:${printData.tribeGig}');
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print(
-          'customAttributesValues:${printData.customAttributesValues?.bounty}');
-      print(
-          'customAttributesValues:${printData.customAttributesValues?.figmaUrl}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
+      print('assignedTo:${printData.assignedUsers}');
+      print('createdDate:${printData.creationDate}');
+      print('customAttributesValues:${printData.customValues?.bounty}');
+      print('customAttributesValues:${printData.customValues?.figmaUrl}');
+      print('description:${printData.jobDescription}');
+      print('id:${printData.jobId}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
+      print('owner FullName:${printData.jobOwner.fullName}');
       print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
+      print('project:${printData.fromProject}');
+      print('ref:${printData.referenceNumber}');
+      print('status:${printData.jobStatus}');
+      print('subject:${printData.jobName}');
       print('tags:${printData.tags}');
-      print('watchers:${printData.watchers}');
+      print('watchers:${printData.jobWatchers}');
       if (printData.points.isNotEmpty) {
         for (var element in printData.points) {
           print('data');
@@ -149,88 +136,126 @@ class RouteRoot extends WidgetRoute {
         }
       }
     }
-    if (data.type == 'task') {
-      TaigaTaskData printData = data.data as TaigaTaskData;
-      print('blockedNote:${printData.blockedNote}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('isBlocked:${printData.isBlocked}');
-      print('milestone:${printData.milestone}');
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
+    if (payload.jobType == 'milestone') {
+      DataSprint printData = DataSprint.fromJson(jsonEncode(payload.data));
+      print('THIS IS DATA: type SPRINT');
+      print('createdBy:${printData.createdBy}');
+      print('createdDate:${printData.creationDate}');
+      print('disponibility:${printData.disponibility}');
+      print('estimatedFinishDate:${printData.estimatedFinishDate}');
+      print('estimatedStartDate:${printData.estimatedStartDate}');
+      print('isClosed:${printData.isClosed}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
       print('permalink:${printData.permalink}');
       print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('watchers:${printData.watchers}');
-      print('blockedNote:${printData.blockedNote}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('finishedDate:${printData.finishedDate}');
-      print('isBlocked:${printData.isBlocked}');
-      print('isIocaine:${printData.isIocaine}');
-      print('milestone:${printData.milestone}');
-      print('promotedTo:${printData.promotedTo}');
-      print('taskboardOrder:${printData.taskboardOrder}');
-      print('usOrder:${printData.usOrder}');
-      print('userStory:${printData.userStory}');
+      print('slug:${printData.slug}');
+      print('sprintId:${printData.sprintId}');
+      print('sprintName:${printData.sprintName}');
     }
-    if (data.type == 'issue') {
-      TaigaIssueData printData = data.data as TaigaIssueData;
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('milestone:${printData.milestone}');
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
-      print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
-      print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('dueDate:${printData.dueDate}');
-      print('dueDateReason:${printData.dueDateReason}');
-      print('externalReference:${printData.externalReference}');
-      print('finishedDate:${printData.finishedDate}');
-      print('milestone:${printData.milestone}');
-      print('promotedTo:${printData.promotedTo}');
+    if (payload.actionType == "change") {
+      print('THIS IS CHANGE:');
+      print('Comment:${payload.change?.comment}');
+      print('Comment:${payload.change?.commentHtml}');
+      print('difference:');
+      if (payload.change!.difference?.assignedTo != null) {
+        print('assignedTo:${payload.change?.difference?.assignedTo?.from}');
+        print('assignedTo:${payload.change?.difference?.assignedTo?.to}');
+      }
+      if (payload.change!.difference!.attachments != null) {
+        print('assignedTo:${payload.change?.difference?.attachments}');
+      }
+      if (payload.change!.difference!.blockedNoteDiff != null) {
+        print(
+            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.from}');
+        print(
+            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.to}');
+      }
+      if (payload.change!.difference!.blockedNoteHtml != null) {
+        print(
+            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.from}');
+        print(
+            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.to}');
+      }
+      if (payload.change!.difference!.clientRequirement != null) {
+        print(
+            'clientRequirement:${payload.change?.difference?.clientRequirement?.from}');
+        print(
+            'clientRequirement:${payload.change?.difference?.clientRequirement?.to}');
+      }
+      if (payload.change!.difference!.descriptionDiff != null) {
+        print('descriptionDiff:${payload.change?.difference?.descriptionDiff}');
+      }
+      if (payload.change!.difference!.dueDate != null) {
+        print('dueDate:${payload.change?.difference?.dueDate?.from}');
+        print('dueDate:${payload.change?.difference?.dueDate?.to}');
+      }
+      if (payload.change!.difference!.finishDate != null) {
+        print('finishDate:${payload.change?.difference?.finishDate?.from}');
+        print('finishDate:${payload.change?.difference?.finishDate?.to}');
+      }
+      if (payload.change!.difference!.isBlocked != null) {
+        print('isBlocked:${payload.change?.difference?.isBlocked?.from}');
+        print('isBlocked:${payload.change?.difference?.isBlocked?.to}');
+      }
+      if (payload.change!.difference!.isClosed != null) {
+        print('isClosed:${payload.change?.difference?.isClosed?.from}');
+        print('isClosed:${payload.change?.difference?.isClosed?.to}');
+      }
+      if (payload.change!.difference!.kanbanOrder != null) {
+        print('kanbanOrder:${payload.change?.difference?.kanbanOrder?.from}');
+        print('kanbanOrder:${payload.change?.difference?.kanbanOrder?.to}');
+      }
+      if (payload.change!.difference!.sprint != null) {
+        print('sprintFrom:${payload.change?.difference?.sprint?.from}');
+        print('sprintTo:${payload.change?.difference?.sprint?.to}');
+      }
+      if (payload.change!.difference!.promotedTo != null) {
+        print('promotedTo:${payload.change?.difference?.promotedTo?.from}');
+        print('promotedTo:${payload.change?.difference?.promotedTo?.to}');
+      }
+      if (payload.change!.difference!.status != null) {
+        print('status:${payload.change?.difference?.status?.from}');
+        print('status:${payload.change?.difference?.status?.to}');
+      }
+      if (payload.change!.difference!.tags != null) {
+        print('tags:${payload.change?.difference?.tags?.from}');
+        print('tags:${payload.change?.difference?.tags?.to}');
+      }
+      if (payload.change!.difference!.customAttributes != null) {
+        print(
+            'attributesNew:${payload.change?.difference?.customAttributes?.attributesNew}');
+        print(
+            'attributesChanged:${payload.change?.difference?.customAttributes?.attributesChanged}');
+        print(
+            'attributesDeleted:${payload.change?.difference?.customAttributes?.attributesDeleted}');
+      }
+      if (payload.change!.difference!.points != null) {
+        if (payload.change?.difference?.points?.backPoints != null) {
+          print(
+              'backPointsFrom:${payload.change?.difference?.points?.backPoints?.from}');
+          print(
+              'backPointsTo:${payload.change?.difference?.points?.backPoints?.to}');
+        }
+        if (payload.change?.difference?.points?.designPoints != null) {
+          print(
+              'designPointsFrom:${payload.change?.difference?.points?.designPoints?.from}');
+          print(
+              'designPointsTo:${payload.change?.difference?.points?.designPoints?.to}');
+        }
+        if (payload.change?.difference?.points?.frontPoints != null) {
+          print(
+              'frontPointsFrom:${payload.change?.difference?.points?.frontPoints?.from}');
+          print(
+              'frontPointsTo:${payload.change?.difference?.points?.frontPoints?.to}');
+        }
+        if (payload.change?.difference?.points?.pmPoints != null) {
+          print(
+              'pmPointsFrom:${payload.change?.difference?.points?.pmPoints?.from}');
+          print(
+              'pmPointsTo:${payload.change?.difference?.points?.pmPoints?.to}');
+        }
+      }
     }
-    if (data.type == 'epic') {
-      TaigaEpicData printData = data.data as TaigaEpicData;
-      print('assignedTo:${printData.assignedTo}');
-      print('createdDate:${printData.createdDate}');
-      print('customAttributesValues:${printData.customAttributesValues}');
-      print('description:${printData.description}');
-      print('id:${printData.id}');
-      print('modifiedDate:${printData.modifiedDate}');
-      print('owner FullName:${printData.owner.fullName}');
-      print('permalink:${printData.permalink}');
-      print('project:${printData.project}');
-      print('ref:${printData.ref}');
-      print('status:${printData.status}');
-      print('subject:${printData.subject}');
-      print('tags:${printData.tags}');
-      print('clientRequirement:${printData.clientRequirement}');
-      print('color:${printData.color}');
-      print('epicsOrder:${printData.epicsOrder}');
-      print('teamRequirement:${printData.teamRequirement}');
-    }
-
     return WebHooksView(webhookData: body);
   }
 }
