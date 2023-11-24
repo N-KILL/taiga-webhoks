@@ -14,13 +14,13 @@ class RouteRoot extends WidgetRoute {
     print('DecodedBody: $decodedBody');
     print('DecodedBody: ${decodedBody.runtimeType}');
     print('body: ${body.runtimeType}');
-    final payload = TaigaPayloadMPBLE.fromJson(decodedBody);
+    final payload = TaigaPayload.fromJson(decodedBody);
     print('FullName of performer:${payload.performer.fullName}');
     print('actionType:${payload.actionType}');
     print('jobType:${payload.jobType}');
     print('date:${payload.date}');
     if (payload.jobType == 'epic') {
-      TaigaEpicDataMPBLE printData = payload.data as TaigaEpicDataMPBLE;
+      TaigaEpicData printData = payload.data as TaigaEpicData;
       print('THIS IS DATA: type EPIC');
       print('creationDate:${printData.creationDate}');
       print('customValues:${printData.customValues}');
@@ -32,17 +32,17 @@ class RouteRoot extends WidgetRoute {
       print('jobStatus:${printData.jobStatus}');
       print('jobWatchers:${printData.jobWatchers}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('permalink:${printData.permalink}');
+      print('permalink:${printData.jobPermalink}');
       print('referenceNumber:${printData.referenceNumber}');
-      print('tags:${printData.tags}');
+      print('tags:${printData.jobTags}');
       print('userAssigned:${printData.userAssigned}');
-      print('clientRequirement:${printData.clientRequirement}');
+      print('clientRequirement:${printData.isClientRequirement}');
       print('color:${printData.color}');
       print('epicsOrder:${printData.epicsOrder}');
-      print('teamRequirement:${printData.teamRequirement}');
+      print('teamRequirement:${printData.isTeamRequirement}');
     }
     if (payload.jobType == 'task') {
-      TaigaTaskDataMPBLE printData = payload.data as TaigaTaskDataMPBLE;
+      TaigaTaskData printData = payload.data as TaigaTaskData;
       print('THIS IS DATA: type TASK');
       print('dueDate:${printData.dueDate}');
       print('dueDateReason:${printData.dueDateReason}');
@@ -58,9 +58,9 @@ class RouteRoot extends WidgetRoute {
       print('jobStatus:${printData.jobStatus}');
       print('jobWatchers:${printData.jobWatchers}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('permalink:${printData.permalink}');
+      print('permalink:${printData.jobPermalink}');
       print('referenceNumber:${printData.referenceNumber}');
-      print('tags:${printData.tags}');
+      print('tags:${printData.jobTags}');
       print('userAssigned:${printData.userAssigned}');
       print('isBlocked:${printData.isBlocked}');
       print('blockedNote:${printData.blockedNote}');
@@ -72,16 +72,16 @@ class RouteRoot extends WidgetRoute {
       print('userStory:${printData.userStory}');
     }
     if (payload.jobType == 'issue') {
-      TaigaIssueDataMPBLE printData = payload.data as TaigaIssueDataMPBLE;
+      TaigaIssueData printData = payload.data as TaigaIssueData;
       print('THIS IS DATA: type ISSUE');
       print('dueDate:${printData.dueDate}');
       print('dueDateReason:${printData.dueDateReason}');
       print('finishedDate:${printData.finishedDate}');
-      print('priority:${printData.priority}');
+      print('priority:${printData.issuePriority}');
       print('promotedTo:${printData.promotedTo}');
-      print('severity:${printData.severity}');
-      print('sprint:${printData.sprint}');
-      print('type:${printData.type}');
+      print('severity:${printData.issueSeverity}');
+      print('sprint:${printData.issueRelatedSprint}');
+      print('type:${printData.issueType}');
       print('creationDate:${printData.creationDate}');
       print('customValues:${printData.customValues}');
       print('fromProject:${printData.fromProject}');
@@ -92,21 +92,20 @@ class RouteRoot extends WidgetRoute {
       print('jobStatus:${printData.jobStatus}');
       print('jobWatchers:${printData.jobWatchers}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('permalink:${printData.permalink}');
+      print('permalink:${printData.jobPermalink}');
       print('referenceNumber:${printData.referenceNumber}');
-      print('tags:${printData.tags}');
+      print('tags:${printData.dueDate}');
       print('userAssigned:${printData.userAssigned}');
     }
     if (payload.jobType == 'userstory') {
-      TaigaUserStoryDataMPBLE printData =
-          payload.data as TaigaUserStoryDataMPBLE;
+      TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
       print('THIS IS DATA: type USERSTORY');
       print('assignedUsers:${printData.assignedUsers}');
       print('blockedNote:${printData.blockedNote}');
       print('clientRequirement:${printData.clientRequirement}');
       print('dueDate:${printData.dueDate}');
       print('dueDateReason:${printData.dueDateReason}');
-      print('finishDate:${printData.finishedDate}');
+      print('finishDate:${printData.finishDate}');
       print('fromTaskRef:${printData.taskReference}');
       print('generatedFromIssue:${printData.issueReference}');
       print('isBlocked:${printData.isBlocked}');
@@ -122,19 +121,19 @@ class RouteRoot extends WidgetRoute {
       print('id:${printData.jobId}');
       print('modifiedDate:${printData.modifiedDate}');
       print('owner FullName:${printData.jobOwner.fullName}');
-      print('permalink:${printData.permalink}');
+      print('permalink:${printData.jobPermalink}');
       print('project:${printData.fromProject}');
       print('ref:${printData.referenceNumber}');
       print('status:${printData.jobStatus}');
       print('subject:${printData.jobName}');
-      print('tags:${printData.tags}');
+      print('tags:${printData.taskReference}');
       print('watchers:${printData.jobWatchers}');
       if (printData.points.isNotEmpty) {
         for (var element in printData.points) {
           print('data');
-          print('Name:${element.name}');
-          print('Role ${element.role}');
-          print('Value: ${element.value}');
+          print('Name:${element.pointName}');
+          print('Role ${element.pointAssignedRole}');
+          print('Value: ${element.pointValue}');
         }
       }
     }
@@ -146,115 +145,121 @@ class RouteRoot extends WidgetRoute {
       print('disponibility:${printData.disponibility}');
       print('estimatedFinishDate:${printData.estimatedFinishDate}');
       print('estimatedStartDate:${printData.estimatedStartDate}');
-      print('isClosed:${printData.isClosed}');
+      print('isClosed:${printData.sprintClosedStatus}');
       print('modifiedDate:${printData.modifiedDate}');
-      print('permalink:${printData.permalink}');
+      print('permalink:${printData.sprintPermalink}');
       print('project:${printData.project}');
-      print('slug:${printData.slug}');
+      print('slug:${printData.sprintSlug}');
       print('sprintId:${printData.sprintId}');
       print('sprintName:${printData.sprintName}');
     }
     if (payload.actionType == "change") {
       print('THIS IS CHANGE:');
-      print('Comment:${payload.change?.comment}');
-      print('Comment:${payload.change?.commentHtml}');
+      if (payload.change?.comment != '') {
+        print('Comment:${payload.change?.comment}');
+      }
+      if (payload.change?.commentHtml != null) {
+        print('Comment:${payload.change?.commentHtml}');
+      }
       print('difference:');
       if (payload.change!.difference?.assignedTo != null) {
-        print('assignedTo:${payload.change?.difference?.assignedTo?.from}');
-        print('assignedTo:${payload.change?.difference?.assignedTo?.to}');
+        print('assignedTo:${payload.change?.difference?.assignedTo?.oldValue}');
+        print('assignedTo:${payload.change?.difference?.assignedTo?.newValue}');
       }
       if (payload.change!.difference!.attachments != null) {
-        print('assignedTo:${payload.change?.difference?.attachments}');
+        print('attachments:${payload.change?.difference?.attachments}');
       }
       if (payload.change!.difference!.blockedNoteDiff != null) {
         print(
-            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.from}');
+            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.oldValue}');
         print(
-            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.to}');
+            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.newValue}');
       }
       if (payload.change!.difference!.blockedNoteHtml != null) {
         print(
-            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.from}');
+            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.oldValue}');
         print(
-            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.to}');
+            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.newValue}');
       }
       if (payload.change!.difference!.clientRequirement != null) {
         print(
-            'clientRequirement:${payload.change?.difference?.clientRequirement?.from}');
+            'clientRequirement:${payload.change?.difference?.clientRequirement?.oldValue}');
         print(
-            'clientRequirement:${payload.change?.difference?.clientRequirement?.to}');
+            'clientRequirement:${payload.change?.difference?.clientRequirement?.newValue}');
       }
       if (payload.change!.difference!.descriptionDiff != null) {
         print('descriptionDiff:${payload.change?.difference?.descriptionDiff}');
       }
       if (payload.change!.difference!.dueDate != null) {
-        print('dueDate:${payload.change?.difference?.dueDate?.from}');
-        print('dueDate:${payload.change?.difference?.dueDate?.to}');
+        print('dueDate:${payload.change?.difference?.dueDate?.oldValue}');
+        print('dueDate:${payload.change?.difference?.dueDate?.newValue}');
       }
       if (payload.change!.difference!.finishDate != null) {
-        print('finishDate:${payload.change?.difference?.finishDate?.from}');
-        print('finishDate:${payload.change?.difference?.finishDate?.to}');
+        print('finishDate:${payload.change?.difference?.finishDate?.oldValue}');
+        print('finishDate:${payload.change?.difference?.finishDate?.newValue}');
       }
       if (payload.change!.difference!.isBlocked != null) {
-        print('isBlocked:${payload.change?.difference?.isBlocked?.from}');
-        print('isBlocked:${payload.change?.difference?.isBlocked?.to}');
+        print('isBlocked:${payload.change?.difference?.isBlocked?.oldValue}');
+        print('isBlocked:${payload.change?.difference?.isBlocked?.newValue}');
       }
       if (payload.change!.difference!.isClosed != null) {
-        print('isClosed:${payload.change?.difference?.isClosed?.from}');
-        print('isClosed:${payload.change?.difference?.isClosed?.to}');
+        print('isClosed:${payload.change?.difference?.isClosed?.oldValue}');
+        print('isClosed:${payload.change?.difference?.isClosed?.newValue}');
       }
       if (payload.change!.difference!.kanbanOrder != null) {
-        print('kanbanOrder:${payload.change?.difference?.kanbanOrder?.from}');
-        print('kanbanOrder:${payload.change?.difference?.kanbanOrder?.to}');
+        print(
+            'kanbanOrder:${payload.change?.difference?.kanbanOrder?.oldValue}');
+        print(
+            'kanbanOrder:${payload.change?.difference?.kanbanOrder?.newValue}');
       }
       if (payload.change!.difference!.sprint != null) {
-        print('sprintFrom:${payload.change?.difference?.sprint?.from}');
-        print('sprintTo:${payload.change?.difference?.sprint?.to}');
+        print('sprintFrom:${payload.change?.difference?.sprint?.oldValue}');
+        print('sprintTo:${payload.change?.difference?.sprint?.newValue}');
       }
       if (payload.change!.difference!.promotedTo != null) {
-        print('promotedTo:${payload.change?.difference?.promotedTo?.from}');
-        print('promotedTo:${payload.change?.difference?.promotedTo?.to}');
+        print('promotedTo:${payload.change?.difference?.promotedTo?.oldValue}');
+        print('promotedTo:${payload.change?.difference?.promotedTo?.newValue}');
       }
       if (payload.change!.difference!.status != null) {
-        print('status:${payload.change?.difference?.status?.from}');
-        print('status:${payload.change?.difference?.status?.to}');
+        print('status:${payload.change?.difference?.status?.oldValue}');
+        print('status:${payload.change?.difference?.status?.newValue}');
       }
       if (payload.change!.difference!.tags != null) {
-        print('tags:${payload.change?.difference?.tags?.from}');
-        print('tags:${payload.change?.difference?.tags?.to}');
+        print('tags:${payload.change?.difference?.tags?.oldValue}');
+        print('tags:${payload.change?.difference?.tags?.newValue}');
       }
       if (payload.change!.difference!.customAttributes != null) {
         print(
-            'attributesNew:${payload.change?.difference?.customAttributes?.attributesNew}');
+            'attributesNew:${payload.change?.difference?.customAttributes?.customValuesNew}');
         print(
-            'attributesChanged:${payload.change?.difference?.customAttributes?.attributesChanged}');
+            'attributesChanged:${payload.change?.difference?.customAttributes?.customValuesChanged}');
         print(
-            'attributesDeleted:${payload.change?.difference?.customAttributes?.attributesDeleted}');
+            'attributesDeleted:${payload.change?.difference?.customAttributes?.customValuesDeleted}');
       }
       if (payload.change!.difference!.points != null) {
         if (payload.change?.difference?.points?.backPoints != null) {
           print(
-              'backPointsFrom:${payload.change?.difference?.points?.backPoints?.from}');
+              'backPointsFrom:${payload.change?.difference?.points?.backPoints?.oldValue}');
           print(
-              'backPointsTo:${payload.change?.difference?.points?.backPoints?.to}');
+              'backPointsTo:${payload.change?.difference?.points?.backPoints?.newValue}');
         }
         if (payload.change?.difference?.points?.designPoints != null) {
           print(
-              'designPointsFrom:${payload.change?.difference?.points?.designPoints?.from}');
+              'designPointsFrom:${payload.change?.difference?.points?.designPoints?.oldValue}');
           print(
-              'designPointsTo:${payload.change?.difference?.points?.designPoints?.to}');
+              'designPointsTo:${payload.change?.difference?.points?.designPoints?.newValue}');
         }
         if (payload.change?.difference?.points?.frontPoints != null) {
           print(
-              'frontPointsFrom:${payload.change?.difference?.points?.frontPoints?.from}');
+              'frontPointsFrom:${payload.change?.difference?.points?.frontPoints?.oldValue}');
           print(
-              'frontPointsTo:${payload.change?.difference?.points?.frontPoints?.to}');
+              'frontPointsTo:${payload.change?.difference?.points?.frontPoints?.newValue}');
         }
         if (payload.change?.difference?.points?.pmPoints != null) {
           print(
-              'pmPointsFrom:${payload.change?.difference?.points?.pmPoints?.from}');
+              'pmPointsFrom:${payload.change?.difference?.points?.pmPoints?.oldValue}');
           print(
-              'pmPointsTo:${payload.change?.difference?.points?.pmPoints?.to}');
+              'pmPointsTo:${payload.change?.difference?.points?.pmPoints?.newValue}');
         }
       }
     }
