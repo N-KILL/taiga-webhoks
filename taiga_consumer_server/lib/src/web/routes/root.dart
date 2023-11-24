@@ -138,7 +138,7 @@ class RouteRoot extends WidgetRoute {
       }
     }
     if (payload.jobType == 'milestone') {
-      DataSprint printData = DataSprint.fromJson(jsonEncode(payload.data));
+      DataSprint printData = payload.data as DataSprint;
       print('THIS IS DATA: type SPRINT');
       print('createdBy:${printData.createdBy}');
       print('createdDate:${printData.creationDate}');
@@ -162,107 +162,77 @@ class RouteRoot extends WidgetRoute {
         print('Comment:${payload.change?.commentHtml}');
       }
       print('difference:');
-      if (payload.change!.difference?.assignedTo != null) {
-        print('assignedTo:${payload.change?.difference?.assignedTo?.oldValue}');
-        print('assignedTo:${payload.change?.difference?.assignedTo?.newValue}');
+      if (payload.change?.difference?.attachments != null) {
+        print(payload.change?.difference?.attachments);
       }
-      if (payload.change!.difference!.attachments != null) {
-        print('attachments:${payload.change?.difference?.attachments}');
+      if (payload.change?.difference?.assignedTo != null) {
+        print(payload.change?.difference?.assignedTo);
       }
-      if (payload.change!.difference!.blockedNoteDiff != null) {
-        print(
-            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.oldValue}');
-        print(
-            'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.newValue}');
+      if (payload.change?.difference?.dueDate != null) {
+        print(payload.change?.difference?.dueDate);
       }
-      if (payload.change!.difference!.blockedNoteHtml != null) {
-        print(
-            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.oldValue}');
-        print(
-            'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.newValue}');
+      if (payload.change?.difference?.status != null) {
+        print(payload.change?.difference?.status);
       }
-      if (payload.change!.difference!.clientRequirement != null) {
-        print(
-            'clientRequirement:${payload.change?.difference?.clientRequirement?.oldValue}');
-        print(
-            'clientRequirement:${payload.change?.difference?.clientRequirement?.newValue}');
+      if (payload.change?.difference?.relatedSprint != null) {
+        print(payload.change?.difference?.relatedSprint);
       }
-      if (payload.change!.difference!.descriptionDiff != null) {
-        print('descriptionDiff:${payload.change?.difference?.descriptionDiff}');
+      if (payload.change?.difference?.promotedTo != null) {
+        print(payload.change?.difference?.promotedTo);
       }
-      if (payload.change!.difference!.dueDate != null) {
-        print('dueDate:${payload.change?.difference?.dueDate?.oldValue}');
-        print('dueDate:${payload.change?.difference?.dueDate?.newValue}');
+      if (payload.change?.difference?.tags != null) {
+        print(payload.change?.difference?.tags);
       }
-      if (payload.change!.difference!.finishDate != null) {
-        print('finishDate:${payload.change?.difference?.finishDate?.oldValue}');
-        print('finishDate:${payload.change?.difference?.finishDate?.newValue}');
+      if (payload.change?.difference?.descriptionDiff != null) {
+        print(payload.change?.difference?.descriptionDiff);
       }
-      if (payload.change!.difference!.isBlocked != null) {
-        print('isBlocked:${payload.change?.difference?.isBlocked?.oldValue}');
-        print('isBlocked:${payload.change?.difference?.isBlocked?.newValue}');
+      if (payload.change?.difference?.isClosed != null) {
+        print(payload.change?.difference?.isClosed);
       }
-      if (payload.change!.difference!.isClosed != null) {
-        print('isClosed:${payload.change?.difference?.isClosed?.oldValue}');
-        print('isClosed:${payload.change?.difference?.isClosed?.newValue}');
+      if (payload.change?.difference?.kanbanOrder != null) {
+        print(payload.change?.difference?.kanbanOrder);
       }
-      if (payload.change!.difference!.kanbanOrder != null) {
-        print(
-            'kanbanOrder:${payload.change?.difference?.kanbanOrder?.oldValue}');
-        print(
-            'kanbanOrder:${payload.change?.difference?.kanbanOrder?.newValue}');
+      if (payload.change?.difference?.finishDate != null) {
+        print(payload.change?.difference?.finishDate);
       }
-      if (payload.change!.difference!.sprint != null) {
-        print('sprintFrom:${payload.change?.difference?.sprint?.oldValue}');
-        print('sprintTo:${payload.change?.difference?.sprint?.newValue}');
+      if (payload.change?.difference?.isBlocked != null) {
+        print(payload.change?.difference?.isBlocked);
       }
-      if (payload.change!.difference!.promotedTo != null) {
-        print('promotedTo:${payload.change?.difference?.promotedTo?.oldValue}');
-        print('promotedTo:${payload.change?.difference?.promotedTo?.newValue}');
+      if (payload.change?.difference?.blockedNoteDiff != null) {
+        print(payload.change?.difference?.blockedNoteDiff);
       }
-      if (payload.change!.difference!.status != null) {
-        print('status:${payload.change?.difference?.status?.oldValue}');
-        print('status:${payload.change?.difference?.status?.newValue}');
+      if (payload.change?.difference?.blockedNoteHtml != null) {
+        print(payload.change?.difference?.blockedNoteHtml);
       }
-      if (payload.change!.difference!.tags != null) {
-        print('tags:${payload.change?.difference?.tags?.oldValue}');
-        print('tags:${payload.change?.difference?.tags?.newValue}');
+      if (payload.change?.difference?.clientRequirement != null) {
+        print(payload.change?.difference?.clientRequirement);
       }
-      if (payload.change!.difference!.customAttributes != null) {
-        print(
-            'attributesNew:${payload.change?.difference?.customAttributes?.customValuesNew}');
-        print(
-            'attributesChanged:${payload.change?.difference?.customAttributes?.customValuesChanged}');
-        print(
-            'attributesDeleted:${payload.change?.difference?.customAttributes?.customValuesDeleted}');
+      if (payload.change?.difference?.teamRequirement != null) {
+        print(payload.change?.difference?.teamRequirement);
       }
-      if (payload.change!.difference!.points != null) {
-        if (payload.change?.difference?.points?.backPoints != null) {
-          print(
-              'backPointsFrom:${payload.change?.difference?.points?.backPoints?.oldValue}');
-          print(
-              'backPointsTo:${payload.change?.difference?.points?.backPoints?.newValue}');
-        }
-        if (payload.change?.difference?.points?.designPoints != null) {
-          print(
-              'designPointsFrom:${payload.change?.difference?.points?.designPoints?.oldValue}');
-          print(
-              'designPointsTo:${payload.change?.difference?.points?.designPoints?.newValue}');
-        }
-        if (payload.change?.difference?.points?.frontPoints != null) {
-          print(
-              'frontPointsFrom:${payload.change?.difference?.points?.frontPoints?.oldValue}');
-          print(
-              'frontPointsTo:${payload.change?.difference?.points?.frontPoints?.newValue}');
-        }
-        if (payload.change?.difference?.points?.pmPoints != null) {
-          print(
-              'pmPointsFrom:${payload.change?.difference?.points?.pmPoints?.oldValue}');
-          print(
-              'pmPointsTo:${payload.change?.difference?.points?.pmPoints?.newValue}');
-        }
+      if (payload.change?.difference?.customAttributes != null) {
+        print(payload.change?.difference?.customAttributes);
+      }
+      if (payload.change?.difference?.isIocaine != null) {
+        print(payload.change?.difference?.isIocaine);
+      }
+      if (payload.change?.difference?.points != null) {
+        print(payload.change?.difference?.points);
+      }
+      if (payload.change?.difference?.priority != null) {
+        print(payload.change?.difference?.priority);
+      }
+      if (payload.change?.difference?.severity != null) {
+        print(payload.change?.difference?.severity);
+      }
+      if (payload.change?.difference?.type != null) {
+        print(payload.change?.difference?.type);
+      }
+      if (payload.change?.difference?.subject != null) {
+        print(payload.change?.difference?.subject);
       }
     }
+
     return WebHooksView(webhookData: body);
   }
 }

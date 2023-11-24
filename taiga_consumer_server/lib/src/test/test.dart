@@ -127,7 +127,7 @@ void main() {
     }
   }
   if (payload.jobType == 'milestone') {
-    DataSprint printData = DataSprint.fromJson(jsonEncode(payload.data));
+    DataSprint printData = payload.data as DataSprint;
     print('THIS IS DATA: type SPRINT');
     print('createdBy:${printData.createdBy}');
     print('createdDate:${printData.creationDate}');
@@ -151,103 +151,74 @@ void main() {
       print('Comment:${payload.change?.commentHtml}');
     }
     print('difference:');
-    if (payload.change!.difference?.assignedTo != null) {
-      print('assignedTo:${payload.change?.difference?.assignedTo?.oldValue}');
-      print('assignedTo:${payload.change?.difference?.assignedTo?.newValue}');
+    if (payload.change?.difference?.attachments != null) {
+      print(payload.change?.difference?.attachments);
     }
-    if (payload.change!.difference!.attachments != null) {
-      print('attachments:${payload.change?.difference?.attachments}');
+    if (payload.change?.difference?.assignedTo != null) {
+      print(payload.change?.difference?.assignedTo);
     }
-    if (payload.change!.difference!.blockedNoteDiff != null) {
-      print(
-          'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.oldValue}');
-      print(
-          'blockedNoteDiff:${payload.change?.difference?.blockedNoteDiff?.newValue}');
+    if (payload.change?.difference?.dueDate != null) {
+      print(payload.change?.difference?.dueDate);
     }
-    if (payload.change!.difference!.blockedNoteHtml != null) {
-      print(
-          'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.oldValue}');
-      print(
-          'blockedNoteHtml:${payload.change?.difference?.blockedNoteHtml?.newValue}');
+    if (payload.change?.difference?.status != null) {
+      print(payload.change?.difference?.status);
     }
-    if (payload.change!.difference!.clientRequirement != null) {
-      print(
-          'clientRequirement:${payload.change?.difference?.clientRequirement?.oldValue}');
-      print(
-          'clientRequirement:${payload.change?.difference?.clientRequirement?.newValue}');
+    if (payload.change?.difference?.relatedSprint != null) {
+      print(payload.change?.difference?.relatedSprint);
     }
-    if (payload.change!.difference!.descriptionDiff != null) {
-      print('descriptionDiff:${payload.change?.difference?.descriptionDiff}');
+    if (payload.change?.difference?.promotedTo != null) {
+      print(payload.change?.difference?.promotedTo);
     }
-    if (payload.change!.difference!.dueDate != null) {
-      print('dueDate:${payload.change?.difference?.dueDate?.oldValue}');
-      print('dueDate:${payload.change?.difference?.dueDate?.newValue}');
+    if (payload.change?.difference?.tags != null) {
+      print(payload.change?.difference?.tags);
     }
-    if (payload.change!.difference!.finishDate != null) {
-      print('finishDate:${payload.change?.difference?.finishDate?.oldValue}');
-      print('finishDate:${payload.change?.difference?.finishDate?.newValue}');
+    if (payload.change?.difference?.descriptionDiff != null) {
+      print(payload.change?.difference?.descriptionDiff);
     }
-    if (payload.change!.difference!.isBlocked != null) {
-      print('isBlocked:${payload.change?.difference?.isBlocked?.oldValue}');
-      print('isBlocked:${payload.change?.difference?.isBlocked?.newValue}');
+    if (payload.change?.difference?.isClosed != null) {
+      print(payload.change?.difference?.isClosed);
     }
-    if (payload.change!.difference!.isClosed != null) {
-      print('isClosed:${payload.change?.difference?.isClosed?.oldValue}');
-      print('isClosed:${payload.change?.difference?.isClosed?.newValue}');
+    if (payload.change?.difference?.kanbanOrder != null) {
+      print(payload.change?.difference?.kanbanOrder);
     }
-    if (payload.change!.difference!.kanbanOrder != null) {
-      print('kanbanOrder:${payload.change?.difference?.kanbanOrder?.oldValue}');
-      print('kanbanOrder:${payload.change?.difference?.kanbanOrder?.newValue}');
+    if (payload.change?.difference?.finishDate != null) {
+      print(payload.change?.difference?.finishDate);
     }
-    if (payload.change!.difference!.sprint != null) {
-      print('sprintFrom:${payload.change?.difference?.sprint?.oldValue}');
-      print('sprintTo:${payload.change?.difference?.sprint?.newValue}');
+    if (payload.change?.difference?.isBlocked != null) {
+      print(payload.change?.difference?.isBlocked);
     }
-    if (payload.change!.difference!.promotedTo != null) {
-      print('promotedTo:${payload.change?.difference?.promotedTo?.oldValue}');
-      print('promotedTo:${payload.change?.difference?.promotedTo?.newValue}');
+    if (payload.change?.difference?.blockedNoteDiff != null) {
+      print(payload.change?.difference?.blockedNoteDiff);
     }
-    if (payload.change!.difference!.status != null) {
-      print('status:${payload.change?.difference?.status?.oldValue}');
-      print('status:${payload.change?.difference?.status?.newValue}');
+    if (payload.change?.difference?.blockedNoteHtml != null) {
+      print(payload.change?.difference?.blockedNoteHtml);
     }
-    if (payload.change!.difference!.tags != null) {
-      print('tags:${payload.change?.difference?.tags?.oldValue}');
-      print('tags:${payload.change?.difference?.tags?.newValue}');
+    if (payload.change?.difference?.clientRequirement != null) {
+      print(payload.change?.difference?.clientRequirement);
     }
-    if (payload.change!.difference!.customAttributes != null) {
-      print(
-          'attributesNew:${payload.change?.difference?.customAttributes?.customValuesNew}');
-      print(
-          'attributesChanged:${payload.change?.difference?.customAttributes?.customValuesChanged}');
-      print(
-          'attributesDeleted:${payload.change?.difference?.customAttributes?.customValuesDeleted}');
+    if (payload.change?.difference?.teamRequirement != null) {
+      print(payload.change?.difference?.teamRequirement);
     }
-    if (payload.change!.difference!.points != null) {
-      if (payload.change?.difference?.points?.backPoints != null) {
-        print(
-            'backPointsFrom:${payload.change?.difference?.points?.backPoints?.oldValue}');
-        print(
-            'backPointsTo:${payload.change?.difference?.points?.backPoints?.newValue}');
-      }
-      if (payload.change?.difference?.points?.designPoints != null) {
-        print(
-            'designPointsFrom:${payload.change?.difference?.points?.designPoints?.oldValue}');
-        print(
-            'designPointsTo:${payload.change?.difference?.points?.designPoints?.newValue}');
-      }
-      if (payload.change?.difference?.points?.frontPoints != null) {
-        print(
-            'frontPointsFrom:${payload.change?.difference?.points?.frontPoints?.oldValue}');
-        print(
-            'frontPointsTo:${payload.change?.difference?.points?.frontPoints?.newValue}');
-      }
-      if (payload.change?.difference?.points?.pmPoints != null) {
-        print(
-            'pmPointsFrom:${payload.change?.difference?.points?.pmPoints?.oldValue}');
-        print(
-            'pmPointsTo:${payload.change?.difference?.points?.pmPoints?.newValue}');
-      }
+    if (payload.change?.difference?.customAttributes != null) {
+      print(payload.change?.difference?.customAttributes);
+    }
+    if (payload.change?.difference?.isIocaine != null) {
+      print(payload.change?.difference?.isIocaine);
+    }
+    if (payload.change?.difference?.points != null) {
+      print(payload.change?.difference?.points);
+    }
+    if (payload.change?.difference?.priority != null) {
+      print(payload.change?.difference?.priority);
+    }
+    if (payload.change?.difference?.severity != null) {
+      print(payload.change?.difference?.severity);
+    }
+    if (payload.change?.difference?.type != null) {
+      print(payload.change?.difference?.type);
+    }
+    if (payload.change?.difference?.subject != null) {
+      print(payload.change?.difference?.subject);
     }
   }
 }
@@ -256,110 +227,41 @@ final body = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWCjEg%3AR7WzKPWU0qgd2skl-NLllSqPT2y5PaWFGK5bPdjThRMstdpf1TJ2jtyg-4QNvau2KdMEKdJIKk6hh0ryMYOcmQ",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWDINw%3AwOIPceOp8EbzrmglY3EC23Sqt1j7VdH0nu76WGzB6TndSYq9GZQoPollnSLwGp8NeVIjx2zRQ-X1Ja2lpIN3_w",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 1688793,
-    "ref": 48,
-    "tags": [],
-    "type": {"id": 3547927, "name": "Enhancement", "color": "#40E4CE"},
+    "id": 370520,
+    "name": "2nd Sprint",
+    "slug": "2nd-sprint-23",
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWCjEg%3AR7WzKPWU0qgd2skl-NLllSqPT2y5PaWFGK5bPdjThRMstdpf1TJ2jtyg-4QNvau2KdMEKdJIKk6hh0ryMYOcmQ",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWDINw%3AwOIPceOp8EbzrmglY3EC23Sqt1j7VdH0nu76WGzB6TndSYq9GZQoPollnSLwGp8NeVIjx2zRQ-X1Ja2lpIN3_w",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
       "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
-    "status": {
-      "id": 8259988,
-      "name": "New",
-      "slug": "new",
-      "color": "#70728F",
-      "is_closed": false
-    },
+    "closed": false,
     "project": {
       "id": 1179467,
       "name": "Esteban se la come",
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "asdasd",
-    "due_date": null,
-    "priority": {"id": 3541292, "name": "Relevante", "color": "#E4CE40"},
-    "severity": {"id": 5894934, "name": "N/A", "color": "#A9AABC"},
-    "watchers": [],
-    "milestone": {
-      "id": 370520,
-      "name": "2nd Sprint",
-      "slug": "2nd-sprint-23",
-      "owner": {
-        "id": 588936,
-        "photo":
-            "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWCjEg%3AR7WzKPWU0qgd2skl-NLllSqPT2y5PaWFGK5bPdjThRMstdpf1TJ2jtyg-4QNvau2KdMEKdJIKk6hh0ryMYOcmQ",
-        "username": "CardozoIgnacio",
-        "full_name": "Ignacio Cardozo",
-        "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
-        "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
-      },
-      "closed": false,
-      "project": {
-        "id": 1179467,
-        "name": "Esteban se la come",
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "logo_big_url": null
-      },
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/2nd-sprint-23",
-      "created_date": "2023-11-23T13:55:35.031Z",
-      "disponibility": 0,
-      "modified_date": "2023-11-23T13:55:35.043Z",
-      "estimated_start": "2023-11-23",
-      "estimated_finish": "2023-12-07"
-    },
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/48",
-    "assigned_to": null,
-    "description": "ed",
-    "promoted_to": [5314466, 5314558],
-    "created_date": "2023-11-23T13:56:01.399Z",
-    "finished_date": null,
-    "modified_date": "2023-11-23T14:26:15.313Z",
-    "due_date_reason": "",
-    "external_reference": null,
-    "custom_attributes_values": {}
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/2nd-sprint-23",
+    "created_date": "2023-11-23T13:55:35.031Z",
+    "disponibility": 0,
+    "modified_date": "2023-11-23T13:55:35.043Z",
+    "estimated_start": "2023-11-23",
+    "estimated_finish": "2023-12-07"
   },
-  "date": "2023-11-24T13:20:18.488Z",
-  "type": "issue",
-  "action": "change",
-  "change": {
-    "diff": {
-      "attachments": {
-        "new": [],
-        "changed": [
-          {
-            "url":
-                "https://media-protected.taiga.io/attachments/8/4/4/1/05a26a2501c3433fd3805922302e8e70f500a18fa1827a8d8069f327885c/test.webp?token=ZWCjEg%3ApENrXuArtut0GRjBFHFxrw__BEc-vnrGBPNnuYILgrpAOlTWuVr8dIWSfF0hQLNB1ZpJwZUlerlfZnClJ9MHdQ",
-            "changes": {
-              "description": ["", "asd"]
-            },
-            "filename": "test.webp",
-            "thumb_url": ""
-          }
-        ],
-        "deleted": []
-      }
-    },
-    "comment": "",
-    "comment_html": "",
-    "comment_versions": null,
-    "edit_comment_date": null,
-    "delete_comment_date": null
-  }
+  "date": "2023-11-24T15:58:47.554Z",
+  "type": "milestone",
+  "action": "delete"
 };
