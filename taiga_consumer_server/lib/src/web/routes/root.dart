@@ -36,10 +36,10 @@ class RouteRoot extends WidgetRoute {
       print('referenceNumber:${printData.referenceNumber}');
       print('tags:${printData.jobTags}');
       print('userAssigned:${printData.userAssigned}');
-      print('clientRequirement:${printData.isClientRequirement}');
+      print('clientRequirement:${printData.clientRequirementStatus}');
       print('color:${printData.color}');
       print('epicsOrder:${printData.epicsOrder}');
-      print('teamRequirement:${printData.isTeamRequirement}');
+      print('teamRequirement:${printData.teamRequirementStatus}');
     }
     if (payload.jobType == 'task') {
       TaigaTaskData printData = payload.data as TaigaTaskData;
@@ -47,7 +47,7 @@ class RouteRoot extends WidgetRoute {
       print('dueDate:${printData.dueDate}');
       print('dueDateReason:${printData.dueDateReason}');
       print('finishedDate:${printData.finishedDate}');
-      print('promotedTo:${printData.promotedTo}');
+      print('promotedTo:${printData.promotedToList}');
       print('creationDate:${printData.creationDate}');
       print('customValues:${printData.customValues}');
       print('fromProject:${printData.fromProject}');
@@ -62,10 +62,10 @@ class RouteRoot extends WidgetRoute {
       print('referenceNumber:${printData.referenceNumber}');
       print('tags:${printData.jobTags}');
       print('userAssigned:${printData.userAssigned}');
-      print('isBlocked:${printData.isBlocked}');
+      print('isBlocked:${printData.isBlockedStatus}');
       print('blockedNote:${printData.blockedNote}');
-      print('isIocaine:${printData.isIocaine}');
-      print('promotedTo:${printData.promotedTo}');
+      print('isIocaine:${printData.isIocaineStatus}');
+      print('promotedTo:${printData.promotedToList}');
       print('relatedSprint:${printData.relatedSprint}');
       print('taskboardOrder:${printData.taskboardOrder}');
       print('usOrder:${printData.usOrder}');
@@ -78,7 +78,7 @@ class RouteRoot extends WidgetRoute {
       print('dueDateReason:${printData.dueDateReason}');
       print('finishedDate:${printData.finishedDate}');
       print('priority:${printData.issuePriority}');
-      print('promotedTo:${printData.promotedTo}');
+      print('promotedTo:${printData.promotedToList}');
       print('severity:${printData.issueSeverity}');
       print('sprint:${printData.issueRelatedSprint}');
       print('type:${printData.issueType}');
@@ -102,17 +102,17 @@ class RouteRoot extends WidgetRoute {
       print('THIS IS DATA: type USERSTORY');
       print('assignedUsers:${printData.assignedUsers}');
       print('blockedNote:${printData.blockedNote}');
-      print('clientRequirement:${printData.clientRequirement}');
+      print('clientRequirement:${printData.clientRequirementStatus}');
       print('dueDate:${printData.dueDate}');
       print('dueDateReason:${printData.dueDateReason}');
       print('finishDate:${printData.finishDate}');
       print('fromTaskRef:${printData.taskReference}');
       print('generatedFromIssue:${printData.issueReference}');
-      print('isBlocked:${printData.isBlocked}');
+      print('isBlocked:${printData.isBlockedStatus}');
       print('isClosed:${printData.isClosed}');
       print('sprint:${printData.relatedSprint}');
-      print('points:${printData.points}');
-      print('teamRequirement:${printData.teamRequirement}');
+      print('points:${printData.storyPoints}');
+      print('teamRequirement:${printData.teamRequirementStatus}');
       print('assignedTo:${printData.assignedUsers}');
       print('createdDate:${printData.creationDate}');
       print('customAttributesValues:${printData.customValues?.bounty}');
@@ -128,8 +128,8 @@ class RouteRoot extends WidgetRoute {
       print('subject:${printData.jobName}');
       print('tags:${printData.taskReference}');
       print('watchers:${printData.jobWatchers}');
-      if (printData.points.isNotEmpty) {
-        for (var element in printData.points) {
+      if (printData.storyPoints.isNotEmpty) {
+        for (var element in printData.storyPoints) {
           print('data');
           print('Name:${element.pointName}');
           print('Role ${element.pointAssignedRole}');
@@ -186,8 +186,8 @@ class RouteRoot extends WidgetRoute {
       if (payload.change?.difference?.descriptionDiff != null) {
         print(payload.change?.difference?.descriptionDiff);
       }
-      if (payload.change?.difference?.isClosed != null) {
-        print(payload.change?.difference?.isClosed);
+      if (payload.change?.difference?.isClosedStatus != null) {
+        print(payload.change?.difference?.isClosedStatus);
       }
       if (payload.change?.difference?.kanbanOrder != null) {
         print(payload.change?.difference?.kanbanOrder);
@@ -195,8 +195,8 @@ class RouteRoot extends WidgetRoute {
       if (payload.change?.difference?.finishDate != null) {
         print(payload.change?.difference?.finishDate);
       }
-      if (payload.change?.difference?.isBlocked != null) {
-        print(payload.change?.difference?.isBlocked);
+      if (payload.change?.difference?.isBlockedStatus != null) {
+        print(payload.change?.difference?.isBlockedStatus);
       }
       if (payload.change?.difference?.blockedNoteDiff != null) {
         print(payload.change?.difference?.blockedNoteDiff);
@@ -204,32 +204,32 @@ class RouteRoot extends WidgetRoute {
       if (payload.change?.difference?.blockedNoteHtml != null) {
         print(payload.change?.difference?.blockedNoteHtml);
       }
-      if (payload.change?.difference?.clientRequirement != null) {
-        print(payload.change?.difference?.clientRequirement);
+      if (payload.change?.difference?.clientRequirementStatus != null) {
+        print(payload.change?.difference?.clientRequirementStatus);
       }
-      if (payload.change?.difference?.teamRequirement != null) {
-        print(payload.change?.difference?.teamRequirement);
+      if (payload.change?.difference?.teamRequirementStatus != null) {
+        print(payload.change?.difference?.teamRequirementStatus);
       }
       if (payload.change?.difference?.customAttributes != null) {
         print(payload.change?.difference?.customAttributes);
       }
-      if (payload.change?.difference?.isIocaine != null) {
-        print(payload.change?.difference?.isIocaine);
+      if (payload.change?.difference?.isIocaineStatus != null) {
+        print(payload.change?.difference?.isIocaineStatus);
       }
-      if (payload.change?.difference?.points != null) {
-        print(payload.change?.difference?.points);
+      if (payload.change?.difference?.storyPoints != null) {
+        print(payload.change?.difference?.storyPoints);
       }
-      if (payload.change?.difference?.priority != null) {
-        print(payload.change?.difference?.priority);
+      if (payload.change?.difference?.priorityStatus != null) {
+        print(payload.change?.difference?.priorityStatus);
       }
-      if (payload.change?.difference?.severity != null) {
-        print(payload.change?.difference?.severity);
+      if (payload.change?.difference?.severityStatus != null) {
+        print(payload.change?.difference?.severityStatus);
       }
-      if (payload.change?.difference?.type != null) {
-        print(payload.change?.difference?.type);
+      if (payload.change?.difference?.typeStatus != null) {
+        print(payload.change?.difference?.typeStatus);
       }
-      if (payload.change?.difference?.subject != null) {
-        print(payload.change?.difference?.subject);
+      if (payload.change?.difference?.name != null) {
+        print(payload.change?.difference?.name);
       }
     }
 
