@@ -26,6 +26,11 @@ void run(List<String> args) async {
     RouteRoot(),
     '/webhook',
   );
+
+  pod.webServer.addRoute(
+    RouteGitLab(),
+    '/gitlab',
+  );
   // pod.webServer.addRoute(RouteRoot(), '/index.html');
   // Serve all files in the /static directory.
   pod.webServer.addRoute(

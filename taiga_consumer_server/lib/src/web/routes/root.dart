@@ -237,6 +237,20 @@ class RouteRoot extends WidgetRoute {
   }
 }
 
+class RouteGitLab extends WidgetRoute {
+  @override
+  Future<Widget> build(Session session, HttpRequest request) async {
+    final decodedBody = await utf8.decodeStream(request);
+    final body = json.decode(decodedBody);
+    print('Gitlab Webhook received:');
+    print('DecodedBody: $decodedBody');
+    print('DecodedBody.RuntimeType: ${decodedBody.runtimeType}');
+    print('Body JsonDecode: $body');
+    print('Body.RuntimeType: ${body.runtimeType}');
+    return WebHooksView(webhookData: body);
+  }
+}
+
 class DefaultRouteRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
