@@ -245,9 +245,7 @@ class RouteGitLab extends WidgetRoute {
     final body = json.decode(decodedBody);
     print('Gitlab Webhook received:');
     print('DecodedBody: $decodedBody');
-    print('DecodedBody.RuntimeType: ${decodedBody.runtimeType}');
     print('Body JsonDecode: $body');
-    print('Body.RuntimeType: ${body.runtimeType}');
     final payload = GitLabPayload.fromJson(decodedBody);
     print('Payload: $payload');
     for (var element in payload.commitsDetails) {
