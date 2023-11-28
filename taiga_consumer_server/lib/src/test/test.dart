@@ -122,7 +122,7 @@ void main() {
         print('data');
         print('Name:${element.pointName}');
         print('Role ${element.pointAssignedRole}');
-        print('Value: ${element.pointValue}');
+        print('Value: ${element.pointAmount}');
       }
     }
   }

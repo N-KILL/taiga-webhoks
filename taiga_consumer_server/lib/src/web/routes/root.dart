@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:gitlab_rest_models/gitlab_rest_models.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
@@ -133,7 +134,7 @@ class RouteRoot extends WidgetRoute {
           print('data');
           print('Name:${element.pointName}');
           print('Role ${element.pointAssignedRole}');
-          print('Value: ${element.pointValue}');
+          print('Value: ${element.pointAmount}');
         }
       }
     }
@@ -247,6 +248,14 @@ class RouteGitLab extends WidgetRoute {
     print('DecodedBody.RuntimeType: ${decodedBody.runtimeType}');
     print('Body JsonDecode: $body');
     print('Body.RuntimeType: ${body.runtimeType}');
+    final payload = GitLabPayload.fromJson(decodedBody);
+    print('Payload: $payload');
+    for (var element in payload.commitsDetails) {
+      print('new commit from: ${element.author}');
+      print('in the project: ${payload.projectDetails.name}');
+      print('commit details $element');
+    }
+
     return WebHooksView(webhookData: body);
   }
 }

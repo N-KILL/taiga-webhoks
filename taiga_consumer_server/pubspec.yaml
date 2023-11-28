@@ -11,6 +11,9 @@ dependencies:
   taiga_rest_models:
     git:
       url: https://github.com/Eficetti/taigaREST_models.git
+  gitlab_rest_models:
+    git:
+      url: https://github.com/N-KILL/gitlabREST_models.git
 
 dev_dependencies:
   lints: ^2.0.1

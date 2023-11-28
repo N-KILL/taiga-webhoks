@@ -73,6 +73,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  gitlab_rest_models:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: e6f6a1b65e0d7909cecee4578334e72345b5ca1c
+      url: "https://github.com/N-KILL/gitlabREST_models.git"
+    source: git
+    version: "0.1.0+1"
   http:
     dependency: transitive
     description:
@@ -294,7 +303,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9a2fdc3c07dff863e6064d2679b37bf0ad61967c"
+      resolved-ref: "4962da61af3e6ccfb709d9339d0690f3389a4851"
       url: "https://github.com/Eficetti/taigaREST_models.git"
     source: git
     version: "0.1.0+1"
