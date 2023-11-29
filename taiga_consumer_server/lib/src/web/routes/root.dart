@@ -251,12 +251,19 @@ class RouteGitLab extends WidgetRoute {
     print('DecodedBody: $decodedBody');
     print('Body JsonDecode: $body');
     try {
-      final payload = GitLabPayload.fromJson(decodedBody);
-      print('Payload: $payload');
-      for (var element in payload.commitsDetails) {
-        print('new commit from: ${element.author}');
-        print('in the project: ${payload.projectDetails.name}');
-        print('commit details $element');
+      final data = gitLabWebhookMapper(jsonPayload: decodedBody);
+      if (data.runtimeType == GitLabIssuePayload) {
+        final payload = data as GitLabIssuePayload;
+        print('Payload: $payload');
+      }
+      if (data.runtimeType == GitLabPayload) {
+        final payload = data as GitLabPayload;
+        print('Payload: $payload');
+        for (var element in payload.commitsDetails) {
+          print('new commit from: ${element.author}');
+          print('in the project: ${payload.projectDetails.name}');
+          print('commit details $element');
+        }
       }
     } catch (e, st) {
       print('Fail at mapping the webhook $e $st');
