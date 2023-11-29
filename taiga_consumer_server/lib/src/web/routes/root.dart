@@ -249,12 +249,19 @@ class RouteGitLab extends WidgetRoute {
     final body = json.decode(decodedBody);
     print('Gitlab Webhook received:');
     print('DecodedBody: $decodedBody');
-    print('Body JsonDecode: $body');
+    print('Data:');
+    // print('Body JsonDecode: $body');
     try {
       final data = gitLabWebhookMapper(jsonPayload: decodedBody);
       if (data.runtimeType == GitLabIssuePayload) {
         final payload = data as GitLabIssuePayload;
-        print('Payload: $payload');
+        print('Payload eventType: ${payload.eventType}');
+        print('Payload labels: ${payload.labels}');
+        print('Payload performer: ${payload.performer}');
+        print('Payload projectDetails: ${payload.projectDetails}');
+        print('Payload Changes: ${payload.changes}');
+        print('Payload relatedRepository: ${payload.relatedRepository}');
+        print('Payload objectAttributes: ${payload.objectAttributes}');
       }
       if (data.runtimeType == GitLabPayload) {
         final payload = data as GitLabPayload;
