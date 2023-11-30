@@ -24,115 +24,118 @@ class RouteRoot extends WidgetRoute {
       if (payload.jobType == 'epic') {
         TaigaEpicData printData = payload.data as TaigaEpicData;
         print('THIS IS DATA: type EPIC');
-        print('creationDate:${printData.creationDate}');
-        print('customValues:${printData.customValues}');
-        print('fromProject:${printData.fromProject}');
-        print('jobDescription:${printData.jobDescription}');
-        print('jobId:${printData.jobId}');
-        print('jobName:${printData.jobName}');
-        print('jobOwner:${printData.jobOwner}');
-        print('jobStatus:${printData.jobStatus}');
-        print('jobWatchers:${printData.jobWatchers}');
-        print('modifiedDate:${printData.modifiedDate}');
-        print('permalink:${printData.jobPermalink}');
-        print('referenceNumber:${printData.referenceNumber}');
-        print('tags:${printData.jobTags}');
-        print('userAssigned:${printData.userAssigned}');
-        print('clientRequirement:${printData.clientRequirementStatus}');
-        print('color:${printData.color}');
-        print('epicsOrder:${printData.epicsOrder}');
-        print('teamRequirement:${printData.teamRequirementStatus}');
+        print('EPIC creationDate:${printData.creationDate}');
+        print('EPIC customValues:${printData.customValues}');
+        print('EPIC fromProject:${printData.fromProject}');
+        print('EPIC jobDescription:${printData.jobDescription}');
+        print('EPIC jobId:${printData.jobId}');
+        print('EPIC jobName:${printData.jobName}');
+        print('EPIC jobOwner:${printData.jobOwner}');
+        print('EPIC jobStatus:${printData.jobStatus}');
+        print('EPIC jobWatchers:${printData.jobWatchers}');
+        print('EPIC modifiedDate:${printData.modifiedDate}');
+        print('EPIC permalink:${printData.jobPermalink}');
+        print('EPIC referenceNumber:${printData.referenceNumber}');
+        print('EPIC tags:${printData.jobTags}');
+        print('EPIC userAssigned:${printData.userAssigned}');
+        print('EPIC clientRequirement:${printData.clientRequirementStatus}');
+        print('EPIC color:${printData.color}');
+        print('EPIC epicsOrder:${printData.epicsOrder}');
+        print('EPIC teamRequirement:${printData.teamRequirementStatus}');
       }
       if (payload.jobType == 'task') {
         TaigaTaskData printData = payload.data as TaigaTaskData;
         print('THIS IS DATA: type TASK');
-        print('dueDate:${printData.dueDate}');
-        print('dueDateReason:${printData.dueDateReason}');
-        print('finishedDate:${printData.finishedDate}');
-        print('promotedTo:${printData.promotedToList}');
-        print('creationDate:${printData.creationDate}');
-        print('customValues:${printData.customValues}');
-        print('fromProject:${printData.fromProject}');
-        print('jobDescription:${printData.jobDescription}');
-        print('jobId:${printData.jobId}');
-        print('jobName:${printData.jobName}');
-        print('jobOwner:${printData.jobOwner}');
-        print('jobStatus:${printData.jobStatus}');
-        print('jobWatchers:${printData.jobWatchers}');
-        print('modifiedDate:${printData.modifiedDate}');
-        print('permalink:${printData.jobPermalink}');
-        print('referenceNumber:${printData.referenceNumber}');
-        print('tags:${printData.jobTags}');
-        print('userAssigned:${printData.userAssigned}');
-        print('isBlocked:${printData.isBlockedStatus}');
-        print('blockedNote:${printData.blockedNote}');
-        print('isIocaine:${printData.isIocaineStatus}');
-        print('promotedTo:${printData.promotedToList}');
-        print('relatedSprint:${printData.relatedSprint}');
-        print('taskboardOrder:${printData.taskboardOrder}');
-        print('usOrder:${printData.usOrder}');
-        print('userStory:${printData.userStory}');
+        print('TASK dueDate:${printData.dueDate}');
+        print('TASK dueDateReason:${printData.dueDateReason}');
+        print('TASK finishedDate:${printData.finishedDate}');
+        print('TASK promotedTo:${printData.promotedToList}');
+        print('TASK creationDate:${printData.creationDate}');
+        print('TASK customValues:${printData.customValues}');
+        print('TASK fromProject:${printData.fromProject}');
+        print('TASK jobDescription:${printData.jobDescription}');
+        print('TASK jobId:${printData.jobId}');
+        print('TASK jobName:${printData.jobName}');
+        print('TASK jobOwner:${printData.jobOwner}');
+        print('TASK jobStatus:${printData.jobStatus}');
+        print('TASK jobWatchers:${printData.jobWatchers}');
+        print('TASK modifiedDate:${printData.modifiedDate}');
+        print('TASK permalink:${printData.jobPermalink}');
+        print('TASK referenceNumber:${printData.referenceNumber}');
+        print('TASK tags:${printData.jobTags}');
+        print('TASK userAssigned:${printData.userAssigned}');
+        print('TASK isBlocked:${printData.isBlockedStatus}');
+        print('TASK blockedNote:${printData.blockedNote}');
+        print('TASK isIocaine:${printData.isIocaineStatus}');
+        print('TASK promotedTo:${printData.promotedToList}');
+        print('TASK relatedSprint:${printData.relatedSprint}');
+        print('TASK taskboardOrder:${printData.taskboardOrder}');
+        print('TASK usOrder:${printData.usOrder}');
+        print('TASK userStory:${printData.userStory}');
       }
       if (payload.jobType == 'issue') {
         TaigaIssueData printData = payload.data as TaigaIssueData;
-        print('THIS IS DATA: type ISSUE');
-        print('dueDate:${printData.dueDate}');
-        print('dueDateReason:${printData.dueDateReason}');
-        print('finishedDate:${printData.finishedDate}');
-        print('priority:${printData.issuePriority}');
-        print('promotedTo:${printData.promotedToList}');
-        print('severity:${printData.issueSeverity}');
-        print('sprint:${printData.issueRelatedSprint}');
-        print('type:${printData.issueType}');
-        print('creationDate:${printData.creationDate}');
-        print('customValues:${printData.customValues}');
-        print('fromProject:${printData.fromProject}');
-        print('jobDescription:${printData.jobDescription}');
-        print('jobId:${printData.jobId}');
-        print('jobName:${printData.jobName}');
-        print('jobOwner:${printData.jobOwner}');
-        print('jobStatus:${printData.jobStatus}');
-        print('jobWatchers:${printData.jobWatchers}');
-        print('modifiedDate:${printData.modifiedDate}');
-        print('permalink:${printData.jobPermalink}');
-        print('referenceNumber:${printData.referenceNumber}');
-        print('tags:${printData.dueDate}');
-        print('userAssigned:${printData.userAssigned}');
+        print('ISSUE THIS IS DATA: type ISSUE');
+        print('ISSUE dueDate:${printData.dueDate}');
+        print('ISSUE dueDateReason:${printData.dueDateReason}');
+        print('ISSUE finishedDate:${printData.finishedDate}');
+        print('ISSUE priority:${printData.issuePriority}');
+        print('ISSUE promotedTo:${printData.promotedToList}');
+        print('ISSUE severity:${printData.issueSeverity}');
+        print('ISSUE sprint:${printData.issueRelatedSprint}');
+        print('ISSUE type:${printData.issueType}');
+        print('ISSUE creationDate:${printData.creationDate}');
+        print('ISSUE customValues:${printData.customValues}');
+        print('ISSUE fromProject:${printData.fromProject}');
+        print('ISSUE jobDescription:${printData.jobDescription}');
+        print('ISSUE jobId:${printData.jobId}');
+        print('ISSUE jobName:${printData.jobName}');
+        print('ISSUE jobOwner:${printData.jobOwner}');
+        print('ISSUE jobStatus:${printData.jobStatus}');
+        print('ISSUE jobWatchers:${printData.jobWatchers}');
+        print('ISSUE modifiedDate:${printData.modifiedDate}');
+        print('ISSUE permalink:${printData.jobPermalink}');
+        print('ISSUE referenceNumber:${printData.referenceNumber}');
+        print('ISSUE tags:${printData.dueDate}');
+        print('ISSUE userAssigned:${printData.userAssigned}');
       }
       if (payload.jobType == 'userstory') {
         TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
         print('THIS IS DATA: type USERSTORY');
-        print('assignedUsers:${printData.assignedUsers}');
-        print('blockedNote:${printData.blockedNote}');
-        print('clientRequirement:${printData.clientRequirementStatus}');
-        print('dueDate:${printData.dueDate}');
-        print('dueDateReason:${printData.dueDateReason}');
-        print('finishDate:${printData.finishDate}');
-        print('fromTaskRef:${printData.taskReference}');
-        print('generatedFromIssue:${printData.issueReference}');
-        print('isBlocked:${printData.isBlockedStatus}');
-        print('isClosed:${printData.isClosed}');
-        print('sprint:${printData.relatedSprint}');
-        print('points:${printData.storyPoints}');
-        print('teamRequirement:${printData.teamRequirementStatus}');
-        print('assignedTo:${printData.assignedUsers}');
-        print('createdDate:${printData.creationDate}');
-        print('customAttributesValues:${printData.customValues?.bounty}');
-        print('customAttributesValues:${printData.customValues?.figmaUrl}');
-        print('description:${printData.jobDescription}');
-        print('id:${printData.jobId}');
-        print('modifiedDate:${printData.modifiedDate}');
-        print('owner FullName:${printData.jobOwner.fullName}');
-        print('permalink:${printData.jobPermalink}');
-        print('project:${printData.fromProject}');
-        print('ref:${printData.referenceNumber}');
-        print('status:${printData.jobStatus}');
-        print('subject:${printData.jobName}');
-        print('tags:${printData.taskReference}');
-        print('watchers:${printData.jobWatchers}');
+        print('USERSTORY assignedUsers:${printData.assignedUsers}');
+        print('USERSTORY blockedNote:${printData.blockedNote}');
+        print(
+            'USERSTORY clientRequirement:${printData.clientRequirementStatus}');
+        print('USERSTORY dueDate:${printData.dueDate}');
+        print('USERSTORY dueDateReason:${printData.dueDateReason}');
+        print('USERSTORY finishDate:${printData.finishDate}');
+        print('USERSTORY fromTaskRef:${printData.taskReference}');
+        print('USERSTORY generatedFromIssue:${printData.issueReference}');
+        print('USERSTORY isBlocked:${printData.isBlockedStatus}');
+        print('USERSTORY isClosed:${printData.isClosed}');
+        print('USERSTORY sprint:${printData.relatedSprint}');
+        print('USERSTORY points:${printData.storyPoints}');
+        print('USERSTORY teamRequirement:${printData.teamRequirementStatus}');
+        print('USERSTORY assignedTo:${printData.assignedUsers}');
+        print('USERSTORY createdDate:${printData.creationDate}');
+        print(
+            'USERSTORY customAttributesValues:${printData.customValues?.bounty}');
+        print(
+            'USERSTORY customAttributesValues:${printData.customValues?.figmaUrl}');
+        print('USERSTORY description:${printData.jobDescription}');
+        print('USERSTORY id:${printData.jobId}');
+        print('USERSTORY modifiedDate:${printData.modifiedDate}');
+        print('USERSTORY owner FullName:${printData.jobOwner.fullName}');
+        print('USERSTORY permalink:${printData.jobPermalink}');
+        print('USERSTORY project:${printData.fromProject}');
+        print('USERSTORY ref:${printData.referenceNumber}');
+        print('USERSTORY status:${printData.jobStatus}');
+        print('USERSTORY subject:${printData.jobName}');
+        print('USERSTORY tags:${printData.taskReference}');
+        print('USERSTORY watchers:${printData.jobWatchers}');
         if (printData.storyPoints.isNotEmpty) {
           for (var element in printData.storyPoints) {
-            print('data');
+            print('STORY POINTS:');
             print('Name:${element.pointName}');
             print('Role ${element.pointAssignedRole}');
             print('Value: ${element.pointAmount}');
@@ -142,18 +145,31 @@ class RouteRoot extends WidgetRoute {
       if (payload.jobType == 'milestone') {
         DataSprint printData = payload.data as DataSprint;
         print('THIS IS DATA: type SPRINT');
-        print('createdBy:${printData.createdBy}');
-        print('createdDate:${printData.creationDate}');
-        print('disponibility:${printData.disponibility}');
-        print('estimatedFinishDate:${printData.estimatedFinishDate}');
-        print('estimatedStartDate:${printData.estimatedStartDate}');
-        print('isClosed:${printData.sprintClosedStatus}');
-        print('modifiedDate:${printData.modifiedDate}');
-        print('permalink:${printData.sprintPermalink}');
-        print('project:${printData.project}');
-        print('slug:${printData.sprintSlug}');
-        print('sprintId:${printData.sprintId}');
-        print('sprintName:${printData.sprintName}');
+        print('SPRINT createdBy:${printData.createdBy}');
+        print('SPRINT createdDate:${printData.creationDate}');
+        print('SPRINT disponibility:${printData.disponibility}');
+        print('SPRINT estimatedFinishDate:${printData.estimatedFinishDate}');
+        print('SPRINT estimatedStartDate:${printData.estimatedStartDate}');
+        print('SPRINT isClosed:${printData.sprintClosedStatus}');
+        print('SPRINT modifiedDate:${printData.modifiedDate}');
+        print('SPRINT permalink:${printData.sprintPermalink}');
+        print('SPRINT project:${printData.project}');
+        print('SPRINT slug:${printData.sprintSlug}');
+        print('SPRINT sprintId:${printData.sprintId}');
+        print('SPRINT sprintName:${printData.sprintName}');
+      }
+      if (payload.jobType == 'wikipage') {
+        DataWikiPage printData = payload.data as DataWikiPage;
+        print('THIS IS DATA: type WIKIPAGE');
+        print('WIKIPAGE id:${printData.id}');
+        print('WIKIPAGE content:${printData.content}');
+        print('WIKIPAGE creationDate:${printData.creationDate}');
+        print('WIKIPAGE lastUserModifier:${printData.lastUserModifier}');
+        print('WIKIPAGE modifiedDate:${printData.modifiedDate}');
+        print('WIKIPAGE permalink:${printData.permalink}');
+        print('WIKIPAGE relatedProject:${printData.relatedProject}');
+        print('WIKIPAGE slug:${printData.slug}');
+        print('WIKIPAGE userOwner:${printData.userOwner}');
       }
       if (payload.actionType == "change") {
         print('THIS IS CHANGE:');
@@ -186,6 +202,7 @@ class RouteRoot extends WidgetRoute {
           print(payload.change?.difference?.tags);
         }
         if (payload.change?.difference?.descriptionDiff != null) {
+          print('There is a change on the description:');
           print(payload.change?.difference?.descriptionDiff);
         }
         if (payload.change?.difference?.isClosedStatus != null) {
@@ -261,7 +278,7 @@ class RouteGitLab extends WidgetRoute {
         print('Payload projectDetails: ${payload.projectDetails}');
         print('Payload Changes: ${payload.changes}');
         print('Payload relatedRepository: ${payload.relatedRepository}');
-        print('Payload objectAttributes: ${payload.objectAttributes}');
+        print('Payload objectAttributes: ${payload.issueDetails}');
       }
       if (data.runtimeType == GitLabPayload) {
         final payload = data as GitLabPayload;
