@@ -98,7 +98,7 @@ void main() {
     print('USERSTORY fromTaskRef:${printData.taskReference}');
     print('USERSTORY generatedFromIssue:${printData.issueReference}');
     print('USERSTORY isBlocked:${printData.isBlockedStatus}');
-    print('USERSTORY isClosed:${printData.isClosed}');
+    print('USERSTORY isClosed:${printData.isClosedStatus}');
     print('USERSTORY sprint:${printData.relatedSprint}');
     print('USERSTORY points:${printData.storyPoints}');
     print('USERSTORY teamRequirement:${printData.teamRequirementStatus}');
@@ -153,7 +153,7 @@ void main() {
     print('WIKIPAGE modifiedDate:${printData.modifiedDate}');
     print('WIKIPAGE permalink:${printData.permalink}');
     print('WIKIPAGE relatedProject:${printData.relatedProject}');
-    print('WIKIPAGE slug:${printData.slug}');
+    print('WIKIPAGE slug:${printData.wikiSlug}');
     print('WIKIPAGE userOwner:${printData.userOwner}');
   }
   if (payload.actionType == "change") {
@@ -183,8 +183,8 @@ void main() {
     if (payload.change?.difference?.promotedTo != null) {
       print(payload.change?.difference?.promotedTo);
     }
-    if (payload.change?.difference?.tags != null) {
-      print(payload.change?.difference?.tags);
+    if (payload.change?.difference?.changeTags != null) {
+      print(payload.change?.difference?.changeTags);
     }
     if (payload.change?.difference?.descriptionDiff != null) {
       print('There is a change on the description:');
