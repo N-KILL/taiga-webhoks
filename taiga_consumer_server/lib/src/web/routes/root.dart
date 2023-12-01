@@ -133,12 +133,7 @@ class RouteRoot extends WidgetRoute {
         print('USERSTORY tags:${printData.taskReference}');
         print('USERSTORY watchers:${printData.jobWatchers}');
         if (printData.storyPoints.isNotEmpty) {
-          for (var element in printData.storyPoints) {
-            print('STORY POINTS:');
-            print('Name:${element.pointName}');
-            print('Role ${element.pointAssignedRole}');
-            print('Value: ${element.pointAmount}');
-          }
+          print('USERSTORY Story Points: ${printData.storyPoints}');
         }
         if (printData.customValues!.isNotEmpty) {
           print(NidusCustomFields.fromJson(jsonEncode(printData.customValues)));
