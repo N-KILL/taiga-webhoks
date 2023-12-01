@@ -4,7 +4,7 @@ part 'nidus_custom_fields.mapper.dart';
 
 /// This `NidusCustomFields` class will storage all the custom fields on a 
 /// object, this customized into the `Nidus` custom fields, on `Taiga projects`
-@MappableClass(caseStyle: CaseStyle.snakeCase)
+@MappableClass()
 class NidusCustomFields with NidusCustomFieldsMappable {
   /// Constructor of the TaigaCustomAttributes class
   NidusCustomFields({

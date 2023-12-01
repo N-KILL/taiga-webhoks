@@ -140,7 +140,7 @@ class RouteRoot extends WidgetRoute {
         }
       }
       if (payload.jobType == 'milestone') {
-        DataSprint printData = payload.data as DataSprint;
+        TaigaSprintData printData = payload.data as TaigaSprintData;
         print('THIS IS DATA: type SPRINT');
         print('SPRINT createdBy:${printData.createdBy}');
         print('SPRINT createdDate:${printData.creationDate}');
@@ -156,7 +156,7 @@ class RouteRoot extends WidgetRoute {
         print('SPRINT sprintName:${printData.sprintName}');
       }
       if (payload.jobType == 'wikipage') {
-        DataWikiPage printData = payload.data as DataWikiPage;
+        TaigaWikiPageData printData = payload.data as TaigaWikiPageData;
         print('THIS IS DATA: type WIKIPAGE');
         print('WIKIPAGE id:${printData.id}');
         print('WIKIPAGE content:${printData.content}');

@@ -131,7 +131,7 @@ void main() {
     }
   }
   if (payload.jobType == 'milestone') {
-    DataSprint printData = payload.data as DataSprint;
+    TaigaSprintData printData = payload.data as TaigaSprintData;
     print('THIS IS DATA: type SPRINT');
     print('SPRINT createdBy:${printData.createdBy}');
     print('SPRINT createdDate:${printData.creationDate}');
@@ -147,7 +147,7 @@ void main() {
     print('SPRINT sprintName:${printData.sprintName}');
   }
   if (payload.jobType == 'wikipage') {
-    DataWikiPage printData = payload.data as DataWikiPage;
+    TaigaWikiPageData printData = payload.data as TaigaWikiPageData;
     print('THIS IS DATA: type WIKIPAGE');
     print('WIKIPAGE id:${printData.id}');
     print('WIKIPAGE content:${printData.content}');
@@ -247,201 +247,89 @@ void main() {
 }
 
 final body = {
-  "by": {
-    "id": 588936,
-    "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AMxBS3s-UwlyDaP3x-Ffy1JHU8xLXqtXyneBozdeJxcKdDSvuJvsYMbGB-NcFXa5rNRJIuI3OdPBdoZfhBkCqQw",
-    "username": "CardozoIgnacio",
-    "full_name": "Ignacio Cardozo",
-    "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
-    "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
-  },
-  "data": {
-    "id": 5214571,
-    "ref": 64,
-    "tags": [],
-    "owner": {
-      "id": 588936,
-      "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AMxBS3s-UwlyDaP3x-Ffy1JHU8xLXqtXyneBozdeJxcKdDSvuJvsYMbGB-NcFXa5rNRJIuI3OdPBdoZfhBkCqQw",
-      "username": "CardozoIgnacio",
-      "full_name": "Ignacio Cardozo",
-      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
-      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
-    },
-    "status": {
-      "id": 5890300,
-      "name": "In progress",
-      "slug": "in-progress",
-      "color": "#E47C40",
-      "is_closed": false
-    },
-    "project": {
-      "id": 1179467,
-      "name": "Esteban se la come",
-      "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-      "logo_big_url": null
-    },
-    "subject": "new subject task",
-    "due_date": null,
-    "us_order": 1701358926510,
-    "watchers": [],
-    "milestone": {
-      "id": 369042,
-      "name": "Sprint de prueba",
-      "slug": "sprint-de-prueba-5",
-      "owner": {
-        "id": 541426,
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AgHutumAt_jtDlpxLKSbOjdlbcUDesiSTu8r1CqHSFH9X1FZIgo0mCA9FHLJChGC-FbNV07Q3k9P-Tw282a5PDg",
-        "username": "guillermobianchi1990",
-        "full_name": "Guillermo Bianchi",
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-      },
-      "closed": false,
-      "project": {
-        "id": 1179467,
-        "name": "Esteban se la come",
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "logo_big_url": null
-      },
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-      "created_date": "2023-11-09T17:41:42.747Z",
-      "disponibility": 0,
-      "modified_date": "2023-11-09T17:41:42.759Z",
-      "estimated_start": "2023-11-09",
-      "estimated_finish": "2023-11-23"
-    },
-    "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/task/64",
-    "is_blocked": false,
-    "is_iocaine": false,
-    "user_story": {
-      "id": 5247286,
-      "ref": 2,
-      "tags": [],
-      "owner": {
-        "id": 541426,
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AgHutumAt_jtDlpxLKSbOjdlbcUDesiSTu8r1CqHSFH9X1FZIgo0mCA9FHLJChGC-FbNV07Q3k9P-Tw282a5PDg",
-        "username": "guillermobianchi1990",
-        "full_name": "Guillermo Bianchi",
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-      },
-      "points": [
-        {"name": "?", "role": "Design", "value": null},
-        {"name": "?", "role": "Front", "value": null},
-        {"name": "?", "role": "Back", "value": null},
-        {"name": "?", "role": "Project Manager", "value": null}
-      ],
-      "status": {
-        "id": 7101919,
-        "name": "Lista",
-        "slug": "lista",
-        "color": "#A8E440",
-        "is_closed": true,
-        "is_archived": false
-      },
-      "project": {
-        "id": 1179467,
-        "name": "Esteban se la come",
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "logo_big_url": null
-      },
-      "subject": "Se me ocurrio una idea",
-      "due_date": null,
-      "watchers": [],
-      "is_closed": false,
-      "milestone": {
-        "id": 369042,
-        "name": "Sprint de prueba",
-        "slug": "sprint-de-prueba-5",
-        "owner": {
-          "id": 541426,
-          "photo":
-              "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AgHutumAt_jtDlpxLKSbOjdlbcUDesiSTu8r1CqHSFH9X1FZIgo0mCA9FHLJChGC-FbNV07Q3k9P-Tw282a5PDg",
-          "username": "guillermobianchi1990",
-          "full_name": "Guillermo Bianchi",
-          "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-          "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-        },
-        "closed": false,
-        "project": {
-          "id": 1179467,
-          "name": "Esteban se la come",
-          "permalink":
-              "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-          "logo_big_url": null
-        },
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-        "created_date": "2023-11-09T17:41:42.747Z",
-        "disponibility": 0,
-        "modified_date": "2023-11-09T17:41:42.759Z",
-        "estimated_start": "2023-11-09",
-        "estimated_finish": "2023-11-23"
-      },
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/2",
-      "tribe_gig": null,
-      "is_blocked": false,
-      "assigned_to": null,
-      "description": "efwfwf",
-      "finish_date": null,
-      "blocked_note": "",
-      "created_date": "2023-11-09T17:39:43.407Z",
-      "from_task_ref": null,
-      "modified_date": "2023-11-09T17:39:43.407Z",
-      "assigned_users": [],
-      "due_date_reason": "",
-      "team_requirement": false,
-      "client_requirement": false,
-      "external_reference": null,
-      "generated_from_task": null,
-      "generated_from_issue": 1683488,
-      "custom_attributes_values": {}
-    },
-    "assigned_to": null,
-    "description": "",
-    "promoted_to": [],
-    "blocked_note": "",
-    "created_date": "2023-11-30T15:42:06.533Z",
-    "finished_date": null,
-    "modified_date": "2023-11-30T15:42:09.911Z",
-    "due_date_reason": "",
-    "taskboard_order": 1,
-    "external_reference": null,
-    "custom_attributes_values": {"Bounty": 6, "Componente en el Figma": "a.com"}
-  },
-  "date": "2023-12-01T13:12:36.822Z",
-  "type": "task",
-  "action": "change",
-  "change": {
-    "diff": {
-      "custom_attributes": {
-        "new": [],
-        "changed": [
-          {
-            "name": "Bounty",
-            "type": "number",
-            "changes": {
-              "value": [5, 6]
-            },
-            "value_diff": [5, 6]
-          }
+    "type": "userstory",
+    "date": "2016-04-12T12:17:20.486Z",
+    "action": "create",
+    "data": {
+        "custom_attributes_values": {"Name of your field on Taiga": "Your field value"},
+        "due_date": null,
+        "due_date_reason": "",
+        "watchers": [],
+        "permalink": "http://localhost:9001/project/project-0/us/72",
+        "tags": [
+            "dolorum",
+            "adipisci",
+            "ipsa"
         ],
-        "deleted": []
-      }
+        "external_reference": null,
+        "project": {
+            "id": 1,
+            "permalink": "http://localhost:9001/project/project-0",
+            "name": "Project Example 0",
+            "logo_big_url": null
+        },
+        "owner": {
+            "id": 6,
+            "permalink": "http://localhost:9001/profile/user1",
+            "username": "user1",
+            "full_name": "Purificacion Montero",
+            "photo": "//media.taiga.io/avatar.80x80_q85_crop.png",
+            "gravatar_id": "464bb6d514c3ecece1b87136ceeda1da"
+        },
+        "assigned_to": null,
+        "assigned_users": [],
+        "points": [
+            {
+                "role": "UX",
+                "name": "5",
+                "value": 5.0
+            },
+            {
+                "role": "Design",
+                "name": "1",
+                "value": 1.0
+            },
+            {
+                "role": "Front",
+                "name": "3",
+                "value": 3.0
+            },
+            {
+                "role": "Back",
+                "name": "40",
+                "value": 40.0
+            }
+        ],
+        "status": {
+            "id": 1,
+            "name": "New",
+            "slug": "new",
+            "color": "#999999",
+            "is_closed": false,
+            "is_archived": false
+        },
+        "milestone": null,
+        "id": 139,
+        "is_blocked": true,
+        "blocked_note": "Blocked test message",
+        "ref": 72,
+        "is_closed": false,
+        "created_date": "2016-04-12T12:17:19+0000",
+        "modified_date": "2016-04-12T12:17:19+0000",
+        "finish_date": null,
+        "subject": "test user story 5",
+        "description": "this is a test description",
+        "client_requirement": false,
+        "team_requirement": true,
+        "generated_from_issue": null,
+        "tribe_gig": null
     },
-    "comment": "",
-    "comment_html": "",
-    "comment_versions": null,
-    "edit_comment_date": null,
-    "delete_comment_date": null
-  }
+    "by": {
+        "id": 6,
+        "permalink": "http://localhost:9001/profile/user1",
+        "username": "user1",
+        "full_name": "Purificacion Montero",
+        "photo": "//media.taiga.io/avatar.80x80_q85_crop.png",
+        "gravatar_id": "464bb6d514c3ecece1b87136ceeda1da"
+    }
 };
