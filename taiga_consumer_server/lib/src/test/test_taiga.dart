@@ -171,8 +171,13 @@ void main() {
     if (payload.change?.difference?.attachments != null) {
       print(payload.change?.difference?.attachments);
     }
-    if (payload.change?.difference?.assignedTo != null) {
-      print(payload.change?.difference?.assignedTo);
+    if (payload.change?.difference?.assignedToJob != null) {
+      print('Change on assignedTo');
+      print(payload.change?.difference?.assignedToJob);
+    }
+    if (payload.change?.difference?.assignedToUserStory != null) {
+      print('Change on assignedTo');
+      print(payload.change?.difference?.assignedToUserStory);
     }
     if (payload.change?.difference?.dueDate != null) {
       print(payload.change?.difference?.dueDate);

@@ -183,9 +183,13 @@ class RouteRoot extends WidgetRoute {
           print('Change on attachments');
           print(payload.change?.difference?.attachments);
         }
-        if (payload.change?.difference?.assignedTo != null) {
+        if (payload.change?.difference?.assignedToJob != null) {
           print('Change on assignedTo');
-          print(payload.change?.difference?.assignedTo);
+          print(payload.change?.difference?.assignedToJob);
+        }
+        if (payload.change?.difference?.assignedToUserStory != null) {
+          print('Change on assignedTo');
+          print(payload.change?.difference?.assignedToUserStory);
         }
         if (payload.change?.difference?.dueDate != null) {
           print('Change on dueDate');
