@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:taiga_consumer_server/src/models/nidus_custom_fields.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
 
 void main() {
@@ -38,7 +39,6 @@ void main() {
     print('TASK finishedDate:${printData.finishedDate}');
     print('TASK promotedTo:${printData.promotedToList}');
     print('TASK creationDate:${printData.creationDate}');
-    print('TASK customValues:${printData.customValues}');
     print('TASK fromProject:${printData.fromProject}');
     print('TASK jobDescription:${printData.jobDescription}');
     print('TASK jobId:${printData.jobId}');
@@ -59,6 +59,9 @@ void main() {
     print('TASK taskboardOrder:${printData.taskboardOrder}');
     print('TASK usOrder:${printData.usOrder}');
     print('TASK userStory:${printData.userStory}');
+    if (printData.customValues!.isNotEmpty) {
+      print(NidusCustomFields.fromJson(jsonEncode(printData.customValues)));
+    }
   }
   if (payload.jobType == 'issue') {
     TaigaIssueData printData = payload.data as TaigaIssueData;
@@ -104,9 +107,6 @@ void main() {
     print('USERSTORY teamRequirement:${printData.teamRequirementStatus}');
     print('USERSTORY assignedTo:${printData.assignedUsers}');
     print('USERSTORY createdDate:${printData.creationDate}');
-    print('USERSTORY customAttributesValues:${printData.customValues?.bounty}');
-    print(
-        'USERSTORY customAttributesValues:${printData.customValues?.figmaUrl}');
     print('USERSTORY description:${printData.jobDescription}');
     print('USERSTORY id:${printData.jobId}');
     print('USERSTORY modifiedDate:${printData.modifiedDate}');
@@ -125,6 +125,9 @@ void main() {
         print('Role ${element.pointAssignedRole}');
         print('Value: ${element.pointAmount}');
       }
+    }
+    if (printData.customValues!.isNotEmpty) {
+      print(NidusCustomFields.fromJson(jsonEncode(printData.customValues)));
     }
   }
   if (payload.jobType == 'milestone') {
@@ -239,58 +242,28 @@ void main() {
 }
 
 final body = {
-  "action": "change",
-  "type": "task",
   "by": {
     "id": 588936,
-    "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+    "photo":
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AMxBS3s-UwlyDaP3x-Ffy1JHU8xLXqtXyneBozdeJxcKdDSvuJvsYMbGB-NcFXa5rNRJIuI3OdPBdoZfhBkCqQw",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
-    "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWnKYA%3Ah1tlFtm5OTf6yB-WlVzW-q5yEl3CVIvmTQNdQe0vKU-bIkOYCLRlbV2pR58nq9Vl9PR_g58ARLfZ_RPTTl2MXg",
+    "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
-  "date": "2023-12-01T11:58:24.756Z",
   "data": {
-    "custom_attributes_values": {
-      "Bounty": 5,
-      "Componente en el Figma": "a.com"
-    },
     "id": 5214571,
     "ref": 64,
-    "created_date": "2023-11-30T15:42:06.533Z",
-    "modified_date": "2023-11-30T15:42:09.911Z",
-    "finished_date": null,
-    "due_date": null,
-    "due_date_reason": "",
-    "subject": "new subject task",
-    "us_order": 1701358926510,
-    "taskboard_order": 1,
-    "is_iocaine": false,
-    "external_reference": null,
-    "watchers": [],
-    "is_blocked": false,
-    "blocked_note": "",
-    "description": "",
     "tags": [],
-    "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/task/64",
-    "project": {
-      "id": 1179467,
-      "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-      "name": "Esteban se la come",
-      "logo_big_url": null
-    },
     "owner": {
       "id": 588936,
-      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+      "photo":
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AMxBS3s-UwlyDaP3x-Ffy1JHU8xLXqtXyneBozdeJxcKdDSvuJvsYMbGB-NcFXa5rNRJIuI3OdPBdoZfhBkCqQw",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
-      "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZWnKYA%3Ah1tlFtm5OTf6yB-WlVzW-q5yEl3CVIvmTQNdQe0vKU-bIkOYCLRlbV2pR58nq9Vl9PR_g58ARLfZ_RPTTl2MXg",
+      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
       "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
-    "assigned_to": null,
     "status": {
       "id": 5890300,
       "name": "In progress",
@@ -298,54 +271,67 @@ final body = {
       "color": "#E47C40",
       "is_closed": false
     },
-    "user_story": {
-      "custom_attributes_values": {},
-      "id": 5247286,
-      "ref": 2,
-      "project": {
-        "id": 1179467,
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "name": "Esteban se la come",
-        "logo_big_url": null
-      },
-      "is_closed": false,
-      "created_date": "2023-11-09T17:39:43.407Z",
-      "modified_date": "2023-11-09T17:39:43.407Z",
-      "finish_date": null,
-      "due_date": null,
-      "due_date_reason": "",
-      "subject": "Se me ocurrio una idea",
-      "client_requirement": false,
-      "team_requirement": false,
-      "generated_from_issue": 1683488,
-      "generated_from_task": null,
-      "from_task_ref": null,
-      "external_reference": null,
-      "tribe_gig": null,
-      "watchers": [],
-      "is_blocked": false,
-      "blocked_note": "",
-      "description": "efwfwf",
-      "tags": [],
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/2",
+    "project": {
+      "id": 1179467,
+      "name": "Esteban se la come",
+      "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
+      "logo_big_url": null
+    },
+    "subject": "new subject task",
+    "due_date": null,
+    "us_order": 1701358926510,
+    "watchers": [],
+    "milestone": {
+      "id": 369042,
+      "name": "Sprint de prueba",
+      "slug": "sprint-de-prueba-5",
       "owner": {
         "id": 541426,
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
+        "photo":
+            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AgHutumAt_jtDlpxLKSbOjdlbcUDesiSTu8r1CqHSFH9X1FZIgo0mCA9FHLJChGC-FbNV07Q3k9P-Tw282a5PDg",
         "username": "guillermobianchi1990",
         "full_name": "Guillermo Bianchi",
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnKYA%3AjxoKjZvVc9Tn1J0O0ySYRKJg4luAUwOgd8pkEGvD8_O7bl9l-vTMjz0grZw4eVLSFZYqAAtHOJUcG5eu7WOtbw",
+        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
         "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
       },
-      "assigned_to": null,
-      "assigned_users": [],
+      "closed": false,
+      "project": {
+        "id": 1179467,
+        "name": "Esteban se la come",
+        "permalink":
+            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
+        "logo_big_url": null
+      },
+      "permalink":
+          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
+      "created_date": "2023-11-09T17:41:42.747Z",
+      "disponibility": 0,
+      "modified_date": "2023-11-09T17:41:42.759Z",
+      "estimated_start": "2023-11-09",
+      "estimated_finish": "2023-11-23"
+    },
+    "permalink":
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/task/64",
+    "is_blocked": false,
+    "is_iocaine": false,
+    "user_story": {
+      "id": 5247286,
+      "ref": 2,
+      "tags": [],
+      "owner": {
+        "id": 541426,
+        "photo":
+            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AgHutumAt_jtDlpxLKSbOjdlbcUDesiSTu8r1CqHSFH9X1FZIgo0mCA9FHLJChGC-FbNV07Q3k9P-Tw282a5PDg",
+        "username": "guillermobianchi1990",
+        "full_name": "Guillermo Bianchi",
+        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
+        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
+      },
       "points": [
-        {"role": "Design", "name": "?", "value": null},
-        {"role": "Front", "name": "?", "value": null},
-        {"role": "Back", "name": "?", "value": null},
-        {"role": "Project Manager", "name": "?", "value": null}
+        {"name": "?", "role": "Design", "value": null},
+        {"name": "?", "role": "Front", "value": null},
+        {"name": "?", "role": "Back", "value": null},
+        {"name": "?", "role": "Project Manager", "value": null}
       ],
       "status": {
         "id": 7101919,
@@ -355,87 +341,102 @@ final body = {
         "is_closed": true,
         "is_archived": false
       },
+      "project": {
+        "id": 1179467,
+        "name": "Esteban se la come",
+        "permalink":
+            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
+        "logo_big_url": null
+      },
+      "subject": "Se me ocurrio una idea",
+      "due_date": null,
+      "watchers": [],
+      "is_closed": false,
       "milestone": {
         "id": 369042,
         "name": "Sprint de prueba",
         "slug": "sprint-de-prueba-5",
-        "estimated_start": "2023-11-09",
-        "estimated_finish": "2023-11-23",
-        "created_date": "2023-11-09T17:41:42.747Z",
-        "modified_date": "2023-11-09T17:41:42.759Z",
-        "closed": false,
-        "disponibility": 0.0,
-        "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-        "project": {
-          "id": 1179467,
-          "permalink":
-              "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-          "name": "Esteban se la come",
-          "logo_big_url": null
-        },
         "owner": {
           "id": 541426,
-          "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
+          "photo":
+              "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnbxA%3AgHutumAt_jtDlpxLKSbOjdlbcUDesiSTu8r1CqHSFH9X1FZIgo0mCA9FHLJChGC-FbNV07Q3k9P-Tw282a5PDg",
           "username": "guillermobianchi1990",
           "full_name": "Guillermo Bianchi",
-          "photo":
-              "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnKYA%3AjxoKjZvVc9Tn1J0O0ySYRKJg4luAUwOgd8pkEGvD8_O7bl9l-vTMjz0grZw4eVLSFZYqAAtHOJUcG5eu7WOtbw",
+          "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
           "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-        }
-      }
-    },
-    "milestone": {
-      "id": 369042,
-      "name": "Sprint de prueba",
-      "slug": "sprint-de-prueba-5",
-      "estimated_start": "2023-11-09",
-      "estimated_finish": "2023-11-23",
-      "created_date": "2023-11-09T17:41:42.747Z",
-      "modified_date": "2023-11-09T17:41:42.759Z",
-      "closed": false,
-      "disponibility": 0.0,
-      "permalink":
-          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
-      "project": {
-        "id": 1179467,
+        },
+        "closed": false,
+        "project": {
+          "id": 1179467,
+          "name": "Esteban se la come",
+          "permalink":
+              "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
+          "logo_big_url": null
+        },
         "permalink":
-            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
-        "name": "Esteban se la come",
-        "logo_big_url": null
+            "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/taskboard/sprint-de-prueba-5",
+        "created_date": "2023-11-09T17:41:42.747Z",
+        "disponibility": 0,
+        "modified_date": "2023-11-09T17:41:42.759Z",
+        "estimated_start": "2023-11-09",
+        "estimated_finish": "2023-11-23"
       },
-      "owner": {
-        "id": 541426,
-        "permalink": "https://tree.taiga.io/profile/guillermobianchi1990",
-        "username": "guillermobianchi1990",
-        "full_name": "Guillermo Bianchi",
-        "photo":
-            "https://media-protected.taiga.io/user/7/4/2/3/6c549347aaa99c4801b5ae35b4008c33b0c71757da6e0cd8892df9847df2/img_5742.jpg.80x80_q85_crop.jpg?token=ZWnKYA%3AjxoKjZvVc9Tn1J0O0ySYRKJg4luAUwOgd8pkEGvD8_O7bl9l-vTMjz0grZw4eVLSFZYqAAtHOJUcG5eu7WOtbw",
-        "gravatar_id": "849500abaaa965cf9d55cc535d1e8352"
-      }
+      "permalink":
+          "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/us/2",
+      "tribe_gig": null,
+      "is_blocked": false,
+      "assigned_to": null,
+      "description": "efwfwf",
+      "finish_date": null,
+      "blocked_note": "",
+      "created_date": "2023-11-09T17:39:43.407Z",
+      "from_task_ref": null,
+      "modified_date": "2023-11-09T17:39:43.407Z",
+      "assigned_users": [],
+      "due_date_reason": "",
+      "team_requirement": false,
+      "client_requirement": false,
+      "external_reference": null,
+      "generated_from_task": null,
+      "generated_from_issue": 1683488,
+      "custom_attributes_values": {}
     },
-    "promoted_to": []
+    "assigned_to": null,
+    "description": "",
+    "promoted_to": [],
+    "blocked_note": "",
+    "created_date": "2023-11-30T15:42:06.533Z",
+    "finished_date": null,
+    "modified_date": "2023-11-30T15:42:09.911Z",
+    "due_date_reason": "",
+    "taskboard_order": 1,
+    "external_reference": null,
+    "custom_attributes_values": {"Bounty": 6, "Componente en el Figma": "a.com"}
   },
+  "date": "2023-12-01T13:12:36.822Z",
+  "type": "task",
+  "action": "change",
   "change": {
-    "comment": "",
-    "comment_html": "",
-    "delete_comment_date": null,
-    "comment_versions": null,
-    "edit_comment_date": null,
     "diff": {
       "custom_attributes": {
-        "new": [
+        "new": [],
+        "changed": [
           {
-            "id": 22181,
-            "name": "Componente en el Figma",
-            "value": "a.com",
-            "type": "url",
-            "value_diff": "<ins style=\"background:#e6ffe6;\">a.com</ins>"
+            "name": "Bounty",
+            "type": "number",
+            "changes": {
+              "value": [5, 6]
+            },
+            "value_diff": [5, 6]
           }
         ],
-        "changed": [],
         "deleted": []
       }
-    }
+    },
+    "comment": "",
+    "comment_html": "",
+    "comment_versions": null,
+    "edit_comment_date": null,
+    "delete_comment_date": null
   }
 };

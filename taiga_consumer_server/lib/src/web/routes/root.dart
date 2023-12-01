@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:gitlab_rest_models/gitlab_rest_models.dart';
+import 'package:taiga_consumer_server/src/models/nidus_custom_fields.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
@@ -51,7 +52,6 @@ class RouteRoot extends WidgetRoute {
         print('TASK finishedDate:${printData.finishedDate}');
         print('TASK promotedTo:${printData.promotedToList}');
         print('TASK creationDate:${printData.creationDate}');
-        print('TASK customValues:${printData.customValues}');
         print('TASK fromProject:${printData.fromProject}');
         print('TASK jobDescription:${printData.jobDescription}');
         print('TASK jobId:${printData.jobId}');
@@ -72,6 +72,9 @@ class RouteRoot extends WidgetRoute {
         print('TASK taskboardOrder:${printData.taskboardOrder}');
         print('TASK usOrder:${printData.usOrder}');
         print('TASK userStory:${printData.userStory}');
+        if (printData.customValues!.isNotEmpty) {
+          print(NidusCustomFields.fromJson(jsonEncode(printData.customValues)));
+        }
       }
       if (payload.jobType == 'issue') {
         TaigaIssueData printData = payload.data as TaigaIssueData;
@@ -118,10 +121,6 @@ class RouteRoot extends WidgetRoute {
         print('USERSTORY teamRequirement:${printData.teamRequirementStatus}');
         print('USERSTORY assignedTo:${printData.assignedUsers}');
         print('USERSTORY createdDate:${printData.creationDate}');
-        print(
-            'USERSTORY customAttributesValues:${printData.customValues?.bounty}');
-        print(
-            'USERSTORY customAttributesValues:${printData.customValues?.figmaUrl}');
         print('USERSTORY description:${printData.jobDescription}');
         print('USERSTORY id:${printData.jobId}');
         print('USERSTORY modifiedDate:${printData.modifiedDate}');
@@ -140,6 +139,9 @@ class RouteRoot extends WidgetRoute {
             print('Role ${element.pointAssignedRole}');
             print('Value: ${element.pointAmount}');
           }
+        }
+        if (printData.customValues!.isNotEmpty) {
+          print(NidusCustomFields.fromJson(jsonEncode(printData.customValues)));
         }
       }
       if (payload.jobType == 'milestone') {
