@@ -15,7 +15,7 @@ dependencies:
   gitlab_rest_models:
     git:
       url: https://github.com/N-KILL/gitlabREST_models.git
-
+  
 dev_dependencies:
   build_runner: ^2.4.6
   lints: ^2.0.1

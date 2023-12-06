@@ -1,9 +1,16 @@
 import 'dart:convert';
 
+import 'package:gitlab_rest_models/gitlab_rest_models.dart';
 import 'package:taiga_consumer_server/src/models/nidus_custom_fields.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
 
-void main() {
+void main() async {
+  // GITLAB STUFF
+  const gitlabApiUrl = 'https://gitlab.com/api/v4';
+  const projectId = '51929660';
+  const accessToken = 'glpat-yqXm2jRtyFZsfTsszRS-';
+
+  // Data receive stuff
   final payload = TaigaPayload.fromJson(jsonEncode(body));
   print('FullName of performer:${payload.performer.fullName}');
   print('actionType:${payload.actionType}');
@@ -88,6 +95,39 @@ void main() {
     print('ISSUE referenceNumber:${printData.referenceNumber}');
     print('ISSUE tags:${printData.dueDate}');
     print('ISSUE userAssigned:${printData.userAssigned}');
+    if (payload.actionType == 'create') {
+      // TODO (Nacho): Se deberia crear un modelo de usuario en el cual se guardan los usuarios con id de taiga y git
+      final gitlabIssueBody = IssueAPIRequestModel(
+        issueTitle: printData.jobName,
+        assignedToId: null,
+        description: printData.jobDescription,
+        dueDate: printData.dueDate == null ? null : printData.dueDate as String,
+        isConfidential: false,
+        issueLabels: printData.jobTags,
+        issueType: 'issue',
+      );
+      print('Creating a Issue on GITLAB from this Issue');
+      // Create Issue
+      final issueData = await createGitLabIssue(
+          gitlabApiUrl: gitlabApiUrl,
+          projectId: projectId,
+          accessToken: accessToken,
+          body: gitlabIssueBody);
+
+      // Create MR y Branch
+      if (issueData != null) {
+        print('Creating Merge Request and Branch on GITLAB from this Issue');
+
+        await createGitLabBranchAndMRFromIssue(
+          gitlabApiUrl: gitlabApiUrl,
+          projectId: projectId,
+          accessToken: accessToken,
+          issue: issueData,
+          createBranchFromRefBranch: 'main',
+          mergeReqTargetBranch: 'main',
+        );
+      }
+    }
   }
   if (payload.jobType == 'userstory') {
     TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
@@ -247,89 +287,61 @@ void main() {
 }
 
 final body = {
-    "type": "userstory",
-    "date": "2016-04-12T12:17:20.486Z",
-    "action": "create",
-    "data": {
-        "custom_attributes_values": {"Name of your field on Taiga": "Your field value"},
-        "due_date": null,
-        "due_date_reason": "",
-        "watchers": [],
-        "permalink": "http://localhost:9001/project/project-0/us/72",
-        "tags": [
-            "dolorum",
-            "adipisci",
-            "ipsa"
-        ],
-        "external_reference": null,
-        "project": {
-            "id": 1,
-            "permalink": "http://localhost:9001/project/project-0",
-            "name": "Project Example 0",
-            "logo_big_url": null
-        },
-        "owner": {
-            "id": 6,
-            "permalink": "http://localhost:9001/profile/user1",
-            "username": "user1",
-            "full_name": "Purificacion Montero",
-            "photo": "//media.taiga.io/avatar.80x80_q85_crop.png",
-            "gravatar_id": "464bb6d514c3ecece1b87136ceeda1da"
-        },
-        "assigned_to": null,
-        "assigned_users": [],
-        "points": [
-            {
-                "role": "UX",
-                "name": "5",
-                "value": 5.0
-            },
-            {
-                "role": "Design",
-                "name": "1",
-                "value": 1.0
-            },
-            {
-                "role": "Front",
-                "name": "3",
-                "value": 3.0
-            },
-            {
-                "role": "Back",
-                "name": "40",
-                "value": 40.0
-            }
-        ],
-        "status": {
-            "id": 1,
-            "name": "New",
-            "slug": "new",
-            "color": "#999999",
-            "is_closed": false,
-            "is_archived": false
-        },
-        "milestone": null,
-        "id": 139,
-        "is_blocked": true,
-        "blocked_note": "Blocked test message",
-        "ref": 72,
-        "is_closed": false,
-        "created_date": "2016-04-12T12:17:19+0000",
-        "modified_date": "2016-04-12T12:17:19+0000",
-        "finish_date": null,
-        "subject": "test user story 5",
-        "description": "this is a test description",
-        "client_requirement": false,
-        "team_requirement": true,
-        "generated_from_issue": null,
-        "tribe_gig": null
+  "by": {
+    "id": 588936,
+    "photo":
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBtLw%3AXFvSjAsc25D6DK_FOOmXPTQDSq0aZb6FRBKWKrO0e_gHG5Qdpfjvt8EI1cDEjlbysF_tXU5rXtydViMN1JBHtg",
+    "username": "CardozoIgnacio",
+    "full_name": "Ignacio Cardozo",
+    "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+    "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
+  },
+  "data": {
+    "id": 1695847,
+    "ref": 71,
+    "tags": [],
+    "type": {"id": 3547927, "name": "Enhancement", "color": "#40E4CE"},
+    "owner": {
+      "id": 588936,
+      "photo":
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBtLw%3AXFvSjAsc25D6DK_FOOmXPTQDSq0aZb6FRBKWKrO0e_gHG5Qdpfjvt8EI1cDEjlbysF_tXU5rXtydViMN1JBHtg",
+      "username": "CardozoIgnacio",
+      "full_name": "Ignacio Cardozo",
+      "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
+      "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
     },
-    "by": {
-        "id": 6,
-        "permalink": "http://localhost:9001/profile/user1",
-        "username": "user1",
-        "full_name": "Purificacion Montero",
-        "photo": "//media.taiga.io/avatar.80x80_q85_crop.png",
-        "gravatar_id": "464bb6d514c3ecece1b87136ceeda1da"
-    }
+    "status": {
+      "id": 8259988,
+      "name": "New",
+      "slug": "new",
+      "color": "#70728F",
+      "is_closed": false
+    },
+    "project": {
+      "id": 1179467,
+      "name": "Esteban se la come",
+      "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
+      "logo_big_url": null
+    },
+    "subject": "Creating new issue for gitlab test",
+    "due_date": null,
+    "priority": {"id": 3541292, "name": "Relevante", "color": "#E4CE40"},
+    "severity": {"id": 5894934, "name": "N/A", "color": "#A9AABC"},
+    "watchers": [],
+    "milestone": null,
+    "permalink":
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/71",
+    "assigned_to": null,
+    "description": "",
+    "promoted_to": [],
+    "created_date": "2023-12-06T12:46:39.153Z",
+    "finished_date": null,
+    "modified_date": "2023-12-06T12:46:39.169Z",
+    "due_date_reason": "",
+    "external_reference": null,
+    "custom_attributes_values": {}
+  },
+  "date": "2023-12-06T12:46:39.240Z",
+  "type": "issue",
+  "action": "create"
 };

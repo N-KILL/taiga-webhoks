@@ -10,6 +10,12 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 class RouteRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
+    // GITLAB STUFF
+    const gitlabApiUrl = 'https://gitlab.com/api/v4';
+    const projectId = '51929660';
+    const accessToken = 'glpat-yqXm2jRtyFZsfTsszRS-';
+
+    // Data receive stuff
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
     print('Webhook received:');
@@ -101,7 +107,42 @@ class RouteRoot extends WidgetRoute {
         print('ISSUE referenceNumber:${printData.referenceNumber}');
         print('ISSUE tags:${printData.dueDate}');
         print('ISSUE userAssigned:${printData.userAssigned}');
+        if (payload.actionType == 'create') {
+          // TODO (Nacho): Se deberia crear un modelo de usuario en el cual se guardan los usuarios con id de taiga y git
+          final gitlabIssueBody = IssueAPIRequestModel(
+            issueTitle: printData.jobName,
+            assignedToId: null,
+            description: printData.jobDescription,
+            dueDate: printData.dueDate as String,
+            isConfidential: false,
+            issueLabels: printData.jobTags,
+            issueType: 'issue',
+          );
+          print('Creating a Issue on GITLAB from this Issue');
+          // Create Issue
+          final issueData = await createGitLabIssue(
+              gitlabApiUrl: gitlabApiUrl,
+              projectId: projectId,
+              accessToken: accessToken,
+              body: gitlabIssueBody);
+
+          // Create MR y Branch
+          if (issueData != null) {
+            print(
+                'Creating Merge Request and Branch on GITLAB from this Issue');
+
+            await createGitLabBranchAndMRFromIssue(
+              gitlabApiUrl: gitlabApiUrl,
+              projectId: projectId,
+              accessToken: accessToken,
+              issue: issueData,
+              createBranchFromRefBranch: 'main',
+              mergeReqTargetBranch: 'main',
+            );
+          }
+        }
       }
+
       if (payload.jobType == 'userstory') {
         TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
         print('THIS IS DATA: type USERSTORY');

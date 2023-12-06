@@ -238,7 +238,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "924a895784a76bb738957b418dd9de5405a1c72d"
+      resolved-ref: b17071e8ef0a3c43358965eaec8567fa2c4317e7
       url: "https://github.com/N-KILL/gitlabREST_models.git"
     source: git
     version: "0.1.0+1"
@@ -314,6 +314,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      sha256: "6bbb9d6f7056729537a4309bda2e74e18e5d9f14302489cc1e93f33b3fe32cac"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2+1"
   logging:
     dependency: transitive
     description:
@@ -366,10 +374,10 @@ packages:
     dependency: transitive
     description:
       name: path
-      sha256: "8829d8a55c13fc0e37127c29fedf290c102f4e40ae94ada574091fe0ff96c917"
+      sha256: "087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.3"
+    version: "1.9.0"
   pedantic:
     dependency: transitive
     description:
@@ -583,7 +591,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: aba954f7c8aafc4e4d09a76aa1ef2c36c90200bc
+      resolved-ref: "9689207957db0f28285a5852bcec8b46a092e1bd"
       url: "https://github.com/Eficetti/taigaREST_models.git"
     source: git
     version: "0.1.0+1"
