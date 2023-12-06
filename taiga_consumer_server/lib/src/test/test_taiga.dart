@@ -95,6 +95,7 @@ void main() async {
     print('ISSUE referenceNumber:${printData.referenceNumber}');
     print('ISSUE tags:${printData.dueDate}');
     print('ISSUE userAssigned:${printData.userAssigned}');
+    print('Creating GITLAB ISSUE');
     if (payload.actionType == 'create') {
       // TODO (Nacho): Se deberia crear un modelo de usuario en el cual se guardan los usuarios con id de taiga y git
       final gitlabIssueBody = IssueAPIRequestModel(
@@ -290,21 +291,21 @@ final body = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBtLw%3AXFvSjAsc25D6DK_FOOmXPTQDSq0aZb6FRBKWKrO0e_gHG5Qdpfjvt8EI1cDEjlbysF_tXU5rXtydViMN1JBHtg",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBvVw%3AuaDx5jblv-PyC827JBYC47Jb2R6_2fUNs8-mQtVFALlAzLPhFqErb9NqAX6AO5QFDXFu5G2xW0Axxw-jMaaDlg",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 1695847,
-    "ref": 71,
-    "tags": [],
+    "id": 1695853,
+    "ref": 72,
+    "tags": ["tag auto"],
     "type": {"id": 3547927, "name": "Enhancement", "color": "#40E4CE"},
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBtLw%3AXFvSjAsc25D6DK_FOOmXPTQDSq0aZb6FRBKWKrO0e_gHG5Qdpfjvt8EI1cDEjlbysF_tXU5rXtydViMN1JBHtg",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBvVw%3AuaDx5jblv-PyC827JBYC47Jb2R6_2fUNs8-mQtVFALlAzLPhFqErb9NqAX6AO5QFDXFu5G2xW0Axxw-jMaaDlg",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
@@ -323,25 +324,25 @@ final body = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "Creating new issue for gitlab test",
+    "subject": "Nuevo issue automatico",
     "due_date": null,
     "priority": {"id": 3541292, "name": "Relevante", "color": "#E4CE40"},
     "severity": {"id": 5894934, "name": "N/A", "color": "#A9AABC"},
     "watchers": [],
     "milestone": null,
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/71",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/72",
     "assigned_to": null,
-    "description": "",
+    "description": "Descripcion del nuevo issue automatico",
     "promoted_to": [],
-    "created_date": "2023-12-06T12:46:39.153Z",
+    "created_date": "2023-12-06T12:55:51.276Z",
     "finished_date": null,
-    "modified_date": "2023-12-06T12:46:39.169Z",
+    "modified_date": "2023-12-06T12:55:51.307Z",
     "due_date_reason": "",
     "external_reference": null,
     "custom_attributes_values": {}
   },
-  "date": "2023-12-06T12:46:39.240Z",
+  "date": "2023-12-06T12:55:51.388Z",
   "type": "issue",
   "action": "create"
 };

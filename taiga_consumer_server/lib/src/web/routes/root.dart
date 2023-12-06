@@ -107,13 +107,15 @@ class RouteRoot extends WidgetRoute {
         print('ISSUE referenceNumber:${printData.referenceNumber}');
         print('ISSUE tags:${printData.dueDate}');
         print('ISSUE userAssigned:${printData.userAssigned}');
+        print('Creating GITLAB ISSUE');
         if (payload.actionType == 'create') {
           // TODO (Nacho): Se deberia crear un modelo de usuario en el cual se guardan los usuarios con id de taiga y git
           final gitlabIssueBody = IssueAPIRequestModel(
             issueTitle: printData.jobName,
             assignedToId: null,
             description: printData.jobDescription,
-            dueDate: printData.dueDate as String,
+            dueDate:
+                printData.dueDate == null ? null : printData.dueDate as String,
             isConfidential: false,
             issueLabels: printData.jobTags,
             issueType: 'issue',
