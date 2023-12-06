@@ -115,7 +115,7 @@ class RouteRoot extends WidgetRoute {
             assignedToId: null,
             description: printData.jobDescription,
             dueDate:
-                printData.dueDate == null ? null : printData.dueDate as String,
+                printData.dueDate?.toString(),
             isConfidential: false,
             issueLabels: printData.jobTags,
             issueType: 'issue',
