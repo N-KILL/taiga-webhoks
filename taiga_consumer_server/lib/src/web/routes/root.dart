@@ -118,7 +118,7 @@ class RouteRoot extends WidgetRoute {
                 printData.dueDate?.toString(),
             isConfidential: false,
             issueLabels: printData.jobTags,
-            issueType: 'issue',
+            issueType: IssueTypes.issue,
           );
           print('Creating a Issue on GITLAB from this Issue');
           // Create Issue

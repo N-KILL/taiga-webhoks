@@ -105,7 +105,7 @@ void main() async {
         dueDate: printData.dueDate == null ? null : printData.dueDate as String,
         isConfidential: false,
         issueLabels: printData.jobTags,
-        issueType: 'issue',
+        issueType: IssueTypes.issue,
       );
       print('Creating a Issue on GITLAB from this Issue');
       // Create Issue
