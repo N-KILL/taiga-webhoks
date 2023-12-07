@@ -291,21 +291,21 @@ final body = {
   "by": {
     "id": 588936,
     "photo":
-        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBvVw%3AuaDx5jblv-PyC827JBYC47Jb2R6_2fUNs8-mQtVFALlAzLPhFqErb9NqAX6AO5QFDXFu5G2xW0Axxw-jMaaDlg",
+        "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXHfGA%3ANZJ5xvn0Rn1FLSfbBomcLABG9IkQ15OvNu7jEovoTsEWmj3BK6Qy7ybJnimnjsO724rF7ArLY0kLP-yPDa_jOQ",
     "username": "CardozoIgnacio",
     "full_name": "Ignacio Cardozo",
     "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
     "gravatar_id": "7f9c05563bd05a1b2b7aa88e0abf9bcf"
   },
   "data": {
-    "id": 1695853,
-    "ref": 72,
-    "tags": ["tag auto"],
+    "id": 1696738,
+    "ref": 78,
+    "tags": [],
     "type": {"id": 3547927, "name": "Enhancement", "color": "#40E4CE"},
     "owner": {
       "id": 588936,
       "photo":
-          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXBvVw%3AuaDx5jblv-PyC827JBYC47Jb2R6_2fUNs8-mQtVFALlAzLPhFqErb9NqAX6AO5QFDXFu5G2xW0Axxw-jMaaDlg",
+          "https://media-protected.taiga.io/user/5/6/0/2/b85f41f01daeddef3079d6fa357dd0b1bbbb6d334a977dfdbd8af58080c3/new-logo-500x500.jpg.80x80_q85_crop.jpg?token=ZXHfGA%3ANZJ5xvn0Rn1FLSfbBomcLABG9IkQ15OvNu7jEovoTsEWmj3BK6Qy7ybJnimnjsO724rF7ArLY0kLP-yPDa_jOQ",
       "username": "CardozoIgnacio",
       "full_name": "Ignacio Cardozo",
       "permalink": "https://tree.taiga.io/profile/CardozoIgnacio",
@@ -324,25 +324,25 @@ final body = {
       "permalink": "https://tree.taiga.io/project/rodsevich-esteban-se-la-come",
       "logo_big_url": null
     },
-    "subject": "Nuevo issue automatico",
+    "subject": "Issue with new dependency test",
     "due_date": null,
     "priority": {"id": 3541292, "name": "Relevante", "color": "#E4CE40"},
     "severity": {"id": 5894934, "name": "N/A", "color": "#A9AABC"},
     "watchers": [],
     "milestone": null,
     "permalink":
-        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/72",
+        "https://tree.taiga.io/project/rodsevich-esteban-se-la-come/issue/78",
     "assigned_to": null,
-    "description": "Descripcion del nuevo issue automatico",
+    "description": "ddasdsadsadsaasd",
     "promoted_to": [],
-    "created_date": "2023-12-06T12:55:51.276Z",
+    "created_date": "2023-12-07T15:04:56.246Z",
     "finished_date": null,
-    "modified_date": "2023-12-06T12:55:51.307Z",
+    "modified_date": "2023-12-07T15:04:56.263Z",
     "due_date_reason": "",
     "external_reference": null,
     "custom_attributes_values": {}
   },
-  "date": "2023-12-06T12:55:51.388Z",
+  "date": "2023-12-07T15:04:56.345Z",
   "type": "issue",
   "action": "create"
 };
