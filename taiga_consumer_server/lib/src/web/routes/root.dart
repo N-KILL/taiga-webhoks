@@ -8,15 +8,14 @@ import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
 
+// GITLAB STUFF
+const gitlabApiUrl = 'https://gitlab.com/api/v4';
+const projectId = '51929660';
+const accessToken = 'glpat-yqXm2jRtyFZsfTsszRS-';
+
 class RouteRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
-    // GITLAB STUFF
-    const gitlabApiUrl = 'https://gitlab.com/api/v4';
-    const projectId = '51929660';
-    const accessToken = 'glpat-yqXm2jRtyFZsfTsszRS-';
-
-    // Data receive stuff
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
     print('Webhook received:');
@@ -115,8 +114,7 @@ class RouteRoot extends WidgetRoute {
             issueTitle: printData.jobName,
             assignedToId: null,
             description: printData.jobDescription,
-            dueDate:
-                printData.dueDate?.toString(),
+            dueDate: printData.dueDate?.toString(),
             isConfidential: false,
             issueLabels: printData.jobTags,
             issueType: IssueTypes.issue,
@@ -332,24 +330,11 @@ class APIRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
     final body = {
-    {
-        "Userstory": "Login",
-        "Reference": "3",
-        "Status": "In process"
-
-    },
-    {
-        "Userstory": "Home Page",
-        "Reference": "15",
-        "Status": "Rejected"
-    },
-    {
-        "Userstory": "Third",
-        "Reference": "333",
-        "Status": "Approved"
-    }
+      {"Userstory": "Login", "Reference": "3", "Status": "In process"},
+      {"Userstory": "Home Page", "Reference": "15", "Status": "Rejected"},
+      {"Userstory": "Third", "Reference": "333", "Status": "Approved"}
     };
-       return WebHooksView(webhookData: body as Map<String,dynamic>);
+    return WebHooksView(webhookData: body as Map<String, dynamic>);
   }
 }
 

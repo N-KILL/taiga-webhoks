@@ -37,7 +37,7 @@ void run(List<String> args) async {
 
   // Figma
   pod.webServer.addRoute(
-    RouteGitLab(),
+    APIRoot(),
     '/figma',
   );
   
