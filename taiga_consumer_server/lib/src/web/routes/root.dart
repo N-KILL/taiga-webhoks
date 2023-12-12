@@ -330,11 +330,13 @@ class APIRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
     final body = {
-      {"Userstory": "Login", "Reference": "3", "Status": "In process"},
-      {"Userstory": "Home Page", "Reference": "15", "Status": "Rejected"},
-      {"Userstory": "Third", "Reference": "333", "Status": "Approved"}
+      "data" :[
+        {"Userstory": "Login", "Reference": "3", "Status": "In process"},
+        {"Userstory": "Home Page", "Reference": "15", "Status": "Rejected"},
+        {"Userstory": "Third", "Reference": "333", "Status": "Approved"}
+      ]
     };
-    return WebHooksView(webhookData: body as Map<String, dynamic>);
+    return WebHooksView(webhookData: body);
   }
 }
 
