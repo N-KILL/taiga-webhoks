@@ -34,12 +34,6 @@ void run(List<String> args) async {
     RouteGitLab(),
     '/gitlab',
   );
-
-  // Figma
-  pod.webServer.addRoute(
-    APIRoot(),
-    '/figma',
-  );
   
   // pod.webServer.addRoute(RouteRoot(), '/index.html');
   // Serve all files in the /static directory.

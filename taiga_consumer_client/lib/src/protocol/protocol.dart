@@ -47,6 +47,10 @@ class Protocol extends _i1.SerializationManager {
           .map((e) => deserialize<_i3.TaigaConsumer>(e))
           .toList() as dynamic;
     }
+    if (t == Map<String, dynamic>) {
+      return (data as Map).map((k, v) =>
+          MapEntry(deserialize<String>(k), deserialize<dynamic>(v))) as dynamic;
+    }
     return super.deserialize<T>(data, t);
   }
 

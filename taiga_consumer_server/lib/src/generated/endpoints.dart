@@ -8,6 +8,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/example_endpoint.dart' as _i2;
+import '../endpoints/figma.dart' as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -23,6 +24,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'anotherExample',
+          null,
+        ),
+      'figma': _i3.FigmaEndpoint()
+        ..initialize(
+          server,
+          'figma',
           null,
         ),
     };
@@ -54,6 +61,21 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'anotherExample',
       endpoint: endpoints['anotherExample']!,
       methodConnectors: {},
+    );
+    connectors['figma'] = _i1.EndpointConnector(
+      name: 'figma',
+      endpoint: endpoints['figma']!,
+      methodConnectors: {
+        'figma': _i1.MethodConnector(
+          name: 'figma',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i3.FigmaEndpoint).figma(session),
+        )
+      },
     );
   }
 }
