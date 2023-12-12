@@ -27,6 +27,6 @@ class NidusCustomFields with NidusCustomFieldsMappable {
   String? bounty;
 
   /// FromJson method, convert a json type object into this
-  /// NidusCustomFields Object
+  /// [NidusCustomFields] Object
   static const fromJson = NidusCustomFieldsMapper.fromJson;
 }

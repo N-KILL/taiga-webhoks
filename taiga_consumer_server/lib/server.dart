@@ -22,15 +22,25 @@ void run(List<String> args) async {
 
   // Setup a default page at the web root.
   pod.webServer.addRoute(DefaultRouteRoot(), '/');
+
+  // Taiga
   pod.webServer.addRoute(
     RouteRoot(),
     '/webhook',
   );
 
+  // GitLab
   pod.webServer.addRoute(
     RouteGitLab(),
     '/gitlab',
   );
+
+  // Figma
+  pod.webServer.addRoute(
+    RouteGitLab(),
+    '/figma',
+  );
+  
   // pod.webServer.addRoute(RouteRoot(), '/index.html');
   // Serve all files in the /static directory.
   pod.webServer.addRoute(

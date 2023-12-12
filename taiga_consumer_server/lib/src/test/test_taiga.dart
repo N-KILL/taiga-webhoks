@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:gitlab_rest_models/gitlab_rest_models.dart';
-import 'package:taiga_consumer_server/src/models/nidus_custom_fields.dart';
+import 'package:taiga_consumer_server/src/models/taiga/nidus_custom_fields.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
 
 void main() async {
