@@ -11,7 +11,7 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 // GITLAB STUFF
 const gitlabApiUrl = 'https://gitlab.com/api/v4';
 const projectId = '51929660';
-const accessToken = 'glpat-yqXm2jRtyFZsfTsszRS-';
+const accessToken = 'glpat-s2axRR49k4dm5j6GTRJZ';
 
 class RouteRoot extends WidgetRoute {
   @override
@@ -331,10 +331,10 @@ class RouteGitLab extends WidgetRoute {
   Future<Widget> build(Session session, HttpRequest request) async {
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
+    var todos = null;
     print('Gitlab Webhook received:');
     print('DecodedBody: $decodedBody');
     print('Data:');
-    // print('Body JsonDecode: $body');
     try {
       final data = gitLabWebhookMapper(jsonPayload: decodedBody);
       if (data.runtimeType == GitLabIssuePayload) {
@@ -349,11 +349,21 @@ class RouteGitLab extends WidgetRoute {
       }
       if (data.runtimeType == GitLabPayload) {
         final payload = data as GitLabPayload;
-        print('Payload: $payload');
         for (var element in payload.commitsDetails) {
           print('new commit from: ${element.author}');
           print('in the project: ${payload.projectDetails.name}');
           print('commit details $element');
+          todos = todoScanner(
+              accessToken: accessToken,
+              commitSha: element.id,
+              gitlabApiUrl: gitlabApiUrl,
+              projectId: projectId);
+        }
+      }
+
+      if (todos != null) {
+        for (var element in todos) {
+          print(element);
         }
       }
     } catch (e, st) {

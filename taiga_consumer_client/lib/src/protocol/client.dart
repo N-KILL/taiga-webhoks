@@ -33,20 +33,6 @@ class _EndpointAnotherExample extends _i1.EndpointRef {
   String get name => 'anotherExample';
 }
 
-class _EndpointFigma extends _i1.EndpointRef {
-  _EndpointFigma(_i1.EndpointCaller caller) : super(caller);
-
-  @override
-  String get name => 'figma';
-
-  _i2.Future<Map<String, dynamic>> figma() =>
-      caller.callServerEndpoint<Map<String, dynamic>>(
-        'figma',
-        'figma',
-        {},
-      );
-}
-
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -60,20 +46,16 @@ class Client extends _i1.ServerpodClient {
         ) {
     example = _EndpointExample(this);
     anotherExample = _EndpointAnotherExample(this);
-    figma = _EndpointFigma(this);
   }
 
   late final _EndpointExample example;
 
   late final _EndpointAnotherExample anotherExample;
 
-  late final _EndpointFigma figma;
-
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'example': example,
         'anotherExample': anotherExample,
-        'figma': figma,
       };
 
   @override
