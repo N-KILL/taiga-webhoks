@@ -353,7 +353,7 @@ class RouteGitLab extends WidgetRoute {
           print('new commit from: ${element.author}');
           print('in the project: ${payload.projectDetails.name}');
           print('commit details $element');
-          todos = todoScanner(
+          todos = await todoScanner(
               accessToken: accessToken,
               commitSha: element.id,
               gitlabApiUrl: gitlabApiUrl,
