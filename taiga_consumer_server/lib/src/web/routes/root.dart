@@ -374,9 +374,9 @@ class RouteGitLab extends WidgetRoute {
       if (todos != null) {
         for (var element in todos) {
           final issue = TaigaIssueAPI(
-            project: 1179467,
-            subject: element.name,
-            watchers: [],
+            projectId: 1179467,
+            title: element.name,
+            watchersId: [],
           );
           final response = await ApiTaigaIssue()
               .createIssue(authToken: auth, apiUrl: taigaUrl, issue: issue);

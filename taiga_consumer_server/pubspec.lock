@@ -238,7 +238,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "66f779db87f552fce5dc61d8e8c165cfaf28ca46"
+      resolved-ref: f2faf85d3fe7d63d445f3459723bf060d678703b
       url: "https://github.com/N-KILL/gitlabREST_models.git"
     source: git
     version: "0.1.0+1"
@@ -591,7 +591,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: bb07b5984491e62dc3cc66071dbe093afc1f47de
+      resolved-ref: b99d58ea69cc28379f8f8a1353f458c79d415a54
       url: "https://github.com/Eficetti/taigaREST_models.git"
     source: git
     version: "0.1.0+1"
