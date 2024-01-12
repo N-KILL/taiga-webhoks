@@ -343,7 +343,7 @@ class RouteGitLab extends WidgetRoute {
     // 'Todo' aux list
     List<ToDo>? todos;
     print('Gitlab Webhook received:');
-    print('DecodedBody: $decodedBody');
+    // print('DecodedBody: $decodedBody');
     print('Data:');
     try {
       final data = gitLabWebhookMapper(jsonPayload: decodedBody);
@@ -360,29 +360,31 @@ class RouteGitLab extends WidgetRoute {
       if (data.runtimeType == GitLabPayload) {
         final payload = data as GitLabPayload;
         for (var element in payload.commitsDetails) {
-          print('new commit from: ${element.author}');
-          print('in the project: ${payload.projectDetails.name}');
-          print('commit details $element');
-          todos = await todoScanner(
-              accessToken: accessToken,
-              commitSha: element.id,
-              gitlabApiUrl: gitlabApiUrl,
-              projectId: projectId);
+          print('New commit from: ${element.author}');
+          print('Made into the project: ${payload.projectDetails.name}');
+          print('Commit made into the branch: ${payload.branchRefName}');
+
+          // todos = await todoScanner(
+          //     accessToken: accessToken,
+          //     commitSha: element.id,
+          //     gitlabApiUrl: gitlabApiUrl,
+          //     projectId: projectId,
+          // );
         }
       }
 
-      if (todos != null) {
-        for (var element in todos) {
-          final issue = TaigaIssueAPI(
-            projectId: 1179467,
-            title: element.name,
-            watchersId: [],
-          );
-          final response = await ApiTaigaIssue()
-              .createIssue(authToken: auth, apiUrl: taigaUrl, issue: issue);
-          print("Issue created status: $response");
-        }
-      }
+      // if (todos != null) {
+      //   for (var element in todos) {
+      //     final issue = TaigaIssueAPI(
+      //       projectId: 1179467,
+      //       title: element.name,
+      //       watchersId: [],
+      //     );
+      //     final response = await ApiTaigaIssue()
+      //         .createIssue(authToken: auth, apiUrl: taigaUrl, issue: issue);
+      //     print("Issue created status: $response");
+      //   }
+      // }
     } catch (e, st) {
       print('Fail at mapping the webhook $e $st');
     }
