@@ -238,7 +238,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "901ac1fe66b6b99f971b0a786be130a2abf5c208"
+      resolved-ref: "652d8a3ed4f8bf256fa23ad5f12680e4fc4fce2f"
       url: "https://github.com/N-KILL/gitlabREST_models.git"
     source: git
     version: "0.1.0+1"
