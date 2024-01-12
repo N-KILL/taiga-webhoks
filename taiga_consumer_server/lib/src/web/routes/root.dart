@@ -368,19 +368,20 @@ class RouteGitLab extends WidgetRoute {
           final branch = branchNameList[branchNameList.length - 1];
 
           todos = await todoScanner(
-              accessToken: accessToken,
-              commitSha: element.id,
-              gitlabApiUrl: gitlabApiUrl,
-              projectId: projectId,
-              deleteMode: true,
-              branch: branch,
-              commitMessage: "auto-deleted-todo",
+            accessToken: accessToken,
+            commitSha: element.id,
+            gitlabApiUrl: gitlabApiUrl,
+            projectId: projectId,
+            deleteMode: true,
+            branch: branch,
+            commitMessage: "auto-deleted-todo",
           );
         }
       }
 
       if (todos != null) {
         for (var element in todos) {
+          print(element);
           final issue = TaigaIssueAPI(
             projectId: 1179467,
             title: element.name,
