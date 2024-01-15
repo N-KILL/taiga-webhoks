@@ -17,7 +17,7 @@ class ExampleEndpoint extends Endpoint {
   // supported. The `session` object provides access to the database, logging,
   // passwords, and information about the request being made to the server.
   Future<List<TaigaConsumer>> hello(Session session, String name) async {
-    return await TaigaConsumer.find(session);
+    return await TaigaConsumer.db.find(session);
   }
 }
 
