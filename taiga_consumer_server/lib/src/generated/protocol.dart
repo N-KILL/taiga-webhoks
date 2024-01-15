@@ -4,14 +4,17 @@
 // ignore_for_file: library_private_types_in_public_api
 // ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
+// ignore_for_file: use_super_parameters
+// ignore_for_file: type_literal_in_constant_pattern
 
 library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'example.dart' as _i3;
-import 'package:taiga_consumer_server/src/generated/example.dart' as _i4;
-export 'example.dart';
+import 'protocol/example.dart' as _i3;
+import 'package:taiga_consumer_server/src/generated/protocol/example.dart'
+    as _i4;
+export 'protocol/example.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -22,10 +25,12 @@ class Protocol extends _i1.SerializationManagerServer {
 
   static final Protocol _instance = Protocol._();
 
-  static final targetDatabaseDefinition = _i2.DatabaseDefinition(tables: [
+  static final List<_i2.TableDefinition> targetTableDefinitions = [
     _i2.TableDefinition(
       name: 'taiga_consumer',
+      dartName: 'TaigaConsumer',
       schema: 'public',
+      module: 'taiga_consumer',
       columns: [
         _i2.ColumnDefinition(
           name: 'id',
@@ -38,7 +43,7 @@ class Protocol extends _i1.SerializationManagerServer {
           name: 'data',
           columnType: _i2.ColumnType.json,
           isNullable: false,
-          dartType: 'Map<String,dynamic>',
+          dartType: 'Map<String,String>',
         ),
       ],
       foreignKeys: [],
@@ -59,8 +64,8 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
-    ..._i2.Protocol.targetDatabaseDefinition.tables,
-  ]);
+    ..._i2.Protocol.targetTableDefinitions,
+  ];
 
   @override
   T deserialize<T>(
@@ -78,9 +83,9 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data != null ? _i3.TaigaConsumer.fromJson(data, this) : null)
           as T;
     }
-    if (t == Map<String, dynamic>) {
+    if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
-          MapEntry(deserialize<String>(k), deserialize<dynamic>(v))) as dynamic;
+          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
     }
     if (t == List<_i4.TaigaConsumer>) {
       return (data as List)
@@ -125,6 +130,9 @@ class Protocol extends _i1.SerializationManagerServer {
   }
 
   @override
-  _i2.DatabaseDefinition getTargetDatabaseDefinition() =>
-      targetDatabaseDefinition;
+  List<_i2.TableDefinition> getTargetTableDefinitions() =>
+      targetTableDefinitions;
+
+  @override
+  String getModuleName() => 'taiga_consumer';
 }

@@ -4,15 +4,22 @@
 // ignore_for_file: library_private_types_in_public_api
 // ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
+// ignore_for_file: use_super_parameters
+// ignore_for_file: type_literal_in_constant_pattern
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
-class TaigaConsumer extends _i1.SerializableEntity {
-  TaigaConsumer({
+abstract class TaigaConsumer extends _i1.SerializableEntity {
+  TaigaConsumer._({
     this.id,
     required this.data,
   });
+
+  factory TaigaConsumer({
+    int? id,
+    required Map<String, String> data,
+  }) = _TaigaConsumerImpl;
 
   factory TaigaConsumer.fromJson(
     Map<String, dynamic> jsonSerialization,
@@ -21,7 +28,7 @@ class TaigaConsumer extends _i1.SerializableEntity {
     return TaigaConsumer(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       data: serializationManager
-          .deserialize<Map<String, dynamic>>(jsonSerialization['data']),
+          .deserialize<Map<String, String>>(jsonSerialization['data']),
     );
   }
 
@@ -30,13 +37,40 @@ class TaigaConsumer extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
-  Map<String, dynamic> data;
+  Map<String, String> data;
 
+  TaigaConsumer copyWith({
+    int? id,
+    Map<String, String>? data,
+  });
   @override
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'data': data,
     };
+  }
+}
+
+class _Undefined {}
+
+class _TaigaConsumerImpl extends TaigaConsumer {
+  _TaigaConsumerImpl({
+    int? id,
+    required Map<String, String> data,
+  }) : super._(
+          id: id,
+          data: data,
+        );
+
+  @override
+  TaigaConsumer copyWith({
+    Object? id = _Undefined,
+    Map<String, String>? data,
+  }) {
+    return TaigaConsumer(
+      id: id is int? ? id : this.id,
+      data: data ?? this.data.clone(),
+    );
   }
 }

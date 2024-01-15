@@ -4,13 +4,16 @@
 // ignore_for_file: library_private_types_in_public_api
 // ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
+// ignore_for_file: use_super_parameters
+// ignore_for_file: type_literal_in_constant_pattern
 
 library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import 'example.dart' as _i2;
-import 'package:taiga_consumer_client/src/protocol/example.dart' as _i3;
-export 'example.dart';
+import 'protocol/example.dart' as _i2;
+import 'package:taiga_consumer_client/src/protocol/protocol/example.dart'
+    as _i3;
+export 'protocol/example.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -38,9 +41,9 @@ class Protocol extends _i1.SerializationManager {
       return (data != null ? _i2.TaigaConsumer.fromJson(data, this) : null)
           as T;
     }
-    if (t == Map<String, dynamic>) {
+    if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
-          MapEntry(deserialize<String>(k), deserialize<dynamic>(v))) as dynamic;
+          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
     }
     if (t == List<_i3.TaigaConsumer>) {
       return (data as List)

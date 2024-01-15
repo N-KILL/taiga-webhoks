@@ -11,7 +11,7 @@
 class: TaigaConsumer
 table: taiga_consumer
 fields:
-  data: Map<String, dynamic>
+  data: Map<String, String>
 # Add the table key, if this class represents a row in the database.
 #table: example
 
