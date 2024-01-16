@@ -110,7 +110,7 @@ void main() async {
       );
       print('Creating a Issue on GITLAB from this Issue');
       // Create Issue
-      final issueData = await createGitLabIssue(
+      final issueData = await GitLabIssueManager().createGitLabIssue(
           gitlabApiUrl: gitlabApiUrl,
           projectId: projectId,
           accessToken: accessToken,
@@ -120,7 +120,7 @@ void main() async {
       if (issueData != null) {
         print('Creating Merge Request and Branch on GITLAB from this Issue');
 
-        await createGitLabBranchAndMRFromIssue(
+        await GitLabIssueManager().createGitLabBranchAndMRFromIssue(
           gitlabApiUrl: gitlabApiUrl,
           projectId: projectId,
           accessToken: accessToken,
