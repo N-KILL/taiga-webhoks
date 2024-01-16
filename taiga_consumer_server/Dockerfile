@@ -10,10 +10,14 @@ RUN apt-get update && apt-get install -y git
 # Read ENV from Railway
 ARG GitHub-User
 ARG GitHub-Email
+ARG GITHUB_TOKEN
 
 # Set the git config
 RUN git config --global user.name "${GITHUB_USER}"
 RUN git config --global user.email "${GITHUB_EMAIL}"
+
+# Crea un archivo .netrc con el token de acceso personal
+RUN echo "machine github.com login ${GITHUB_USER} password ${GITHUB_TOKEN}" > ~/.netrc
 
 RUN dart pub get
 
