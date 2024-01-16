@@ -1,10 +1,18 @@
 FROM dart:3.0.0 AS build
 
+# Instal Git
+RUN apt-get update && apt-get install -y git
+
+# Read ENV from Railway
+ARG GitHub-User
+ARG GitHub-Email
+
+# Set the git config
+RUN git config user.name $GitHub-User
+RUN git config user.email $GitHub-Email
+
 WORKDIR /app
 COPY . .
-
-ARG GitHub-Token
-RUN echo "machine github.com login oauth_token password ${GitHub-Token}" > ~/.netrc
 
 RUN dart pub get
 
