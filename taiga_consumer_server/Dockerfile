@@ -3,7 +3,11 @@ FROM dart:3.0.0 AS build
 WORKDIR /app
 COPY . .
 
-RUN dart pub get
+ARG GITHUB_TOKEN
+
+RUN echo -e "machine github.com\n  login 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" > ~/.netrc && \
+    dart pub get
+
 RUN dart compile exe bin/main.dart -o bin/main
 
 FROM debian:buster-slim AS runtime
