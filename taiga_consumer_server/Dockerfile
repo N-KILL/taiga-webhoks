@@ -6,7 +6,8 @@ COPY . .
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=$GitHub-Token
 
-RUN git config --global credential.helper '!f() { sleep 1; echo "password=${GITHUB_TOKEN}"; }; f'
+RUN git config --global credential.helper '!f() { sleep 1; echo "username=N-KILL" ; echo "password=${GITHUB_TOKEN}"; }; f'
+
 
 RUN dart pub get
 
