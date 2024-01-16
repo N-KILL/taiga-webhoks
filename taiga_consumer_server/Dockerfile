@@ -3,9 +3,9 @@ FROM dart:3.0.0 AS build
 WORKDIR /app
 COPY . .
 
-ARG GITHUB_TOKEN
+ARG GitHub-Token
 
-RUN echo -e "machine github.com\n  login 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" > ~/.netrc && \
+RUN echo -e "machine github.com\n  login $GitHub-Token" > ~/.netrc && \
     dart pub get
 
 RUN dart compile exe bin/main.dart -o bin/main
