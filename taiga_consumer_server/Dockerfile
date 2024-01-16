@@ -6,9 +6,9 @@ COPY . .
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=$GitHub-Token
 
-RUN echo -e "machine github.com\n  login $GITHUB_TOKEN" > /root/.netrc && \
-    chmod 600 /root/.netrc && \
-    dart pub get
+RUN git config --global credential.helper '!f() { sleep 1; echo "password=${GITHUB_TOKEN}"; }; f'
+
+RUN dart pub get
 
 RUN dart compile exe bin/main.dart -o bin/main
 
