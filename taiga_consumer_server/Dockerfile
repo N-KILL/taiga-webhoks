@@ -3,14 +3,6 @@ FROM dart:3.0.0 AS build
 WORKDIR /app
 COPY . .
 
-ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=$GitHub-Token
-
-ARG GITHUB_USER
-ENV GITHUB_USER=$GitHub-User
-
-RUN git config --global credential.helper '!f() { echo "username=$GITHUB_TOKEN"; echo "password=x-oauth-basic"; }; f'
-
 RUN dart pub get
 
 RUN dart compile exe bin/main.dart -o bin/main

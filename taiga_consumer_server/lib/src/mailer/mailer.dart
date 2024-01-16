@@ -81,3 +81,7 @@ Future<bool> sendMail({
 
   exit(0);
 }
+
+void main() {
+  sendMail(email: 'club_dog2@hotmail.com', message: 'Mensaje Test');
+}
