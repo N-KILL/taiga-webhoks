@@ -175,7 +175,7 @@ packages:
       path: "."
       ref: "postgres-2.6.1"
       resolved-ref: "520c52a4c88da8fc2682f3f7ab10593bad6f449e"
-      url: "https://@github.com/Rodsevich/communications-service.git"
+      url: "https://github.com/Rodsevich/communications-service.git"
     source: git
     version: "0.1.0+1"
   convert:
