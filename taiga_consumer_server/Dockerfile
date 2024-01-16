@@ -3,7 +3,7 @@ FROM dart:3.0.0 AS build
 WORKDIR /app
 COPY . .
 
-ENV GitHub-Token
+ENV GitHub-Token=$GitHub-Token
 
 RUN echo -e "machine github.com\n  login $GitHub-Token" > ~/.netrc && \
     dart pub get
