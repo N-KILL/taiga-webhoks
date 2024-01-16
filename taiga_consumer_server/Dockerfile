@@ -12,8 +12,8 @@ ARG GitHub-User
 ARG GitHub-Email
 
 # Set the git config
-RUN echo 'git config user.name ${GitHub-User}'
-RUN echo 'git config user.email ${GitHub-Email}'
+RUN git config --global user.name "${GITHUB_USER}"
+RUN git config --global user.email "${GITHUB_EMAIL}"
 
 RUN dart pub get
 
