@@ -1,5 +1,9 @@
 FROM dart:3.0.0 AS build
 
+WORKDIR /app
+
+COPY . .
+
 # Instal Git
 RUN apt-get update && apt-get install -y git
 
@@ -8,11 +12,8 @@ ARG GitHub-User
 ARG GitHub-Email
 
 # Set the git config
-RUN git config user.name $GitHub-User
-RUN git config user.email $GitHub-Email
-
-WORKDIR /app
-COPY . .
+RUN echo 'git config user.name ${GitHub-User}'
+RUN echo 'git config user.email ${GitHub-Email}'
 
 RUN dart pub get
 
