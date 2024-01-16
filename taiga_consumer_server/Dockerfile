@@ -16,8 +16,7 @@ ARG GITHUB_TOKEN
 RUN git config --global user.name "${GITHUB_USER}"
 RUN git config --global user.email "${GITHUB_EMAIL}"
 
-# Crea un archivo .netrc con el token de acceso personal
-RUN echo "machine github.com login ${GITHUB_USER} password ${GITHUB_TOKEN}" > ~/.netrc
+RUN echo "machine github.com login ${GITHUB_USER} password ${GITHUB_TOKEN}" > ~/.netrc && cat ~/.netrc
 
 RUN dart pub get
 
