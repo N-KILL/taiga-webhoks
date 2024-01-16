@@ -17,7 +17,7 @@ dependencies:
       url: https://github.com/N-KILL/gitlabREST_models.git
   communication_service:
     git:
-      url: https://github.com/Rodsevich/communications-service.git
+      url: https://N-KILL:${GitHub-Token}@github.com/Rodsevich/communications-service.git
       ref: postgres-2.6.1
       
 dev_dependencies:
