@@ -9,7 +9,7 @@ ENV GITHUB_TOKEN=$GitHub-Token
 ARG GITHUB_USER
 ENV GITHUB_USER=$GitHub-User
 
-RUN echo -e "machine github.com\nlogin $GITHUB_USER\npassword $GITHUB_TOKEN" > ~/.netrc
+RUN git config --global credential.helper '!f() { echo "username=$GITHUB_TOKEN"; echo "password=x-oauth-basic"; }; f'
 
 RUN dart pub get
 
