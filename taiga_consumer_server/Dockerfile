@@ -6,8 +6,10 @@ COPY . .
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=$GitHub-Token
 
-RUN git config --global credential.helper '!f() { sleep 1; echo "username=N-KILL" ; echo "password=${GITHUB_TOKEN}"; }; f'
+ARG GITHUB_USER
+ENV GITHUB_USER=$GitHub-User
 
+RUN echo -e "machine github.com\nlogin $GITHUB_USER\npassword $GITHUB_TOKEN" > ~/.netrc
 
 RUN dart pub get
 
