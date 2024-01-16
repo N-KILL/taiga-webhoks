@@ -2,6 +2,9 @@ FROM dart:3.0.0 AS build
 
 WORKDIR /app
 
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
+
 COPY . .
 
 RUN dart pub get
