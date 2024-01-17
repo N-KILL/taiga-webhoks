@@ -36,8 +36,11 @@ class RouteRoot extends WidgetRoute {
           // If the type of job is issue
           case 'issue':
             TaigaIssueData printData = payload.data as TaigaIssueData;
-
-            // If a issue was created
+            print("Creation date ${printData.creationDate}");
+            print("Job Name${printData.jobName}");
+            print("Job Description ${printData.jobDescription}");
+            print("Job type ${payload.jobType}");
+            print("Project ${printData.fromProject.projectName}");
             final message = MessageGenerator(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
@@ -46,6 +49,8 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
+            print("Message: $message");
+
             await sendMail(email: "club_dog2@hotmail.com", message: message);
 
             break;
@@ -53,6 +58,11 @@ class RouteRoot extends WidgetRoute {
           // If the type of job is userstory
           case 'userstory':
             TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
+            print("Creation date ${printData.creationDate}");
+            print("Job Name${printData.jobName}");
+            print("Job Description ${printData.jobDescription}");
+            print("Job type ${payload.jobType}");
+            print("Project ${printData.fromProject.projectName}");
             final message = MessageGenerator(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
@@ -61,13 +71,18 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
+            print("Message: $message");
             await sendMail(email: "club_dog2@hotmail.com", message: message);
             break;
 
           // If the job type is Task
           case 'task':
             TaigaTaskData printData = payload.data as TaigaTaskData;
-            // If a task was created
+            print("Creation date ${printData.creationDate}");
+            print("Job Name${printData.jobName}");
+            print("Job Description ${printData.jobDescription}");
+            print("Job type ${payload.jobType}");
+            print("Project ${printData.fromProject.projectName}");
             final message = MessageGenerator(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
@@ -76,6 +91,7 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
+            print("Message: $message");
             await sendMail(email: "club_dog2@hotmail.com", message: message);
             break;
         }
