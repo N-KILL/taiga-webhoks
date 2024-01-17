@@ -58,8 +58,8 @@ String MessageGenerator({
         <div>
             <h1 class="desktop-only">Se creo un nuevo ${jobType} en el proyecto: ${projectName}</h1>
             <h2 class="mobile-only">Se creo un nuevo ${jobType} en el proyecto: ${projectName}</h2>
-            <h1 class="desktop-only">Nombre del ${jobType}: ${jobName}</h1>
-            <h2 class="mobile-only">Nombre del ${jobType}: ${jobName}</h2>
+            <h2 class="desktop-only">Nombre del ${jobType}: ${jobName}</h2>
+            <h3 class="mobile-only">Nombre del ${jobType}: ${jobName}</h3>
         </div>
         <div class="container">    
             <div></div>
@@ -73,7 +73,7 @@ String MessageGenerator({
             <div></div>
 
         </div>
-        <p>Fecha de creacion: ${creationDate}</p>
+        <p>Fecha de creación: ${creationDate}</p>
     </body>
 </html>
 ''';
