@@ -29,40 +29,36 @@ class RouteRoot extends WidgetRoute {
       print('jobType:${payload.jobType}');
       print('date:${payload.date}');
 
-      // If the type of job is issue
-      if (payload.jobType == 'issue') {
-        TaigaIssueData printData = payload.data as TaigaIssueData;
+      // // If the type of job is issue
+      // if (payload.jobType == 'issue' && payload.actionType == 'create') {
+      //   TaigaIssueData printData = payload.data as TaigaIssueData;
 
-        // If a issue was created
-        if (payload.actionType == 'create') {
-          final message = MessageGenerator(
-            creationDate: printData.creationDate.toString(),
-            jobName: printData.jobName.toString(),
-            jobDescription: printData.jobDescription.toString(),
-            jobType: payload.jobType,
-            projectName: printData.fromProject.projectName,
-            type: payload.actionType,
-          );
-          sendMail(email: "club_dog2@hotmail.com", message: message);
-        }
-      }
+      //   // If a issue was created
+      //   final message = MessageGenerator(
+      //     creationDate: printData.creationDate.toString(),
+      //     jobName: printData.jobName.toString(),
+      //     jobDescription: printData.jobDescription.toString(),
+      //     jobType: payload.jobType,
+      //     projectName: printData.fromProject.projectName,
+      //     type: payload.actionType,
+      //   );
+      //   sendMail(email: "club_dog2@hotmail.com", message: message);
+      // }
 
-      // If the job type is Task
-      if (payload.jobType == 'task') {
-        TaigaTaskData printData = payload.data as TaigaTaskData;
-        // If a task was created
-        if (payload.actionType == 'create') {
-          final message = MessageGenerator(
-            creationDate: printData.creationDate.toString(),
-            jobName: printData.jobName.toString(),
-            jobDescription: printData.jobDescription.toString(),
-            jobType: payload.jobType,
-            projectName: printData.fromProject.projectName,
-            type: payload.actionType,
-          );
-          sendMail(email: "club_dog2@hotmail.com", message: message);
-        }
-      }
+      // // If the job type is Task
+      // if (payload.jobType == 'task' && payload.actionType == 'create') {
+      //   TaigaTaskData printData = payload.data as TaigaTaskData;
+      //   // If a task was created
+      //   final message = MessageGenerator(
+      //     creationDate: printData.creationDate.toString(),
+      //     jobName: printData.jobName.toString(),
+      //     jobDescription: printData.jobDescription.toString(),
+      //     jobType: payload.jobType,
+      //     projectName: printData.fromProject.projectName,
+      //     type: payload.actionType,
+      //   );
+      //   sendMail(email: "club_dog2@hotmail.com", message: message);
+      // }
 
       // If the type of job is userstory
       if (payload.jobType == 'userstory' && payload.actionType == 'create') {
@@ -77,6 +73,8 @@ class RouteRoot extends WidgetRoute {
         );
         sendMail(email: "club_dog2@hotmail.com", message: message);
       }
+
+      // If the type of action is change
       if (payload.actionType == "change") {
         print('THIS IS CHANGE:');
         if (payload.change?.comment != '') {
