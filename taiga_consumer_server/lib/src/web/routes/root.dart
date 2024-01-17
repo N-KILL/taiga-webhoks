@@ -34,18 +34,52 @@ class RouteRoot extends WidgetRoute {
         // If an issue was created
         if (payload.actionType == 'create') {
           final message = '''
-Se creo un issue N°:${printData.referenceNumber}, llamado: ${printData.jobName}
-en el proyecto: ${printData.fromProject}.
-Descripcion: ${printData.jobDescription}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nidus Dev Automatic Message</title>
+        <style>
+            img {
+                max-width: 100%; 
+                height: 15%;
+                width: 15%;
+                display: block; 
+                margin: 0 auto; 
+            }
+            body {
+                text-align: center;
+                max-width: 1000px; 
+            }
+            .container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px; 
+                margin: 0 auto; 
+                text-align: center;
+            }
+          </style>
+    </head>
+    <body>
+        <img src="https://media.licdn.com/dms/image/D4D0BAQHqI1Z_2RFAxw/company-logo_200_200/0/1666121335245/nidus_dev_logo?e=1713398400&v=beta&t=W95VYfiZU_F84DFd_G2w3FgeuXeivoYG4Ktr0rA4_oU" alt="Logo de Nidus Dev">
+        <div>
+            <h1>Se creo un nuevo ${payload.jobType} en el projecto: ${printData.fromProject.projectName}</h1>
+        </div>
+        <div class="container">    
+            <div></div>
 
-More data: 
-ID ${printData.jobId}
-Tags ${printData.jobTags}
-Dueño ${printData.jobOwner}
-Estado ${printData.jobStatus}
-Usuarion mirando ${printData.jobWatchers}
-Usuarion asignados ${printData.userAssigned}
-Fecha de creacion ${printData.creationDate}
+            <div>
+                <h2>Descipcion del ${payload.jobType}:</h2>
+                <p>${printData.jobDescription}</p>
+            </div>
+
+            <div></div>
+
+        </div>
+        <p>Fecha de creacion: ${printData.creationDate}</p>
+    </body>
+</html>
 ''';
           sendMail(email: "club_dog2@hotmail.com", message: message);
         }
