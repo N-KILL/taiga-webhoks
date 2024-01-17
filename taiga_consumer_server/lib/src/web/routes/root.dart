@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:gitlab_rest_models/gitlab_rest_models.dart';
 import 'package:taiga_consumer_server/src/mailer/mailer.dart';
+import 'package:taiga_consumer_server/src/mailer/message_generator.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
@@ -28,133 +29,59 @@ class RouteRoot extends WidgetRoute {
       print('jobType:${payload.jobType}');
       print('date:${payload.date}');
 
+      // If the type of job is issue
       if (payload.jobType == 'issue') {
         TaigaIssueData printData = payload.data as TaigaIssueData;
 
-        // If an issue was created
+        // If a issue was created
         if (payload.actionType == 'create') {
-          final message = '''
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nidus Dev Automatic Message</title>
-        <style>
-            img {
-                max-width: 100%; 
-                height: 15%;
-                width: 15%;
-                display: block; 
-                margin: 0 auto; 
-            }
-            body {
-                text-align: center;
-                max-width: 1000px; 
-            }
-            .container {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px; 
-                margin: 0 auto; 
-                text-align: center;
-            }
-          </style>
-    </head>
-    <body>
-        <img src="https://media.licdn.com/dms/image/D4D0BAQHqI1Z_2RFAxw/company-logo_200_200/0/1666121335245/nidus_dev_logo?e=1713398400&v=beta&t=W95VYfiZU_F84DFd_G2w3FgeuXeivoYG4Ktr0rA4_oU" alt="Logo de Nidus Dev">
-        <div>
-            <h1>Se creo un nuevo ${payload.jobType} en el projecto: ${printData.fromProject.projectName}</h1>
-        </div>
-        <div class="container">    
-            <div></div>
-
-            <div>
-                <h2>Descipcion del ${payload.jobType}:</h2>
-                <p>${printData.jobDescription}</p>
-            </div>
-
-            <div></div>
-
-        </div>
-        <p>Fecha de creacion: ${printData.creationDate}</p>
-    </body>
-</html>
-''';
+          final message = MessageGenerator(
+            creationDate: printData.creationDate.toString(),
+            jobName: printData.jobName.toString(),
+            jobDescription: printData.jobDescription.toString(),
+            jobType: payload.jobType,
+            projectName: printData.fromProject.projectName,
+            type: payload.actionType,
+          );
           sendMail(email: "club_dog2@hotmail.com", message: message);
         }
       }
       if (payload.jobType == 'epic') {
         TaigaEpicData printData = payload.data as TaigaEpicData;
       }
+
+      // If the job type is Task
       if (payload.jobType == 'task') {
         TaigaTaskData printData = payload.data as TaigaTaskData;
+        // If a task was created
+        if (payload.actionType == 'create') {
+          final message = MessageGenerator(
+            creationDate: printData.creationDate.toString(),
+            jobName: printData.jobName.toString(),
+            jobDescription: printData.jobDescription.toString(),
+            jobType: payload.jobType,
+            projectName: printData.fromProject.projectName,
+            type: payload.actionType,
+          );
+          sendMail(email: "club_dog2@hotmail.com", message: message);
+        }
       }
+
+      // If the type of job is userstory
       if (payload.jobType == 'userstory') {
         TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
-        print('THIS IS DATA: type USERSTORY');
-        print('USERSTORY assignedUsers:${printData.assignedUsers}');
-        print('USERSTORY blockedNote:${printData.blockedNote}');
-        print(
-            'USERSTORY clientRequirement:${printData.clientRequirementStatus}');
-        print('USERSTORY dueDate:${printData.dueDate}');
-        print('USERSTORY dueDateReason:${printData.dueDateReason}');
-        print('USERSTORY finishDate:${printData.finishDate}');
-        print('USERSTORY fromTaskRef:${printData.taskReference}');
-        print('USERSTORY generatedFromIssue:${printData.issueReference}');
-        print('USERSTORY isBlocked:${printData.isBlockedStatus}');
-        print('USERSTORY isClosed:${printData.isClosedStatus}');
-        print('USERSTORY sprint:${printData.relatedSprint}');
-        print('USERSTORY points:${printData.storyPoints}');
-        print('USERSTORY teamRequirement:${printData.teamRequirementStatus}');
-        print('USERSTORY assignedTo:${printData.assignedUsers}');
-        print('USERSTORY createdDate:${printData.creationDate}');
-        print('USERSTORY description:${printData.jobDescription}');
-        print('USERSTORY id:${printData.jobId}');
-        print('USERSTORY modifiedDate:${printData.modifiedDate}');
-        print('USERSTORY owner FullName:${printData.jobOwner.fullName}');
-        print('USERSTORY permalink:${printData.jobPermalink}');
-        print('USERSTORY project:${printData.fromProject}');
-        print('USERSTORY ref:${printData.referenceNumber}');
-        print('USERSTORY status:${printData.jobStatus}');
-        print('USERSTORY subject:${printData.jobName}');
-        print('USERSTORY tags:${printData.taskReference}');
-        print('USERSTORY watchers:${printData.jobWatchers}');
-        if (printData.storyPoints.isNotEmpty) {
-          print('USERSTORY Story Points: ${printData.storyPoints}');
+        // If a userstory was created
+        if (payload.actionType == 'create') {
+          final message = MessageGenerator(
+            creationDate: printData.creationDate.toString(),
+            jobName: printData.jobName.toString(),
+            jobDescription: printData.jobDescription.toString(),
+            jobType: payload.jobType,
+            projectName: printData.fromProject.projectName,
+            type: payload.actionType,
+          );
+          sendMail(email: "club_dog2@hotmail.com", message: message);
         }
-        if (printData.customValues!.isNotEmpty) {
-          //print(NidusCustomFields.fromJson(jsonEncode(printData.customValues)));
-        }
-      }
-      if (payload.jobType == 'milestone') {
-        TaigaSprintData printData = payload.data as TaigaSprintData;
-        print('THIS IS DATA: type SPRINT');
-        print('SPRINT createdBy:${printData.createdBy}');
-        print('SPRINT createdDate:${printData.creationDate}');
-        print('SPRINT disponibility:${printData.disponibility}');
-        print('SPRINT estimatedFinishDate:${printData.estimatedFinishDate}');
-        print('SPRINT estimatedStartDate:${printData.estimatedStartDate}');
-        print('SPRINT isClosed:${printData.sprintClosedStatus}');
-        print('SPRINT modifiedDate:${printData.modifiedDate}');
-        print('SPRINT permalink:${printData.sprintPermalink}');
-        print('SPRINT project:${printData.project}');
-        print('SPRINT slug:${printData.sprintSlug}');
-        print('SPRINT sprintId:${printData.sprintId}');
-        print('SPRINT sprintName:${printData.sprintName}');
-      }
-      if (payload.jobType == 'wikipage') {
-        TaigaWikiPageData printData = payload.data as TaigaWikiPageData;
-        print('THIS IS DATA: type WIKIPAGE');
-        print('WIKIPAGE id:${printData.id}');
-        print('WIKIPAGE content:${printData.content}');
-        print('WIKIPAGE creationDate:${printData.creationDate}');
-        print('WIKIPAGE lastUserModifier:${printData.lastUserModifier}');
-        print('WIKIPAGE modifiedDate:${printData.modifiedDate}');
-        print('WIKIPAGE permalink:${printData.permalink}');
-        print('WIKIPAGE relatedProject:${printData.relatedProject}');
-        print('WIKIPAGE slug:${printData.wikiSlug}');
-        print('WIKIPAGE userOwner:${printData.userOwner}');
       }
       if (payload.actionType == "change") {
         print('THIS IS CHANGE:');
