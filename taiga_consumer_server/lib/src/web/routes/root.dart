@@ -46,7 +46,7 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            sendMail(email: "club_dog2@hotmail.com", message: message);
+            await sendMail(email: "club_dog2@hotmail.com", message: message);
 
             break;
 
@@ -61,7 +61,7 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            sendMail(email: "club_dog2@hotmail.com", message: message);
+            await sendMail(email: "club_dog2@hotmail.com", message: message);
             break;
 
           // If the job type is Task
@@ -76,7 +76,7 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            sendMail(email: "club_dog2@hotmail.com", message: message);
+            await sendMail(email: "club_dog2@hotmail.com", message: message);
             break;
         }
       }
