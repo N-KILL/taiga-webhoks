@@ -26,7 +26,7 @@ void main() async {
         type: payload.actionType,
       );
       final sendMessage =
-          sendMail(email: "club_dog2@hotmail.com", message: message);
+          await sendMail(email: "club_dog2@hotmail.com", message: message);
 
       print(sendMessage);
     }
@@ -46,7 +46,7 @@ void main() async {
         type: payload.actionType,
       );
       final sendMessage =
-          sendMail(email: "club_dog2@hotmail.com", message: message);
+          await sendMail(email: "club_dog2@hotmail.com", message: message);
 
       print(sendMessage);
     }
@@ -66,7 +66,7 @@ void main() async {
         type: payload.actionType,
       );
       final sendMessage =
-          sendMail(email: "club_dog2@hotmail.com", message: message);
+          await sendMail(email: "club_dog2@hotmail.com", message: message);
 
       print(sendMessage);
     }
