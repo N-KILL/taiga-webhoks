@@ -22,7 +22,6 @@ dependencies:
   testing:
     git:
       url: https://github.com/N-KILL/testing.git
-      ref: postgres-2.6.1
   
 dev_dependencies:
   build_runner: ^2.4.6
