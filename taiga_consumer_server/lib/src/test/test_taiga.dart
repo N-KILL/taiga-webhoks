@@ -19,7 +19,7 @@ void main() async {
         TaigaIssueData printData = payload.data as TaigaIssueData;
 
         // Create a message based on the information
-        final message = MessageGenerator(
+        final message = MessageGenerator().taigaCreateMessageNotification(
           creationDate: printData.creationDate.toString(),
           jobName: printData.jobName.toString(),
           jobDescription: printData.jobDescription.toString(),
@@ -41,7 +41,7 @@ void main() async {
         TaigaTaskData printData = payload.data as TaigaTaskData;
 
         // Create a message based on the information
-        final message = MessageGenerator(
+        final message = MessageGenerator().taigaCreateMessageNotification(
           creationDate: printData.creationDate.toString(),
           jobName: printData.jobName.toString(),
           jobDescription: printData.jobDescription.toString(),
@@ -62,7 +62,7 @@ void main() async {
         TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
 
         // Create a message based on the information
-        final message = MessageGenerator(
+        final message = MessageGenerator().taigaCreateMessageNotification(
           creationDate: printData.creationDate.toString(),
           jobName: printData.jobName.toString(),
           jobDescription: printData.jobDescription.toString(),
@@ -75,7 +75,7 @@ void main() async {
             await sendMail(email: "club_dog2@hotmail.com", message: message);
 
         print(sendMessage);
-        
+
         break;
     }
   }

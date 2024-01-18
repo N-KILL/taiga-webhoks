@@ -25,7 +25,7 @@ class RouteRoot extends WidgetRoute {
     try {
       final payload = TaigaPayload.fromJson(decodedBody);
       print(
-          'Nueva accion en Taiga, por parte de:${payload.performer.fullName}');
+          'Nueva accion en Taiga, por parte de: ${payload.performer.fullName}');
       print('Tipo de accion: ${payload.actionType}');
       print('Tipo de trabajo: ${payload.jobType}');
       print('Fecha de la accion :${payload.date}');
@@ -39,7 +39,7 @@ class RouteRoot extends WidgetRoute {
             TaigaIssueData printData = payload.data as TaigaIssueData;
 
             // Create a message based on the information
-            final message = MessageGenerator(
+            final message = MessageGenerator().taigaCreateMessageNotification(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
               jobDescription: printData.jobDescription.toString(),
@@ -52,7 +52,8 @@ class RouteRoot extends WidgetRoute {
             final sendMessage = await sendMail(
                 email: "club_dog2@hotmail.com", message: message);
 
-            print(sendMessage);
+            print("Mail notification status: $sendMessage");
+
 
             break;
 
@@ -62,7 +63,7 @@ class RouteRoot extends WidgetRoute {
             TaigaTaskData printData = payload.data as TaigaTaskData;
 
             // Create a message based on the information
-            final message = MessageGenerator(
+            final message = MessageGenerator().taigaCreateMessageNotification(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
               jobDescription: printData.jobDescription.toString(),
@@ -75,7 +76,8 @@ class RouteRoot extends WidgetRoute {
             final sendMessage = await sendMail(
                 email: "club_dog2@hotmail.com", message: message);
 
-            print(sendMessage);
+            print("Mail notification status: $sendMessage");
+
 
             break;
 
@@ -85,7 +87,7 @@ class RouteRoot extends WidgetRoute {
             TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
 
             // Create a message based on the information
-            final message = MessageGenerator(
+            final message = MessageGenerator().taigaCreateMessageNotification(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
               jobDescription: printData.jobDescription.toString(),
@@ -97,7 +99,8 @@ class RouteRoot extends WidgetRoute {
             final sendMessage = await sendMail(
                 email: "club_dog2@hotmail.com", message: message);
 
-            print(sendMessage);
+            print("Mail notification status: $sendMessage");
+
 
             break;
         }
@@ -105,6 +108,98 @@ class RouteRoot extends WidgetRoute {
 
       // If the type of action is change
       if (payload.actionType == "change") {
+        switch (payload.jobType) {
+          // If the job type is issue
+          case 'issue':
+            // Convert the payload into an Issue instance
+            TaigaIssueData printData = payload.data as TaigaIssueData;
+
+            // Create a message based on the information
+            final message = MessageGenerator().taigaUpdateMessageNotification(
+              modifiedDate: printData.modifiedDate.toString(),
+              jobName: printData.jobName.toString(),
+              jobType: payload.jobType,
+              refNumber: printData.referenceNumber.toString(),
+              projectName: printData.fromProject.projectName,
+              type: payload.actionType,
+              nameFrom: payload.change?.difference?.name?.oldValue,
+              nameTo: payload.change?.difference?.name?.newValue,
+              newDescription: printData.jobDescription,
+              statusFrom: payload.change?.difference?.status?.oldValue,
+              statusTo: payload.change?.difference?.status?.newValue,
+            );
+
+            if (message != null) {
+              // Send the message
+              final sendMessage = await sendMail(
+                  email: "club_dog2@hotmail.com", message: message);
+
+              print("Mail notification status: $sendMessage");
+            } 
+            break;
+
+          // If the job type is task
+          case 'task':
+            // Convert the payload into an Task instance
+            TaigaTaskData printData = payload.data as TaigaTaskData;
+
+            // Create a message based on the information
+            final message = MessageGenerator().taigaUpdateMessageNotification(
+              modifiedDate: printData.modifiedDate.toString(),
+              jobName: printData.jobName.toString(),
+              jobType: payload.jobType,
+              refNumber: printData.referenceNumber.toString(),
+              projectName: printData.fromProject.projectName,
+              type: payload.actionType,
+              nameFrom: payload.change?.difference?.name?.oldValue,
+              nameTo: payload.change?.difference?.name?.newValue,
+              newDescription: printData.jobDescription,
+              statusFrom: payload.change?.difference?.status?.oldValue,
+              statusTo: payload.change?.difference?.status?.newValue,
+            );
+
+            if (message != null) {
+              // Send the message
+              final sendMessage = await sendMail(
+                  email: "club_dog2@hotmail.com", message: message);
+
+              print("Mail notification status: $sendMessage");
+
+            }
+
+            break;
+
+          // If the job type is userstory
+          case 'userstory':
+            // Convert the payload into an Userstory instance
+            TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
+
+            // Create a message based on the information
+            final message = MessageGenerator().taigaUpdateMessageNotification(
+              modifiedDate: printData.modifiedDate.toString(),
+              jobName: printData.jobName.toString(),
+              jobType: payload.jobType,
+              refNumber: printData.referenceNumber.toString(),
+              projectName: printData.fromProject.projectName,
+              type: payload.actionType,
+              nameFrom: payload.change?.difference?.name?.oldValue,
+              nameTo: payload.change?.difference?.name?.newValue,
+              newDescription: printData.jobDescription,
+              statusFrom: payload.change?.difference?.status?.oldValue,
+              statusTo: payload.change?.difference?.status?.newValue,
+            );
+
+            if (message != null) {
+              // Send the message
+              final sendMessage = await sendMail(
+                  email: "club_dog2@hotmail.com", message: message);
+
+              print("Mail notification status: $sendMessage");
+
+            }
+            break;
+        }
+
         print('THIS IS CHANGE:');
         if (payload.change?.comment != '') {
           print('Change on comment');
@@ -146,10 +241,6 @@ class RouteRoot extends WidgetRoute {
         if (payload.change?.difference?.changeTags != null) {
           print('Change on Tags');
           print(payload.change?.difference?.changeTags);
-        }
-        if (payload.change?.difference?.descriptionDiff != null) {
-          print('There is a change on the description:');
-          print(payload.change?.difference?.descriptionDiff);
         }
         if (payload.change?.difference?.isClosedStatus != null) {
           print('Change on isClosedStatus');
@@ -206,10 +297,6 @@ class RouteRoot extends WidgetRoute {
         if (payload.change?.difference?.typeStatus != null) {
           print('Change on typeStatus');
           print(payload.change?.difference?.typeStatus);
-        }
-        if (payload.change?.difference?.name != null) {
-          print('Change on name');
-          print(payload.change?.difference?.name);
         }
       }
     } catch (e, st) {
