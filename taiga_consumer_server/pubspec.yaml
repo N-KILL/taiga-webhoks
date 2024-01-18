@@ -19,9 +19,6 @@ dependencies:
     git:
       url: https://github.com/Rodsevich/communications-service.git
       ref: postgres-2.6.1
-  testing:
-    git:
-      url: https://github.com/N-KILL/testing.git
   
 dev_dependencies:
   build_runner: ^2.4.6

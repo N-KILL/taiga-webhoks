@@ -9,7 +9,7 @@ COPY . .
 
 RUN chmod +x pubspecFix.sh
 
-RUN ./pubspecFix.sh $GITHUB_TOKEN https://github.com/N-KILL/testing.git
+RUN ./pubspecFix.sh $GITHUB_TOKEN https://github.com/N-KILL/gitlabREST_models.git
 
 RUN dart pub get
 
