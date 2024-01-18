@@ -28,8 +28,7 @@ if [ -n "$dependency_line_on_yaml" ]; then
     # Reemplazar the exactly line with the content of "dependency_line_on_yaml" line on the YAML file
     sed -i "s|$dependency_line_on_yaml|$new_url|" $yaml_file
 
-    echo "Archivo YAML actualizado:"
-    cat $yaml_file
+    echo "The pubspec.yaml file was updated succesfully:"
 else
-    echo "No se encontró la línea que contiene el contenido proporcionado."
+    echo "Cannot fould the line on pubspec.yaml"
 fi
