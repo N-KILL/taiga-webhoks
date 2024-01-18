@@ -25,7 +25,7 @@ if [ -n "$dependency_line_on_yaml" ]; then
     # For this: https://$token@
     new_url=$(echo "$dependency_line_on_yaml" | sed "s|https://|https://$token@|")
 
-    # Reemplazar the exactly line with the content of "dependency_line_on_yaml" line on the YAML file
+    # Replace the exactly line with the content of "dependency_line_on_yaml" line on the YAML file
     sed -i "s|$dependency_line_on_yaml|$new_url|" $yaml_file
 
     echo "The pubspec.yaml file was updated succesfully:"
