@@ -61,8 +61,8 @@ Future<bool> sendMail({
       port: 46802,
     ),
     // TODO(Nacho): Esto a futuro tiene q ser .env
-    email: 'nidTesting@hotmail.com',
-    displayName: 'nidTesting@hotmail.com',
+    email: 'testingnid1234@outlook.es',
+    displayName: 'testingnid1234@outlook.es',
     password: 'TestNidus1234_',
     serverProvider: ServerProvider.outlook,
   );
@@ -84,6 +84,8 @@ Future<bool> sendMail({
   }
 }
 
-void main() {
-  sendMail(email: 'club_dog2@hotmail.com', message: 'Mensaje Test');
+void main() async {
+  final returned =
+      await sendMail(email: 'club_dog2@hotmail.com', message: 'Mensaje Test');
+  print(returned);
 }
