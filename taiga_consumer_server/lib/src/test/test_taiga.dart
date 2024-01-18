@@ -25,7 +25,10 @@ void main() async {
         projectName: printData.fromProject.projectName,
         type: payload.actionType,
       );
-      sendMail(email: "club_dog2@hotmail.com", message: message);
+      final sendMessage =
+          sendMail(email: "club_dog2@hotmail.com", message: message);
+
+      print(sendMessage);
     }
   }
 
@@ -42,7 +45,10 @@ void main() async {
         projectName: printData.fromProject.projectName,
         type: payload.actionType,
       );
-      sendMail(email: "club_dog2@hotmail.com", message: message);
+      final sendMessage =
+          sendMail(email: "club_dog2@hotmail.com", message: message);
+
+      print(sendMessage);
     }
   }
 
@@ -59,10 +65,13 @@ void main() async {
         projectName: printData.fromProject.projectName,
         type: payload.actionType,
       );
-      sendMail(email: "club_dog2@hotmail.com", message: message);
+      final sendMessage =
+          sendMail(email: "club_dog2@hotmail.com", message: message);
+
+      print(sendMessage);
     }
   }
-  
+
   if (payload.actionType == "change") {
     print('THIS IS CHANGE:');
     if (payload.change?.comment != '') {

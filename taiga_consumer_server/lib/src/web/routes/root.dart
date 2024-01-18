@@ -49,7 +49,6 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            print("Message: $message");
 
             await sendMail(email: "club_dog2@hotmail.com", message: message);
 
@@ -71,7 +70,6 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            print("Message: $message");
             await sendMail(email: "club_dog2@hotmail.com", message: message);
             break;
 
@@ -91,7 +89,6 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            print("Message: $message");
             await sendMail(email: "club_dog2@hotmail.com", message: message);
             break;
         }

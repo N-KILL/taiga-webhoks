@@ -71,7 +71,7 @@ Future<bool> sendMail({
 
   await smpt.setUp();
 
-  await smpt.sendEmail(
+  final sended = await smpt.sendEmail(
     logoUuid: '1234',
     to: email,
     subject: 'Testing',
@@ -79,7 +79,11 @@ Future<bool> sendMail({
         '<!DOCTYPE html><html><head><title>Nidus Dev Automatic Message</title></head><body>$message</body></html>',
   );
 
-  exit(0);
+  if (sended != null) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void main() {
