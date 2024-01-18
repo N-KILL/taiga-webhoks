@@ -124,6 +124,9 @@ class RouteRoot extends WidgetRoute {
                       : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
               statusTo: payload.change?.difference?.status?.newValue,
+              promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
+              promotedTo: payload.change?.difference?.promotedTo?.newValue,
+              attachedTo: payload.change?.difference?.relatedSprint?.newValue,
             );
 
             if (message != null) {
@@ -156,6 +159,9 @@ class RouteRoot extends WidgetRoute {
                       : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
               statusTo: payload.change?.difference?.status?.newValue,
+              promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
+              promotedTo: payload.change?.difference?.promotedTo?.newValue,
+              attachedTo: payload.change?.difference?.relatedSprint?.newValue,
             );
 
             if (message != null) {
@@ -172,7 +178,6 @@ class RouteRoot extends WidgetRoute {
           case 'userstory':
             // Convert the payload into an Userstory instance
             TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
-
             // Create a message based on the information
             final message = MessageGenerator().taigaUpdateMessageNotification(
               modifiedDate: printData.modifiedDate.toString(),
@@ -189,6 +194,9 @@ class RouteRoot extends WidgetRoute {
                       : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
               statusTo: payload.change?.difference?.status?.newValue,
+              promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
+              promotedTo: payload.change?.difference?.promotedTo?.newValue,
+              attachedTo: payload.change?.difference?.relatedSprint?.newValue,
             );
 
             if (message != null) {

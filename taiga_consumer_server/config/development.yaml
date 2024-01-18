@@ -9,7 +9,7 @@
 # Configuration for the main API server.
 apiServer:
   port: 8080
-  publicHost: localhost
+  publicHost: api.taiga-webhoks-production-ea99.up.railway.app
   publicPort: 8080
   publicScheme: http
 

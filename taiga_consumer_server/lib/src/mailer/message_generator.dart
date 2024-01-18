@@ -1,4 +1,5 @@
-/// This class [MessageGenerator] Is for
+/// This class [MessageGenerator] Is used to generate the message of the emails
+/// having functions which generate messages based on different parameters.
 class MessageGenerator {
   /// [taigaCreateMessageNotification] is meant for the 'instance of creation'
   /// of Taiga, when you create something inside of a project, that notification
@@ -164,11 +165,20 @@ class MessageGenerator {
     String? nameFrom,
     String? nameTo,
     String? newDescription,
+    String? promotedFrom,
+    String? promotedTo,
+    String? attachedTo,
   }) {
+    // This var is used to correct the grammar
     var the = 'la';
+
+    // This var is used to storage all the changes made, if its null, mean there
+    // is no valuable changes considering the US requirement of the mail notifier
     var change = null;
 
+    // This is used to correct the grammar based on the type, if its issue
     if (jobType == 'issue') {
+      // Modify the grammar value to 'el'
       the = 'el';
     }
 
@@ -177,31 +187,53 @@ class MessageGenerator {
         statusTo != null ||
         nameFrom != null ||
         nameTo != null ||
-        newDescription != null) {
+        newDescription != null ||
+        promotedFrom != null ||
+        promotedTo != null ||
+        attachedTo != null) {
       change = '''
 <ul>
 <ul>
 ''';
     }
 
+    // If there is a change on the status
     if (statusFrom != null && statusTo != null) {
       change = change +
           '''
-<li> Se modifico el estado de "${statusFrom}" a "${statusTo}"</li>
+<li> Se modificó el estado de "${statusFrom}" a "${statusTo}"</li>
 ''';
     }
 
+    // If there is a change on the name
     if (nameFrom != null && nameTo != null) {
       change = change +
           '''
-<li>Se modifico el nombre de "${nameFrom}" a "${nameTo}"</li>
+<li>Se modificó el nombre de "${nameFrom}" a "${nameTo}"</li>
 ''';
     }
 
+    // If there is a change on the description
     if (newDescription != null) {
       change = change +
           '''
-<li>Se modifico la descripcion a:" ${newDescription}"</li>
+<li>Se modificó la descripcion a:" ${newDescription}"</li>
+''';
+    }
+
+    // If the job is attached into an sprint
+    if (attachedTo != null) {
+      change = change +
+          '''
+<li>Se vinculó al sprint: "${attachedTo}"</li>
+''';
+    }
+
+    // If the job is promoted into an userstory
+    if (promotedFrom != null && promotedTo != null) {
+      change = change +
+          '''
+<li>Se promovió ${the} ${jobType} "${jobName}" a una historia de usuario</li>
 ''';
     }
 
