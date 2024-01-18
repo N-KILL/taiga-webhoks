@@ -7,7 +7,9 @@ ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
 COPY . .
 
-RUN ./pubspecFix.sh mitoken https://github.com/N-KILL/testing.git
+RUN chmod +x pubspecFix.sh
+
+RUN ./pubspecFix.sh $GITHUB_TOKEN https://github.com/N-KILL/testing.git
 
 RUN dart pub get
 
