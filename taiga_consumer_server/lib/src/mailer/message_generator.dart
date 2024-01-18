@@ -28,15 +28,6 @@ class MessageGenerator {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Nidus Dev Automatic Message</title>
         <style>
-            /* Set the image size*/
-            img {
-                max-width: 100%; 
-                height: 15%;
-                width: 15%;
-                display: block; 
-                margin: 0 auto; 
-            }
-
             /* Set the body alignment into center*/
             body {
                 text-align: center;
@@ -51,17 +42,80 @@ class MessageGenerator {
                 text-align: center;
             }
 
-            /* Create a class which only display on screen size lower than 768px*/
-            @media only screen and (min-width: 768px) {
+            /* Create a class container, which have 3 grids, the middle one have 50% size*/
+                .containerTwo {
+                display: grid;
+                grid-template-columns: 1fr 3fr 1fr;
+                gap: 20px; 
+                margin: 0 auto; 
+                text-align: center;
+            }
+
+            /* List Style */
+            ul {
+            list-style-type: none;
+            padding: 0;
+            }
+
+            /* Estilo para los elementos al pasar el ratón por encima */
+            li:hover {
+            background-color: #d4d4d4;
+            }
+
+            /* Manage what happen on resolution highers than 1200px of width */
+            @media only screen and (min-width: 1200px) {
+            /* Create a class which only display on screen size higher than 1200px of width*/
             .mobile-only {
                 display: none;
             }
+            /* Set the image size*/
+            img {
+                max-width: 100%; 
+                height: 15%;
+                width: 15%;
+                display: block; 
+                margin: 0 auto; 
+            }
+            /* List element Style */
+            li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 25px;
+            }
             }
 
-            /* Create a class which only display on screen size higher than 768px*/
-            @media only screen and (max-width: 768px) {
+            /* Manage what happen on resolution lowers than 1200px of width */
+            @media only screen and (max-width: 1200px) {
+            /* Set the image size*/
+            img {
+                max-width: 100%; 
+                height: 25%;
+                width: 25%;
+                display: block; 
+                margin: 0 auto; 
+            }
+
+            /* Create a class which only display on screen size lower than 1200px of width*/
             .desktop-only {
                 display: none;
+            }
+            /* List element Style */
+            li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
             }
             }
           </style>
@@ -159,15 +213,6 @@ class MessageGenerator {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Nidus Dev Automatic Message</title>
         <style>
-            /* Set the image size*/
-            img {
-                max-width: 100%; 
-                height: 15%;
-                width: 15%;
-                display: block; 
-                margin: 0 auto; 
-            }
-
             /* Set the body alignment into center*/
             body {
                 text-align: center;
@@ -202,11 +247,19 @@ class MessageGenerator {
             background-color: #d4d4d4;
             }
 
-            /* Manage what happen on resolution highers than 768px of width */
-            @media only screen and (min-width: 768px) {
-            /* Create a class which only display on screen size higher than 768px of width*/
+            /* Manage what happen on resolution highers than 1200px of width */
+            @media only screen and (min-width: 1200px) {
+            /* Create a class which only display on screen size higher than 1200px of width*/
             .mobile-only {
                 display: none;
+            }
+            /* Set the image size*/
+            img {
+                max-width: 100%; 
+                height: 15%;
+                width: 15%;
+                display: block; 
+                margin: 0 auto; 
             }
             /* List element Style */
             li {
@@ -222,9 +275,18 @@ class MessageGenerator {
             }
             }
 
-            /* Manage what happen on resolution lowers than 768px of width */
-            @media only screen and (max-width: 768px) {
-            /* Create a class which only display on screen size lower than 768px of width*/
+            /* Manage what happen on resolution lowers than 1200px of width */
+            @media only screen and (max-width: 1200px) {
+            /* Set the image size*/
+            img {
+                max-width: 100%; 
+                height: 25%;
+                width: 25%;
+                display: block; 
+                margin: 0 auto; 
+            }
+
+            /* Create a class which only display on screen size lower than 1200px of width*/
             .desktop-only {
                 display: none;
             }
@@ -271,7 +333,7 @@ class MessageGenerator {
             <div></div>
 
         </div>
-        <p>Fecha de creación: ${modifiedDate} </p>
+        <p>Fecha de modificación: ${modifiedDate} </p>
     </body>
 </html>
 ''';
