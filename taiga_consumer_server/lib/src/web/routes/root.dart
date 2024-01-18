@@ -18,10 +18,7 @@ class RouteRoot extends WidgetRoute {
   Future<Widget> build(Session session, HttpRequest request) async {
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
-    print('Webhook received:');
-    print('DecodedBody: $decodedBody');
-    print('DecodedBody: ${decodedBody.runtimeType}');
-    print('body: ${body.runtimeType}');
+    print('Taiga webhook received:');
     try {
       final payload = TaigaPayload.fromJson(decodedBody);
       print(
@@ -122,7 +119,7 @@ class RouteRoot extends WidgetRoute {
               nameFrom: payload.change?.difference?.name?.oldValue,
               nameTo: payload.change?.difference?.name?.newValue,
               newDescription:
-                  payload.change?.difference?.descriptionDiff == null
+                  payload.change?.difference?.descriptionDiff != null
                       ? printData.jobDescription
                       : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
@@ -154,7 +151,7 @@ class RouteRoot extends WidgetRoute {
               nameFrom: payload.change?.difference?.name?.oldValue,
               nameTo: payload.change?.difference?.name?.newValue,
               newDescription:
-                  payload.change?.difference?.descriptionDiff == null
+                  payload.change?.difference?.descriptionDiff != null
                       ? printData.jobDescription
                       : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
@@ -187,7 +184,7 @@ class RouteRoot extends WidgetRoute {
               nameFrom: payload.change?.difference?.name?.oldValue,
               nameTo: payload.change?.difference?.name?.newValue,
               newDescription:
-                  payload.change?.difference?.descriptionDiff == null
+                  payload.change?.difference?.descriptionDiff != null
                       ? printData.jobDescription
                       : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
