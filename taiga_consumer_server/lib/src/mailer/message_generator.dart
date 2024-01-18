@@ -308,8 +308,8 @@ class MessageGenerator {
     <body>
         <img src="https://media.licdn.com/dms/image/D4D0BAQHqI1Z_2RFAxw/company-logo_200_200/0/1666121335245/nidus_dev_logo?e=1713398400&v=beta&t=W95VYfiZU_F84DFd_G2w3FgeuXeivoYG4Ktr0rA4_oU" alt="Logo de Nidus Dev">
         <div>
-            <h1 class="desktop-only">Se actualizo ${the} ${jobType} n°${refNumber}, ${jobName} en el proyecto: ${projectName}</h1>
-            <h2 class="mobile-only">Se actualizo ${the} ${jobType} n°${refNumber}, ${jobName} en el proyecto: ${projectName}</h2>
+            <h1 class="desktop-only">Se actualizo ${the} ${jobType} n°${refNumber}, "${jobName}" en el proyecto: ${projectName}</h1>
+            <h2 class="mobile-only">Se actualizo ${the} ${jobType} n°${refNumber}, "${jobName}" en el proyecto: ${projectName}</h2>
         </div>
         <div class="container">    
             <div></div>

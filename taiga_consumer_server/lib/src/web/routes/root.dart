@@ -54,7 +54,6 @@ class RouteRoot extends WidgetRoute {
 
             print("Mail notification status: $sendMessage");
 
-
             break;
 
           // If the job type is task
@@ -78,7 +77,6 @@ class RouteRoot extends WidgetRoute {
 
             print("Mail notification status: $sendMessage");
 
-
             break;
 
           // If the job type is userstory
@@ -100,7 +98,6 @@ class RouteRoot extends WidgetRoute {
                 email: "club_dog2@hotmail.com", message: message);
 
             print("Mail notification status: $sendMessage");
-
 
             break;
         }
@@ -124,7 +121,10 @@ class RouteRoot extends WidgetRoute {
               type: payload.actionType,
               nameFrom: payload.change?.difference?.name?.oldValue,
               nameTo: payload.change?.difference?.name?.newValue,
-              newDescription: printData.jobDescription,
+              newDescription:
+                  payload.change?.difference?.descriptionDiff == null
+                      ? printData.jobDescription
+                      : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
               statusTo: payload.change?.difference?.status?.newValue,
             );
@@ -135,7 +135,7 @@ class RouteRoot extends WidgetRoute {
                   email: "club_dog2@hotmail.com", message: message);
 
               print("Mail notification status: $sendMessage");
-            } 
+            }
             break;
 
           // If the job type is task
@@ -153,7 +153,10 @@ class RouteRoot extends WidgetRoute {
               type: payload.actionType,
               nameFrom: payload.change?.difference?.name?.oldValue,
               nameTo: payload.change?.difference?.name?.newValue,
-              newDescription: printData.jobDescription,
+              newDescription:
+                  payload.change?.difference?.descriptionDiff == null
+                      ? printData.jobDescription
+                      : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
               statusTo: payload.change?.difference?.status?.newValue,
             );
@@ -164,7 +167,6 @@ class RouteRoot extends WidgetRoute {
                   email: "club_dog2@hotmail.com", message: message);
 
               print("Mail notification status: $sendMessage");
-
             }
 
             break;
@@ -184,7 +186,10 @@ class RouteRoot extends WidgetRoute {
               type: payload.actionType,
               nameFrom: payload.change?.difference?.name?.oldValue,
               nameTo: payload.change?.difference?.name?.newValue,
-              newDescription: printData.jobDescription,
+              newDescription:
+                  payload.change?.difference?.descriptionDiff == null
+                      ? printData.jobDescription
+                      : null,
               statusFrom: payload.change?.difference?.status?.oldValue,
               statusTo: payload.change?.difference?.status?.newValue,
             );
@@ -195,7 +200,6 @@ class RouteRoot extends WidgetRoute {
                   email: "club_dog2@hotmail.com", message: message);
 
               print("Mail notification status: $sendMessage");
-
             }
             break;
         }
