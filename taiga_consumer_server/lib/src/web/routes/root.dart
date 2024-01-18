@@ -24,23 +24,21 @@ class RouteRoot extends WidgetRoute {
     print('body: ${body.runtimeType}');
     try {
       final payload = TaigaPayload.fromJson(decodedBody);
-      print('FullName of performer:${payload.performer.fullName}');
-      print('actionType:${payload.actionType}');
-      print('jobType:${payload.jobType}');
-      print('date:${payload.date}');
+      print(
+          'Nueva accion en Taiga, por parte de:${payload.performer.fullName}');
+      print('Tipo de accion: ${payload.actionType}');
+      print('Tipo de trabajo: ${payload.jobType}');
+      print('Fecha de la accion :${payload.date}');
 
       // If the action type is create
       if (payload.actionType == 'create') {
-        // Switch based on the job type
         switch (payload.jobType) {
-          // If the type of job is issue
+          // If the job type is issue
           case 'issue':
+            // Convert the payload into an Issue instance
             TaigaIssueData printData = payload.data as TaigaIssueData;
-            print("Creation date ${printData.creationDate}");
-            print("Job Name${printData.jobName}");
-            print("Job Description ${printData.jobDescription}");
-            print("Job type ${payload.jobType}");
-            print("Project ${printData.fromProject.projectName}");
+
+            // Create a message based on the information
             final message = MessageGenerator(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
@@ -50,37 +48,20 @@ class RouteRoot extends WidgetRoute {
               type: payload.actionType,
             );
 
-            await sendMail(email: "club_dog2@hotmail.com", message: message);
+            // Send the message
+            final sendMessage = await sendMail(
+                email: "club_dog2@hotmail.com", message: message);
+
+            print(sendMessage);
 
             break;
 
-          // If the type of job is userstory
-          case 'userstory':
-            TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
-            print("Creation date ${printData.creationDate}");
-            print("Job Name${printData.jobName}");
-            print("Job Description ${printData.jobDescription}");
-            print("Job type ${payload.jobType}");
-            print("Project ${printData.fromProject.projectName}");
-            final message = MessageGenerator(
-              creationDate: printData.creationDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobDescription: printData.jobDescription.toString(),
-              jobType: payload.jobType,
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
-            );
-            await sendMail(email: "club_dog2@hotmail.com", message: message);
-            break;
-
-          // If the job type is Task
+          // If the job type is task
           case 'task':
+            // Convert the payload into an Task instance
             TaigaTaskData printData = payload.data as TaigaTaskData;
-            print("Creation date ${printData.creationDate}");
-            print("Job Name${printData.jobName}");
-            print("Job Description ${printData.jobDescription}");
-            print("Job type ${payload.jobType}");
-            print("Project ${printData.fromProject.projectName}");
+
+            // Create a message based on the information
             final message = MessageGenerator(
               creationDate: printData.creationDate.toString(),
               jobName: printData.jobName.toString(),
@@ -89,7 +70,35 @@ class RouteRoot extends WidgetRoute {
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
             );
-            await sendMail(email: "club_dog2@hotmail.com", message: message);
+
+            // Send the message
+            final sendMessage = await sendMail(
+                email: "club_dog2@hotmail.com", message: message);
+
+            print(sendMessage);
+
+            break;
+
+          // If the job type is userstory
+          case 'userstory':
+            // Convert the payload into an Userstory instance
+            TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
+
+            // Create a message based on the information
+            final message = MessageGenerator(
+              creationDate: printData.creationDate.toString(),
+              jobName: printData.jobName.toString(),
+              jobDescription: printData.jobDescription.toString(),
+              jobType: payload.jobType,
+              projectName: printData.fromProject.projectName,
+              type: payload.actionType,
+            );
+            // Send the message
+            final sendMessage = await sendMail(
+                email: "club_dog2@hotmail.com", message: message);
+
+            print(sendMessage);
+
             break;
         }
       }

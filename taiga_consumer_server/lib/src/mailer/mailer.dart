@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:communication_service/communication_service.dart';
 import 'package:communication_service/src/delegates/persistance/strategy/postgres_strategy.dart';
 import 'package:logging/logging.dart';
