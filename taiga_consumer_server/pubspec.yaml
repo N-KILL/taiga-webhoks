@@ -19,7 +19,11 @@ dependencies:
     git:
       url: https://github.com/Rodsevich/communications-service.git
       ref: postgres-2.6.1
-      
+  testing:
+    git:
+      url: https://github.com/N-KILL/testing.git
+      ref: postgres-2.6.1
+  
 dev_dependencies:
   build_runner: ^2.4.6
   dart_mappable_builder: ^4.0.1

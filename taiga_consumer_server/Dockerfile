@@ -7,6 +7,8 @@ ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
 COPY . .
 
+RUN ./pubspecFix.sh mitoken https://github.com/N-KILL/testing.git
+
 RUN dart pub get
 
 RUN dart compile exe bin/main.dart -o bin/main
