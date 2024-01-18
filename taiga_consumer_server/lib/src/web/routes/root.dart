@@ -47,9 +47,9 @@ class RouteRoot extends WidgetRoute {
 
             // Send the message
             final sendMessage = await sendMail(
-                email: "club_dog2@hotmail.com", message: message);
+                email: 'club_dog2@hotmail.com', message: message);
 
-            print("Mail notification status: $sendMessage");
+            print('Mail notification status: $sendMessage');
 
             break;
 
@@ -70,9 +70,9 @@ class RouteRoot extends WidgetRoute {
 
             // Send the message
             final sendMessage = await sendMail(
-                email: "club_dog2@hotmail.com", message: message);
+                email: 'club_dog2@hotmail.com', message: message);
 
-            print("Mail notification status: $sendMessage");
+            print('Mail notification status: $sendMessage');
 
             break;
 
@@ -92,16 +92,16 @@ class RouteRoot extends WidgetRoute {
             );
             // Send the message
             final sendMessage = await sendMail(
-                email: "club_dog2@hotmail.com", message: message);
+                email: 'club_dog2@hotmail.com', message: message);
 
-            print("Mail notification status: $sendMessage");
+            print('Mail notification status: $sendMessage');
 
             break;
         }
       }
 
       // If the type of action is change
-      if (payload.actionType == "change") {
+      if (payload.actionType == 'change') {
         switch (payload.jobType) {
           // If the job type is issue
           case 'issue':
@@ -116,25 +116,32 @@ class RouteRoot extends WidgetRoute {
               refNumber: printData.referenceNumber.toString(),
               projectName: printData.fromProject.projectName,
               type: payload.actionType,
-              nameFrom: payload.change?.difference?.name?.oldValue,
-              nameTo: payload.change?.difference?.name?.newValue,
+              nameFrom: payload.change?.difference?.name?.oldValue.toString(),
+              nameTo: payload.change?.difference?.name?.newValue.toString(),
               newDescription:
                   payload.change?.difference?.descriptionDiff != null
                       ? printData.jobDescription
                       : null,
-              statusFrom: payload.change?.difference?.status?.oldValue,
-              statusTo: payload.change?.difference?.status?.newValue,
-              promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
-              promotedTo: payload.change?.difference?.promotedTo?.newValue,
-              attachedTo: payload.change?.difference?.relatedSprint?.newValue,
+              statusFrom:
+                  payload.change?.difference?.status?.oldValue.toString(),
+              statusTo: payload.change?.difference?.status?.newValue.toString(),
+              promotedFrom:
+                  payload.change?.difference?.promotedTo?.oldValue.toString(),
+              promotedTo:
+                  payload.change?.difference?.promotedTo?.newValue.toString(),
+              attachedTo:
+                  payload.change?.difference?.relatedSprint?.newValue != null
+                      ? payload.change?.difference?.relatedSprint?.newValue
+                          .toString()
+                      : null,
             );
 
             if (message != null) {
               // Send the message
               final sendMessage = await sendMail(
-                  email: "club_dog2@hotmail.com", message: message);
+                  email: 'club_dog2@hotmail.com', message: message);
 
-              print("Mail notification status: $sendMessage");
+              print('Mail notification status: $sendMessage');
             }
             break;
 
@@ -161,15 +168,19 @@ class RouteRoot extends WidgetRoute {
               statusTo: payload.change?.difference?.status?.newValue,
               promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
               promotedTo: payload.change?.difference?.promotedTo?.newValue,
-              attachedTo: payload.change?.difference?.relatedSprint?.newValue,
+              attachedTo:
+                  payload.change?.difference?.relatedSprint?.newValue != null
+                      ? payload.change?.difference?.relatedSprint?.newValue
+                          .toString()
+                      : null,
             );
 
             if (message != null) {
               // Send the message
               final sendMessage = await sendMail(
-                  email: "club_dog2@hotmail.com", message: message);
+                  email: 'club_dog2@hotmail.com', message: message);
 
-              print("Mail notification status: $sendMessage");
+              print('Mail notification status: $sendMessage');
             }
 
             break;
@@ -196,116 +207,21 @@ class RouteRoot extends WidgetRoute {
               statusTo: payload.change?.difference?.status?.newValue,
               promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
               promotedTo: payload.change?.difference?.promotedTo?.newValue,
-              attachedTo: payload.change?.difference?.relatedSprint?.newValue,
+              attachedTo:
+                  payload.change?.difference?.relatedSprint?.newValue != null
+                      ? payload.change?.difference?.relatedSprint?.newValue
+                          .toString()
+                      : null,
             );
 
             if (message != null) {
               // Send the message
               final sendMessage = await sendMail(
-                  email: "club_dog2@hotmail.com", message: message);
+                  email: 'club_dog2@hotmail.com', message: message);
 
-              print("Mail notification status: $sendMessage");
+              print('Mail notification status: $sendMessage');
             }
             break;
-        }
-
-        print('THIS IS CHANGE:');
-        if (payload.change?.comment != '') {
-          print('Change on comment');
-          print('Comment:${payload.change?.comment}');
-        }
-        if (payload.change?.commentHtml != null) {
-          print('Change on commentHtml');
-          print('Comment:${payload.change?.commentHtml}');
-        }
-        print('difference:');
-        if (payload.change?.difference?.attachments != null) {
-          print('Change on attachments');
-          print(payload.change?.difference?.attachments);
-        }
-        if (payload.change?.difference?.assignedToJob != null) {
-          print('Change on assignedTo');
-          print(payload.change?.difference?.assignedToJob);
-        }
-        if (payload.change?.difference?.assignedToUserStory != null) {
-          print('Change on assignedTo');
-          print(payload.change?.difference?.assignedToUserStory);
-        }
-        if (payload.change?.difference?.dueDate != null) {
-          print('Change on dueDate');
-          print(payload.change?.difference?.dueDate);
-        }
-        if (payload.change?.difference?.status != null) {
-          print('Change on status');
-          print(payload.change?.difference?.status);
-        }
-        if (payload.change?.difference?.relatedSprint != null) {
-          print('Change on relatedSprint');
-          print(payload.change?.difference?.relatedSprint);
-        }
-        if (payload.change?.difference?.promotedTo != null) {
-          print('Change on promotedTo');
-          print(payload.change?.difference?.promotedTo);
-        }
-        if (payload.change?.difference?.changeTags != null) {
-          print('Change on Tags');
-          print(payload.change?.difference?.changeTags);
-        }
-        if (payload.change?.difference?.isClosedStatus != null) {
-          print('Change on isClosedStatus');
-          print(payload.change?.difference?.isClosedStatus);
-        }
-        if (payload.change?.difference?.kanbanOrder != null) {
-          print('Change on kanbanOrder');
-          print(payload.change?.difference?.kanbanOrder);
-        }
-        if (payload.change?.difference?.finishDate != null) {
-          print('Change on finishDate');
-          print(payload.change?.difference?.finishDate);
-        }
-        if (payload.change?.difference?.isBlockedStatus != null) {
-          print('Change on isBlockedStatus');
-          print(payload.change?.difference?.isBlockedStatus);
-        }
-        if (payload.change?.difference?.blockedNoteDiff != null) {
-          print('Change on blockedNoteDiff');
-          print(payload.change?.difference?.blockedNoteDiff);
-        }
-        if (payload.change?.difference?.blockedNoteHtml != null) {
-          print('Change on blockedNoteHtml');
-          print(payload.change?.difference?.blockedNoteHtml);
-        }
-        if (payload.change?.difference?.clientRequirementStatus != null) {
-          print('Change on clientRequirementStatus');
-          print(payload.change?.difference?.clientRequirementStatus);
-        }
-        if (payload.change?.difference?.teamRequirementStatus != null) {
-          print('Change on teamRequirementStatus');
-          print(payload.change?.difference?.teamRequirementStatus);
-        }
-        if (payload.change?.difference?.customAttributes != null) {
-          print('Change on customAttributes');
-          print(payload.change?.difference?.customAttributes);
-        }
-        if (payload.change?.difference?.isIocaineStatus != null) {
-          print('Change on isIocaineStatus');
-          print(payload.change?.difference?.isIocaineStatus);
-        }
-        if (payload.change?.difference?.storyPoints != null) {
-          print('Change on storyPoints');
-          print(payload.change?.difference?.storyPoints);
-        }
-        if (payload.change?.difference?.priorityStatus != null) {
-          print('Change on priorityStatus');
-          print(payload.change?.difference?.priorityStatus);
-        }
-        if (payload.change?.difference?.severityStatus != null) {
-          print('Change on severityStatus');
-          print(payload.change?.difference?.severityStatus);
-        }
-        if (payload.change?.difference?.typeStatus != null) {
-          print('Change on typeStatus');
-          print(payload.change?.difference?.typeStatus);
         }
       }
     } catch (e, st) {
@@ -364,7 +280,7 @@ class RouteGitLab extends WidgetRoute {
             projectId: projectId,
             deleteMode: true,
             branch: branch,
-            commitMessage: "auto-deleted-todo",
+            commitMessage: 'auto-deleted-todo',
           );
         }
       }
@@ -380,7 +296,7 @@ class RouteGitLab extends WidgetRoute {
           );
           final response = await ApiTaigaIssue()
               .createIssue(authToken: auth, apiUrl: taigaUrl, issue: issue);
-          print("Issue created status: $response");
+          print('Issue created status: $response');
         }
       }
     } catch (e, st) {
