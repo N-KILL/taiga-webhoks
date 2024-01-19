@@ -74,7 +74,7 @@ Future<bool> sendMail({
     to: email,
     subject: 'Testing',
     htmlBody:
-        '<!DOCTYPE html><html><head><title>Nidus Dev Automatic Message</title></head><body>$message</body></html>',
+        '$message',
   );
 
   if (sended != null) {

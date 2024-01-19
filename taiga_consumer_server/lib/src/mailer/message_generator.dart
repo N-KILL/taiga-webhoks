@@ -58,7 +58,7 @@ class MessageGenerator {
             padding: 0;
             }
 
-            /* Estilo para los elementos al pasar el ratón por encima */
+            /* Hover Styles on List */
             li:hover {
             background-color: #d4d4d4;
             }
@@ -274,7 +274,7 @@ class MessageGenerator {
             padding: 0;
             }
 
-            /* Estilo para los elementos al pasar el ratón por encima */
+            /* Hover Styles on List */
             li:hover {
             background-color: #d4d4d4;
             }
