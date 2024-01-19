@@ -1,5 +1,8 @@
 example:
   - hello:
 anotherExample:
-hello:
-  - hello:
+crud:
+  - create:
+  - read:
+  - update:
+  - delete:

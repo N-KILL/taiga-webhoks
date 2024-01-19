@@ -1,0 +1,9 @@
+### This class is for storage the all the commentaries made into a Job on Taiga
+### Have direct relation to the TaigaJob table
+class: TaigaJobCommentaries
+table: taiga_job_commentaries
+fields:
+  jobId: TaigaJob?, relation       # Task, Issue, Epic, UserStory
+  details: String                 # Details about the change made on the Job
+  userId: User?, relation
+  # UserId is the id of the user, in this case is pointing into the TaigaId,

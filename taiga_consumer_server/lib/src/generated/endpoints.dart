@@ -28,10 +28,10 @@ class Endpoints extends _i1.EndpointDispatch {
           'anotherExample',
           null,
         ),
-      'hello': _i3.HelloEndpoint()
+      'crud': _i3.CrudEndpoint()
         ..initialize(
           server,
-          'hello',
+          'crud',
           null,
         ),
     };
@@ -64,12 +64,12 @@ class Endpoints extends _i1.EndpointDispatch {
       endpoint: endpoints['anotherExample']!,
       methodConnectors: {},
     );
-    connectors['hello'] = _i1.EndpointConnector(
-      name: 'hello',
-      endpoint: endpoints['hello']!,
+    connectors['crud'] = _i1.EndpointConnector(
+      name: 'crud',
+      endpoint: endpoints['crud']!,
       methodConnectors: {
-        'hello': _i1.MethodConnector(
-          name: 'hello',
+        'create': _i1.MethodConnector(
+          name: 'create',
           params: {
             'name': _i1.ParameterDescription(
               name: 'name',
@@ -81,11 +81,65 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['hello'] as _i3.HelloEndpoint).hello(
+              (endpoints['crud'] as _i3.CrudEndpoint).create(
             session,
             params['name'],
           ),
-        )
+        ),
+        'read': _i1.MethodConnector(
+          name: 'read',
+          params: {
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['crud'] as _i3.CrudEndpoint).read(
+            session,
+            params['name'],
+          ),
+        ),
+        'update': _i1.MethodConnector(
+          name: 'update',
+          params: {
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['crud'] as _i3.CrudEndpoint).update(
+            session,
+            params['name'],
+          ),
+        ),
+        'delete': _i1.MethodConnector(
+          name: 'delete',
+          params: {
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['crud'] as _i3.CrudEndpoint).delete(
+            session,
+            params['name'],
+          ),
+        ),
       },
     );
   }

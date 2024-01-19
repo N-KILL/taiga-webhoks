@@ -10,9 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:taiga_consumer_client/src/protocol/protocol/example.dart'
-    as _i3;
-import 'protocol.dart' as _i4;
+import 'protocol.dart' as _i3;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -21,8 +19,7 @@ class EndpointExample extends _i1.EndpointRef {
   @override
   String get name => 'example';
 
-  _i2.Future<List<_i3.TaigaConsumer>> hello(String name) =>
-      caller.callServerEndpoint<List<_i3.TaigaConsumer>>(
+  _i2.Future<String> hello(String name) => caller.callServerEndpoint<String>(
         'example',
         'hello',
         {'name': name},
@@ -38,15 +35,33 @@ class EndpointAnotherExample extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
-class EndpointHello extends _i1.EndpointRef {
-  EndpointHello(_i1.EndpointCaller caller) : super(caller);
+class EndpointCrud extends _i1.EndpointRef {
+  EndpointCrud(_i1.EndpointCaller caller) : super(caller);
 
   @override
-  String get name => 'hello';
+  String get name => 'crud';
 
-  _i2.Future<String> hello(String name) => caller.callServerEndpoint<String>(
-        'hello',
-        'hello',
+  _i2.Future<String> create(String name) => caller.callServerEndpoint<String>(
+        'crud',
+        'create',
+        {'name': name},
+      );
+
+  _i2.Future<String> read(String name) => caller.callServerEndpoint<String>(
+        'crud',
+        'read',
+        {'name': name},
+      );
+
+  _i2.Future<String> update(String name) => caller.callServerEndpoint<String>(
+        'crud',
+        'update',
+        {'name': name},
+      );
+
+  _i2.Future<String> delete(String name) => caller.callServerEndpoint<String>(
+        'crud',
+        'delete',
         {'name': name},
       );
 }
@@ -60,7 +75,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i4.Protocol(),
+          _i3.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -68,20 +83,20 @@ class Client extends _i1.ServerpodClient {
         ) {
     example = EndpointExample(this);
     anotherExample = EndpointAnotherExample(this);
-    hello = EndpointHello(this);
+    crud = EndpointCrud(this);
   }
 
   late final EndpointExample example;
 
   late final EndpointAnotherExample anotherExample;
 
-  late final EndpointHello hello;
+  late final EndpointCrud crud;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'example': example,
         'anotherExample': anotherExample,
-        'hello': hello,
+        'crud': crud,
       };
 
   @override

@@ -1,0 +1,14 @@
+### This class is for storage the all the updates made into a Job
+### having direct relation to the TaigaJob table, every time a change 
+### is made in one job, this table will receive information about what
+### change was, and save the details 
+### (Example: Name change from: 'A' to 'B')
+###
+### and what was the time of the change, on epoch format.
+### https://en.wikipedia.org/wiki/Epoch_(computing) 
+class: TaigaJobUpdates
+table: taiga_job_updates
+fields:
+  jobId: TaigaJob?, relation      # Task, Issue, Epic, UserStory
+  status: String                  # Status of the job
+  details: String                 # Details about the change made on the Job

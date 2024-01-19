@@ -52,7 +52,7 @@ Future<bool> sendMail({
     },
   );
 
-  final smpt = CommunicationService(
+  final smtp = CommunicationService(
     persistanceDelegate: PostgresStrategy(
       host: 'monorail.proxy.rlwy.net',
       databaseName: 'railway',
@@ -67,9 +67,9 @@ Future<bool> sendMail({
     serverProvider: ServerProvider.outlook,
   );
 
-  await smpt.setUp();
+  await smtp.setUp();
 
-  final sended = await smpt.sendEmail(
+  final sended = await smtp.sendEmail(
     logoUuid: '1234',
     to: email,
     subject: 'Testing',

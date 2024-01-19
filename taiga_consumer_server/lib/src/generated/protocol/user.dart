@@ -10,46 +10,70 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 
-abstract class TaigaConsumer extends _i1.TableRow {
-  TaigaConsumer._({
+abstract class User extends _i1.TableRow {
+  User._({
     int? id,
-    required this.data,
+    required this.username,
+    required this.taigaId,
+    required this.gitHubId,
+    required this.gitLabId,
   }) : super(id);
 
-  factory TaigaConsumer({
+  factory User({
     int? id,
-    required Map<String, String> data,
-  }) = _TaigaConsumerImpl;
+    required String username,
+    required int taigaId,
+    required int gitHubId,
+    required int gitLabId,
+  }) = _UserImpl;
 
-  factory TaigaConsumer.fromJson(
+  factory User.fromJson(
     Map<String, dynamic> jsonSerialization,
     _i1.SerializationManager serializationManager,
   ) {
-    return TaigaConsumer(
+    return User(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      data: serializationManager
-          .deserialize<Map<String, String>>(jsonSerialization['data']),
+      username: serializationManager
+          .deserialize<String>(jsonSerialization['username']),
+      taigaId:
+          serializationManager.deserialize<int>(jsonSerialization['taigaId']),
+      gitHubId:
+          serializationManager.deserialize<int>(jsonSerialization['gitHubId']),
+      gitLabId:
+          serializationManager.deserialize<int>(jsonSerialization['gitLabId']),
     );
   }
 
-  static final t = TaigaConsumerTable();
+  static final t = UserTable();
 
-  static const db = TaigaConsumerRepository._();
+  static const db = UserRepository._();
 
-  Map<String, String> data;
+  String username;
+
+  int taigaId;
+
+  int gitHubId;
+
+  int gitLabId;
 
   @override
   _i1.Table get table => t;
 
-  TaigaConsumer copyWith({
+  User copyWith({
     int? id,
-    Map<String, String>? data,
+    String? username,
+    int? taigaId,
+    int? gitHubId,
+    int? gitLabId,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'data': data,
+      'username': username,
+      'taigaId': taigaId,
+      'gitHubId': gitHubId,
+      'gitLabId': gitLabId,
     };
   }
 
@@ -58,7 +82,10 @@ abstract class TaigaConsumer extends _i1.TableRow {
   Map<String, dynamic> toJsonForDatabase() {
     return {
       'id': id,
-      'data': data,
+      'username': username,
+      'taigaId': taigaId,
+      'gitHubId': gitHubId,
+      'gitLabId': gitLabId,
     };
   }
 
@@ -66,7 +93,10 @@ abstract class TaigaConsumer extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       'id': id,
-      'data': data,
+      'username': username,
+      'taigaId': taigaId,
+      'gitHubId': gitHubId,
+      'gitLabId': gitLabId,
     };
   }
 
@@ -79,8 +109,17 @@ abstract class TaigaConsumer extends _i1.TableRow {
       case 'id':
         id = value;
         return;
-      case 'data':
-        data = value;
+      case 'username':
+        username = value;
+        return;
+      case 'taigaId':
+        taigaId = value;
+        return;
+      case 'gitHubId':
+        gitHubId = value;
+        return;
+      case 'gitLabId':
+        gitLabId = value;
         return;
       default:
         throw UnimplementedError();
@@ -88,9 +127,9 @@ abstract class TaigaConsumer extends _i1.TableRow {
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<TaigaConsumer>> find(
+  static Future<List<User>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? limit,
     int? offset,
     _i1.Column? orderBy,
@@ -99,8 +138,8 @@ abstract class TaigaConsumer extends _i1.TableRow {
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.find<TaigaConsumer>(
-      where: where != null ? where(TaigaConsumer.t) : null,
+    return session.db.find<User>(
+      where: where != null ? where(User.t) : null,
       limit: limit,
       offset: offset,
       orderBy: orderBy,
@@ -112,17 +151,17 @@ abstract class TaigaConsumer extends _i1.TableRow {
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<TaigaConsumer?> findSingleRow(
+  static Future<User?> findSingleRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? offset,
     _i1.Column? orderBy,
     bool orderDescending = false,
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.findSingleRow<TaigaConsumer>(
-      where: where != null ? where(TaigaConsumer.t) : null,
+    return session.db.findSingleRow<User>(
+      where: where != null ? where(User.t) : null,
       offset: offset,
       orderBy: orderBy,
       orderDescending: orderDescending,
@@ -132,21 +171,21 @@ abstract class TaigaConsumer extends _i1.TableRow {
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<TaigaConsumer?> findById(
+  static Future<User?> findById(
     _i1.Session session,
     int id,
   ) async {
-    return session.db.findById<TaigaConsumer>(id);
+    return session.db.findById<User>(id);
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
   static Future<int> delete(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<TaigaConsumerTable> where,
+    required _i1.WhereExpressionBuilder<UserTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<TaigaConsumer>(
-      where: where(TaigaConsumer.t),
+    return session.db.delete<User>(
+      where: where(User.t),
       transaction: transaction,
     );
   }
@@ -154,7 +193,7 @@ abstract class TaigaConsumer extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
   static Future<bool> deleteRow(
     _i1.Session session,
-    TaigaConsumer row, {
+    User row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.deleteRow(
@@ -166,7 +205,7 @@ abstract class TaigaConsumer extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
   static Future<bool> update(
     _i1.Session session,
-    TaigaConsumer row, {
+    User row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.update(
@@ -179,7 +218,7 @@ abstract class TaigaConsumer extends _i1.TableRow {
       'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
   static Future<void> insert(
     _i1.Session session,
-    TaigaConsumer row, {
+    User row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.insert(
@@ -191,39 +230,39 @@ abstract class TaigaConsumer extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
   static Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? limit,
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<TaigaConsumer>(
-      where: where != null ? where(TaigaConsumer.t) : null,
+    return session.db.count<User>(
+      where: where != null ? where(User.t) : null,
       limit: limit,
       useCache: useCache,
       transaction: transaction,
     );
   }
 
-  static TaigaConsumerInclude include() {
-    return TaigaConsumerInclude._();
+  static UserInclude include() {
+    return UserInclude._();
   }
 
-  static TaigaConsumerIncludeList includeList({
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+  static UserIncludeList includeList({
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<TaigaConsumerTable>? orderBy,
+    _i1.OrderByBuilder<UserTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<TaigaConsumerTable>? orderByList,
-    TaigaConsumerInclude? include,
+    _i1.OrderByListBuilder<UserTable>? orderByList,
+    UserInclude? include,
   }) {
-    return TaigaConsumerIncludeList._(
+    return UserIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(TaigaConsumer.t),
+      orderBy: orderBy?.call(User.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(TaigaConsumer.t),
+      orderByList: orderByList?.call(User.t),
       include: include,
     );
   }
@@ -231,61 +270,93 @@ abstract class TaigaConsumer extends _i1.TableRow {
 
 class _Undefined {}
 
-class _TaigaConsumerImpl extends TaigaConsumer {
-  _TaigaConsumerImpl({
+class _UserImpl extends User {
+  _UserImpl({
     int? id,
-    required Map<String, String> data,
+    required String username,
+    required int taigaId,
+    required int gitHubId,
+    required int gitLabId,
   }) : super._(
           id: id,
-          data: data,
+          username: username,
+          taigaId: taigaId,
+          gitHubId: gitHubId,
+          gitLabId: gitLabId,
         );
 
   @override
-  TaigaConsumer copyWith({
+  User copyWith({
     Object? id = _Undefined,
-    Map<String, String>? data,
+    String? username,
+    int? taigaId,
+    int? gitHubId,
+    int? gitLabId,
   }) {
-    return TaigaConsumer(
+    return User(
       id: id is int? ? id : this.id,
-      data: data ?? this.data.clone(),
+      username: username ?? this.username,
+      taigaId: taigaId ?? this.taigaId,
+      gitHubId: gitHubId ?? this.gitHubId,
+      gitLabId: gitLabId ?? this.gitLabId,
     );
   }
 }
 
-class TaigaConsumerTable extends _i1.Table {
-  TaigaConsumerTable({super.tableRelation})
-      : super(tableName: 'taiga_consumer') {
-    data = _i1.ColumnSerializable(
-      'data',
+class UserTable extends _i1.Table {
+  UserTable({super.tableRelation}) : super(tableName: 'user') {
+    username = _i1.ColumnString(
+      'username',
+      this,
+    );
+    taigaId = _i1.ColumnInt(
+      'taigaId',
+      this,
+    );
+    gitHubId = _i1.ColumnInt(
+      'gitHubId',
+      this,
+    );
+    gitLabId = _i1.ColumnInt(
+      'gitLabId',
       this,
     );
   }
 
-  late final _i1.ColumnSerializable data;
+  late final _i1.ColumnString username;
+
+  late final _i1.ColumnInt taigaId;
+
+  late final _i1.ColumnInt gitHubId;
+
+  late final _i1.ColumnInt gitLabId;
 
   @override
   List<_i1.Column> get columns => [
         id,
-        data,
+        username,
+        taigaId,
+        gitHubId,
+        gitLabId,
       ];
 }
 
-@Deprecated('Use TaigaConsumerTable.t instead.')
-TaigaConsumerTable tTaigaConsumer = TaigaConsumerTable();
+@Deprecated('Use UserTable.t instead.')
+UserTable tUser = UserTable();
 
-class TaigaConsumerInclude extends _i1.IncludeObject {
-  TaigaConsumerInclude._();
+class UserInclude extends _i1.IncludeObject {
+  UserInclude._();
 
   @override
   Map<String, _i1.Include?> get includes => {};
 
   @override
-  _i1.Table get table => TaigaConsumer.t;
+  _i1.Table get table => User.t;
 }
 
-class TaigaConsumerIncludeList extends _i1.IncludeList {
-  TaigaConsumerIncludeList._({
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+class UserIncludeList extends _i1.IncludeList {
+  UserIncludeList._({
+    _i1.WhereExpressionBuilder<UserTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -293,33 +364,33 @@ class TaigaConsumerIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(TaigaConsumer.t);
+    super.where = where?.call(User.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table get table => TaigaConsumer.t;
+  _i1.Table get table => User.t;
 }
 
-class TaigaConsumerRepository {
-  const TaigaConsumerRepository._();
+class UserRepository {
+  const UserRepository._();
 
-  Future<List<TaigaConsumer>> find(
+  Future<List<User>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<TaigaConsumerTable>? orderBy,
+    _i1.OrderByBuilder<UserTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<TaigaConsumerTable>? orderByList,
+    _i1.OrderByListBuilder<UserTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.find<TaigaConsumer>(
-      where: where?.call(TaigaConsumer.t),
-      orderBy: orderBy?.call(TaigaConsumer.t),
-      orderByList: orderByList?.call(TaigaConsumer.t),
+    return session.dbNext.find<User>(
+      where: where?.call(User.t),
+      orderBy: orderBy?.call(User.t),
+      orderByList: orderByList?.call(User.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -327,90 +398,90 @@ class TaigaConsumerRepository {
     );
   }
 
-  Future<TaigaConsumer?> findFirstRow(
+  Future<User?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? offset,
-    _i1.OrderByBuilder<TaigaConsumerTable>? orderBy,
+    _i1.OrderByBuilder<UserTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<TaigaConsumerTable>? orderByList,
+    _i1.OrderByListBuilder<UserTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findFirstRow<TaigaConsumer>(
-      where: where?.call(TaigaConsumer.t),
-      orderBy: orderBy?.call(TaigaConsumer.t),
-      orderByList: orderByList?.call(TaigaConsumer.t),
+    return session.dbNext.findFirstRow<User>(
+      where: where?.call(User.t),
+      orderBy: orderBy?.call(User.t),
+      orderByList: orderByList?.call(User.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
     );
   }
 
-  Future<TaigaConsumer?> findById(
+  Future<User?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findById<TaigaConsumer>(
+    return session.dbNext.findById<User>(
       id,
       transaction: transaction,
     );
   }
 
-  Future<List<TaigaConsumer>> insert(
+  Future<List<User>> insert(
     _i1.Session session,
-    List<TaigaConsumer> rows, {
+    List<User> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<TaigaConsumer>(
+    return session.dbNext.insert<User>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<TaigaConsumer> insertRow(
+  Future<User> insertRow(
     _i1.Session session,
-    TaigaConsumer row, {
+    User row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<TaigaConsumer>(
+    return session.dbNext.insertRow<User>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<TaigaConsumer>> update(
+  Future<List<User>> update(
     _i1.Session session,
-    List<TaigaConsumer> rows, {
-    _i1.ColumnSelections<TaigaConsumerTable>? columns,
+    List<User> rows, {
+    _i1.ColumnSelections<UserTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<TaigaConsumer>(
+    return session.dbNext.update<User>(
       rows,
-      columns: columns?.call(TaigaConsumer.t),
+      columns: columns?.call(User.t),
       transaction: transaction,
     );
   }
 
-  Future<TaigaConsumer> updateRow(
+  Future<User> updateRow(
     _i1.Session session,
-    TaigaConsumer row, {
-    _i1.ColumnSelections<TaigaConsumerTable>? columns,
+    User row, {
+    _i1.ColumnSelections<UserTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<TaigaConsumer>(
+    return session.dbNext.updateRow<User>(
       row,
-      columns: columns?.call(TaigaConsumer.t),
+      columns: columns?.call(User.t),
       transaction: transaction,
     );
   }
 
   Future<List<int>> delete(
     _i1.Session session,
-    List<TaigaConsumer> rows, {
+    List<User> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<TaigaConsumer>(
+    return session.dbNext.delete<User>(
       rows,
       transaction: transaction,
     );
@@ -418,10 +489,10 @@ class TaigaConsumerRepository {
 
   Future<int> deleteRow(
     _i1.Session session,
-    TaigaConsumer row, {
+    User row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<TaigaConsumer>(
+    return session.dbNext.deleteRow<User>(
       row,
       transaction: transaction,
     );
@@ -429,23 +500,23 @@ class TaigaConsumerRepository {
 
   Future<List<int>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<TaigaConsumerTable> where,
+    required _i1.WhereExpressionBuilder<UserTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<TaigaConsumer>(
-      where: where(TaigaConsumer.t),
+    return session.dbNext.deleteWhere<User>(
+      where: where(User.t),
       transaction: transaction,
     );
   }
 
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaigaConsumerTable>? where,
+    _i1.WhereExpressionBuilder<UserTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<TaigaConsumer>(
-      where: where?.call(TaigaConsumer.t),
+    return session.dbNext.count<User>(
+      where: where?.call(User.t),
       limit: limit,
       transaction: transaction,
     );
