@@ -323,9 +323,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR taiga_consumer
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('taiga_consumer', '20240119193451385', now())
+    VALUES ('taiga_consumer', '20240119201415476', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240119193451385', "timestamp" = now();
+    DO UPDATE SET "version" = '20240119201415476', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

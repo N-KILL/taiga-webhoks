@@ -1458,7 +1458,7 @@
   "installedModules": [
     {
       "module": "taiga_consumer",
-      "version": "20240119193451385"
+      "version": "20240119201415476"
     },
     {
       "module": "serverpod",
