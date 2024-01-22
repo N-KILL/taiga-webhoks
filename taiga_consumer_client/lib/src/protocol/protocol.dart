@@ -16,6 +16,8 @@ import 'protocol/job_commentaries.dart' as _i4;
 import 'protocol/taiga_jobs.dart' as _i5;
 import 'protocol/updates.dart' as _i6;
 import 'protocol/user.dart' as _i7;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga_jobs.dart'
+    as _i8;
 export 'protocol/error_enum.dart';
 export 'protocol/exception.dart';
 export 'protocol/job_commentaries.dart';
@@ -80,6 +82,10 @@ class Protocol extends _i1.SerializationManager {
     }
     if (t == _i1.getType<_i7.User?>()) {
       return (data != null ? _i7.User.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i8.TaigaJob>) {
+      return (data as List).map((e) => deserialize<_i8.TaigaJob>(e)).toList()
+          as dynamic;
     }
     return super.deserialize<T>(data, t);
   }

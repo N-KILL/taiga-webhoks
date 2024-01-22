@@ -10,7 +10,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'protocol.dart' as _i3;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga_jobs.dart'
+    as _i3;
+import 'protocol.dart' as _i4;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -66,6 +68,70 @@ class EndpointCrud extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointTaigaJob extends _i1.EndpointRef {
+  EndpointTaigaJob(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'taigaJob';
+
+  _i2.Future<bool> create(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'create',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> createOnBulk(List<_i3.TaigaJob> taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'createOnBulk',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> readById(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'readById',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> readByTitle(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'readByTitle',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> readByType(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'readByType',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> readByStatus(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'readByStatus',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> update(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'update',
+        {'taigaJob': taigaJob},
+      );
+
+  _i2.Future<bool> deleteById(_i3.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJob',
+        'deleteById',
+        {'taigaJob': taigaJob},
+      );
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -75,7 +141,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i3.Protocol(),
+          _i4.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -84,6 +150,7 @@ class Client extends _i1.ServerpodClient {
     example = EndpointExample(this);
     anotherExample = EndpointAnotherExample(this);
     crud = EndpointCrud(this);
+    taigaJob = EndpointTaigaJob(this);
   }
 
   late final EndpointExample example;
@@ -92,11 +159,14 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointCrud crud;
 
+  late final EndpointTaigaJob taigaJob;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'example': example,
         'anotherExample': anotherExample,
         'crud': crud,
+        'taigaJob': taigaJob,
       };
 
   @override

@@ -11,6 +11,9 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/example_endpoint.dart' as _i2;
 import '../endpoints/hello_endpoint.dart' as _i3;
+import '../endpoints/taiga_job_endpoint.dart' as _i4;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga_jobs.dart'
+    as _i5;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -32,6 +35,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'crud',
+          null,
+        ),
+      'taigaJob': _i4.TaigaJobEndpoint()
+        ..initialize(
+          server,
+          'taigaJob',
           null,
         ),
     };
@@ -138,6 +147,156 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['crud'] as _i3.CrudEndpoint).delete(
             session,
             params['name'],
+          ),
+        ),
+      },
+    );
+    connectors['taigaJob'] = _i1.EndpointConnector(
+      name: 'taigaJob',
+      endpoint: endpoints['taigaJob']!,
+      methodConnectors: {
+        'create': _i1.MethodConnector(
+          name: 'create',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).create(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'createOnBulk': _i1.MethodConnector(
+          name: 'createOnBulk',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<List<_i5.TaigaJob>>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).createOnBulk(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'readById': _i1.MethodConnector(
+          name: 'readById',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readById(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'readByTitle': _i1.MethodConnector(
+          name: 'readByTitle',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readByTitle(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'readByType': _i1.MethodConnector(
+          name: 'readByType',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readByType(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'readByStatus': _i1.MethodConnector(
+          name: 'readByStatus',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readByStatus(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'update': _i1.MethodConnector(
+          name: 'update',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).update(
+            session,
+            params['taigaJob'],
+          ),
+        ),
+        'deleteById': _i1.MethodConnector(
+          name: 'deleteById',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i5.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).deleteById(
+            session,
+            params['taigaJob'],
           ),
         ),
       },

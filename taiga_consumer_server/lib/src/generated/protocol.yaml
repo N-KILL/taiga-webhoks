@@ -6,3 +6,12 @@ crud:
   - read:
   - update:
   - delete:
+taigaJob:
+  - create:
+  - createOnBulk:
+  - readById:
+  - readByTitle:
+  - readByType:
+  - readByStatus:
+  - update:
+  - deleteById:

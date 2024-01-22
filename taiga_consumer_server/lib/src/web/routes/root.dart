@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:gitlab_rest_models/gitlab_rest_models.dart';
+import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoint.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/taiga_jobs.dart';
 import 'package:taiga_consumer_server/src/mailer/mailer.dart';
 import 'package:taiga_consumer_server/src/mailer/message_generator.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
@@ -33,194 +35,61 @@ class RouteRoot extends WidgetRoute {
           // If the job type is issue
           case 'issue':
             // Convert the payload into an Issue instance
-            TaigaIssueData printData = payload.data as TaigaIssueData;
+            final printData = payload.data as TaigaIssueData;
 
-            // Create a message based on the information
-            final message = MessageGenerator().taigaCreateMessageNotification(
-              creationDate: printData.creationDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobDescription: printData.jobDescription.toString(),
-              jobType: payload.jobType,
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
+            //Create a TaigaJob Instance
+            final job = TaigaJob(
+              type: payload.jobType,
+              title: printData.jobName,
+              description: printData.jobDescription != null
+                  ? printData.jobDescription!
+                  : " ",
+              status: printData.jobStatus.toString(),
             );
 
-            // Send the message
-            final sendMessage = await sendMail(
-                email: 'club_dog2@hotmail.com', message: message);
-
-            print('Mail notification status: $sendMessage');
+            // Create the item in the database
+            TaigaJobEndpoint().create(session, job);
 
             break;
 
           // If the job type is task
           case 'task':
             // Convert the payload into an Task instance
-            TaigaTaskData printData = payload.data as TaigaTaskData;
+            final printData = payload.data as TaigaTaskData;
 
-            // Create a message based on the information
-            final message = MessageGenerator().taigaCreateMessageNotification(
-              creationDate: printData.creationDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobDescription: printData.jobDescription.toString(),
-              jobType: payload.jobType,
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
+            //Create a TaigaJob Instance
+            final job = TaigaJob(
+              type: payload.jobType,
+              title: printData.jobName,
+              description: printData.jobDescription != null
+                  ? printData.jobDescription!
+                  : " ",
+              status: printData.jobStatus.toString(),
             );
 
-            // Send the message
-            final sendMessage = await sendMail(
-                email: 'club_dog2@hotmail.com', message: message);
-
-            print('Mail notification status: $sendMessage');
+            // Create the item in the database
+            TaigaJobEndpoint().create(session, job);
 
             break;
 
           // If the job type is userstory
           case 'userstory':
             // Convert the payload into an Userstory instance
-            TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
+            final printData = payload.data as TaigaUserStoryData;
 
-            // Create a message based on the information
-            final message = MessageGenerator().taigaCreateMessageNotification(
-              creationDate: printData.creationDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobDescription: printData.jobDescription.toString(),
-              jobType: payload.jobType,
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
-            );
-            // Send the message
-            final sendMessage = await sendMail(
-                email: 'club_dog2@hotmail.com', message: message);
-
-            print('Mail notification status: $sendMessage');
-
-            break;
-        }
-      }
-
-      // If the type of action is change
-      if (payload.actionType == 'change') {
-        switch (payload.jobType) {
-          // If the job type is issue
-          case 'issue':
-            // Convert the payload into an Issue instance
-            TaigaIssueData printData = payload.data as TaigaIssueData;
-
-            // Create a message based on the information
-            final message = MessageGenerator().taigaUpdateMessageNotification(
-              modifiedDate: printData.modifiedDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobType: payload.jobType,
-              refNumber: printData.referenceNumber.toString(),
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
-              nameFrom: payload.change?.difference?.name?.oldValue.toString(),
-              nameTo: payload.change?.difference?.name?.newValue.toString(),
-              newDescription:
-                  payload.change?.difference?.descriptionDiff != null
-                      ? printData.jobDescription
-                      : null,
-              statusFrom:
-                  payload.change?.difference?.status?.oldValue.toString(),
-              statusTo: payload.change?.difference?.status?.newValue.toString(),
-              promotedFrom:
-                  payload.change?.difference?.promotedTo?.oldValue.toString(),
-              promotedTo:
-                  payload.change?.difference?.promotedTo?.newValue.toString(),
-              attachedTo:
-                  payload.change?.difference?.relatedSprint?.newValue != null
-                      ? payload.change?.difference?.relatedSprint?.newValue
-                          .toString()
-                      : null,
+            //Create a TaigaJob Instance
+            final job = TaigaJob(
+              type: payload.jobType,
+              title: printData.jobName,
+              description: printData.jobDescription != null
+                  ? printData.jobDescription!
+                  : " ",
+              status: printData.jobStatus.toString(),
             );
 
-            if (message != null) {
-              // Send the message
-              final sendMessage = await sendMail(
-                  email: 'club_dog2@hotmail.com', message: message);
+            // Create the item in the database
+            TaigaJobEndpoint().create(session, job);
 
-              print('Mail notification status: $sendMessage');
-            }
-            break;
-
-          // If the job type is task
-          case 'task':
-            // Convert the payload into an Task instance
-            TaigaTaskData printData = payload.data as TaigaTaskData;
-
-            // Create a message based on the information
-            final message = MessageGenerator().taigaUpdateMessageNotification(
-              modifiedDate: printData.modifiedDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobType: payload.jobType,
-              refNumber: printData.referenceNumber.toString(),
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
-              nameFrom: payload.change?.difference?.name?.oldValue,
-              nameTo: payload.change?.difference?.name?.newValue,
-              newDescription:
-                  payload.change?.difference?.descriptionDiff != null
-                      ? printData.jobDescription
-                      : null,
-              statusFrom: payload.change?.difference?.status?.oldValue,
-              statusTo: payload.change?.difference?.status?.newValue,
-              promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
-              promotedTo: payload.change?.difference?.promotedTo?.newValue,
-              attachedTo:
-                  payload.change?.difference?.relatedSprint?.newValue != null
-                      ? payload.change?.difference?.relatedSprint?.newValue
-                          .toString()
-                      : null,
-            );
-
-            if (message != null) {
-              // Send the message
-              final sendMessage = await sendMail(
-                  email: 'club_dog2@hotmail.com', message: message);
-
-              print('Mail notification status: $sendMessage');
-            }
-
-            break;
-
-          // If the job type is userstory
-          case 'userstory':
-            // Convert the payload into an Userstory instance
-            TaigaUserStoryData printData = payload.data as TaigaUserStoryData;
-            // Create a message based on the information
-            final message = MessageGenerator().taigaUpdateMessageNotification(
-              modifiedDate: printData.modifiedDate.toString(),
-              jobName: printData.jobName.toString(),
-              jobType: payload.jobType,
-              refNumber: printData.referenceNumber.toString(),
-              projectName: printData.fromProject.projectName,
-              type: payload.actionType,
-              nameFrom: payload.change?.difference?.name?.oldValue,
-              nameTo: payload.change?.difference?.name?.newValue,
-              newDescription:
-                  payload.change?.difference?.descriptionDiff != null
-                      ? printData.jobDescription
-                      : null,
-              statusFrom: payload.change?.difference?.status?.oldValue,
-              statusTo: payload.change?.difference?.status?.newValue,
-              promotedFrom: payload.change?.difference?.promotedTo?.oldValue,
-              promotedTo: payload.change?.difference?.promotedTo?.newValue,
-              attachedTo:
-                  payload.change?.difference?.relatedSprint?.newValue != null
-                      ? payload.change?.difference?.relatedSprint?.newValue
-                          .toString()
-                      : null,
-            );
-
-            if (message != null) {
-              // Send the message
-              final sendMessage = await sendMail(
-                  email: 'club_dog2@hotmail.com', message: message);
-
-              print('Mail notification status: $sendMessage');
-            }
             break;
         }
       }
