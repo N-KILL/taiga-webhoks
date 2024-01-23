@@ -17,6 +17,7 @@ abstract class TaigaJob extends _i1.TableRow {
     required this.title,
     required this.description,
     required this.status,
+    required this.projectId,
   }) : super(id);
 
   factory TaigaJob({
@@ -25,6 +26,7 @@ abstract class TaigaJob extends _i1.TableRow {
     required String title,
     required String description,
     required String status,
+    required int projectId,
   }) = _TaigaJobImpl;
 
   factory TaigaJob.fromJson(
@@ -40,6 +42,8 @@ abstract class TaigaJob extends _i1.TableRow {
           .deserialize<String>(jsonSerialization['description']),
       status:
           serializationManager.deserialize<String>(jsonSerialization['status']),
+      projectId:
+          serializationManager.deserialize<int>(jsonSerialization['projectId']),
     );
   }
 
@@ -55,6 +59,8 @@ abstract class TaigaJob extends _i1.TableRow {
 
   String status;
 
+  int projectId;
+
   @override
   _i1.Table get table => t;
 
@@ -64,6 +70,7 @@ abstract class TaigaJob extends _i1.TableRow {
     String? title,
     String? description,
     String? status,
+    int? projectId,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -73,6 +80,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'title': title,
       'description': description,
       'status': status,
+      'projectId': projectId,
     };
   }
 
@@ -80,22 +88,24 @@ abstract class TaigaJob extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'type': type,
       'title': title,
       'description': description,
       'status': status,
+      'projectId': projectId,
     };
   }
 
   @override
   Map<String, dynamic> allToJson() {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'type': type,
       'title': title,
       'description': description,
       'status': status,
+      'projectId': projectId,
     };
   }
 
@@ -119,6 +129,9 @@ abstract class TaigaJob extends _i1.TableRow {
         return;
       case 'status':
         status = value;
+        return;
+      case 'projectId':
+        projectId = value;
         return;
       default:
         throw UnimplementedError();
@@ -276,12 +289,14 @@ class _TaigaJobImpl extends TaigaJob {
     required String title,
     required String description,
     required String status,
+    required int projectId,
   }) : super._(
           id: id,
           type: type,
           title: title,
           description: description,
           status: status,
+          projectId: projectId,
         );
 
   @override
@@ -291,6 +306,7 @@ class _TaigaJobImpl extends TaigaJob {
     String? title,
     String? description,
     String? status,
+    int? projectId,
   }) {
     return TaigaJob(
       id: id is int? ? id : this.id,
@@ -298,6 +314,7 @@ class _TaigaJobImpl extends TaigaJob {
       title: title ?? this.title,
       description: description ?? this.description,
       status: status ?? this.status,
+      projectId: projectId ?? this.projectId,
     );
   }
 }
@@ -320,6 +337,10 @@ class TaigaJobTable extends _i1.Table {
       'status',
       this,
     );
+    projectId = _i1.ColumnInt(
+      'projectId',
+      this,
+    );
   }
 
   late final _i1.ColumnString type;
@@ -330,6 +351,8 @@ class TaigaJobTable extends _i1.Table {
 
   late final _i1.ColumnString status;
 
+  late final _i1.ColumnInt projectId;
+
   @override
   List<_i1.Column> get columns => [
         id,
@@ -337,6 +360,7 @@ class TaigaJobTable extends _i1.Table {
         title,
         description,
         status,
+        projectId,
       ];
 }
 

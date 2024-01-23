@@ -6,6 +6,14 @@ crud:
   - read:
   - update:
   - delete:
+taigaProject:
+  - create:
+  - createOnBulk:
+  - readById:
+  - readByTitle:
+  - readByTaigaProjectId:
+  - updateById:
+  - deleteById:
 taigaJob:
   - create:
   - createOnBulk:
@@ -13,5 +21,6 @@ taigaJob:
   - readByTitle:
   - readByType:
   - readByStatus:
-  - update:
+  - readByProjectId:
+  - updateById:
   - deleteById:

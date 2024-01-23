@@ -13,17 +13,21 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'protocol/error_enum.dart' as _i3;
 import 'protocol/exception.dart' as _i4;
-import 'protocol/job_commentaries.dart' as _i5;
-import 'protocol/taiga_jobs.dart' as _i6;
-import 'protocol/updates.dart' as _i7;
-import 'protocol/user.dart' as _i8;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga_jobs.dart'
-    as _i9;
+import 'protocol/taiga/taiga_job_commentaries.dart' as _i5;
+import 'protocol/taiga/taiga_job_updates.dart' as _i6;
+import 'protocol/taiga/taiga_jobs.dart' as _i7;
+import 'protocol/taiga/taiga_project.dart' as _i8;
+import 'protocol/user.dart' as _i9;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
+    as _i10;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_jobs.dart'
+    as _i11;
 export 'protocol/error_enum.dart';
 export 'protocol/exception.dart';
-export 'protocol/job_commentaries.dart';
-export 'protocol/taiga_jobs.dart';
-export 'protocol/updates.dart';
+export 'protocol/taiga/taiga_job_commentaries.dart';
+export 'protocol/taiga/taiga_job_updates.dart';
+export 'protocol/taiga/taiga_jobs.dart';
+export 'protocol/taiga/taiga_project.dart';
 export 'protocol/user.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -73,8 +77,25 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: false,
           dartType: 'String',
         ),
+        _i2.ColumnDefinition(
+          name: 'projectId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
       ],
-      foreignKeys: [],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'taiga_job_fk_0',
+          columns: ['projectId'],
+          referenceTable: 'taiga_project',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
       indexes: [
         _i2.IndexDefinition(
           indexName: 'taiga_job_pkey',
@@ -225,6 +246,50 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
+      name: 'taiga_project',
+      dartName: 'TaigaProject',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'taiga_project_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'title',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'taigaId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'taiga_project_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
       name: 'user',
       dartName: 'User',
       schema: 'public',
@@ -301,14 +366,17 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i5.TaigaJobCommentaries) {
       return _i5.TaigaJobCommentaries.fromJson(data, this) as T;
     }
-    if (t == _i6.TaigaJob) {
-      return _i6.TaigaJob.fromJson(data, this) as T;
+    if (t == _i6.TaigaJobUpdates) {
+      return _i6.TaigaJobUpdates.fromJson(data, this) as T;
     }
-    if (t == _i7.TaigaJobUpdates) {
-      return _i7.TaigaJobUpdates.fromJson(data, this) as T;
+    if (t == _i7.TaigaJob) {
+      return _i7.TaigaJob.fromJson(data, this) as T;
     }
-    if (t == _i8.User) {
-      return _i8.User.fromJson(data, this) as T;
+    if (t == _i8.TaigaProject) {
+      return _i8.TaigaProject.fromJson(data, this) as T;
+    }
+    if (t == _i9.User) {
+      return _i9.User.fromJson(data, this) as T;
     }
     if (t == _i1.getType<_i3.ErrorEnum?>()) {
       return (data != null ? _i3.ErrorEnum.fromJson(data) : null) as T;
@@ -321,19 +389,32 @@ class Protocol extends _i1.SerializationManagerServer {
           ? _i5.TaigaJobCommentaries.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i6.TaigaJob?>()) {
-      return (data != null ? _i6.TaigaJob.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i7.TaigaJobUpdates?>()) {
-      return (data != null ? _i7.TaigaJobUpdates.fromJson(data, this) : null)
+    if (t == _i1.getType<_i6.TaigaJobUpdates?>()) {
+      return (data != null ? _i6.TaigaJobUpdates.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i8.User?>()) {
-      return (data != null ? _i8.User.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i7.TaigaJob?>()) {
+      return (data != null ? _i7.TaigaJob.fromJson(data, this) : null) as T;
     }
-    if (t == List<_i9.TaigaJob>) {
-      return (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
+    if (t == _i1.getType<_i8.TaigaProject?>()) {
+      return (data != null ? _i8.TaigaProject.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i9.User?>()) {
+      return (data != null ? _i9.User.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i10.TaigaProject>) {
+      return (data as List)
+          .map((e) => deserialize<_i10.TaigaProject>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i11.TaigaJob>) {
+      return (data as List).map((e) => deserialize<_i11.TaigaJob>(e)).toList()
           as dynamic;
+    }
+    if (t == _i1.getType<List<_i11.TaigaJob>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i11.TaigaJob>(e)).toList()
+          : null) as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -352,13 +433,16 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i5.TaigaJobCommentaries) {
       return 'TaigaJobCommentaries';
     }
-    if (data is _i6.TaigaJob) {
-      return 'TaigaJob';
-    }
-    if (data is _i7.TaigaJobUpdates) {
+    if (data is _i6.TaigaJobUpdates) {
       return 'TaigaJobUpdates';
     }
-    if (data is _i8.User) {
+    if (data is _i7.TaigaJob) {
+      return 'TaigaJob';
+    }
+    if (data is _i8.TaigaProject) {
+      return 'TaigaProject';
+    }
+    if (data is _i9.User) {
       return 'User';
     }
     return super.getClassNameForObject(data);
@@ -375,14 +459,17 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'TaigaJobCommentaries') {
       return deserialize<_i5.TaigaJobCommentaries>(data['data']);
     }
-    if (data['className'] == 'TaigaJob') {
-      return deserialize<_i6.TaigaJob>(data['data']);
-    }
     if (data['className'] == 'TaigaJobUpdates') {
-      return deserialize<_i7.TaigaJobUpdates>(data['data']);
+      return deserialize<_i6.TaigaJobUpdates>(data['data']);
+    }
+    if (data['className'] == 'TaigaJob') {
+      return deserialize<_i7.TaigaJob>(data['data']);
+    }
+    if (data['className'] == 'TaigaProject') {
+      return deserialize<_i8.TaigaProject>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i8.User>(data['data']);
+      return deserialize<_i9.User>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -398,12 +485,14 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (t) {
       case _i5.TaigaJobCommentaries:
         return _i5.TaigaJobCommentaries.t;
-      case _i6.TaigaJob:
-        return _i6.TaigaJob.t;
-      case _i7.TaigaJobUpdates:
-        return _i7.TaigaJobUpdates.t;
-      case _i8.User:
-        return _i8.User.t;
+      case _i6.TaigaJobUpdates:
+        return _i6.TaigaJobUpdates.t;
+      case _i7.TaigaJob:
+        return _i7.TaigaJob.t;
+      case _i8.TaigaProject:
+        return _i8.TaigaProject.t;
+      case _i9.User:
+        return _i9.User.t;
     }
     return null;
   }

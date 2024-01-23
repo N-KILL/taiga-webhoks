@@ -37,9 +37,29 @@
           "columnType": 0,
           "isNullable": false,
           "dartType": "String"
+        },
+        {
+          "name": "projectId",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
         }
       ],
-      "foreignKeys": [],
+      "foreignKeys": [
+        {
+          "constraintName": "taiga_job_fk_0",
+          "columns": [
+            "projectId"
+          ],
+          "referenceTable": "taiga_project",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        }
+      ],
       "indexes": [
         {
           "indexName": "taiga_job_pkey",
@@ -182,6 +202,49 @@
       "indexes": [
         {
           "indexName": "taiga_job_updates_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "taiga_project",
+      "dartName": "TaigaProject",
+      "module": "taiga_consumer",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('taiga_project_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "title",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "taigaId",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "taiga_project_pkey",
           "elements": [
             {
               "type": 0,

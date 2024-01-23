@@ -2,10 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:gitlab_rest_models/gitlab_rest_models.dart';
+import 'package:taiga_consumer_server/src/endpoints/project_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoint.dart';
-import 'package:taiga_consumer_server/src/generated/protocol/taiga_jobs.dart';
-import 'package:taiga_consumer_server/src/mailer/mailer.dart';
-import 'package:taiga_consumer_server/src/mailer/message_generator.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_jobs.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
@@ -37,18 +36,31 @@ class RouteRoot extends WidgetRoute {
             // Convert the payload into an Issue instance
             final printData = payload.data as TaigaIssueData;
 
-            //Create a TaigaJob Instance
-            final job = TaigaJob(
-              type: payload.jobType,
-              title: printData.jobName,
-              description: printData.jobDescription != null
-                  ? printData.jobDescription!
-                  : " ",
-              status: printData.jobStatus.toString(),
+            // Get the project Id if exist
+            final getProjectId =
+                await TaigaProjectEndpoint().readByTaigaProjectId(
+              session,
+              printData.fromProject.projectId,
             );
 
-            // Create the item in the database
-            TaigaJobEndpoint().create(session, job);
+            print(printData.fromProject.projectId);
+
+            if (getProjectId != null) {
+              //Create a TaigaJob Instance
+              final job = TaigaJob(
+                  type: payload.jobType,
+                  title: printData.jobName,
+                  description: printData.jobDescription != null
+                      ? printData.jobDescription!
+                      : " ",
+                  status: printData.jobStatus.statusName,
+                  projectId: getProjectId.id!);
+
+              // Create the item in the database
+              final canCreate = await TaigaJobEndpoint().create(session, job);
+
+              if (canCreate) {}
+            }
 
             break;
 
@@ -57,18 +69,31 @@ class RouteRoot extends WidgetRoute {
             // Convert the payload into an Task instance
             final printData = payload.data as TaigaTaskData;
 
-            //Create a TaigaJob Instance
-            final job = TaigaJob(
-              type: payload.jobType,
-              title: printData.jobName,
-              description: printData.jobDescription != null
-                  ? printData.jobDescription!
-                  : " ",
-              status: printData.jobStatus.toString(),
+            // Get the project Id if exist
+            final getProjectId =
+                await TaigaProjectEndpoint().readByTaigaProjectId(
+              session,
+              printData.fromProject.projectId,
             );
 
-            // Create the item in the database
-            TaigaJobEndpoint().create(session, job);
+            print(printData.fromProject.projectId);
+
+            if (getProjectId != null) {
+              //Create a TaigaJob Instance
+              final job = TaigaJob(
+                  type: payload.jobType,
+                  title: printData.jobName,
+                  description: printData.jobDescription != null
+                      ? printData.jobDescription!
+                      : " ",
+                  status: printData.jobStatus.statusName,
+                  projectId: getProjectId.id!);
+
+              // Create the item in the database
+              final canCreate = await TaigaJobEndpoint().create(session, job);
+
+              if (canCreate) {}
+            }
 
             break;
 
@@ -77,18 +102,31 @@ class RouteRoot extends WidgetRoute {
             // Convert the payload into an Userstory instance
             final printData = payload.data as TaigaUserStoryData;
 
-            //Create a TaigaJob Instance
-            final job = TaigaJob(
-              type: payload.jobType,
-              title: printData.jobName,
-              description: printData.jobDescription != null
-                  ? printData.jobDescription!
-                  : " ",
-              status: printData.jobStatus.toString(),
+            // Get the project Id if exist
+            final getProjectId =
+                await TaigaProjectEndpoint().readByTaigaProjectId(
+              session,
+              printData.fromProject.projectId,
             );
 
-            // Create the item in the database
-            TaigaJobEndpoint().create(session, job);
+            print(printData.fromProject.projectId);
+
+            if (getProjectId != null) {
+              //Create a TaigaJob Instance
+              final job = TaigaJob(
+                  type: payload.jobType,
+                  title: printData.jobName,
+                  description: printData.jobDescription != null
+                      ? printData.jobDescription!
+                      : " ",
+                  status: printData.jobStatus.statusName,
+                  projectId: getProjectId.id!);
+
+              // Create the item in the database
+              final canCreate = await TaigaJobEndpoint().create(session, job);
+
+              if (canCreate) {}
+            }
 
             break;
         }

@@ -11,9 +11,12 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/example_endpoint.dart' as _i2;
 import '../endpoints/hello_endpoint.dart' as _i3;
-import '../endpoints/taiga_job_endpoint.dart' as _i4;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga_jobs.dart'
-    as _i5;
+import '../endpoints/project_endpoint.dart' as _i4;
+import '../endpoints/taiga_job_endpoint.dart' as _i5;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
+    as _i6;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_jobs.dart'
+    as _i7;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -37,7 +40,13 @@ class Endpoints extends _i1.EndpointDispatch {
           'crud',
           null,
         ),
-      'taigaJob': _i4.TaigaJobEndpoint()
+      'taigaProject': _i4.TaigaProjectEndpoint()
+        ..initialize(
+          server,
+          'taigaProject',
+          null,
+        ),
+      'taigaJob': _i5.TaigaJobEndpoint()
         ..initialize(
           server,
           'taigaJob',
@@ -151,6 +160,143 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['taigaProject'] = _i1.EndpointConnector(
+      name: 'taigaProject',
+      endpoint: endpoints['taigaProject']!,
+      methodConnectors: {
+        'create': _i1.MethodConnector(
+          name: 'create',
+          params: {
+            'taigaProject': _i1.ParameterDescription(
+              name: 'taigaProject',
+              type: _i1.getType<_i6.TaigaProject>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint).create(
+            session,
+            params['taigaProject'],
+          ),
+        ),
+        'createOnBulk': _i1.MethodConnector(
+          name: 'createOnBulk',
+          params: {
+            'taigaProject': _i1.ParameterDescription(
+              name: 'taigaProject',
+              type: _i1.getType<List<_i6.TaigaProject>>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
+                  .createOnBulk(
+            session,
+            params['taigaProject'],
+          ),
+        ),
+        'readById': _i1.MethodConnector(
+          name: 'readById',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint).readById(
+            session,
+            params['id'],
+          ),
+        ),
+        'readByTitle': _i1.MethodConnector(
+          name: 'readByTitle',
+          params: {
+            'taigaProject': _i1.ParameterDescription(
+              name: 'taigaProject',
+              type: _i1.getType<_i6.TaigaProject>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
+                  .readByTitle(
+            session,
+            params['taigaProject'],
+          ),
+        ),
+        'readByTaigaProjectId': _i1.MethodConnector(
+          name: 'readByTaigaProjectId',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
+                  .readByTaigaProjectId(
+            session,
+            params['id'],
+          ),
+        ),
+        'updateById': _i1.MethodConnector(
+          name: 'updateById',
+          params: {
+            'taigaProject': _i1.ParameterDescription(
+              name: 'taigaProject',
+              type: _i1.getType<_i6.TaigaProject>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
+                  .updateById(
+            session,
+            params['taigaProject'],
+          ),
+        ),
+        'deleteById': _i1.MethodConnector(
+          name: 'deleteById',
+          params: {
+            'taigaProject': _i1.ParameterDescription(
+              name: 'taigaProject',
+              type: _i1.getType<_i6.TaigaProject>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
+                  .deleteById(
+            session,
+            params['taigaProject'],
+          ),
+        ),
+      },
+    );
     connectors['taigaJob'] = _i1.EndpointConnector(
       name: 'taigaJob',
       endpoint: endpoints['taigaJob']!,
@@ -160,7 +306,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+              type: _i1.getType<_i7.TaigaJob>(),
               nullable: false,
             )
           },
@@ -168,7 +314,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).create(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).create(
             session,
             params['taigaJob'],
           ),
@@ -178,7 +324,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<List<_i5.TaigaJob>>(),
+              type: _i1.getType<List<_i7.TaigaJob>>(),
               nullable: false,
             )
           },
@@ -186,7 +332,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).createOnBulk(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).createOnBulk(
             session,
             params['taigaJob'],
           ),
@@ -194,9 +340,9 @@ class Endpoints extends _i1.EndpointDispatch {
         'readById': _i1.MethodConnector(
           name: 'readById',
           params: {
-            'taigaJob': _i1.ParameterDescription(
-              name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
               nullable: false,
             )
           },
@@ -204,9 +350,9 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readById(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).readById(
             session,
-            params['taigaJob'],
+            params['id'],
           ),
         ),
         'readByTitle': _i1.MethodConnector(
@@ -214,7 +360,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+              type: _i1.getType<_i7.TaigaJob>(),
               nullable: false,
             )
           },
@@ -222,7 +368,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readByTitle(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).readByTitle(
             session,
             params['taigaJob'],
           ),
@@ -232,7 +378,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+              type: _i1.getType<_i7.TaigaJob>(),
               nullable: false,
             )
           },
@@ -240,7 +386,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readByType(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).readByType(
             session,
             params['taigaJob'],
           ),
@@ -250,7 +396,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+              type: _i1.getType<_i7.TaigaJob>(),
               nullable: false,
             )
           },
@@ -258,17 +404,17 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).readByStatus(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).readByStatus(
             session,
             params['taigaJob'],
           ),
         ),
-        'update': _i1.MethodConnector(
-          name: 'update',
+        'readByProjectId': _i1.MethodConnector(
+          name: 'readByProjectId',
           params: {
-            'taigaJob': _i1.ParameterDescription(
-              name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+            'projectId': _i1.ParameterDescription(
+              name: 'projectId',
+              type: _i1.getType<int>(),
               nullable: false,
             )
           },
@@ -276,7 +422,25 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).update(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).readByProjectId(
+            session,
+            params['projectId'],
+          ),
+        ),
+        'updateById': _i1.MethodConnector(
+          name: 'updateById',
+          params: {
+            'taigaJob': _i1.ParameterDescription(
+              name: 'taigaJob',
+              type: _i1.getType<_i7.TaigaJob>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).updateById(
             session,
             params['taigaJob'],
           ),
@@ -286,7 +450,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i5.TaigaJob>(),
+              type: _i1.getType<_i7.TaigaJob>(),
               nullable: false,
             )
           },
@@ -294,7 +458,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).deleteById(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).deleteById(
             session,
             params['taigaJob'],
           ),

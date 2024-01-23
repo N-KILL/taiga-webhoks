@@ -9,7 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../protocol.dart' as _i2;
+import '../../protocol.dart' as _i2;
 
 /// This class is for storage the all the commentaries made into a Job on Taiga
 /// Have direct relation to the TaigaJob table
@@ -92,7 +92,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'jobIdId': jobIdId,
       'details': details,
       'userIdId': userIdId,
@@ -102,12 +102,12 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
   @override
   Map<String, dynamic> allToJson() {
     return {
-      'id': id,
+      if (id != null) 'id': id,
       'jobIdId': jobIdId,
-      'jobId': jobId,
+      if (jobId != null) 'jobId': jobId,
       'details': details,
       'userIdId': userIdId,
-      'userId': userId,
+      if (userId != null) 'userId': userId,
     };
   }
 
