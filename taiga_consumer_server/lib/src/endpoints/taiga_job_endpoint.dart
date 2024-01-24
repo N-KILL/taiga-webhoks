@@ -99,10 +99,9 @@ class TaigaJobEndpoint extends Endpoint {
     required TaigaJob taigaJob,
     required int id,
   }) async {
-    if (taigaJob.id != null) {
       var modify = await TaigaJob.db.findById(
         session,
-        taigaJob.id!,
+        id,
       );
       if (modify != null) {
         modify.type = taigaJob.type;
@@ -115,9 +114,8 @@ class TaigaJobEndpoint extends Endpoint {
         );
         return (updatedJob);
       }
-    }
     return null;
-  }
+    }
 
   Future<bool> deleteById(Session session, TaigaJob taigaJob) async {
     if (taigaJob.id != null) {
