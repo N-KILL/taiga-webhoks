@@ -92,92 +92,99 @@ class RouteRoot extends WidgetRoute {
       if (payload.actionType == 'change') {
         print('Printing change: ${payload.change}');
 
-        // If can get the project related to the job
-        if (getProjectId != null) {
-          // Create a TaigaJob instance with the data
-          final job = TaigaJob(
-            type: payload.jobType,
-            title: printData.jobName,
-            description: printData.jobDescription != null
-                ? printData.jobDescription!
-                : ' ',
-            status: printData.jobStatus.statusName,
-            projectId: getProjectId.id!,
-            taigaRefNumber: printData.referenceNumber,
-          );
+        final detail = DetailGenerator(
+          payload: payload,
+        );
 
-          // Verify if the job already exist
-          final readJob = await TaigaJobEndpoint().readByProjectIdAndRefNumber(
-            session,
-            projectId: getProjectId.id!,
-            taigaRefNumber: printData.referenceNumber,
-          );
+        // If detail have data, mean its important data. Otherwise, this doesn't
+        // need to be executed
+        if (detail != '') {
+          // If can get the project related to the job
+          if (getProjectId != null) {
+            // Create a TaigaJob instance with the data
+            final job = TaigaJob(
+              type: payload.jobType,
+              title: printData.jobName,
+              description: printData.jobDescription != null
+                  ? printData.jobDescription!
+                  : ' ',
+              status: printData.jobStatus.statusName,
+              projectId: getProjectId.id!,
+              taigaRefNumber: printData.referenceNumber,
+            );
 
-          print('Printing readJob: $readJob');
-          // If the job already exist on the database
-          if (readJob != null) {
-            // Update the values with the new detected on
-            final canUpdate = await TaigaJobEndpoint()
-                .updateById(session, id: readJob.id!, taigaJob: job);
+            // Verify if the job already exist
+            final readJob =
+                await TaigaJobEndpoint().readByProjectIdAndRefNumber(
+              session,
+              projectId: getProjectId.id!,
+              taigaRefNumber: printData.referenceNumber,
+            );
 
-            print('Printing canUpdate: $canUpdate');
-            // If can update the values will return a taigaJob instance,
-            // with an id
-            if (canUpdate != null && canUpdate.id != null) {
-              // Create a new job update register
-              final updateStatus = await TaigaJobUpdateEndpoint().create(
-                  session,
-                  TaigaJobUpdates(
-                    jobId: canUpdate.id!,
-                    type: canUpdate.type + ' ' + payload.actionType,
-                    status: canUpdate.status,
-                    details: DetailGenerator(
-                      payload: payload,
-                    ),
-                    dateTimeEpoch:
-                        DateTime.now().millisecondsSinceEpoch.toString(),
-                  ));
-              //  Verify if the change made was a new comment, and store it
-              if (payload.change!.comment != '') {
-                TaigaJobCommentariesEndpoint().create(
+            print('Printing readJob: $readJob');
+            // If the job already exist on the database
+            if (readJob != null) {
+              // Update the values with the new detected on
+              final canUpdate = await TaigaJobEndpoint()
+                  .updateById(session, id: readJob.id!, taigaJob: job);
+
+              print('Printing canUpdate: $canUpdate');
+              // If can update the values will return a taigaJob instance,
+              // with an id
+              if (canUpdate != null && canUpdate.id != null) {
+                // Create a new job update register
+                final updateStatus = await TaigaJobUpdateEndpoint().create(
                     session,
-                    TaigaJobCommentaries(
-                        jobIdId: canUpdate.id!,
-                        details: payload.change!.comment!,
-                        dateTime: DateTime.now()));
+                    TaigaJobUpdates(
+                      jobId: canUpdate.id!,
+                      type: canUpdate.type + ' ' + payload.actionType,
+                      status: canUpdate.status,
+                      details: detail,
+                      dateTimeEpoch:
+                          DateTime.now().millisecondsSinceEpoch.toString(),
+                    ));
+                //  Verify if the change made was a new comment, and store it
+                if (payload.change!.comment != '') {
+                  TaigaJobCommentariesEndpoint().create(
+                      session,
+                      TaigaJobCommentaries(
+                          jobIdId: canUpdate.id!,
+                          details: payload.change!.comment!,
+                          dateTime: DateTime.now()));
+                }
+                print('Printing updateStatus: $updateStatus');
               }
-              print('Printing updateStatus: $updateStatus');
-            }
-          } else // If the job do not exist on the database
-          {
-            // Create the item in the database
-            final canCreate = await TaigaJobEndpoint().create(session, job);
-            print('Printing canCreate: $canCreate');
+            } else // If the job do not exist on the database
+            {
+              // Create the item in the database
+              final canCreate = await TaigaJobEndpoint().create(session, job);
+              print('Printing canCreate: $canCreate');
 
-            // If can create the item
-            if (canCreate != null && canCreate.id != null) {
-              // Create a new job update register
-              final updateStatus = await TaigaJobUpdateEndpoint().create(
-                  session,
-                  TaigaJobUpdates(
-                    jobId: canCreate.id!,
-                    type: canCreate.type + ' ' + payload.actionType,
-                    status: canCreate.status,
-                    details: 'Se creo un nuevo ${canCreate.type}',
-                    dateTimeEpoch:
-                        DateTime.now().millisecondsSinceEpoch.toString(),
-                  ));
-
-              //  Verify if the change made was a new comment, and store it
-              if (payload.change!.comment != '') {
-                TaigaJobCommentariesEndpoint().create(
+              // If can create the item
+              if (canCreate != null && canCreate.id != null) {
+                // Create a new job update register
+                final updateStatus = await TaigaJobUpdateEndpoint().create(
                     session,
-                    TaigaJobCommentaries(
-                        jobIdId: canCreate.id!,
-                        details: payload.change!.comment!,
-                        dateTime: DateTime.now()));
+                    TaigaJobUpdates(
+                      jobId: canCreate.id!,
+                      type: canCreate.type + ' ' + payload.actionType,
+                      status: canCreate.status,
+                      details: detail,
+                      dateTimeEpoch:
+                          DateTime.now().millisecondsSinceEpoch.toString(),
+                    ));
+
+                //  Verify if the change made was a new comment, and store it
+                if (payload.change!.comment != '') {
+                  TaigaJobCommentariesEndpoint().create(
+                      session,
+                      TaigaJobCommentaries(
+                          jobIdId: canCreate.id!,
+                          details: payload.change!.comment!,
+                          dateTime: DateTime.now()));
+                }
+                print('Printing updateStatus: $updateStatus');
               }
-              print('Printing updateStatus: $updateStatus');
             }
           }
         }
