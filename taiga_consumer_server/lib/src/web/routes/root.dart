@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:gitlab_rest_models/gitlab_rest_models.dart';
 import 'package:taiga_consumer_server/src/endpoints/project_endpoint.dart';
+import 'package:taiga_consumer_server/src/endpoints/taiga_job_commentaries_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_updates_endpoint.dart';
+import 'package:taiga_consumer_server/src/generated/protocol.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart';
 import 'package:taiga_consumer_server/src/helper/detail_generator.dart';
@@ -89,7 +91,6 @@ class RouteRoot extends WidgetRoute {
       // If the type of action made on Taiga is Change
       if (payload.actionType == 'change') {
         print('Printing change: ${payload.change}');
-        if (payload.change!.comment != '') {}
 
         // If can get the project related to the job
         if (getProjectId != null) {
@@ -119,9 +120,10 @@ class RouteRoot extends WidgetRoute {
             final canUpdate = await TaigaJobEndpoint()
                 .updateById(session, id: readJob.id!, taigaJob: job);
 
-            // If can update the values
             print('Printing canUpdate: $canUpdate');
-            if (canUpdate != null) {
+            // If can update the values will return a taigaJob instance,
+            // with an id
+            if (canUpdate != null && canUpdate.id != null) {
               // Create a new job update register
               final updateStatus = await TaigaJobUpdateEndpoint().create(
                   session,
@@ -135,6 +137,15 @@ class RouteRoot extends WidgetRoute {
                     dateTimeEpoch:
                         DateTime.now().millisecondsSinceEpoch.toString(),
                   ));
+              //  Verify if the change made was a new comment, and store it
+              if (payload.change!.comment != '') {
+                TaigaJobCommentariesEndpoint().create(
+                    session,
+                    TaigaJobCommentaries(
+                        jobIdId: canUpdate.id!,
+                        details: payload.change!.comment!,
+                        dateTime: DateTime.now()));
+              }
               print('Printing updateStatus: $updateStatus');
             }
           } else // If the job do not exist on the database
@@ -142,7 +153,9 @@ class RouteRoot extends WidgetRoute {
             // Create the item in the database
             final canCreate = await TaigaJobEndpoint().create(session, job);
             print('Printing canCreate: $canCreate');
-            if (canCreate != null) {
+
+            // If can create the item
+            if (canCreate != null && canCreate.id != null) {
               // Create a new job update register
               final updateStatus = await TaigaJobUpdateEndpoint().create(
                   session,
@@ -154,6 +167,16 @@ class RouteRoot extends WidgetRoute {
                     dateTimeEpoch:
                         DateTime.now().millisecondsSinceEpoch.toString(),
                   ));
+
+              //  Verify if the change made was a new comment, and store it
+              if (payload.change!.comment != '') {
+                TaigaJobCommentariesEndpoint().create(
+                    session,
+                    TaigaJobCommentaries(
+                        jobIdId: canCreate.id!,
+                        details: payload.change!.comment!,
+                        dateTime: DateTime.now()));
+              }
               print('Printing updateStatus: $updateStatus');
             }
           }
