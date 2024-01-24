@@ -6,7 +6,7 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 String DetailGenerator({required TaigaChange data}) {
   // Var used to storage the String that we re going to return at the end of the
   // function
-  var returnInfo;
+  var returnInfo = '';
 
   // If the comment have data
   if (data.comment != null) {
