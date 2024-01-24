@@ -3,7 +3,9 @@ import 'package:taiga_rest_models/taiga_rest_models.dart';
 /// [DetailGenerator] is used to generate the detail of a TaigaJobUpdate, when
 /// a job receive an update. This will grab all the info of the TaigaChange,
 /// and turn it into a usable description
-String DetailGenerator({required TaigaChange data}) {
+String DetailGenerator({required TaigaPayload payload}) {
+  final data = payload.change!;
+
   // Var used to storage the String that we re going to return at the end of the
   // function
   var returnInfo = '';
@@ -42,7 +44,7 @@ String DetailGenerator({required TaigaChange data}) {
     }
     if (data.difference!.promotedTo != null) {
       returnInfo = returnInfo +
-          'Se promovio a ${data.difference!.promotedTo!.newValue} \n';
+          'Se promovio el ${payload.jobType} a una historia de usuario \n';
     }
   }
 

@@ -89,6 +89,7 @@ class RouteRoot extends WidgetRoute {
       // If the type of action made on Taiga is Change
       if (payload.actionType == 'change') {
         print('Printing change: ${payload.change}');
+        if (payload.change!.comment != '') {}
 
         // If can get the project related to the job
         if (getProjectId != null) {
@@ -129,7 +130,7 @@ class RouteRoot extends WidgetRoute {
                     type: canUpdate.type + ' ' + payload.actionType,
                     status: canUpdate.status,
                     details: DetailGenerator(
-                      data: payload.change!,
+                      payload: payload,
                     ),
                     dateTimeEpoch:
                         DateTime.now().millisecondsSinceEpoch.toString(),
