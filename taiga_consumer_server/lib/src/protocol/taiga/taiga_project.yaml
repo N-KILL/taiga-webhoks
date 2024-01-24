@@ -1,5 +1,0 @@
-class: TaigaProject
-table: taiga_project
-fields:
-  title: String           # Name of the Project
-  taigaId: int            # Id of the project on Taiga

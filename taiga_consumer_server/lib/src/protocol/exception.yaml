@@ -1,4 +1,0 @@
-exception: MyException
-fields:
-  message: String
-  errorType: ErrorEnum

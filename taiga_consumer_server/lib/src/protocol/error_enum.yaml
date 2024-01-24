@@ -1,5 +1,0 @@
-enum: ErrorEnum
-values:
-  - info
-  - warning
-  - error
