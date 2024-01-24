@@ -9,7 +9,7 @@ String DetailGenerator({required TaigaChange data}) {
   var returnInfo = '';
 
   // If the comment have data
-  if (data.comment != null) {
+  if (data.comment != '') {
     returnInfo = returnInfo +
         'Nuevo comentario, detalles del comentario: ${data.comment}  \n';
   }
