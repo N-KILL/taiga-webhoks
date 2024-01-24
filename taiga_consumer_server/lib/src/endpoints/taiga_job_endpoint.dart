@@ -4,13 +4,13 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_jobs.da
 // TODO(Nacho): Comentar todo el codigo, ver como handlear los prints
 
 class TaigaJobEndpoint extends Endpoint {
-  Future<bool> create(Session session, TaigaJob taigaJob) async {
+  Future<TaigaJob?> create(Session session, TaigaJob taigaJob) async {
     try {
       var response = await TaigaJob.db.insertRow(session, taigaJob);
       print(response);
-      return true;
+      return response;
     } catch (e) {
-      return false;
+      return null;
     }
   }
 
@@ -73,11 +73,19 @@ class TaigaJobEndpoint extends Endpoint {
     }
   }
 
-  Future<List<TaigaJob>?> readByProjectId(Session session, int projectId) async {
+  /// Use this for specific cases because the reference number is unique per
+  /// project
+  Future<TaigaJob?> readByProjectIdAndRefNumber(
+    Session session, {
+    required int projectId,
+    required int taigaRefNumber,
+  }) async {
     try {
-      var response = await TaigaJob.db.find(
+      var response = await TaigaJob.db.findFirstRow(
         session,
-        where: (t) => t.projectId.equals(projectId),
+        where: (t) =>
+            t.projectId.equals(projectId) &
+            t.taigaRefNumber.equals(taigaRefNumber),
       );
       print(response);
       return response;
@@ -86,7 +94,11 @@ class TaigaJobEndpoint extends Endpoint {
     }
   }
 
-  Future<bool> updateById(Session session, TaigaJob taigaJob) async {
+  Future<TaigaJob?> updateById(
+    Session session, {
+    required TaigaJob taigaJob,
+    required int id,
+  }) async {
     if (taigaJob.id != null) {
       var modify = await TaigaJob.db.findById(
         session,
@@ -97,14 +109,14 @@ class TaigaJobEndpoint extends Endpoint {
         modify.status = taigaJob.status;
         modify.description = taigaJob.description;
         modify.title = taigaJob.title;
-        var updatedCompany = await TaigaJob.db.updateRow(
+        var updatedJob = await TaigaJob.db.updateRow(
           session,
           modify,
         );
-        print(updatedCompany);
+        return (updatedJob);
       }
     }
-    return false;
+    return null;
   }
 
   Future<bool> deleteById(Session session, TaigaJob taigaJob) async {

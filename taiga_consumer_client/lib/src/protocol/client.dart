@@ -14,7 +14,9 @@ import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.
     as _i3;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_jobs.dart'
     as _i4;
-import 'protocol.dart' as _i5;
+import 'package:taiga_consumer_client/src/protocol/protocol/Taiga/taiga_job_updates.dart'
+    as _i5;
+import 'protocol.dart' as _i6;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -134,8 +136,8 @@ class EndpointTaigaJob extends _i1.EndpointRef {
   @override
   String get name => 'taigaJob';
 
-  _i2.Future<bool> create(_i4.TaigaJob taigaJob) =>
-      caller.callServerEndpoint<bool>(
+  _i2.Future<_i4.TaigaJob?> create(_i4.TaigaJob taigaJob) =>
+      caller.callServerEndpoint<_i4.TaigaJob?>(
         'taigaJob',
         'create',
         {'taigaJob': taigaJob},
@@ -176,18 +178,32 @@ class EndpointTaigaJob extends _i1.EndpointRef {
         {'taigaJob': taigaJob},
       );
 
-  _i2.Future<List<_i4.TaigaJob>?> readByProjectId(int projectId) =>
-      caller.callServerEndpoint<List<_i4.TaigaJob>?>(
+  /// Use this for specific cases because the reference number is unique per
+  /// project
+  _i2.Future<_i4.TaigaJob?> readByProjectIdAndRefNumber({
+    required int projectId,
+    required int taigaRefNumber,
+  }) =>
+      caller.callServerEndpoint<_i4.TaigaJob?>(
         'taigaJob',
-        'readByProjectId',
-        {'projectId': projectId},
+        'readByProjectIdAndRefNumber',
+        {
+          'projectId': projectId,
+          'taigaRefNumber': taigaRefNumber,
+        },
       );
 
-  _i2.Future<bool> updateById(_i4.TaigaJob taigaJob) =>
-      caller.callServerEndpoint<bool>(
+  _i2.Future<_i4.TaigaJob?> updateById({
+    required _i4.TaigaJob taigaJob,
+    required int id,
+  }) =>
+      caller.callServerEndpoint<_i4.TaigaJob?>(
         'taigaJob',
         'updateById',
-        {'taigaJob': taigaJob},
+        {
+          'taigaJob': taigaJob,
+          'id': id,
+        },
       );
 
   _i2.Future<bool> deleteById(_i4.TaigaJob taigaJob) =>
@@ -195,6 +211,57 @@ class EndpointTaigaJob extends _i1.EndpointRef {
         'taigaJob',
         'deleteById',
         {'taigaJob': taigaJob},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointTaigaJobUpdate extends _i1.EndpointRef {
+  EndpointTaigaJobUpdate(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'taigaJobUpdate';
+
+  _i2.Future<bool> create(_i5.TaigaJobUpdates taigaJobUpdates) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJobUpdate',
+        'create',
+        {'taigaJobUpdates': taigaJobUpdates},
+      );
+
+  _i2.Future<bool> createOnBulk(List<_i5.TaigaJobUpdates> taigaJobUpdates) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJobUpdate',
+        'createOnBulk',
+        {'taigaJobUpdates': taigaJobUpdates},
+      );
+
+  _i2.Future<_i5.TaigaJobUpdates?> readById(int id) =>
+      caller.callServerEndpoint<_i5.TaigaJobUpdates?>(
+        'taigaJobUpdate',
+        'readById',
+        {'id': id},
+      );
+
+  _i2.Future<_i5.TaigaJobUpdates?> readByStatus(
+          _i5.TaigaJobUpdates taigaJobUpdates) =>
+      caller.callServerEndpoint<_i5.TaigaJobUpdates?>(
+        'taigaJobUpdate',
+        'readByStatus',
+        {'taigaJobUpdates': taigaJobUpdates},
+      );
+
+  _i2.Future<bool> updateById(_i5.TaigaJobUpdates taigaJobUpdates) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJobUpdate',
+        'updateById',
+        {'taigaJobUpdates': taigaJobUpdates},
+      );
+
+  _i2.Future<bool> deleteById(_i5.TaigaJobUpdates taigaJobUpdates) =>
+      caller.callServerEndpoint<bool>(
+        'taigaJobUpdate',
+        'deleteById',
+        {'taigaJobUpdates': taigaJobUpdates},
       );
 }
 
@@ -207,7 +274,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i5.Protocol(),
+          _i6.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -218,6 +285,7 @@ class Client extends _i1.ServerpodClient {
     crud = EndpointCrud(this);
     taigaProject = EndpointTaigaProject(this);
     taigaJob = EndpointTaigaJob(this);
+    taigaJobUpdate = EndpointTaigaJobUpdate(this);
   }
 
   late final EndpointExample example;
@@ -230,6 +298,8 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointTaigaJob taigaJob;
 
+  late final EndpointTaigaJobUpdate taigaJobUpdate;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'example': example,
@@ -237,6 +307,7 @@ class Client extends _i1.ServerpodClient {
         'crud': crud,
         'taigaProject': taigaProject,
         'taigaJob': taigaJob,
+        'taigaJobUpdate': taigaJobUpdate,
       };
 
   @override

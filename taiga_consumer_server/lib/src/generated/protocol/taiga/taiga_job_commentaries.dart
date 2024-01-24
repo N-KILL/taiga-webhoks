@@ -19,7 +19,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     required this.jobIdId,
     this.jobId,
     required this.details,
-    required this.userIdId,
+    required this.dateTime,
     this.userId,
   }) : super(id);
 
@@ -28,8 +28,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     required int jobIdId,
     _i2.TaigaJob? jobId,
     required String details,
-    required int userIdId,
-    _i2.User? userId,
+    required DateTime dateTime,
+    int? userId,
   }) = _TaigaJobCommentariesImpl;
 
   factory TaigaJobCommentaries.fromJson(
@@ -44,10 +44,10 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
           .deserialize<_i2.TaigaJob?>(jsonSerialization['jobId']),
       details: serializationManager
           .deserialize<String>(jsonSerialization['details']),
-      userIdId:
-          serializationManager.deserialize<int>(jsonSerialization['userIdId']),
-      userId: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['userId']),
+      dateTime: serializationManager
+          .deserialize<DateTime>(jsonSerialization['dateTime']),
+      userId:
+          serializationManager.deserialize<int?>(jsonSerialization['userId']),
     );
   }
 
@@ -57,13 +57,17 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
 
   int jobIdId;
 
+  /// Task, Issue, Epic, UserStory
   _i2.TaigaJob? jobId;
 
+  /// Details about the change made on the Job
   String details;
 
-  int userIdId;
+  ///# Date of creation of the comment
+  DateTime dateTime;
 
-  _i2.User? userId;
+  /// UserId is the id of the user, in this case is pointing into the TaigaId,
+  int? userId;
 
   @override
   _i1.Table get table => t;
@@ -73,8 +77,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     int? jobIdId,
     _i2.TaigaJob? jobId,
     String? details,
-    int? userIdId,
-    _i2.User? userId,
+    DateTime? dateTime,
+    int? userId,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -83,7 +87,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       'jobIdId': jobIdId,
       if (jobId != null) 'jobId': jobId,
       'details': details,
-      'userIdId': userIdId,
+      'dateTime': dateTime,
       if (userId != null) 'userId': userId,
     };
   }
@@ -95,7 +99,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       if (id != null) 'id': id,
       'jobIdId': jobIdId,
       'details': details,
-      'userIdId': userIdId,
+      'dateTime': dateTime,
+      if (userId != null) 'userId': userId,
     };
   }
 
@@ -106,7 +111,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       'jobIdId': jobIdId,
       if (jobId != null) 'jobId': jobId,
       'details': details,
-      'userIdId': userIdId,
+      'dateTime': dateTime,
       if (userId != null) 'userId': userId,
     };
   }
@@ -126,8 +131,11 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       case 'details':
         details = value;
         return;
-      case 'userIdId':
-        userIdId = value;
+      case 'dateTime':
+        dateTime = value;
+        return;
+      case 'userId':
+        userId = value;
         return;
       default:
         throw UnimplementedError();
@@ -259,14 +267,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     );
   }
 
-  static TaigaJobCommentariesInclude include({
-    _i2.TaigaJobInclude? jobId,
-    _i2.UserInclude? userId,
-  }) {
-    return TaigaJobCommentariesInclude._(
-      jobId: jobId,
-      userId: userId,
-    );
+  static TaigaJobCommentariesInclude include({_i2.TaigaJobInclude? jobId}) {
+    return TaigaJobCommentariesInclude._(jobId: jobId);
   }
 
   static TaigaJobCommentariesIncludeList includeList({
@@ -298,14 +300,14 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
     required int jobIdId,
     _i2.TaigaJob? jobId,
     required String details,
-    required int userIdId,
-    _i2.User? userId,
+    required DateTime dateTime,
+    int? userId,
   }) : super._(
           id: id,
           jobIdId: jobIdId,
           jobId: jobId,
           details: details,
-          userIdId: userIdId,
+          dateTime: dateTime,
           userId: userId,
         );
 
@@ -315,7 +317,7 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
     int? jobIdId,
     Object? jobId = _Undefined,
     String? details,
-    int? userIdId,
+    DateTime? dateTime,
     Object? userId = _Undefined,
   }) {
     return TaigaJobCommentaries(
@@ -323,8 +325,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
       jobIdId: jobIdId ?? this.jobIdId,
       jobId: jobId is _i2.TaigaJob? ? jobId : this.jobId?.copyWith(),
       details: details ?? this.details,
-      userIdId: userIdId ?? this.userIdId,
-      userId: userId is _i2.User? ? userId : this.userId?.copyWith(),
+      dateTime: dateTime ?? this.dateTime,
+      userId: userId is int? ? userId : this.userId,
     );
   }
 }
@@ -340,21 +342,29 @@ class TaigaJobCommentariesTable extends _i1.Table {
       'details',
       this,
     );
-    userIdId = _i1.ColumnInt(
-      'userIdId',
+    dateTime = _i1.ColumnDateTime(
+      'dateTime',
+      this,
+    );
+    userId = _i1.ColumnInt(
+      'userId',
       this,
     );
   }
 
   late final _i1.ColumnInt jobIdId;
 
+  /// Task, Issue, Epic, UserStory
   _i2.TaigaJobTable? _jobId;
 
+  /// Details about the change made on the Job
   late final _i1.ColumnString details;
 
-  late final _i1.ColumnInt userIdId;
+  ///# Date of creation of the comment
+  late final _i1.ColumnDateTime dateTime;
 
-  _i2.UserTable? _userId;
+  /// UserId is the id of the user, in this case is pointing into the TaigaId,
+  late final _i1.ColumnInt userId;
 
   _i2.TaigaJobTable get jobId {
     if (_jobId != null) return _jobId!;
@@ -369,34 +379,19 @@ class TaigaJobCommentariesTable extends _i1.Table {
     return _jobId!;
   }
 
-  _i2.UserTable get userId {
-    if (_userId != null) return _userId!;
-    _userId = _i1.createRelationTable(
-      relationFieldName: 'userId',
-      field: TaigaJobCommentaries.t.userIdId,
-      foreignField: _i2.User.t.id,
-      tableRelation: tableRelation,
-      createTable: (foreignTableRelation) =>
-          _i2.UserTable(tableRelation: foreignTableRelation),
-    );
-    return _userId!;
-  }
-
   @override
   List<_i1.Column> get columns => [
         id,
         jobIdId,
         details,
-        userIdId,
+        dateTime,
+        userId,
       ];
 
   @override
   _i1.Table? getRelationTable(String relationField) {
     if (relationField == 'jobId') {
       return jobId;
-    }
-    if (relationField == 'userId') {
-      return userId;
     }
     return null;
   }
@@ -406,23 +401,14 @@ class TaigaJobCommentariesTable extends _i1.Table {
 TaigaJobCommentariesTable tTaigaJobCommentaries = TaigaJobCommentariesTable();
 
 class TaigaJobCommentariesInclude extends _i1.IncludeObject {
-  TaigaJobCommentariesInclude._({
-    _i2.TaigaJobInclude? jobId,
-    _i2.UserInclude? userId,
-  }) {
+  TaigaJobCommentariesInclude._({_i2.TaigaJobInclude? jobId}) {
     _jobId = jobId;
-    _userId = userId;
   }
 
   _i2.TaigaJobInclude? _jobId;
 
-  _i2.UserInclude? _userId;
-
   @override
-  Map<String, _i1.Include?> get includes => {
-        'jobId': _jobId,
-        'userId': _userId,
-      };
+  Map<String, _i1.Include?> get includes => {'jobId': _jobId};
 
   @override
   _i1.Table get table => TaigaJobCommentaries.t;
@@ -625,26 +611,6 @@ class TaigaJobCommentariesAttachRowRepository {
     await session.dbNext.updateRow<TaigaJobCommentaries>(
       $taigaJobCommentaries,
       columns: [TaigaJobCommentaries.t.jobIdId],
-    );
-  }
-
-  Future<void> userId(
-    _i1.Session session,
-    TaigaJobCommentaries taigaJobCommentaries,
-    _i2.User userId,
-  ) async {
-    if (taigaJobCommentaries.id == null) {
-      throw ArgumentError.notNull('taigaJobCommentaries.id');
-    }
-    if (userId.id == null) {
-      throw ArgumentError.notNull('userId.id');
-    }
-
-    var $taigaJobCommentaries =
-        taigaJobCommentaries.copyWith(userIdId: userId.id);
-    await session.dbNext.updateRow<TaigaJobCommentaries>(
-      $taigaJobCommentaries,
-      columns: [TaigaJobCommentaries.t.userIdId],
     );
   }
 }

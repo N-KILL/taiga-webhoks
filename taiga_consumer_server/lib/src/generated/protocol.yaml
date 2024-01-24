@@ -21,6 +21,13 @@ taigaJob:
   - readByTitle:
   - readByType:
   - readByStatus:
-  - readByProjectId:
+  - readByProjectIdAndRefNumber:
+  - updateById:
+  - deleteById:
+taigaJobUpdate:
+  - create:
+  - createOnBulk:
+  - readById:
+  - readByStatus:
   - updateById:
   - deleteById:

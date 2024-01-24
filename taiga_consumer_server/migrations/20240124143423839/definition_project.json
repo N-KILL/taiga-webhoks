@@ -39,6 +39,12 @@
           "dartType": "String"
         },
         {
+          "name": "taigaRefNumber",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
           "name": "projectId",
           "columnType": 2,
           "isNullable": false,
@@ -102,10 +108,16 @@
           "dartType": "String"
         },
         {
-          "name": "userIdId",
-          "columnType": 2,
+          "name": "dateTime",
+          "columnType": 4,
           "isNullable": false,
-          "dartType": "int"
+          "dartType": "DateTime"
+        },
+        {
+          "name": "userId",
+          "columnType": 2,
+          "isNullable": true,
+          "dartType": "int?"
         }
       ],
       "foreignKeys": [
@@ -125,7 +137,7 @@
         {
           "constraintName": "taiga_job_commentaries_fk_1",
           "columns": [
-            "userIdId"
+            "userId"
           ],
           "referenceTable": "user",
           "referenceTableSchema": "public",
@@ -166,10 +178,16 @@
           "dartType": "int?"
         },
         {
-          "name": "jobIdId",
+          "name": "jobId",
           "columnType": 2,
           "isNullable": false,
           "dartType": "int"
+        },
+        {
+          "name": "type",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
         },
         {
           "name": "status",
@@ -182,15 +200,40 @@
           "columnType": 0,
           "isNullable": false,
           "dartType": "String"
+        },
+        {
+          "name": "dateTime",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "commentId",
+          "columnType": 2,
+          "isNullable": true,
+          "dartType": "int?"
         }
       ],
       "foreignKeys": [
         {
           "constraintName": "taiga_job_updates_fk_0",
           "columns": [
-            "jobIdId"
+            "jobId"
           ],
           "referenceTable": "taiga_job",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        },
+        {
+          "constraintName": "taiga_job_updates_fk_1",
+          "columns": [
+            "commentId"
+          ],
+          "referenceTable": "taiga_job_commentaries",
           "referenceTableSchema": "public",
           "referenceColumns": [
             "id"

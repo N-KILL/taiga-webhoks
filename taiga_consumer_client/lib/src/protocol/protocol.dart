@@ -21,6 +21,8 @@ import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.
     as _i9;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_jobs.dart'
     as _i10;
+import 'package:taiga_consumer_client/src/protocol/protocol/Taiga/taiga_job_updates.dart'
+    as _i11;
 export 'protocol/error_enum.dart';
 export 'protocol/exception.dart';
 export 'protocol/taiga/taiga_job_commentaries.dart';
@@ -102,10 +104,10 @@ class Protocol extends _i1.SerializationManager {
       return (data as List).map((e) => deserialize<_i10.TaigaJob>(e)).toList()
           as dynamic;
     }
-    if (t == _i1.getType<List<_i10.TaigaJob>?>()) {
-      return (data != null
-          ? (data as List).map((e) => deserialize<_i10.TaigaJob>(e)).toList()
-          : null) as dynamic;
+    if (t == List<_i11.TaigaJobUpdates>) {
+      return (data as List)
+          .map((e) => deserialize<_i11.TaigaJobUpdates>(e))
+          .toList() as dynamic;
     }
     return super.deserialize<T>(data, t);
   }

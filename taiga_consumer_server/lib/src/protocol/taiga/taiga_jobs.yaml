@@ -8,8 +8,20 @@
 class: TaigaJob
 table: taiga_job
 fields:
-  type: String                          # Task, Issue, Epic, UserStory
-  title: String                         # Name of the Job
-  description: String                   # Description of the Job
-  status: String                        # Status of the job
+  ### Task, Issue, Epic, UserStory
+  type: String
+
+  ### Name of the Job
+  title: String             
+              
+  ### Description of the Job
+  description: String      
+
+  ### Status of the job
+  status: String 
+
+  ### Reference number of the job on taiga
+  taigaRefNumber: int                       
+  
+  ### Id of the project who own the job
   projectId: int, relation(parent=taiga_project)

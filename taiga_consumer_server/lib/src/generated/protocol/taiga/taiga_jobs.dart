@@ -17,6 +17,7 @@ abstract class TaigaJob extends _i1.TableRow {
     required this.title,
     required this.description,
     required this.status,
+    required this.taigaRefNumber,
     required this.projectId,
   }) : super(id);
 
@@ -26,6 +27,7 @@ abstract class TaigaJob extends _i1.TableRow {
     required String title,
     required String description,
     required String status,
+    required int taigaRefNumber,
     required int projectId,
   }) = _TaigaJobImpl;
 
@@ -42,6 +44,8 @@ abstract class TaigaJob extends _i1.TableRow {
           .deserialize<String>(jsonSerialization['description']),
       status:
           serializationManager.deserialize<String>(jsonSerialization['status']),
+      taigaRefNumber: serializationManager
+          .deserialize<int>(jsonSerialization['taigaRefNumber']),
       projectId:
           serializationManager.deserialize<int>(jsonSerialization['projectId']),
     );
@@ -51,14 +55,22 @@ abstract class TaigaJob extends _i1.TableRow {
 
   static const db = TaigaJobRepository._();
 
+  /// Task, Issue, Epic, UserStory
   String type;
 
+  /// Name of the Job
   String title;
 
+  /// Description of the Job
   String description;
 
+  /// Status of the job
   String status;
 
+  /// Reference number of the job on taiga
+  int taigaRefNumber;
+
+  /// Id of the project who own the job
   int projectId;
 
   @override
@@ -70,6 +82,7 @@ abstract class TaigaJob extends _i1.TableRow {
     String? title,
     String? description,
     String? status,
+    int? taigaRefNumber,
     int? projectId,
   });
   @override
@@ -80,6 +93,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'title': title,
       'description': description,
       'status': status,
+      'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
     };
   }
@@ -93,6 +107,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'title': title,
       'description': description,
       'status': status,
+      'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
     };
   }
@@ -105,6 +120,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'title': title,
       'description': description,
       'status': status,
+      'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
     };
   }
@@ -129,6 +145,9 @@ abstract class TaigaJob extends _i1.TableRow {
         return;
       case 'status':
         status = value;
+        return;
+      case 'taigaRefNumber':
+        taigaRefNumber = value;
         return;
       case 'projectId':
         projectId = value;
@@ -289,6 +308,7 @@ class _TaigaJobImpl extends TaigaJob {
     required String title,
     required String description,
     required String status,
+    required int taigaRefNumber,
     required int projectId,
   }) : super._(
           id: id,
@@ -296,6 +316,7 @@ class _TaigaJobImpl extends TaigaJob {
           title: title,
           description: description,
           status: status,
+          taigaRefNumber: taigaRefNumber,
           projectId: projectId,
         );
 
@@ -306,6 +327,7 @@ class _TaigaJobImpl extends TaigaJob {
     String? title,
     String? description,
     String? status,
+    int? taigaRefNumber,
     int? projectId,
   }) {
     return TaigaJob(
@@ -314,6 +336,7 @@ class _TaigaJobImpl extends TaigaJob {
       title: title ?? this.title,
       description: description ?? this.description,
       status: status ?? this.status,
+      taigaRefNumber: taigaRefNumber ?? this.taigaRefNumber,
       projectId: projectId ?? this.projectId,
     );
   }
@@ -337,20 +360,32 @@ class TaigaJobTable extends _i1.Table {
       'status',
       this,
     );
+    taigaRefNumber = _i1.ColumnInt(
+      'taigaRefNumber',
+      this,
+    );
     projectId = _i1.ColumnInt(
       'projectId',
       this,
     );
   }
 
+  /// Task, Issue, Epic, UserStory
   late final _i1.ColumnString type;
 
+  /// Name of the Job
   late final _i1.ColumnString title;
 
+  /// Description of the Job
   late final _i1.ColumnString description;
 
+  /// Status of the job
   late final _i1.ColumnString status;
 
+  /// Reference number of the job on taiga
+  late final _i1.ColumnInt taigaRefNumber;
+
+  /// Id of the project who own the job
   late final _i1.ColumnInt projectId;
 
   @override
@@ -360,6 +395,7 @@ class TaigaJobTable extends _i1.Table {
         title,
         description,
         status,
+        taigaRefNumber,
         projectId,
       ];
 }

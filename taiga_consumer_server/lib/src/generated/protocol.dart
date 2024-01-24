@@ -22,6 +22,8 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project
     as _i10;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_jobs.dart'
     as _i11;
+import 'package:taiga_consumer_server/src/generated/protocol/Taiga/taiga_job_updates.dart'
+    as _i12;
 export 'protocol/error_enum.dart';
 export 'protocol/exception.dart';
 export 'protocol/taiga/taiga_job_commentaries.dart';
@@ -76,6 +78,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.text,
           isNullable: false,
           dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'taigaRefNumber',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
         ),
         _i2.ColumnDefinition(
           name: 'projectId',
@@ -139,10 +147,16 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
-          name: 'userIdId',
-          columnType: _i2.ColumnType.integer,
+          name: 'dateTime',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
           isNullable: false,
-          dartType: 'int',
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: true,
+          dartType: 'int?',
         ),
       ],
       foreignKeys: [
@@ -158,7 +172,7 @@ class Protocol extends _i1.SerializationManagerServer {
         ),
         _i2.ForeignKeyDefinition(
           constraintName: 'taiga_job_commentaries_fk_1',
-          columns: ['userIdId'],
+          columns: ['userId'],
           referenceTable: 'user',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
@@ -198,10 +212,16 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'taiga_job_updates_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'jobIdId',
+          name: 'jobId',
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'type',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
         ),
         _i2.ColumnDefinition(
           name: 'status',
@@ -215,18 +235,40 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: false,
           dartType: 'String',
         ),
+        _i2.ColumnDefinition(
+          name: 'dateTime',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'commentId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: true,
+          dartType: 'int?',
+        ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'taiga_job_updates_fk_0',
-          columns: ['jobIdId'],
+          columns: ['jobId'],
           referenceTable: 'taiga_job',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
           onDelete: _i2.ForeignKeyAction.noAction,
           matchType: null,
-        )
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'taiga_job_updates_fk_1',
+          columns: ['commentId'],
+          referenceTable: 'taiga_job_commentaries',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
       ],
       indexes: [
         _i2.IndexDefinition(
@@ -411,10 +453,10 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data as List).map((e) => deserialize<_i11.TaigaJob>(e)).toList()
           as dynamic;
     }
-    if (t == _i1.getType<List<_i11.TaigaJob>?>()) {
-      return (data != null
-          ? (data as List).map((e) => deserialize<_i11.TaigaJob>(e)).toList()
-          : null) as dynamic;
+    if (t == List<_i12.TaigaJobUpdates>) {
+      return (data as List)
+          .map((e) => deserialize<_i12.TaigaJobUpdates>(e))
+          .toList() as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
