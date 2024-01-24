@@ -19,7 +19,7 @@ import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.
     as _i7;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
     as _i8;
-import 'package:taiga_consumer_client/src/protocol/protocol/Taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
     as _i9;
 export 'protocol/taiga/taiga_job.dart';
 export 'protocol/taiga/taiga_job_commentaries.dart';

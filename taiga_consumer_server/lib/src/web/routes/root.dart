@@ -5,7 +5,7 @@ import 'package:gitlab_rest_models/gitlab_rest_models.dart';
 import 'package:taiga_consumer_server/src/endpoints/project_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_updates_endpoint.dart';
-import 'package:taiga_consumer_server/src/generated/protocol/Taiga/taiga_job_updates.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart';
 import 'package:taiga_consumer_server/src/helper/detail_generator.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';

@@ -14,7 +14,7 @@ import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.
     as _i3;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
     as _i4;
-import 'package:taiga_consumer_client/src/protocol/protocol/Taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
     as _i5;
 import 'protocol.dart' as _i6;
 
