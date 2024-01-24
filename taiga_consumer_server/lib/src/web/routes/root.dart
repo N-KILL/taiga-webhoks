@@ -55,7 +55,7 @@ class RouteRoot extends WidgetRoute {
             title: printData.jobName,
             description: printData.jobDescription != null
                 ? printData.jobDescription!
-                : " ",
+                : ' ',
             status: printData.jobStatus.statusName,
             projectId: getProjectId.id!,
             taigaRefNumber: printData.referenceNumber,
@@ -74,7 +74,7 @@ class RouteRoot extends WidgetRoute {
                 session,
                 TaigaJobUpdates(
                   jobId: canCreate.id!,
-                  type: canCreate.type + payload.actionType,
+                  type: canCreate.type + ' ' + payload.actionType,
                   status: canCreate.status,
                   details: 'Se creo un nuevo ${canCreate.type}',
                   dateTimeEpoch:
@@ -98,7 +98,7 @@ class RouteRoot extends WidgetRoute {
             title: printData.jobName,
             description: printData.jobDescription != null
                 ? printData.jobDescription!
-                : " ",
+                : ' ',
             status: printData.jobStatus.statusName,
             projectId: getProjectId.id!,
             taigaRefNumber: printData.referenceNumber,
@@ -111,6 +111,7 @@ class RouteRoot extends WidgetRoute {
             taigaRefNumber: printData.referenceNumber,
           );
 
+          print('Printing readJob: $readJob');
           // If the job already exist on the database
           if (readJob != null) {
             // Update the values with the new detected on
@@ -118,13 +119,14 @@ class RouteRoot extends WidgetRoute {
                 .updateById(session, id: readJob.id!, taigaJob: job);
 
             // If can update the values
+            print('Printing canUpdate: $canUpdate');
             if (canUpdate != null) {
               // Create a new job update register
-              await TaigaJobUpdateEndpoint().create(
+              final updateStatus = await TaigaJobUpdateEndpoint().create(
                   session,
                   TaigaJobUpdates(
                     jobId: canUpdate.id!,
-                    type: canUpdate.type + payload.actionType,
+                    type: canUpdate.type + ' ' + payload.actionType,
                     status: canUpdate.status,
                     details: DetailGenerator(
                       data: payload.change!,
@@ -132,23 +134,26 @@ class RouteRoot extends WidgetRoute {
                     dateTimeEpoch:
                         DateTime.now().millisecondsSinceEpoch.toString(),
                   ));
+              print('Printing updateStatus: $updateStatus');
             }
           } else // If the job do not exist on the database
           {
             // Create the item in the database
             final canCreate = await TaigaJobEndpoint().create(session, job);
+            print('Printing canCreate: $canCreate');
             if (canCreate != null) {
               // Create a new job update register
-              await TaigaJobUpdateEndpoint().create(
+              final updateStatus = await TaigaJobUpdateEndpoint().create(
                   session,
                   TaigaJobUpdates(
                     jobId: canCreate.id!,
-                    type: canCreate.type + payload.actionType,
+                    type: canCreate.type + ' ' + payload.actionType,
                     status: canCreate.status,
                     details: 'Se creo un nuevo ${canCreate.type}',
                     dateTimeEpoch:
                         DateTime.now().millisecondsSinceEpoch.toString(),
                   ));
+              print('Printing updateStatus: $updateStatus');
             }
           }
         }
