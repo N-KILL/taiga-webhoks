@@ -1,0 +1,27 @@
+### TODO(Nacho): Definir los nombres correctamente
+### esta tabla es para los job de taiga, que segun la definicion
+### que le di en el paquete, abarca Task, Issue, Epic y Us. Pero
+### no se si hay algo mas especifico.
+###
+### Ver si soporta UUID?
+
+class: TaigaJob
+table: taiga_job
+fields:
+  ### Task, Issue, Epic, UserStory
+  type: String
+
+  ### Name of the Job
+  title: String             
+              
+  ### Description of the Job
+  description: String      
+
+  ### Status of the job
+  status: String 
+
+  ### Reference number of the job on taiga
+  taigaRefNumber: int                       
+  
+  ### Id of the project who own the job
+  projectId: int, relation(parent=taiga_project)

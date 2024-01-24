@@ -1,0 +1,29 @@
+### This class is for storage the all the updates made into a Job
+### having direct relation to the TaigaJob table, every time a change 
+### is made in one job, this table will receive information about what
+### change was, and save the details 
+### (Example: Name change from: 'A' to 'B')
+###
+### and what was the time of the change, on epoch format.
+### https://en.wikipedia.org/wiki/Epoch_(computing)
+class: TaigaJobUpdates
+table: taiga_job_updates
+fields:
+  ### Task, Issue, Epic, UserStory, related from another table
+  jobId: int, relation(parent=taiga_job)
+
+  ### Type is used to identify if a new job, a new comment, a change 
+  ### made into a job, or a deletion 
+  type: String
+  
+  ### Status of the job
+  status: String     
+
+  ### Details about the change made on the Job
+  details: String 
+  
+  ### DateTime on epoch format
+  dateTime: int 
+  
+  ### Commentary related to this update, related from another table
+  commentId: int?, relation(parent=taiga_job_commentaries)
