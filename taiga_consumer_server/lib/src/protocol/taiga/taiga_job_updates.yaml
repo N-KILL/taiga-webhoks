@@ -22,8 +22,8 @@ fields:
   ### Details about the change made on the Job
   details: String 
   
-  ### DateTime on epoch format
-  dateTime: int 
+  ### DateTime on epoch format stored as String value
+  dateTimeEpoch: String 
   
   ### Commentary related to this update, related from another table
   commentId: int?, relation(parent=taiga_job_commentaries)

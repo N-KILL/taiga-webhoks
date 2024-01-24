@@ -77,9 +77,11 @@ class RouteRoot extends WidgetRoute {
                   type: canCreate.type + payload.actionType,
                   status: canCreate.status,
                   details: 'Se creo un nuevo ${canCreate.type}',
-                  dateTime: 213,
+                  dateTimeEpoch:
+                      DateTime.now().millisecondsSinceEpoch.toString(),
                 ));
             print('Printing inside of can create $data');
+            print(DateTime.now().millisecondsSinceEpoch);
           }
         }
       }
@@ -127,7 +129,8 @@ class RouteRoot extends WidgetRoute {
                     details: DetailGenerator(
                       data: payload.change!,
                     ),
-                    dateTime: DateTime.now().millisecondsSinceEpoch,
+                    dateTimeEpoch:
+                        DateTime.now().millisecondsSinceEpoch.toString(),
                   ));
             }
           } else // If the job do not exist on the database
@@ -143,7 +146,8 @@ class RouteRoot extends WidgetRoute {
                     type: canCreate.type + payload.actionType,
                     status: canCreate.status,
                     details: 'Se creo un nuevo ${canCreate.type}',
-                    dateTime: DateTime.now().millisecondsSinceEpoch,
+                    dateTimeEpoch:
+                        DateTime.now().millisecondsSinceEpoch.toString(),
                   ));
             }
           }

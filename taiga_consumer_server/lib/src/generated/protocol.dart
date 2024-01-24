@@ -232,10 +232,10 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
-          name: 'dateTime',
-          columnType: _i2.ColumnType.integer,
+          name: 'dateTimeEpoch',
+          columnType: _i2.ColumnType.text,
           isNullable: false,
-          dartType: 'int',
+          dartType: 'String',
         ),
         _i2.ColumnDefinition(
           name: 'commentId',

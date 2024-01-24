@@ -25,7 +25,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     required this.type,
     required this.status,
     required this.details,
-    required this.dateTime,
+    required this.dateTimeEpoch,
     this.commentId,
   });
 
@@ -35,7 +35,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     required String type,
     required String status,
     required String details,
-    required int dateTime,
+    required String dateTimeEpoch,
     int? commentId,
   }) = _TaigaJobUpdatesImpl;
 
@@ -51,8 +51,8 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
           serializationManager.deserialize<String>(jsonSerialization['status']),
       details: serializationManager
           .deserialize<String>(jsonSerialization['details']),
-      dateTime:
-          serializationManager.deserialize<int>(jsonSerialization['dateTime']),
+      dateTimeEpoch: serializationManager
+          .deserialize<String>(jsonSerialization['dateTimeEpoch']),
       commentId: serializationManager
           .deserialize<int?>(jsonSerialization['commentId']),
     );
@@ -76,8 +76,8 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
   /// Details about the change made on the Job
   String details;
 
-  /// DateTime on epoch format
-  int dateTime;
+  /// DateTime on epoch format stored as String value
+  String dateTimeEpoch;
 
   /// Commentary related to this update, related from another table
   int? commentId;
@@ -88,7 +88,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     String? type,
     String? status,
     String? details,
-    int? dateTime,
+    String? dateTimeEpoch,
     int? commentId,
   });
   @override
@@ -99,7 +99,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
       'type': type,
       'status': status,
       'details': details,
-      'dateTime': dateTime,
+      'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
     };
   }
@@ -114,7 +114,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     required String type,
     required String status,
     required String details,
-    required int dateTime,
+    required String dateTimeEpoch,
     int? commentId,
   }) : super._(
           id: id,
@@ -122,7 +122,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
           type: type,
           status: status,
           details: details,
-          dateTime: dateTime,
+          dateTimeEpoch: dateTimeEpoch,
           commentId: commentId,
         );
 
@@ -133,7 +133,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     String? type,
     String? status,
     String? details,
-    int? dateTime,
+    String? dateTimeEpoch,
     Object? commentId = _Undefined,
   }) {
     return TaigaJobUpdates(
@@ -142,7 +142,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
       type: type ?? this.type,
       status: status ?? this.status,
       details: details ?? this.details,
-      dateTime: dateTime ?? this.dateTime,
+      dateTimeEpoch: dateTimeEpoch ?? this.dateTimeEpoch,
       commentId: commentId is int? ? commentId : this.commentId,
     );
   }

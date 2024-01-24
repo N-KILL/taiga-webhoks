@@ -25,7 +25,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     required this.type,
     required this.status,
     required this.details,
-    required this.dateTime,
+    required this.dateTimeEpoch,
     this.commentId,
   }) : super(id);
 
@@ -35,7 +35,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     required String type,
     required String status,
     required String details,
-    required int dateTime,
+    required String dateTimeEpoch,
     int? commentId,
   }) = _TaigaJobUpdatesImpl;
 
@@ -51,8 +51,8 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
           serializationManager.deserialize<String>(jsonSerialization['status']),
       details: serializationManager
           .deserialize<String>(jsonSerialization['details']),
-      dateTime:
-          serializationManager.deserialize<int>(jsonSerialization['dateTime']),
+      dateTimeEpoch: serializationManager
+          .deserialize<String>(jsonSerialization['dateTimeEpoch']),
       commentId: serializationManager
           .deserialize<int?>(jsonSerialization['commentId']),
     );
@@ -75,8 +75,8 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
   /// Details about the change made on the Job
   String details;
 
-  /// DateTime on epoch format
-  int dateTime;
+  /// DateTime on epoch format stored as String value
+  String dateTimeEpoch;
 
   /// Commentary related to this update, related from another table
   int? commentId;
@@ -90,7 +90,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     String? type,
     String? status,
     String? details,
-    int? dateTime,
+    String? dateTimeEpoch,
     int? commentId,
   });
   @override
@@ -101,7 +101,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       'type': type,
       'status': status,
       'details': details,
-      'dateTime': dateTime,
+      'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
     };
   }
@@ -115,7 +115,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       'type': type,
       'status': status,
       'details': details,
-      'dateTime': dateTime,
+      'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
     };
   }
@@ -128,7 +128,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       'type': type,
       'status': status,
       'details': details,
-      'dateTime': dateTime,
+      'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
     };
   }
@@ -154,8 +154,8 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       case 'details':
         details = value;
         return;
-      case 'dateTime':
-        dateTime = value;
+      case 'dateTimeEpoch':
+        dateTimeEpoch = value;
         return;
       case 'commentId':
         commentId = value;
@@ -316,7 +316,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     required String type,
     required String status,
     required String details,
-    required int dateTime,
+    required String dateTimeEpoch,
     int? commentId,
   }) : super._(
           id: id,
@@ -324,7 +324,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
           type: type,
           status: status,
           details: details,
-          dateTime: dateTime,
+          dateTimeEpoch: dateTimeEpoch,
           commentId: commentId,
         );
 
@@ -335,7 +335,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     String? type,
     String? status,
     String? details,
-    int? dateTime,
+    String? dateTimeEpoch,
     Object? commentId = _Undefined,
   }) {
     return TaigaJobUpdates(
@@ -344,7 +344,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
       type: type ?? this.type,
       status: status ?? this.status,
       details: details ?? this.details,
-      dateTime: dateTime ?? this.dateTime,
+      dateTimeEpoch: dateTimeEpoch ?? this.dateTimeEpoch,
       commentId: commentId is int? ? commentId : this.commentId,
     );
   }
@@ -369,8 +369,8 @@ class TaigaJobUpdatesTable extends _i1.Table {
       'details',
       this,
     );
-    dateTime = _i1.ColumnInt(
-      'dateTime',
+    dateTimeEpoch = _i1.ColumnString(
+      'dateTimeEpoch',
       this,
     );
     commentId = _i1.ColumnInt(
@@ -392,8 +392,8 @@ class TaigaJobUpdatesTable extends _i1.Table {
   /// Details about the change made on the Job
   late final _i1.ColumnString details;
 
-  /// DateTime on epoch format
-  late final _i1.ColumnInt dateTime;
+  /// DateTime on epoch format stored as String value
+  late final _i1.ColumnString dateTimeEpoch;
 
   /// Commentary related to this update, related from another table
   late final _i1.ColumnInt commentId;
@@ -405,7 +405,7 @@ class TaigaJobUpdatesTable extends _i1.Table {
         type,
         status,
         details,
-        dateTime,
+        dateTimeEpoch,
         commentId,
       ];
 }
