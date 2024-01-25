@@ -17,10 +17,12 @@ import 'protocol/taiga/taiga_project.dart' as _i5;
 import 'protocol/user.dart' as _i6;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.dart'
     as _i7;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
     as _i8;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
     as _i9;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
+    as _i10;
 export 'protocol/taiga/taiga_job.dart';
 export 'protocol/taiga/taiga_job_commentaries.dart';
 export 'protocol/taiga/taiga_job_updates.dart';
@@ -84,13 +86,18 @@ class Protocol extends _i1.SerializationManager {
           .map((e) => deserialize<_i7.TaigaProject>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i8.TaigaJob>) {
-      return (data as List).map((e) => deserialize<_i8.TaigaJob>(e)).toList()
+    if (t == List<_i8.TaigaJobCommentaries>) {
+      return (data as List)
+          .map((e) => deserialize<_i8.TaigaJobCommentaries>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i9.TaigaJob>) {
+      return (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i9.TaigaJobUpdates>) {
+    if (t == List<_i10.TaigaJobUpdates>) {
       return (data as List)
-          .map((e) => deserialize<_i9.TaigaJobUpdates>(e))
+          .map((e) => deserialize<_i10.TaigaJobUpdates>(e))
           .toList() as dynamic;
     }
     return super.deserialize<T>(data, t);

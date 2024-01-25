@@ -10,22 +10,19 @@ Future<void> senderCron({
 }) async {
   final cron = Cron();
 
-  final tuki = Schedule(
-    seconds: seconds,
-    minutes: minutes,
-    hours: hours,
-    days: days,
-    months: months,
-    weekdays: weekdays,
-  ).toCronString(
-    hasSecond: seconds != null ? true : false,
-  );
-
-  print(tuki);
-
-  cron.schedule(Schedule.parse(tuki), () {
-    // Coloca aquí el código que deseas ejecutar en cada intervalo del cron.
-    print("Ejecutando tarea...");
+  cron.schedule(
+      Schedule.parse(Schedule(
+        seconds: seconds,
+        minutes: minutes,
+        hours: hours,
+        days: days,
+        months: months,
+        weekdays: weekdays,
+      ).toCronString(
+        hasSecond: seconds != null ? true : false,
+      )), () {
+    // CRON TASK
+    final timeEpoch = DateTime.now().millisecondsSinceEpoch;
   });
 }
 

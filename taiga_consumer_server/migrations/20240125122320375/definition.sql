@@ -33,7 +33,7 @@ CREATE TABLE "taiga_job_updates" (
     "type" text NOT NULL,
     "status" text NOT NULL,
     "details" text NOT NULL,
-    "dateTimeEpoch" text NOT NULL,
+    "dateTimeEpoch" integer NOT NULL,
     "commentId" integer
 );
 
@@ -354,9 +354,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR taiga_consumer
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('taiga_consumer', '20240124155517875', now())
+    VALUES ('taiga_consumer', '20240125122320375', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240124155517875', "timestamp" = now();
+    DO UPDATE SET "version" = '20240125122320375', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

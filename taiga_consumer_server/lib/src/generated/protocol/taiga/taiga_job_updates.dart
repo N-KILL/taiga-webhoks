@@ -35,7 +35,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     required String type,
     required String status,
     required String details,
-    required String dateTimeEpoch,
+    required int dateTimeEpoch,
     int? commentId,
   }) = _TaigaJobUpdatesImpl;
 
@@ -52,7 +52,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       details: serializationManager
           .deserialize<String>(jsonSerialization['details']),
       dateTimeEpoch: serializationManager
-          .deserialize<String>(jsonSerialization['dateTimeEpoch']),
+          .deserialize<int>(jsonSerialization['dateTimeEpoch']),
       commentId: serializationManager
           .deserialize<int?>(jsonSerialization['commentId']),
     );
@@ -75,8 +75,11 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
   /// Details about the change made on the Job
   String details;
 
-  /// DateTime on epoch format stored as String value
-  String dateTimeEpoch;
+  /// DateTime on epoch format stored as Int value
+  /// Note: To storage epoch serverpod, only support int values.
+  /// PGSQL format, will be integer, and do not support longer characters
+  /// So you have to divide by 1000, getting epoch on seconds format, not milliseconds
+  int dateTimeEpoch;
 
   /// Commentary related to this update, related from another table
   int? commentId;
@@ -90,7 +93,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     String? type,
     String? status,
     String? details,
-    String? dateTimeEpoch,
+    int? dateTimeEpoch,
     int? commentId,
   });
   @override
@@ -316,7 +319,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     required String type,
     required String status,
     required String details,
-    required String dateTimeEpoch,
+    required int dateTimeEpoch,
     int? commentId,
   }) : super._(
           id: id,
@@ -335,7 +338,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     String? type,
     String? status,
     String? details,
-    String? dateTimeEpoch,
+    int? dateTimeEpoch,
     Object? commentId = _Undefined,
   }) {
     return TaigaJobUpdates(
@@ -369,7 +372,7 @@ class TaigaJobUpdatesTable extends _i1.Table {
       'details',
       this,
     );
-    dateTimeEpoch = _i1.ColumnString(
+    dateTimeEpoch = _i1.ColumnInt(
       'dateTimeEpoch',
       this,
     );
@@ -392,8 +395,11 @@ class TaigaJobUpdatesTable extends _i1.Table {
   /// Details about the change made on the Job
   late final _i1.ColumnString details;
 
-  /// DateTime on epoch format stored as String value
-  late final _i1.ColumnString dateTimeEpoch;
+  /// DateTime on epoch format stored as Int value
+  /// Note: To storage epoch serverpod, only support int values.
+  /// PGSQL format, will be integer, and do not support longer characters
+  /// So you have to divide by 1000, getting epoch on seconds format, not milliseconds
+  late final _i1.ColumnInt dateTimeEpoch;
 
   /// Commentary related to this update, related from another table
   late final _i1.ColumnInt commentId;

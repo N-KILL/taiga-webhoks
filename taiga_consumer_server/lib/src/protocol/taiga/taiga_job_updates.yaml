@@ -22,8 +22,11 @@ fields:
   ### Details about the change made on the Job
   details: String 
   
-  ### DateTime on epoch format stored as String value
-  dateTimeEpoch: String 
+  ### DateTime on epoch format stored as Int value
+  ### Note: To storage epoch serverpod, only support int values. 
+  ### PGSQL format, will be integer, and do not support longer characters
+  ### So you have to divide by 1000, getting epoch on seconds format, not milliseconds
+  dateTimeEpoch: int
   
   ### Commentary related to this update, related from another table
   commentId: int?, relation(parent=taiga_job_commentaries)

@@ -6,7 +6,8 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_upd
 class TaigaJobUpdateEndpoint extends Endpoint {
   Future<bool> create(Session session, TaigaJobUpdates taigaJobUpdates) async {
     try {
-      var response = await TaigaJobUpdates.db.insertRow(session, taigaJobUpdates);
+      var response =
+          await TaigaJobUpdates.db.insertRow(session, taigaJobUpdates);
       print(response);
       return true;
     } catch (e) {
@@ -14,7 +15,8 @@ class TaigaJobUpdateEndpoint extends Endpoint {
     }
   }
 
-  Future<bool> createOnBulk(Session session, List<TaigaJobUpdates> taigaJobUpdates) async {
+  Future<bool> createOnBulk(
+      Session session, List<TaigaJobUpdates> taigaJobUpdates) async {
     try {
       var response = await TaigaJobUpdates.db.insert(session, taigaJobUpdates);
       print(response);
@@ -34,8 +36,25 @@ class TaigaJobUpdateEndpoint extends Endpoint {
     }
   }
 
+  Future<TaigaJobUpdates?> readFilteringByEpoch(
+    Session session, {
+    required int min,
+    required int max,
+  }) async {
+    try {
+      var response = await TaigaJobUpdates.db.findFirstRow(
+        session,
+        where: (t) => t.dateTimeEpoch.between(min, max),
+      );
+      print(response);
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
 
-  Future<TaigaJobUpdates?> readByStatus(Session session, TaigaJobUpdates taigaJobUpdates) async {
+  Future<TaigaJobUpdates?> readByStatus(
+      Session session, TaigaJobUpdates taigaJobUpdates) async {
     try {
       var response = await TaigaJobUpdates.db.findFirstRow(
         session,
@@ -48,14 +67,15 @@ class TaigaJobUpdateEndpoint extends Endpoint {
     }
   }
 
-  Future<bool> updateById(Session session, TaigaJobUpdates taigaJobUpdates) async {
+  Future<bool> updateById(
+      Session session, TaigaJobUpdates taigaJobUpdates) async {
     if (taigaJobUpdates.id != null) {
       var modify = await TaigaJobUpdates.db.findById(
         session,
         taigaJobUpdates.id!,
       );
       if (modify != null) {
-        modify.details= taigaJobUpdates.details;
+        modify.details = taigaJobUpdates.details;
         modify.status = taigaJobUpdates.status;
         modify.jobId = taigaJobUpdates.jobId;
         var updatedCompany = await TaigaJobUpdates.db.updateRow(
@@ -68,11 +88,14 @@ class TaigaJobUpdateEndpoint extends Endpoint {
     return false;
   }
 
-  Future<bool> deleteById(Session session, TaigaJobUpdates taigaJobUpdates) async {
+  Future<bool> deleteById(
+      Session session, TaigaJobUpdates taigaJobUpdates) async {
     if (taigaJobUpdates.id != null) {
-      var findRow = await TaigaJobUpdates.db.findById(session, taigaJobUpdates.id!);
+      var findRow =
+          await TaigaJobUpdates.db.findById(session, taigaJobUpdates.id!);
       if (findRow != null) {
-        var deletedItemId = await TaigaJobUpdates.db.deleteRow(session, findRow);
+        var deletedItemId =
+            await TaigaJobUpdates.db.deleteRow(session, findRow);
         print(deletedItemId);
       }
     }

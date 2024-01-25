@@ -203,9 +203,9 @@
         },
         {
           "name": "dateTimeEpoch",
-          "columnType": 0,
+          "columnType": 2,
           "isNullable": false,
-          "dartType": "String"
+          "dartType": "int"
         },
         {
           "name": "commentId",
@@ -1564,7 +1564,7 @@
   "installedModules": [
     {
       "module": "taiga_consumer",
-      "version": "20240124155517875"
+      "version": "20240125122320375"
     },
     {
       "module": "serverpod",

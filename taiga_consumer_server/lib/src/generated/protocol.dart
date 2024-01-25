@@ -18,10 +18,12 @@ import 'protocol/taiga/taiga_project.dart' as _i6;
 import 'protocol/user.dart' as _i7;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
     as _i8;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
     as _i9;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
     as _i10;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+    as _i11;
 export 'protocol/taiga/taiga_job.dart';
 export 'protocol/taiga/taiga_job_commentaries.dart';
 export 'protocol/taiga/taiga_job_updates.dart';
@@ -233,9 +235,9 @@ class Protocol extends _i1.SerializationManagerServer {
         ),
         _i2.ColumnDefinition(
           name: 'dateTimeEpoch',
-          columnType: _i2.ColumnType.text,
+          columnType: _i2.ColumnType.integer,
           isNullable: false,
-          dartType: 'String',
+          dartType: 'int',
         ),
         _i2.ColumnDefinition(
           name: 'commentId',
@@ -433,13 +435,18 @@ class Protocol extends _i1.SerializationManagerServer {
           .map((e) => deserialize<_i8.TaigaProject>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i9.TaigaJob>) {
-      return (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
+    if (t == List<_i9.TaigaJobCommentaries>) {
+      return (data as List)
+          .map((e) => deserialize<_i9.TaigaJobCommentaries>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i10.TaigaJob>) {
+      return (data as List).map((e) => deserialize<_i10.TaigaJob>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i10.TaigaJobUpdates>) {
+    if (t == List<_i11.TaigaJobUpdates>) {
       return (data as List)
-          .map((e) => deserialize<_i10.TaigaJobUpdates>(e))
+          .map((e) => deserialize<_i11.TaigaJobUpdates>(e))
           .toList() as dynamic;
     }
     try {

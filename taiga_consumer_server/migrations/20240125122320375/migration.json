@@ -210,9 +210,9 @@
           },
           {
             "name": "dateTimeEpoch",
-            "columnType": 0,
+            "columnType": 2,
             "isNullable": false,
-            "dartType": "String"
+            "dartType": "int"
           },
           {
             "name": "commentId",
