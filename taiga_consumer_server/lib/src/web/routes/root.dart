@@ -42,8 +42,12 @@ class RouteRoot extends WidgetRoute {
         max: timeEpochOnSeconds);
 
     print('Intentando obtener los updates de ayer hasta ahora');
-    print(lastDayUpdates);
-    print(lastDayUpdates?[0].job);
+    if (lastDayUpdates != null) {
+      print(lastDayUpdates);
+      for (var element in lastDayUpdates) {
+        print(element.job);
+      }
+    }
 
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
