@@ -1,4 +1,5 @@
 import 'package:serverpod/serverpod.dart';
+import 'package:taiga_consumer_server/src/generated/protocol.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart';
 
 // TODO(Nacho): Comentar todo el codigo, ver como handlear los prints
@@ -18,7 +19,8 @@ class TaigaJobUpdateEndpoint extends Endpoint {
   Future<bool> createOnBulk(
       Session session, List<TaigaJobUpdates> taigaJobUpdates) async {
     try {
-      final response = await TaigaJobUpdates.db.insert(session, taigaJobUpdates);
+      final response =
+          await TaigaJobUpdates.db.insert(session, taigaJobUpdates);
       print(response);
       return true;
     } catch (e) {
@@ -45,6 +47,9 @@ class TaigaJobUpdateEndpoint extends Endpoint {
       final response = await TaigaJobUpdates.db.find(
         session,
         where: (t) => t.dateTimeEpoch.between(min, max),
+        include: TaigaJobUpdates.include(
+          job: TaigaJob.include(),
+        ),
       );
       print(response);
       return response;
