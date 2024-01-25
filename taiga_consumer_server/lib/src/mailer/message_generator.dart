@@ -18,7 +18,7 @@ class MessageGenerator {
       // We re going to set a list with the details
       final detailList = jobUpdate.details.split('\n');
 
-      
+      jobUpdate.job?.title;
     }
 
     // If the message is empty, return null. Otherwise return the message

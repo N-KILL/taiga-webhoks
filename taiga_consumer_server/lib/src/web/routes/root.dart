@@ -21,6 +21,30 @@ const accessToken = 'glpat-s2axRR49k4dm5j6GTRJZ';
 class RouteRoot extends WidgetRoute {
   @override
   Future<Widget> build(Session session, HttpRequest request) async {
+    // This var store the amount of seconds have in one day
+    int valueDayOnSeconds = 84600;
+
+    // This var store the date of today, we use a unique call per function
+    final todayDate = DateTime.now();
+
+    // If the day is 5, thats mean monday. We need to read de values between
+    // monday and friday. So we multiply x 3
+    if (todayDate.weekday == 1) {
+      valueDayOnSeconds = valueDayOnSeconds * 3;
+    }
+
+    // Get the today day on seconds and epoch format
+    final timeEpochOnSeconds = todayDate.millisecondsSinceEpoch ~/ 1000;
+
+    final lastDayUpdates = await TaigaJobUpdateEndpoint().readFilteringByEpoch(
+        session,
+        min: (timeEpochOnSeconds - 84600),
+        max: timeEpochOnSeconds);
+
+    print('Intentando obtener los updates de ayer hasta ahora');
+    print(lastDayUpdates);
+    print(lastDayUpdates?[0].job);
+
     final decodedBody = await utf8.decodeStream(request);
     final body = json.decode(decodedBody);
     print('Taiga webhook received:');
