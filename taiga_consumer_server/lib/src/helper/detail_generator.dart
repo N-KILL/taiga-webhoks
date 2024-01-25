@@ -8,7 +8,7 @@ String DetailGenerator({required TaigaPayload payload}) {
 
   // Var used to storage the String that we re going to return at the end of the
   // function
-  var returnInfo = '';
+  String returnInfo = '';
 
   // If the comment have data
   if (data.comment != '') {

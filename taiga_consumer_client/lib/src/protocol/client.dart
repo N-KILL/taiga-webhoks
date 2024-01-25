@@ -295,6 +295,19 @@ class EndpointTaigaJobUpdate extends _i1.EndpointRef {
         {'id': id},
       );
 
+  _i2.Future<List<_i6.TaigaJobUpdates>?> readFilteringByEpoch({
+    required int min,
+    required int max,
+  }) =>
+      caller.callServerEndpoint<List<_i6.TaigaJobUpdates>?>(
+        'taigaJobUpdate',
+        'readFilteringByEpoch',
+        {
+          'min': min,
+          'max': max,
+        },
+      );
+
   _i2.Future<_i6.TaigaJobUpdates?> readByStatus(
           _i6.TaigaJobUpdates taigaJobUpdates) =>
       caller.callServerEndpoint<_i6.TaigaJobUpdates?>(

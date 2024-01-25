@@ -449,6 +449,13 @@ class Protocol extends _i1.SerializationManagerServer {
           .map((e) => deserialize<_i11.TaigaJobUpdates>(e))
           .toList() as dynamic;
     }
+    if (t == _i1.getType<List<_i11.TaigaJobUpdates>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i11.TaigaJobUpdates>(e))
+              .toList()
+          : null) as dynamic;
+    }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
     } catch (_) {}

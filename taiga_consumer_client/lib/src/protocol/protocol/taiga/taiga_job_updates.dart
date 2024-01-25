@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
+import '../../protocol.dart' as _i2;
 
 /// This class is for storage the all the updates made into a Job
 /// having direct relation to the TaigaJob table, every time a change
@@ -22,6 +23,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
   TaigaJobUpdates._({
     this.id,
     required this.jobId,
+    this.job,
     required this.type,
     required this.status,
     required this.details,
@@ -32,6 +34,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
   factory TaigaJobUpdates({
     int? id,
     required int jobId,
+    _i2.TaigaJob? job,
     required String type,
     required String status,
     required String details,
@@ -46,6 +49,8 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     return TaigaJobUpdates(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       jobId: serializationManager.deserialize<int>(jsonSerialization['jobId']),
+      job: serializationManager
+          .deserialize<_i2.TaigaJob?>(jsonSerialization['job']),
       type: serializationManager.deserialize<String>(jsonSerialization['type']),
       status:
           serializationManager.deserialize<String>(jsonSerialization['status']),
@@ -63,8 +68,10 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
-  /// Task, Issue, Epic, UserStory, related from another table
   int jobId;
+
+  /// Task, Issue, Epic, UserStory, related from another table
+  _i2.TaigaJob? job;
 
   /// Type is used to identify if a new job, a new comment, a change
   /// made into a job, or a deletion
@@ -88,6 +95,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
   TaigaJobUpdates copyWith({
     int? id,
     int? jobId,
+    _i2.TaigaJob? job,
     String? type,
     String? status,
     String? details,
@@ -99,6 +107,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     return {
       if (id != null) 'id': id,
       'jobId': jobId,
+      if (job != null) 'job': job,
       'type': type,
       'status': status,
       'details': details,
@@ -114,6 +123,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
   _TaigaJobUpdatesImpl({
     int? id,
     required int jobId,
+    _i2.TaigaJob? job,
     required String type,
     required String status,
     required String details,
@@ -122,6 +132,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
   }) : super._(
           id: id,
           jobId: jobId,
+          job: job,
           type: type,
           status: status,
           details: details,
@@ -133,6 +144,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
   TaigaJobUpdates copyWith({
     Object? id = _Undefined,
     int? jobId,
+    Object? job = _Undefined,
     String? type,
     String? status,
     String? details,
@@ -142,6 +154,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     return TaigaJobUpdates(
       id: id is int? ? id : this.id,
       jobId: jobId ?? this.jobId,
+      job: job is _i2.TaigaJob? ? job : this.job?.copyWith(),
       type: type ?? this.type,
       status: status ?? this.status,
       details: details ?? this.details,

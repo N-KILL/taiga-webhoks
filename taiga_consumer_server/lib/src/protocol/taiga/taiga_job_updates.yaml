@@ -10,7 +10,7 @@ class: TaigaJobUpdates
 table: taiga_job_updates
 fields:
   ### Task, Issue, Epic, UserStory, related from another table
-  jobId: int, relation(parent=taiga_job)
+  job: TaigaJob?, relation
 
   ### Type is used to identify if a new job, a new comment, a change 
   ### made into a job, or a deletion 

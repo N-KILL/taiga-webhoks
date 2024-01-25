@@ -34,7 +34,7 @@ void run(List<String> args) async {
     RouteGitLab(),
     '/gitlab',
   );
-  
+
   // pod.webServer.addRoute(RouteRoot(), '/index.html');
   // Serve all files in the /static directory.
   pod.webServer.addRoute(

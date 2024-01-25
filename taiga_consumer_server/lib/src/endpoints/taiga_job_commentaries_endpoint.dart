@@ -7,7 +7,7 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
   Future<TaigaJobCommentaries?> create(
       Session session, TaigaJobCommentaries taigaJobCommentaries) async {
     try {
-      var response = await TaigaJobCommentaries.db
+      final response = await TaigaJobCommentaries.db
           .insertRow(session, taigaJobCommentaries);
       print(response);
       return response;
@@ -19,7 +19,7 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
   Future<bool> createOnBulk(
       Session session, List<TaigaJobCommentaries> taigaJobCommentaries) async {
     try {
-      var response =
+      final response =
           await TaigaJobCommentaries.db.insert(session, taigaJobCommentaries);
       print(response);
       return true;
@@ -30,7 +30,7 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
 
   Future<TaigaJobCommentaries?> readById(Session session, int id) async {
     try {
-      var response = await TaigaJobCommentaries.db.findById(session, id);
+      final response = await TaigaJobCommentaries.db.findById(session, id);
       print(response);
       return response;
     } catch (e) {
@@ -43,13 +43,13 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
     required TaigaJobCommentaries taigaJobCommentaries,
     required int id,
   }) async {
-    var modify = await TaigaJobCommentaries.db.findById(
+    final modify = await TaigaJobCommentaries.db.findById(
       session,
       id,
     );
     if (modify != null) {
       modify.details = taigaJobCommentaries.details;
-      var updatedJob = await TaigaJobCommentaries.db.updateRow(
+      final updatedJob = await TaigaJobCommentaries.db.updateRow(
         session,
         modify,
       );
@@ -61,10 +61,10 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
   Future<bool> deleteById(
       Session session, TaigaJobCommentaries taigaJobCommentaries) async {
     if (taigaJobCommentaries.id != null) {
-      var findRow = await TaigaJobCommentaries.db
+      final findRow = await TaigaJobCommentaries.db
           .findById(session, taigaJobCommentaries.id!);
       if (findRow != null) {
-        var deletedItemId =
+        final deletedItemId =
             await TaigaJobCommentaries.db.deleteRow(session, findRow);
         print(deletedItemId);
       }

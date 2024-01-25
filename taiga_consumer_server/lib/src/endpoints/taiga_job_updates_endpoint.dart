@@ -6,7 +6,7 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_upd
 class TaigaJobUpdateEndpoint extends Endpoint {
   Future<bool> create(Session session, TaigaJobUpdates taigaJobUpdates) async {
     try {
-      var response =
+      final response =
           await TaigaJobUpdates.db.insertRow(session, taigaJobUpdates);
       print(response);
       return true;
@@ -18,7 +18,7 @@ class TaigaJobUpdateEndpoint extends Endpoint {
   Future<bool> createOnBulk(
       Session session, List<TaigaJobUpdates> taigaJobUpdates) async {
     try {
-      var response = await TaigaJobUpdates.db.insert(session, taigaJobUpdates);
+      final response = await TaigaJobUpdates.db.insert(session, taigaJobUpdates);
       print(response);
       return true;
     } catch (e) {
@@ -28,7 +28,7 @@ class TaigaJobUpdateEndpoint extends Endpoint {
 
   Future<TaigaJobUpdates?> readById(Session session, int id) async {
     try {
-      var response = await TaigaJobUpdates.db.findById(session, id);
+      final response = await TaigaJobUpdates.db.findById(session, id);
       print(response);
       return response;
     } catch (e) {
@@ -36,13 +36,13 @@ class TaigaJobUpdateEndpoint extends Endpoint {
     }
   }
 
-  Future<TaigaJobUpdates?> readFilteringByEpoch(
+  Future<List<TaigaJobUpdates>?> readFilteringByEpoch(
     Session session, {
     required int min,
     required int max,
   }) async {
     try {
-      var response = await TaigaJobUpdates.db.findFirstRow(
+      final response = await TaigaJobUpdates.db.find(
         session,
         where: (t) => t.dateTimeEpoch.between(min, max),
       );
@@ -56,7 +56,7 @@ class TaigaJobUpdateEndpoint extends Endpoint {
   Future<TaigaJobUpdates?> readByStatus(
       Session session, TaigaJobUpdates taigaJobUpdates) async {
     try {
-      var response = await TaigaJobUpdates.db.findFirstRow(
+      final response = await TaigaJobUpdates.db.findFirstRow(
         session,
         where: (t) => t.status.equals(taigaJobUpdates.status),
       );
@@ -70,7 +70,7 @@ class TaigaJobUpdateEndpoint extends Endpoint {
   Future<bool> updateById(
       Session session, TaigaJobUpdates taigaJobUpdates) async {
     if (taigaJobUpdates.id != null) {
-      var modify = await TaigaJobUpdates.db.findById(
+      final modify = await TaigaJobUpdates.db.findById(
         session,
         taigaJobUpdates.id!,
       );
@@ -78,7 +78,7 @@ class TaigaJobUpdateEndpoint extends Endpoint {
         modify.details = taigaJobUpdates.details;
         modify.status = taigaJobUpdates.status;
         modify.jobId = taigaJobUpdates.jobId;
-        var updatedCompany = await TaigaJobUpdates.db.updateRow(
+        final updatedCompany = await TaigaJobUpdates.db.updateRow(
           session,
           modify,
         );
@@ -91,10 +91,10 @@ class TaigaJobUpdateEndpoint extends Endpoint {
   Future<bool> deleteById(
       Session session, TaigaJobUpdates taigaJobUpdates) async {
     if (taigaJobUpdates.id != null) {
-      var findRow =
+      final findRow =
           await TaigaJobUpdates.db.findById(session, taigaJobUpdates.id!);
       if (findRow != null) {
-        var deletedItemId =
+        final deletedItemId =
             await TaigaJobUpdates.db.deleteRow(session, findRow);
         print(deletedItemId);
       }

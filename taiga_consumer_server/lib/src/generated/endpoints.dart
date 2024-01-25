@@ -669,6 +669,31 @@ class Endpoints extends _i1.EndpointDispatch {
             params['id'],
           ),
         ),
+        'readFilteringByEpoch': _i1.MethodConnector(
+          name: 'readFilteringByEpoch',
+          params: {
+            'min': _i1.ParameterDescription(
+              name: 'min',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'max': _i1.ParameterDescription(
+              name: 'max',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['taigaJobUpdate'] as _i7.TaigaJobUpdateEndpoint)
+                  .readFilteringByEpoch(
+            session,
+            min: params['min'],
+            max: params['max'],
+          ),
+        ),
         'readByStatus': _i1.MethodConnector(
           name: 'readByStatus',
           params: {
