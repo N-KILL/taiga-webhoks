@@ -96,6 +96,7 @@ class RouteRoot extends WidgetRoute {
               session,
               TaigaJobUpdates(
                 jobId: canCreate.id!,
+                job: canCreate,
                 type: canCreate.type + ' ' + payload.actionType,
                 status: canCreate.status,
                 details: 'Se creo un nuevo ${canCreate.type}',
@@ -147,6 +148,7 @@ class RouteRoot extends WidgetRoute {
                   session,
                   TaigaJobUpdates(
                     jobId: canUpdate.id!,
+                    job: canUpdate,
                     type: canUpdate.type + ' ' + payload.actionType,
                     status: canUpdate.status,
                     details: detail,
@@ -174,6 +176,7 @@ class RouteRoot extends WidgetRoute {
                     session,
                     TaigaJobUpdates(
                       jobId: canCreate.id!,
+                      job: canCreate,
                       type: canCreate.type + ' ' + payload.actionType,
                       status: canCreate.status,
                       details: detail,
