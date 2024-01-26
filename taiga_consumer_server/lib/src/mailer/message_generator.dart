@@ -3,12 +3,19 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dar
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
 
-/// This class [MessageGenerator] Is used to generate the message of the emails
+/// This class [MessageGenerator]
+///
+/// Is used to generate the message of the emails
 /// having functions which generate messages based on different parameters.
 class MessageGenerator {
-  /// [taigaCreateUpdateMessageNotification] Create an `html` format message to
-  /// send inside of an `email` with the details of the updates received on the
-  /// `Taiga webhook`.
+  /// <h3> [taigaCreateUpdateMessageNotification] </h3>
+  ///
+  /// Create an `html` format message to send inside of an `email`, this message
+  /// if for notify job updates. You can filter this updates by the [project]
+  /// parameter, and the time of the update based on the
+  /// [TaigaJobUpdateEndpoint.readFilteringByEpoch] `endpoint`
+  ///
+  /// <hr>
   ///
   /// ! `Important` This is meant to be used with the data, we receive from the
   /// [TaigaJobUpdateEndpoint.readFilteringByEpoch] or any other which have the
@@ -17,9 +24,10 @@ class MessageGenerator {
   ///
   /// If you're trying to use this, maybe it breaks, because can't read any job
   /// detail related to an update instance. This need at least one per jobId.
-  String? taigaCreateUpdateMessageNotification(
-      {required List<TaigaJobUpdates> jobUpdateList,
-      required TaigaProject project}) {
+  String? taigaCreateUpdateMessageNotification({
+    required List<TaigaJobUpdates> jobUpdateList,
+    required TaigaProject project,
+  }) {
     // Create a var to store the message, will be empty at first
     String message = '';
 
@@ -97,34 +105,47 @@ class MessageGenerator {
     detailList.add(detailElement);
 
     // Create a for loop, which is going to generate all the information that
-    // we re going to put in the message
+    // we re going to put in the message. As you can see, this is generating
+    // one under the other. Generating a single string on HTML inside of the
+    // message var
     for (var elementIndex = 0;
         elementIndex < listOfJob.length;
         elementIndex++) {
       // This is the job
       final job = listOfJob[elementIndex];
+
       // This is the details of the update the job have received in a list
       // format
       final jobUpdateDetails = detailList[elementIndex].split('\n');
+      jobUpdateDetails.remove(' ');
 
+      // Aux to store the detail on html format
       var detailHtml = '';
 
       for (var jobUpdateDetail in jobUpdateDetails) {
-        if (jobUpdateDetail != '') {
-          detailHtml = detailHtml +
-              ''' 
-                <li class="desktop-only"> $jobUpdateDetail</li>
-                <li class="mobile-only"> $jobUpdateDetail </li>
-        ''';
-        }
+        detailHtml =
+            detailHtml + '<p class="desktop-only"> $jobUpdateDetail</p>';
       }
+
+      // Generate the message with the detail on it
       message = message +
           '''
-                <h2 class="desktop-only"> Cambios realizados al ${job.type}: ${job.title} N°#${job.taigaRefNumber}</h2>
-                <h3 class="mobile-only"> Cambios realizados al ${job.type}: ${job.title} N°#${job.taigaRefNumber}</h3>
-                <ul>
-                $detailHtml
-                </ul>
+                <h2 class="desktop-only"> ${job.type.toUpperCase()} N°#${job.taigaRefNumber}: ${job.title} </h2>
+                <h3 class="mobile-only"> ${job.type.toUpperCase()} N°#${job.taigaRefNumber}: ${job.title} </h3>
+                <div class="containerTwo">
+                <h3 class="desktop-only"> Descipción:</h3>
+                <h3 class="desktop-only"> ${job.description} </h3>
+                <h3 class="desktop-only "> Estado: ${job.status} </h3>
+                <h4 class="mobile-only"> Descipción:</h4>
+                <h4 class="mobile-only"> ${job.description} </h4>
+                <h4 class="mobile-only "> Estado: ${job.status} </h4>
+                <div>
+                <div class="dropdown">
+                  <button> Ver historial de cambios (${jobUpdateDetails.length}): </button>
+                      <div class="dropdown-content">
+                        $detailHtml
+                      </div>
+                </div>
       ''';
     }
 
@@ -218,6 +239,45 @@ class MessageGenerator {
             }
             }
             
+            /* Dropdown style */
+            .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            }
+
+            /* Dropdown button style */
+            .dropdown button {
+            background-color: #0a74ba;
+            width: 100%;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+
+            /* Dropdown button style */
+            .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            }
+
+            /* Dropdown content with <p> tag */
+            .dropdown-content p {
+            background-color: #0a74ba;
+            color: white;
+            padding: 10px;
+            }
+
+            /* Dropdown button, modify the state of the dropdown content when pressed */
+            .dropdown button:focus + .dropdown-content {
+            display: block;
+            }
+            
           </style>
     </head>
     <body>
@@ -254,84 +314,4 @@ class MessageGenerator {
       return baseMsg;
     }
   }
-}
-
-void main() {
-  final jobUpdateList = [
-    TaigaJobUpdates(
-        jobId: 1,
-        job: TaigaJob(
-            type: 'issue',
-            title: 'new issue 1',
-            description: 'Description of the issue 1',
-            status: 'new',
-            taigaRefNumber: 3,
-            projectId: 1,
-            project: TaigaProject(title: 'tuki', taigaId: 123213)),
-        type: 'issue create',
-        status: 'new',
-        details: 'new data',
-        dateTimeEpoch: 1706191730),
-    TaigaJobUpdates(
-        jobId: 2,
-        job: TaigaJob(
-            type: 'issue',
-            title: 'new issue 2',
-            description: 'Description of the issue 2',
-            status: 'new',
-            taigaRefNumber: 5,
-            projectId: 1,
-            project: TaigaProject(title: 'tuki', taigaId: 123213)),
-        type: 'issue create',
-        status: 'new',
-        details: 'new data 2 xd',
-        dateTimeEpoch: 1706191730),
-    TaigaJobUpdates(
-        jobId: 1,
-        job: TaigaJob(
-            type: 'issue',
-            title: 'new issue 1',
-            description: 'Description of the issue 1',
-            status: 'new',
-            taigaRefNumber: 3,
-            projectId: 1,
-            project: TaigaProject(title: 'tuki', taigaId: 123213)),
-        type: 'issue create',
-        status: 'new',
-        details: 'new data 1.2',
-        dateTimeEpoch: 1706191730),
-    TaigaJobUpdates(
-        jobId: 3,
-        job: TaigaJob(
-            type: 'issue',
-            title: 'new issue 3',
-            description: 'Description of the issue 3',
-            status: 'new',
-            taigaRefNumber: 5,
-            projectId: 1,
-            project: TaigaProject(title: 'tuki', taigaId: 12313)),
-        type: 'issue create',
-        status: 'new',
-        details: 'new data 3 xd',
-        dateTimeEpoch: 1706191730),
-    TaigaJobUpdates(
-        jobId: 3,
-        job: TaigaJob(
-            type: 'issue',
-            title: 'new issue 3',
-            description: 'Description of the issue 3',
-            status: 'new',
-            taigaRefNumber: 5,
-            projectId: 4,
-            project: TaigaProject(title: 'tuki', taigaId: 123213)),
-        type: 'issue create',
-        status: 'new',
-        details: 'new data 3.2 xd',
-        dateTimeEpoch: 1706191730),
-  ];
-  final data = MessageGenerator().taigaCreateUpdateMessageNotification(
-      jobUpdateList: jobUpdateList,
-      project: TaigaProject(id: 1, title: 'tuki', taigaId: 123213));
-
-  print(data);
 }
