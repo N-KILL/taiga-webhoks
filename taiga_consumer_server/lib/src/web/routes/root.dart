@@ -57,45 +57,45 @@ class RouteRoot extends WidgetRoute {
       );
 
       //! Auto mail sender code lines
-      // // Send the last day information into
-      // if (getProjectById != null) {
-      //   // This var store the amount of seconds have in one day
-      //   int valueDayOnSeconds = 84600;
+      // Send the last day information into
+      if (getProjectById != null) {
+        // This var store the amount of seconds have in one day
+        int valueDayOnSeconds = 84600;
 
-      //   // This var store the date of today, we use a unique call per function
-      //   final todayDate = DateTime.now();
+        // This var store the date of today, we use a unique call per function
+        final todayDate = DateTime.now();
 
-      //   // If the day is 5, thats mean monday. We need to read de values between
-      //   // monday and friday. So we multiply x 3
-      //   if (todayDate.weekday == 1) {
-      //     valueDayOnSeconds = valueDayOnSeconds * 3;
-      //   }
+        // If the day is 5, thats mean monday. We need to read de values between
+        // monday and friday. So we multiply x 3
+        if (todayDate.weekday == 1) {
+          valueDayOnSeconds = valueDayOnSeconds * 3;
+        }
 
-      //   //? Usually epoch is used on milliseconds, so we divide into 1000 to get
-      //   //? the seconds format, i'm doing this, because serverpod database only
-      //   //? accept int values PGSQL integrer, with a max of 4 bytes or 2,147,483,647
-      //   //?. Epoch on  miliseconds is bigger than that, but in seconds is not,
-      //   //?so doing this, can be stored and used on serverpod)
+        //? Usually epoch is used on milliseconds, so we divide into 1000 to get
+        //? the seconds format, i'm doing this, because serverpod database only
+        //? accept int values PGSQL integrer, with a max of 4 bytes or 2,147,483,647
+        //?. Epoch on  miliseconds is bigger than that, but in seconds is not,
+        //?so doing this, can be stored and used on serverpod)
 
-      //   // Get the today day on seconds and epoch format
-      //   final timeEpochOnSeconds = todayDate.millisecondsSinceEpoch ~/ 1000;
+        // Get the today day on seconds and epoch format
+        final timeEpochOnSeconds = todayDate.millisecondsSinceEpoch ~/ 1000;
 
-      //   // This var store all the update information filtered
-      //   final lastDayUpdates = await TaigaJobUpdateEndpoint()
-      //       .readFilteringByEpoch(session,
-      //           min: (timeEpochOnSeconds - 84600), max: timeEpochOnSeconds);
+        // This var store all the update information filtered
+        final lastDayUpdates = await TaigaJobUpdateEndpoint()
+            .readFilteringByEpoch(session,
+                min: (timeEpochOnSeconds - 84600), max: timeEpochOnSeconds);
 
-      //   // If lastDayUpdates have content
-      //   if (lastDayUpdates != null) {
-      //     // Generate the message to send inside of the Email
-      //     final message = MessageGenerator()
-      //         .taigaCreateUpdateMessageNotification(
-      //             jobUpdateList: lastDayUpdates, project: getProjectById);
-      //     if (message != null) {
-      //       sendMail(email: 'club_dog2@hotmail.com', message: message);
-      //     }
-      //   }
-      // }
+        // If lastDayUpdates have content
+        if (lastDayUpdates != null) {
+          // Generate the message to send inside of the Email
+          final message = MessageGenerator()
+              .taigaCreateUpdateMessageNotification(
+                  jobUpdateList: lastDayUpdates, project: getProjectById);
+          if (message != null) {
+            sendMail(email: 'club_dog2@hotmail.com', message: message);
+          }
+        }
+      }
 
       // If the type of action made on Taiga is Create and we can get the project
       if (payload.actionType == 'create' && getProjectById != null) {
