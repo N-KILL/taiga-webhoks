@@ -139,7 +139,7 @@ class MessageGenerator {
                 <h4 class="mobile-only"> Descipción:</h4>
                 <h4 class="mobile-only"> ${job.description} </h4>
                 <h4 class="mobile-only "> Estado: ${job.status} </h4>
-                <div>
+                </div>
                 <div class="dropdown">
                   <button> Ver historial de cambios (${jobUpdateDetails.length}): </button>
                       <div class="dropdown-content">
