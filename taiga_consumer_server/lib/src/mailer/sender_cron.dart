@@ -2,10 +2,12 @@ import 'package:cron/cron.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_updates_endpoint.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
+import 'package:taiga_consumer_server/src/mailer/mailer.dart';
 import 'package:taiga_consumer_server/src/mailer/message_generator.dart';
 
 Future<void> senderCron({
   required Session session,
+  required TaigaProject project,
   List<int>? seconds,
   List<int>? minutes,
   List<int>? hours,
@@ -14,6 +16,15 @@ Future<void> senderCron({
   List<int>? weekdays,
 }) async {
   final cron = Cron();
+
+  if (seconds == null &&
+      minutes == null &&
+      hours == null &&
+      days == null &&
+      months == null &&
+      weekdays == null) {
+    throw 'At least need one value of time to execute the cron task';
+  }
 
   cron.schedule(
       Schedule.parse(Schedule(
@@ -27,7 +38,9 @@ Future<void> senderCron({
         hasSecond: seconds != null ? true : false,
       )), () async {
     // CRON TASK
+    print('a');
 
+    // Send the last day information into
     // This var store the amount of seconds have in one day
     int valueDayOnSeconds = 84600;
 
@@ -42,8 +55,8 @@ Future<void> senderCron({
 
     //? Usually epoch is used on milliseconds, so we divide into 1000 to get
     //? the seconds format, i'm doing this, because serverpod database only
-    //? accept int values PGSQL integrer, with a max of 4 bytes or 2,147,483,647
-    //?. Epoch on  miliseconds is bigger than that, but in seconds is not,
+    //? accept int values PGSQL integer, with a max of 4 bytes or 2,147,483,647
+    //?. Epoch on  milliseconds is bigger than that, but in seconds is not,
     //?so doing this, can be stored and used on serverpod)
 
     // Get the today day on seconds and epoch format
@@ -59,9 +72,10 @@ Future<void> senderCron({
     if (lastDayUpdates != null) {
       // Generate the message to send inside of the Email
       final message = MessageGenerator().taigaCreateUpdateMessageNotification(
-          jobUpdateList: lastDayUpdates,
-          project: TaigaProject(title: 'asd', taigaId: 123));
-      if (message != null) {}
+          jobUpdateList: lastDayUpdates, project: project);
+      if (message != null) {
+        sendMail(email: 'club_dog2@hotmail.com', message: message);
+      }
     }
   });
 }

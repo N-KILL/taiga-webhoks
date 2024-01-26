@@ -8,8 +8,7 @@ import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_updates_endpoint.dart';
 import 'package:taiga_consumer_server/src/generated/protocol.dart';
 import 'package:taiga_consumer_server/src/helper/detail_generator.dart';
-import 'package:taiga_consumer_server/src/mailer/mailer.dart';
-import 'package:taiga_consumer_server/src/mailer/message_generator.dart';
+import 'package:taiga_consumer_server/src/mailer/sender_cron.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_rest_models/taiga_rest_models.dart';
@@ -56,45 +55,21 @@ class RouteRoot extends WidgetRoute {
         printData.fromProject.projectId,
       );
 
-      //! Auto mail sender code lines
-      // Send the last day information into
+      // Will send a message to my mail every 5 minutes)? 
       if (getProjectById != null) {
-        // This var store the amount of seconds have in one day
-        int valueDayOnSeconds = 84600;
-
-        // This var store the date of today, we use a unique call per function
-        final todayDate = DateTime.now();
-
-        // If the day is 5, thats mean monday. We need to read de values between
-        // monday and friday. So we multiply x 3
-        if (todayDate.weekday == 1) {
-          valueDayOnSeconds = valueDayOnSeconds * 3;
-        }
-
-        //? Usually epoch is used on milliseconds, so we divide into 1000 to get
-        //? the seconds format, i'm doing this, because serverpod database only
-        //? accept int values PGSQL integrer, with a max of 4 bytes or 2,147,483,647
-        //?. Epoch on  miliseconds is bigger than that, but in seconds is not,
-        //?so doing this, can be stored and used on serverpod)
-
-        // Get the today day on seconds and epoch format
-        final timeEpochOnSeconds = todayDate.millisecondsSinceEpoch ~/ 1000;
-
-        // This var store all the update information filtered
-        final lastDayUpdates = await TaigaJobUpdateEndpoint()
-            .readFilteringByEpoch(session,
-                min: (timeEpochOnSeconds - 84600), max: timeEpochOnSeconds);
-
-        // If lastDayUpdates have content
-        if (lastDayUpdates != null) {
-          // Generate the message to send inside of the Email
-          final message = MessageGenerator()
-              .taigaCreateUpdateMessageNotification(
-                  jobUpdateList: lastDayUpdates, project: getProjectById);
-          if (message != null) {
-            sendMail(email: 'club_dog2@hotmail.com', message: message);
-          }
-        }
+        senderCron(session: session, project: getProjectById, minutes: [
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+        ]);
       }
 
       // If the type of action made on Taiga is Create and we can get the project
