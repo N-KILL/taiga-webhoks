@@ -8,20 +8,21 @@ class TaigaJobEndpoint extends Endpoint {
   Future<TaigaJob?> create(Session session, TaigaJob taigaJob) async {
     try {
       final response = await TaigaJob.db.insertRow(session, taigaJob);
-      print(response);
+      print('TaigaJobEndpoint Create Response: \n $response');
       return response;
     } catch (e) {
       return null;
     }
   }
 
-  Future<bool> createOnBulk(Session session, List<TaigaJob> taigaJob) async {
+  Future<List<TaigaJob>?> createOnBulk(
+      Session session, List<TaigaJob> taigaJob) async {
     try {
       final response = await TaigaJob.db.insert(session, taigaJob);
-      print(response);
-      return true;
+      print('TaigaJobEndpoint createOnBulk Response: \n $response');
+      return response;
     } catch (e) {
-      return false;
+      return null;
     }
   }
 
@@ -31,7 +32,7 @@ class TaigaJobEndpoint extends Endpoint {
           include: TaigaJob.include(
             project: TaigaProject.include(),
           ));
-      print(response);
+      print('TaigaJobEndpoint readById Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -45,7 +46,7 @@ class TaigaJobEndpoint extends Endpoint {
           include: TaigaJob.include(
             project: TaigaProject.include(),
           ));
-      print(response);
+      print('TaigaJobEndpoint readByTitle Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -59,7 +60,7 @@ class TaigaJobEndpoint extends Endpoint {
           include: TaigaJob.include(
             project: TaigaProject.include(),
           ));
-      print(response);
+      print('TaigaJobEndpoint readByType Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -73,7 +74,7 @@ class TaigaJobEndpoint extends Endpoint {
           include: TaigaJob.include(
             project: TaigaProject.include(),
           ));
-      print(response);
+      print('TaigaJobEndpoint readByStatus Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -95,7 +96,8 @@ class TaigaJobEndpoint extends Endpoint {
           include: TaigaJob.include(
             project: TaigaProject.include(),
           ));
-      print(response);
+      print(
+          'TaigaJobEndpoint readByProjectIdAndRefNumber Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -116,23 +118,25 @@ class TaigaJobEndpoint extends Endpoint {
       modify.status = taigaJob.status;
       modify.description = taigaJob.description;
       modify.title = taigaJob.title;
-      final updatedJob = await TaigaJob.db.updateRow(
+      final response = await TaigaJob.db.updateRow(
         session,
         modify,
       );
-      return (updatedJob);
+      print('TaigaJobEndpoint updateById Response: \n $response');
+      return response;
     }
     return null;
   }
 
-  Future<bool> deleteById(Session session, TaigaJob taigaJob) async {
+  Future<int?> deleteById(Session session, TaigaJob taigaJob) async {
     if (taigaJob.id != null) {
       final findRow = await TaigaJob.db.findById(session, taigaJob.id!);
       if (findRow != null) {
-        final deletedItemId = await TaigaJob.db.deleteRow(session, findRow);
-        print(deletedItemId);
+        final response = await TaigaJob.db.deleteRow(session, findRow);
+        print('TaigaJobEndpoint deleteById Response: \n $response');
+        return response;
       }
     }
-    return false;
+    return null;
   }
 }

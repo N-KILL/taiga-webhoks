@@ -1,6 +1,7 @@
 import 'package:serverpod/serverpod.dart';
-import 'package:taiga_consumer_server/src/generated/protocol.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/user.dart';
 
 // TODO(Nacho): Comentar todo el codigo, ver como handlear los prints
 
@@ -10,7 +11,7 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
     try {
       final response = await TaigaJobCommentaries.db
           .insertRow(session, taigaJobCommentaries);
-      print(response);
+      print('TaigaJobCommentariesEndpoint readByStatus Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -22,7 +23,7 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
     try {
       final response =
           await TaigaJobCommentaries.db.insert(session, taigaJobCommentaries);
-      print(response);
+      print('TaigaJobCommentariesEndpoint createOnBulk Response: \n $response');
       return true;
     } catch (e) {
       return false;
@@ -36,7 +37,7 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
             jobId: TaigaJob.include(),
             user: User.include(),
           ));
-      print(response);
+      print('TaigaJobCommentariesEndpoint readById Response: \n $response');
       return response;
     } catch (e) {
       return null;
@@ -54,11 +55,12 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
     );
     if (modify != null) {
       modify.details = taigaJobCommentaries.details;
-      final updatedJob = await TaigaJobCommentaries.db.updateRow(
+      final response = await TaigaJobCommentaries.db.updateRow(
         session,
         modify,
       );
-      return (updatedJob);
+      print('TaigaJobCommentariesEndpoint updateById Response: \n $response');
+      return response;
     }
     return null;
   }
@@ -69,9 +71,10 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
       final findRow = await TaigaJobCommentaries.db
           .findById(session, taigaJobCommentaries.id!);
       if (findRow != null) {
-        final deletedItemId =
+        final response =
             await TaigaJobCommentaries.db.deleteRow(session, findRow);
-        print(deletedItemId);
+        print('TaigaJobCommentariesEndpoint deleteById Response: \n $response');
+        print(response);
       }
     }
     return false;
