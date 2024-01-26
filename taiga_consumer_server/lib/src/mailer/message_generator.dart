@@ -130,11 +130,13 @@ class MessageGenerator {
       // Generate the message with the detail on it
       message = message +
           '''
+                <hr>
                 <h2 class="desktop-only"> ${job.type.toUpperCase()} N°#${job.taigaRefNumber}: ${job.title} </h2>
                 <h3 class="mobile-only"> ${job.type.toUpperCase()} N°#${job.taigaRefNumber}: ${job.title} </h3>
+                <hr>
                 <div class="containerTwo">
                 <h3 class="desktop-only"> Descipción:</h3>
-                <h3 class="desktop-only"> ${job.description} </h3>
+                <h3 class="desktop-only"> ${job.description != '' ? job.description : 'La descripcion esta vacia'} </h3>
                 <h3 class="desktop-only "> Estado: ${job.status} </h3>
                 <h4 class="mobile-only"> Descipción:</h4>
                 <h4 class="mobile-only"> ${job.description} </h4>
@@ -146,6 +148,9 @@ class MessageGenerator {
                         $detailHtml
                       </div>
                 </div>
+                <hr>
+                <br>
+                <br>
       ''';
     }
 
