@@ -1,6 +1,7 @@
 import 'package:cron/cron.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_updates_endpoint.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
 import 'package:taiga_consumer_server/src/mailer/message_generator.dart';
 
 Future<void> senderCron({
@@ -57,8 +58,9 @@ Future<void> senderCron({
     // If lastDayUpdates have content
     if (lastDayUpdates != null) {
       // Generate the message to send inside of the Email
-      final message = MessageGenerator()
-          .taigaCreateUpdateMessageNotification(jobUpdateList: lastDayUpdates);
+      final message = MessageGenerator().taigaCreateUpdateMessageNotification(
+          jobUpdateList: lastDayUpdates,
+          project: TaigaProject(title: 'asd', taigaId: 123));
       if (message != null) {}
     }
   });

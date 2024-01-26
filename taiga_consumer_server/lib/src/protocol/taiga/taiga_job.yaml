@@ -24,4 +24,4 @@ fields:
   taigaRefNumber: int                       
   
   ### Id of the project who own the job
-  projectId: int, relation(parent=taiga_project)
+  project: TaigaProject?, relation

@@ -29,6 +29,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     required this.details,
     required this.dateTimeEpoch,
     this.commentId,
+    this.comment,
   }) : super(id);
 
   factory TaigaJobUpdates({
@@ -40,6 +41,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     required String details,
     required int dateTimeEpoch,
     int? commentId,
+    _i2.TaigaJobCommentaries? comment,
   }) = _TaigaJobUpdatesImpl;
 
   factory TaigaJobUpdates.fromJson(
@@ -60,6 +62,8 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
           .deserialize<int>(jsonSerialization['dateTimeEpoch']),
       commentId: serializationManager
           .deserialize<int?>(jsonSerialization['commentId']),
+      comment: serializationManager
+          .deserialize<_i2.TaigaJobCommentaries?>(jsonSerialization['comment']),
     );
   }
 
@@ -88,8 +92,10 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
   /// So you have to divide by 1000, getting epoch on seconds format, not milliseconds
   int dateTimeEpoch;
 
-  /// Commentary related to this update, related from another table
   int? commentId;
+
+  /// Commentary related to this update, related from another table. This is as optional
+  _i2.TaigaJobCommentaries? comment;
 
   @override
   _i1.Table get table => t;
@@ -103,6 +109,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     String? details,
     int? dateTimeEpoch,
     int? commentId,
+    _i2.TaigaJobCommentaries? comment,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -115,6 +122,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
+      if (comment != null) 'comment': comment,
     };
   }
 
@@ -143,6 +151,7 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
+      if (comment != null) 'comment': comment,
     };
   }
 
@@ -303,8 +312,14 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     );
   }
 
-  static TaigaJobUpdatesInclude include({_i2.TaigaJobInclude? job}) {
-    return TaigaJobUpdatesInclude._(job: job);
+  static TaigaJobUpdatesInclude include({
+    _i2.TaigaJobInclude? job,
+    _i2.TaigaJobCommentariesInclude? comment,
+  }) {
+    return TaigaJobUpdatesInclude._(
+      job: job,
+      comment: comment,
+    );
   }
 
   static TaigaJobUpdatesIncludeList includeList({
@@ -340,6 +355,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     required String details,
     required int dateTimeEpoch,
     int? commentId,
+    _i2.TaigaJobCommentaries? comment,
   }) : super._(
           id: id,
           jobId: jobId,
@@ -349,6 +365,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
           details: details,
           dateTimeEpoch: dateTimeEpoch,
           commentId: commentId,
+          comment: comment,
         );
 
   @override
@@ -361,6 +378,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     String? details,
     int? dateTimeEpoch,
     Object? commentId = _Undefined,
+    Object? comment = _Undefined,
   }) {
     return TaigaJobUpdates(
       id: id is int? ? id : this.id,
@@ -371,6 +389,9 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
       details: details ?? this.details,
       dateTimeEpoch: dateTimeEpoch ?? this.dateTimeEpoch,
       commentId: commentId is int? ? commentId : this.commentId,
+      comment: comment is _i2.TaigaJobCommentaries?
+          ? comment
+          : this.comment?.copyWith(),
     );
   }
 }
@@ -425,8 +446,10 @@ class TaigaJobUpdatesTable extends _i1.Table {
   /// So you have to divide by 1000, getting epoch on seconds format, not milliseconds
   late final _i1.ColumnInt dateTimeEpoch;
 
-  /// Commentary related to this update, related from another table
   late final _i1.ColumnInt commentId;
+
+  /// Commentary related to this update, related from another table. This is as optional
+  _i2.TaigaJobCommentariesTable? _comment;
 
   _i2.TaigaJobTable get job {
     if (_job != null) return _job!;
@@ -439,6 +462,19 @@ class TaigaJobUpdatesTable extends _i1.Table {
           _i2.TaigaJobTable(tableRelation: foreignTableRelation),
     );
     return _job!;
+  }
+
+  _i2.TaigaJobCommentariesTable get comment {
+    if (_comment != null) return _comment!;
+    _comment = _i1.createRelationTable(
+      relationFieldName: 'comment',
+      field: TaigaJobUpdates.t.commentId,
+      foreignField: _i2.TaigaJobCommentaries.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.TaigaJobCommentariesTable(tableRelation: foreignTableRelation),
+    );
+    return _comment!;
   }
 
   @override
@@ -457,6 +493,9 @@ class TaigaJobUpdatesTable extends _i1.Table {
     if (relationField == 'job') {
       return job;
     }
+    if (relationField == 'comment') {
+      return comment;
+    }
     return null;
   }
 }
@@ -465,14 +504,23 @@ class TaigaJobUpdatesTable extends _i1.Table {
 TaigaJobUpdatesTable tTaigaJobUpdates = TaigaJobUpdatesTable();
 
 class TaigaJobUpdatesInclude extends _i1.IncludeObject {
-  TaigaJobUpdatesInclude._({_i2.TaigaJobInclude? job}) {
+  TaigaJobUpdatesInclude._({
+    _i2.TaigaJobInclude? job,
+    _i2.TaigaJobCommentariesInclude? comment,
+  }) {
     _job = job;
+    _comment = comment;
   }
 
   _i2.TaigaJobInclude? _job;
 
+  _i2.TaigaJobCommentariesInclude? _comment;
+
   @override
-  Map<String, _i1.Include?> get includes => {'job': _job};
+  Map<String, _i1.Include?> get includes => {
+        'job': _job,
+        'comment': _comment,
+      };
 
   @override
   _i1.Table get table => TaigaJobUpdates.t;
@@ -502,6 +550,8 @@ class TaigaJobUpdatesRepository {
   const TaigaJobUpdatesRepository._();
 
   final attachRow = const TaigaJobUpdatesAttachRowRepository._();
+
+  final detachRow = const TaigaJobUpdatesDetachRowRepository._();
 
   Future<List<TaigaJobUpdates>> find(
     _i1.Session session, {
@@ -674,6 +724,44 @@ class TaigaJobUpdatesAttachRowRepository {
     await session.dbNext.updateRow<TaigaJobUpdates>(
       $taigaJobUpdates,
       columns: [TaigaJobUpdates.t.jobId],
+    );
+  }
+
+  Future<void> comment(
+    _i1.Session session,
+    TaigaJobUpdates taigaJobUpdates,
+    _i2.TaigaJobCommentaries comment,
+  ) async {
+    if (taigaJobUpdates.id == null) {
+      throw ArgumentError.notNull('taigaJobUpdates.id');
+    }
+    if (comment.id == null) {
+      throw ArgumentError.notNull('comment.id');
+    }
+
+    var $taigaJobUpdates = taigaJobUpdates.copyWith(commentId: comment.id);
+    await session.dbNext.updateRow<TaigaJobUpdates>(
+      $taigaJobUpdates,
+      columns: [TaigaJobUpdates.t.commentId],
+    );
+  }
+}
+
+class TaigaJobUpdatesDetachRowRepository {
+  const TaigaJobUpdatesDetachRowRepository._();
+
+  Future<void> comment(
+    _i1.Session session,
+    TaigaJobUpdates taigajobupdates,
+  ) async {
+    if (taigajobupdates.id == null) {
+      throw ArgumentError.notNull('taigajobupdates.id');
+    }
+
+    var $taigajobupdates = taigajobupdates.copyWith(commentId: null);
+    await session.dbNext.updateRow<TaigaJobUpdates>(
+      $taigajobupdates,
+      columns: [TaigaJobUpdates.t.commentId],
     );
   }
 }

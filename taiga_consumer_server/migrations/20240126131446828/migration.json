@@ -120,8 +120,8 @@
           {
             "name": "userId",
             "columnType": 2,
-            "isNullable": true,
-            "dartType": "int?"
+            "isNullable": false,
+            "dartType": "int"
           }
         ],
         "foreignKeys": [

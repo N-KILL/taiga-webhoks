@@ -20,7 +20,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     this.jobId,
     required this.details,
     required this.dateTime,
-    this.userId,
+    required this.userId,
+    this.user,
   }) : super(id);
 
   factory TaigaJobCommentaries({
@@ -29,7 +30,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     _i2.TaigaJob? jobId,
     required String details,
     required DateTime dateTime,
-    int? userId,
+    required int userId,
+    _i2.User? user,
   }) = _TaigaJobCommentariesImpl;
 
   factory TaigaJobCommentaries.fromJson(
@@ -47,7 +49,9 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       dateTime: serializationManager
           .deserialize<DateTime>(jsonSerialization['dateTime']),
       userId:
-          serializationManager.deserialize<int?>(jsonSerialization['userId']),
+          serializationManager.deserialize<int>(jsonSerialization['userId']),
+      user: serializationManager
+          .deserialize<_i2.User?>(jsonSerialization['user']),
     );
   }
 
@@ -66,8 +70,10 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
   ///# Date of creation of the comment
   DateTime dateTime;
 
+  int userId;
+
   /// UserId is the id of the user, in this case is pointing into the TaigaId,
-  int? userId;
+  _i2.User? user;
 
   @override
   _i1.Table get table => t;
@@ -79,6 +85,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     String? details,
     DateTime? dateTime,
     int? userId,
+    _i2.User? user,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -88,7 +95,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       if (jobId != null) 'jobId': jobId,
       'details': details,
       'dateTime': dateTime,
-      if (userId != null) 'userId': userId,
+      'userId': userId,
+      if (user != null) 'user': user,
     };
   }
 
@@ -100,7 +108,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       'jobIdId': jobIdId,
       'details': details,
       'dateTime': dateTime,
-      if (userId != null) 'userId': userId,
+      'userId': userId,
     };
   }
 
@@ -112,7 +120,8 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
       if (jobId != null) 'jobId': jobId,
       'details': details,
       'dateTime': dateTime,
-      if (userId != null) 'userId': userId,
+      'userId': userId,
+      if (user != null) 'user': user,
     };
   }
 
@@ -267,8 +276,14 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     );
   }
 
-  static TaigaJobCommentariesInclude include({_i2.TaigaJobInclude? jobId}) {
-    return TaigaJobCommentariesInclude._(jobId: jobId);
+  static TaigaJobCommentariesInclude include({
+    _i2.TaigaJobInclude? jobId,
+    _i2.UserInclude? user,
+  }) {
+    return TaigaJobCommentariesInclude._(
+      jobId: jobId,
+      user: user,
+    );
   }
 
   static TaigaJobCommentariesIncludeList includeList({
@@ -301,7 +316,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
     _i2.TaigaJob? jobId,
     required String details,
     required DateTime dateTime,
-    int? userId,
+    required int userId,
+    _i2.User? user,
   }) : super._(
           id: id,
           jobIdId: jobIdId,
@@ -309,6 +325,7 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
           details: details,
           dateTime: dateTime,
           userId: userId,
+          user: user,
         );
 
   @override
@@ -318,7 +335,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
     Object? jobId = _Undefined,
     String? details,
     DateTime? dateTime,
-    Object? userId = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
   }) {
     return TaigaJobCommentaries(
       id: id is int? ? id : this.id,
@@ -326,7 +344,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
       jobId: jobId is _i2.TaigaJob? ? jobId : this.jobId?.copyWith(),
       details: details ?? this.details,
       dateTime: dateTime ?? this.dateTime,
-      userId: userId is int? ? userId : this.userId,
+      userId: userId ?? this.userId,
+      user: user is _i2.User? ? user : this.user?.copyWith(),
     );
   }
 }
@@ -363,8 +382,10 @@ class TaigaJobCommentariesTable extends _i1.Table {
   ///# Date of creation of the comment
   late final _i1.ColumnDateTime dateTime;
 
-  /// UserId is the id of the user, in this case is pointing into the TaigaId,
   late final _i1.ColumnInt userId;
+
+  /// UserId is the id of the user, in this case is pointing into the TaigaId,
+  _i2.UserTable? _user;
 
   _i2.TaigaJobTable get jobId {
     if (_jobId != null) return _jobId!;
@@ -377,6 +398,19 @@ class TaigaJobCommentariesTable extends _i1.Table {
           _i2.TaigaJobTable(tableRelation: foreignTableRelation),
     );
     return _jobId!;
+  }
+
+  _i2.UserTable get user {
+    if (_user != null) return _user!;
+    _user = _i1.createRelationTable(
+      relationFieldName: 'user',
+      field: TaigaJobCommentaries.t.userId,
+      foreignField: _i2.User.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.UserTable(tableRelation: foreignTableRelation),
+    );
+    return _user!;
   }
 
   @override
@@ -393,6 +427,9 @@ class TaigaJobCommentariesTable extends _i1.Table {
     if (relationField == 'jobId') {
       return jobId;
     }
+    if (relationField == 'user') {
+      return user;
+    }
     return null;
   }
 }
@@ -401,14 +438,23 @@ class TaigaJobCommentariesTable extends _i1.Table {
 TaigaJobCommentariesTable tTaigaJobCommentaries = TaigaJobCommentariesTable();
 
 class TaigaJobCommentariesInclude extends _i1.IncludeObject {
-  TaigaJobCommentariesInclude._({_i2.TaigaJobInclude? jobId}) {
+  TaigaJobCommentariesInclude._({
+    _i2.TaigaJobInclude? jobId,
+    _i2.UserInclude? user,
+  }) {
     _jobId = jobId;
+    _user = user;
   }
 
   _i2.TaigaJobInclude? _jobId;
 
+  _i2.UserInclude? _user;
+
   @override
-  Map<String, _i1.Include?> get includes => {'jobId': _jobId};
+  Map<String, _i1.Include?> get includes => {
+        'jobId': _jobId,
+        'user': _user,
+      };
 
   @override
   _i1.Table get table => TaigaJobCommentaries.t;
@@ -611,6 +657,25 @@ class TaigaJobCommentariesAttachRowRepository {
     await session.dbNext.updateRow<TaigaJobCommentaries>(
       $taigaJobCommentaries,
       columns: [TaigaJobCommentaries.t.jobIdId],
+    );
+  }
+
+  Future<void> user(
+    _i1.Session session,
+    TaigaJobCommentaries taigaJobCommentaries,
+    _i2.User user,
+  ) async {
+    if (taigaJobCommentaries.id == null) {
+      throw ArgumentError.notNull('taigaJobCommentaries.id');
+    }
+    if (user.id == null) {
+      throw ArgumentError.notNull('user.id');
+    }
+
+    var $taigaJobCommentaries = taigaJobCommentaries.copyWith(userId: user.id);
+    await session.dbNext.updateRow<TaigaJobCommentaries>(
+      $taigaJobCommentaries,
+      columns: [TaigaJobCommentaries.t.userId],
     );
   }
 }

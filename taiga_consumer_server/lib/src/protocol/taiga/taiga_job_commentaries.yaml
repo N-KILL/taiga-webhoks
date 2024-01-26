@@ -13,4 +13,4 @@ fields:
   dateTime: DateTime
 
   ### UserId is the id of the user, in this case is pointing into the TaigaId,
-  userId: int?, relation(parent=user)
+  user: User?, relation

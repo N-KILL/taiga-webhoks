@@ -1,4 +1,5 @@
 import 'package:serverpod/serverpod.dart';
+import 'package:taiga_consumer_server/src/generated/protocol.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart';
 
 // TODO(Nacho): Comentar todo el codigo, ver como handlear los prints
@@ -30,7 +31,11 @@ class TaigaJobCommentariesEndpoint extends Endpoint {
 
   Future<TaigaJobCommentaries?> readById(Session session, int id) async {
     try {
-      final response = await TaigaJobCommentaries.db.findById(session, id);
+      final response = await TaigaJobCommentaries.db.findById(session, id,
+          include: TaigaJobCommentaries.include(
+            jobId: TaigaJob.include(),
+            user: User.include(),
+          ));
       print(response);
       return response;
     } catch (e) {

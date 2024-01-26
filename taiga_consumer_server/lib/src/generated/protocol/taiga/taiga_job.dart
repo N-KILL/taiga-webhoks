@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import '../../protocol.dart' as _i2;
 
 abstract class TaigaJob extends _i1.TableRow {
   TaigaJob._({
@@ -19,6 +20,7 @@ abstract class TaigaJob extends _i1.TableRow {
     required this.status,
     required this.taigaRefNumber,
     required this.projectId,
+    this.project,
   }) : super(id);
 
   factory TaigaJob({
@@ -29,6 +31,7 @@ abstract class TaigaJob extends _i1.TableRow {
     required String status,
     required int taigaRefNumber,
     required int projectId,
+    _i2.TaigaProject? project,
   }) = _TaigaJobImpl;
 
   factory TaigaJob.fromJson(
@@ -48,6 +51,8 @@ abstract class TaigaJob extends _i1.TableRow {
           .deserialize<int>(jsonSerialization['taigaRefNumber']),
       projectId:
           serializationManager.deserialize<int>(jsonSerialization['projectId']),
+      project: serializationManager
+          .deserialize<_i2.TaigaProject?>(jsonSerialization['project']),
     );
   }
 
@@ -70,8 +75,10 @@ abstract class TaigaJob extends _i1.TableRow {
   /// Reference number of the job on taiga
   int taigaRefNumber;
 
-  /// Id of the project who own the job
   int projectId;
+
+  /// Id of the project who own the job
+  _i2.TaigaProject? project;
 
   @override
   _i1.Table get table => t;
@@ -84,6 +91,7 @@ abstract class TaigaJob extends _i1.TableRow {
     String? status,
     int? taigaRefNumber,
     int? projectId,
+    _i2.TaigaProject? project,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -95,6 +103,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'status': status,
       'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
+      if (project != null) 'project': project,
     };
   }
 
@@ -122,6 +131,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'status': status,
       'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
+      if (project != null) 'project': project,
     };
   }
 
@@ -168,6 +178,7 @@ abstract class TaigaJob extends _i1.TableRow {
     bool orderDescending = false,
     bool useCache = true,
     _i1.Transaction? transaction,
+    TaigaJobInclude? include,
   }) async {
     return session.db.find<TaigaJob>(
       where: where != null ? where(TaigaJob.t) : null,
@@ -178,6 +189,7 @@ abstract class TaigaJob extends _i1.TableRow {
       orderDescending: orderDescending,
       useCache: useCache,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -190,6 +202,7 @@ abstract class TaigaJob extends _i1.TableRow {
     bool orderDescending = false,
     bool useCache = true,
     _i1.Transaction? transaction,
+    TaigaJobInclude? include,
   }) async {
     return session.db.findSingleRow<TaigaJob>(
       where: where != null ? where(TaigaJob.t) : null,
@@ -198,15 +211,20 @@ abstract class TaigaJob extends _i1.TableRow {
       orderDescending: orderDescending,
       useCache: useCache,
       transaction: transaction,
+      include: include,
     );
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
   static Future<TaigaJob?> findById(
     _i1.Session session,
-    int id,
-  ) async {
-    return session.db.findById<TaigaJob>(id);
+    int id, {
+    TaigaJobInclude? include,
+  }) async {
+    return session.db.findById<TaigaJob>(
+      id,
+      include: include,
+    );
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
@@ -274,8 +292,8 @@ abstract class TaigaJob extends _i1.TableRow {
     );
   }
 
-  static TaigaJobInclude include() {
-    return TaigaJobInclude._();
+  static TaigaJobInclude include({_i2.TaigaProjectInclude? project}) {
+    return TaigaJobInclude._(project: project);
   }
 
   static TaigaJobIncludeList includeList({
@@ -310,6 +328,7 @@ class _TaigaJobImpl extends TaigaJob {
     required String status,
     required int taigaRefNumber,
     required int projectId,
+    _i2.TaigaProject? project,
   }) : super._(
           id: id,
           type: type,
@@ -318,6 +337,7 @@ class _TaigaJobImpl extends TaigaJob {
           status: status,
           taigaRefNumber: taigaRefNumber,
           projectId: projectId,
+          project: project,
         );
 
   @override
@@ -329,6 +349,7 @@ class _TaigaJobImpl extends TaigaJob {
     String? status,
     int? taigaRefNumber,
     int? projectId,
+    Object? project = _Undefined,
   }) {
     return TaigaJob(
       id: id is int? ? id : this.id,
@@ -338,6 +359,8 @@ class _TaigaJobImpl extends TaigaJob {
       status: status ?? this.status,
       taigaRefNumber: taigaRefNumber ?? this.taigaRefNumber,
       projectId: projectId ?? this.projectId,
+      project:
+          project is _i2.TaigaProject? ? project : this.project?.copyWith(),
     );
   }
 }
@@ -385,8 +408,23 @@ class TaigaJobTable extends _i1.Table {
   /// Reference number of the job on taiga
   late final _i1.ColumnInt taigaRefNumber;
 
-  /// Id of the project who own the job
   late final _i1.ColumnInt projectId;
+
+  /// Id of the project who own the job
+  _i2.TaigaProjectTable? _project;
+
+  _i2.TaigaProjectTable get project {
+    if (_project != null) return _project!;
+    _project = _i1.createRelationTable(
+      relationFieldName: 'project',
+      field: TaigaJob.t.projectId,
+      foreignField: _i2.TaigaProject.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.TaigaProjectTable(tableRelation: foreignTableRelation),
+    );
+    return _project!;
+  }
 
   @override
   List<_i1.Column> get columns => [
@@ -398,16 +436,28 @@ class TaigaJobTable extends _i1.Table {
         taigaRefNumber,
         projectId,
       ];
+
+  @override
+  _i1.Table? getRelationTable(String relationField) {
+    if (relationField == 'project') {
+      return project;
+    }
+    return null;
+  }
 }
 
 @Deprecated('Use TaigaJobTable.t instead.')
 TaigaJobTable tTaigaJob = TaigaJobTable();
 
 class TaigaJobInclude extends _i1.IncludeObject {
-  TaigaJobInclude._();
+  TaigaJobInclude._({_i2.TaigaProjectInclude? project}) {
+    _project = project;
+  }
+
+  _i2.TaigaProjectInclude? _project;
 
   @override
-  Map<String, _i1.Include?> get includes => {};
+  Map<String, _i1.Include?> get includes => {'project': _project};
 
   @override
   _i1.Table get table => TaigaJob.t;
@@ -436,6 +486,8 @@ class TaigaJobIncludeList extends _i1.IncludeList {
 class TaigaJobRepository {
   const TaigaJobRepository._();
 
+  final attachRow = const TaigaJobAttachRowRepository._();
+
   Future<List<TaigaJob>> find(
     _i1.Session session, {
     _i1.WhereExpressionBuilder<TaigaJobTable>? where,
@@ -445,6 +497,7 @@ class TaigaJobRepository {
     bool orderDescending = false,
     _i1.OrderByListBuilder<TaigaJobTable>? orderByList,
     _i1.Transaction? transaction,
+    TaigaJobInclude? include,
   }) async {
     return session.dbNext.find<TaigaJob>(
       where: where?.call(TaigaJob.t),
@@ -454,6 +507,7 @@ class TaigaJobRepository {
       limit: limit,
       offset: offset,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -465,6 +519,7 @@ class TaigaJobRepository {
     bool orderDescending = false,
     _i1.OrderByListBuilder<TaigaJobTable>? orderByList,
     _i1.Transaction? transaction,
+    TaigaJobInclude? include,
   }) async {
     return session.dbNext.findFirstRow<TaigaJob>(
       where: where?.call(TaigaJob.t),
@@ -473,6 +528,7 @@ class TaigaJobRepository {
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -480,10 +536,12 @@ class TaigaJobRepository {
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
+    TaigaJobInclude? include,
   }) async {
     return session.dbNext.findById<TaigaJob>(
       id,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -578,6 +636,29 @@ class TaigaJobRepository {
       where: where?.call(TaigaJob.t),
       limit: limit,
       transaction: transaction,
+    );
+  }
+}
+
+class TaigaJobAttachRowRepository {
+  const TaigaJobAttachRowRepository._();
+
+  Future<void> project(
+    _i1.Session session,
+    TaigaJob taigaJob,
+    _i2.TaigaProject project,
+  ) async {
+    if (taigaJob.id == null) {
+      throw ArgumentError.notNull('taigaJob.id');
+    }
+    if (project.id == null) {
+      throw ArgumentError.notNull('project.id');
+    }
+
+    var $taigaJob = taigaJob.copyWith(projectId: project.id);
+    await session.dbNext.updateRow<TaigaJob>(
+      $taigaJob,
+      columns: [TaigaJob.t.projectId],
     );
   }
 }

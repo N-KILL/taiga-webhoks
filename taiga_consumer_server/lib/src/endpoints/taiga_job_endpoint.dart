@@ -1,5 +1,6 @@
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart';
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
 
 // TODO(Nacho): Comentar todo el codigo, ver como handlear los prints
 
@@ -26,7 +27,10 @@ class TaigaJobEndpoint extends Endpoint {
 
   Future<TaigaJob?> readById(Session session, int id) async {
     try {
-      final response = await TaigaJob.db.findById(session, id);
+      final response = await TaigaJob.db.findById(session, id,
+          include: TaigaJob.include(
+            project: TaigaProject.include(),
+          ));
       print(response);
       return response;
     } catch (e) {
@@ -36,10 +40,11 @@ class TaigaJobEndpoint extends Endpoint {
 
   Future<TaigaJob?> readByTitle(Session session, TaigaJob taigaJob) async {
     try {
-      final response = await TaigaJob.db.findFirstRow(
-        session,
-        where: (t) => t.title.equals(taigaJob.title),
-      );
+      final response = await TaigaJob.db.findFirstRow(session,
+          where: (t) => t.title.equals(taigaJob.title),
+          include: TaigaJob.include(
+            project: TaigaProject.include(),
+          ));
       print(response);
       return response;
     } catch (e) {
@@ -49,10 +54,11 @@ class TaigaJobEndpoint extends Endpoint {
 
   Future<TaigaJob?> readByType(Session session, TaigaJob taigaJob) async {
     try {
-      final response = await TaigaJob.db.findFirstRow(
-        session,
-        where: (t) => t.type.equals(taigaJob.type),
-      );
+      final response = await TaigaJob.db.findFirstRow(session,
+          where: (t) => t.type.equals(taigaJob.type),
+          include: TaigaJob.include(
+            project: TaigaProject.include(),
+          ));
       print(response);
       return response;
     } catch (e) {
@@ -62,10 +68,11 @@ class TaigaJobEndpoint extends Endpoint {
 
   Future<TaigaJob?> readByStatus(Session session, TaigaJob taigaJob) async {
     try {
-      final response = await TaigaJob.db.findFirstRow(
-        session,
-        where: (t) => t.status.equals(taigaJob.status),
-      );
+      final response = await TaigaJob.db.findFirstRow(session,
+          where: (t) => t.status.equals(taigaJob.status),
+          include: TaigaJob.include(
+            project: TaigaProject.include(),
+          ));
       print(response);
       return response;
     } catch (e) {
@@ -81,12 +88,13 @@ class TaigaJobEndpoint extends Endpoint {
     required int taigaRefNumber,
   }) async {
     try {
-      final response = await TaigaJob.db.findFirstRow(
-        session,
-        where: (t) =>
-            t.projectId.equals(projectId) &
-            t.taigaRefNumber.equals(taigaRefNumber),
-      );
+      final response = await TaigaJob.db.findFirstRow(session,
+          where: (t) =>
+              t.projectId.equals(projectId) &
+              t.taigaRefNumber.equals(taigaRefNumber),
+          include: TaigaJob.include(
+            project: TaigaProject.include(),
+          ));
       print(response);
       return response;
     } catch (e) {
@@ -99,23 +107,23 @@ class TaigaJobEndpoint extends Endpoint {
     required TaigaJob taigaJob,
     required int id,
   }) async {
-      final modify = await TaigaJob.db.findById(
+    final modify = await TaigaJob.db.findById(
+      session,
+      id,
+    );
+    if (modify != null) {
+      modify.type = taigaJob.type;
+      modify.status = taigaJob.status;
+      modify.description = taigaJob.description;
+      modify.title = taigaJob.title;
+      final updatedJob = await TaigaJob.db.updateRow(
         session,
-        id,
+        modify,
       );
-      if (modify != null) {
-        modify.type = taigaJob.type;
-        modify.status = taigaJob.status;
-        modify.description = taigaJob.description;
-        modify.title = taigaJob.title;
-        final updatedJob = await TaigaJob.db.updateRow(
-          session,
-          modify,
-        );
-        return (updatedJob);
-      }
-    return null;
+      return (updatedJob);
     }
+    return null;
+  }
 
   Future<bool> deleteById(Session session, TaigaJob taigaJob) async {
     if (taigaJob.id != null) {

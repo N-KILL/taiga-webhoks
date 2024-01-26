@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
+import '../../protocol.dart' as _i2;
 
 abstract class TaigaJob extends _i1.SerializableEntity {
   TaigaJob._({
@@ -19,6 +20,7 @@ abstract class TaigaJob extends _i1.SerializableEntity {
     required this.status,
     required this.taigaRefNumber,
     required this.projectId,
+    this.project,
   });
 
   factory TaigaJob({
@@ -29,6 +31,7 @@ abstract class TaigaJob extends _i1.SerializableEntity {
     required String status,
     required int taigaRefNumber,
     required int projectId,
+    _i2.TaigaProject? project,
   }) = _TaigaJobImpl;
 
   factory TaigaJob.fromJson(
@@ -48,6 +51,8 @@ abstract class TaigaJob extends _i1.SerializableEntity {
           .deserialize<int>(jsonSerialization['taigaRefNumber']),
       projectId:
           serializationManager.deserialize<int>(jsonSerialization['projectId']),
+      project: serializationManager
+          .deserialize<_i2.TaigaProject?>(jsonSerialization['project']),
     );
   }
 
@@ -71,8 +76,10 @@ abstract class TaigaJob extends _i1.SerializableEntity {
   /// Reference number of the job on taiga
   int taigaRefNumber;
 
-  /// Id of the project who own the job
   int projectId;
+
+  /// Id of the project who own the job
+  _i2.TaigaProject? project;
 
   TaigaJob copyWith({
     int? id,
@@ -82,6 +89,7 @@ abstract class TaigaJob extends _i1.SerializableEntity {
     String? status,
     int? taigaRefNumber,
     int? projectId,
+    _i2.TaigaProject? project,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -93,6 +101,7 @@ abstract class TaigaJob extends _i1.SerializableEntity {
       'status': status,
       'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
+      if (project != null) 'project': project,
     };
   }
 }
@@ -108,6 +117,7 @@ class _TaigaJobImpl extends TaigaJob {
     required String status,
     required int taigaRefNumber,
     required int projectId,
+    _i2.TaigaProject? project,
   }) : super._(
           id: id,
           type: type,
@@ -116,6 +126,7 @@ class _TaigaJobImpl extends TaigaJob {
           status: status,
           taigaRefNumber: taigaRefNumber,
           projectId: projectId,
+          project: project,
         );
 
   @override
@@ -127,6 +138,7 @@ class _TaigaJobImpl extends TaigaJob {
     String? status,
     int? taigaRefNumber,
     int? projectId,
+    Object? project = _Undefined,
   }) {
     return TaigaJob(
       id: id is int? ? id : this.id,
@@ -136,6 +148,8 @@ class _TaigaJobImpl extends TaigaJob {
       status: status ?? this.status,
       taigaRefNumber: taigaRefNumber ?? this.taigaRefNumber,
       projectId: projectId ?? this.projectId,
+      project:
+          project is _i2.TaigaProject? ? project : this.project?.copyWith(),
     );
   }
 }

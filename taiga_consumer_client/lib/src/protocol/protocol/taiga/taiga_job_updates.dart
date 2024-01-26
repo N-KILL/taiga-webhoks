@@ -29,6 +29,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     required this.details,
     required this.dateTimeEpoch,
     this.commentId,
+    this.comment,
   });
 
   factory TaigaJobUpdates({
@@ -40,6 +41,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     required String details,
     required int dateTimeEpoch,
     int? commentId,
+    _i2.TaigaJobCommentaries? comment,
   }) = _TaigaJobUpdatesImpl;
 
   factory TaigaJobUpdates.fromJson(
@@ -60,6 +62,8 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
           .deserialize<int>(jsonSerialization['dateTimeEpoch']),
       commentId: serializationManager
           .deserialize<int?>(jsonSerialization['commentId']),
+      comment: serializationManager
+          .deserialize<_i2.TaigaJobCommentaries?>(jsonSerialization['comment']),
     );
   }
 
@@ -89,8 +93,10 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
   /// So you have to divide by 1000, getting epoch on seconds format, not milliseconds
   int dateTimeEpoch;
 
-  /// Commentary related to this update, related from another table
   int? commentId;
+
+  /// Commentary related to this update, related from another table. This is as optional
+  _i2.TaigaJobCommentaries? comment;
 
   TaigaJobUpdates copyWith({
     int? id,
@@ -101,6 +107,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     String? details,
     int? dateTimeEpoch,
     int? commentId,
+    _i2.TaigaJobCommentaries? comment,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -113,6 +120,7 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
+      if (comment != null) 'comment': comment,
     };
   }
 }
@@ -129,6 +137,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     required String details,
     required int dateTimeEpoch,
     int? commentId,
+    _i2.TaigaJobCommentaries? comment,
   }) : super._(
           id: id,
           jobId: jobId,
@@ -138,6 +147,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
           details: details,
           dateTimeEpoch: dateTimeEpoch,
           commentId: commentId,
+          comment: comment,
         );
 
   @override
@@ -150,6 +160,7 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
     String? details,
     int? dateTimeEpoch,
     Object? commentId = _Undefined,
+    Object? comment = _Undefined,
   }) {
     return TaigaJobUpdates(
       id: id is int? ? id : this.id,
@@ -160,6 +171,9 @@ class _TaigaJobUpdatesImpl extends TaigaJobUpdates {
       details: details ?? this.details,
       dateTimeEpoch: dateTimeEpoch ?? this.dateTimeEpoch,
       commentId: commentId is int? ? commentId : this.commentId,
+      comment: comment is _i2.TaigaJobCommentaries?
+          ? comment
+          : this.comment?.copyWith(),
     );
   }
 }

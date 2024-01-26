@@ -116,8 +116,8 @@
         {
           "name": "userId",
           "columnType": 2,
-          "isNullable": true,
-          "dartType": "int?"
+          "isNullable": false,
+          "dartType": "int"
         }
       ],
       "foreignKeys": [
@@ -1564,7 +1564,7 @@
   "installedModules": [
     {
       "module": "taiga_consumer",
-      "version": "20240125135946797"
+      "version": "20240126131446828"
     },
     {
       "module": "serverpod",

@@ -48,7 +48,8 @@ class TaigaJobUpdateEndpoint extends Endpoint {
         session,
         where: (t) => t.dateTimeEpoch.between(min, max),
         include: TaigaJobUpdates.include(
-          job: TaigaJob.include(),
+          job: TaigaJob.include(project: TaigaProject.include()),
+          comment: TaigaJobCommentaries.include(),
         ),
       );
       print(response);
@@ -64,6 +65,10 @@ class TaigaJobUpdateEndpoint extends Endpoint {
       final response = await TaigaJobUpdates.db.findFirstRow(
         session,
         where: (t) => t.status.equals(taigaJobUpdates.status),
+        include: TaigaJobUpdates.include(
+          job: TaigaJob.include(project: TaigaProject.include()),
+          comment: TaigaJobCommentaries.include(),
+        ),
       );
       print(response);
       return response;

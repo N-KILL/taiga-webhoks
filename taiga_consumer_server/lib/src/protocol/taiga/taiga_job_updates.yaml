@@ -28,5 +28,5 @@ fields:
   ### So you have to divide by 1000, getting epoch on seconds format, not milliseconds
   dateTimeEpoch: int
   
-  ### Commentary related to this update, related from another table
-  commentId: int?, relation(parent=taiga_job_commentaries)
+  ### Commentary related to this update, related from another table. This is as optional
+  comment: TaigaJobCommentaries?, relation(optional)

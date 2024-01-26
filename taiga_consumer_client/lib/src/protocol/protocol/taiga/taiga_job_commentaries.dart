@@ -20,7 +20,8 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
     this.jobId,
     required this.details,
     required this.dateTime,
-    this.userId,
+    required this.userId,
+    this.user,
   });
 
   factory TaigaJobCommentaries({
@@ -29,7 +30,8 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
     _i2.TaigaJob? jobId,
     required String details,
     required DateTime dateTime,
-    int? userId,
+    required int userId,
+    _i2.User? user,
   }) = _TaigaJobCommentariesImpl;
 
   factory TaigaJobCommentaries.fromJson(
@@ -47,7 +49,9 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
       dateTime: serializationManager
           .deserialize<DateTime>(jsonSerialization['dateTime']),
       userId:
-          serializationManager.deserialize<int?>(jsonSerialization['userId']),
+          serializationManager.deserialize<int>(jsonSerialization['userId']),
+      user: serializationManager
+          .deserialize<_i2.User?>(jsonSerialization['user']),
     );
   }
 
@@ -67,8 +71,10 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
   ///# Date of creation of the comment
   DateTime dateTime;
 
+  int userId;
+
   /// UserId is the id of the user, in this case is pointing into the TaigaId,
-  int? userId;
+  _i2.User? user;
 
   TaigaJobCommentaries copyWith({
     int? id,
@@ -77,6 +83,7 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
     String? details,
     DateTime? dateTime,
     int? userId,
+    _i2.User? user,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -86,7 +93,8 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
       if (jobId != null) 'jobId': jobId,
       'details': details,
       'dateTime': dateTime,
-      if (userId != null) 'userId': userId,
+      'userId': userId,
+      if (user != null) 'user': user,
     };
   }
 }
@@ -100,7 +108,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
     _i2.TaigaJob? jobId,
     required String details,
     required DateTime dateTime,
-    int? userId,
+    required int userId,
+    _i2.User? user,
   }) : super._(
           id: id,
           jobIdId: jobIdId,
@@ -108,6 +117,7 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
           details: details,
           dateTime: dateTime,
           userId: userId,
+          user: user,
         );
 
   @override
@@ -117,7 +127,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
     Object? jobId = _Undefined,
     String? details,
     DateTime? dateTime,
-    Object? userId = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
   }) {
     return TaigaJobCommentaries(
       id: id is int? ? id : this.id,
@@ -125,7 +136,8 @@ class _TaigaJobCommentariesImpl extends TaigaJobCommentaries {
       jobId: jobId is _i2.TaigaJob? ? jobId : this.jobId?.copyWith(),
       details: details ?? this.details,
       dateTime: dateTime ?? this.dateTime,
-      userId: userId is int? ? userId : this.userId,
+      userId: userId ?? this.userId,
+      user: user is _i2.User? ? user : this.user?.copyWith(),
     );
   }
 }

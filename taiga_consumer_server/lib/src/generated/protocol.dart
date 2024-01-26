@@ -153,8 +153,8 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ColumnDefinition(
           name: 'userId',
           columnType: _i2.ColumnType.integer,
-          isNullable: true,
-          dartType: 'int?',
+          isNullable: false,
+          dartType: 'int',
         ),
       ],
       foreignKeys: [
