@@ -117,7 +117,7 @@ class MessageGenerator {
       // This is the details of the update the job have received in a list
       // format
       final jobUpdateDetails = detailList[elementIndex].split('\n');
-      jobUpdateDetails.remove('');
+      jobUpdateDetails.removeWhere((element) => element == '');
 
       // Aux to store the detail on html format
       var detailHtml = '';
