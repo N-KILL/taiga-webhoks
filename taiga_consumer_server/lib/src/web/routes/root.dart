@@ -210,35 +210,35 @@ class RouteRoot extends WidgetRoute {
                           DateTime.now().millisecondsSinceEpoch ~/ 1000,
                     ));
               }
-            } // If the job do not exist on the database
-            else {
-              // Create the item in the database
-              final canCreate = await TaigaJobEndpoint().create(session, job);
+            }
+          } // If the job do not exist on the database
+          else {
+            // Create the item in the database
+            final canCreate = await TaigaJobEndpoint().create(session, job);
 
-              // If can create the item
-              if (canCreate != null && canCreate.id != null) {
-                // Create a new job update register
-                await TaigaJobUpdateEndpoint().create(
+            // If can create the item
+            if (canCreate != null && canCreate.id != null) {
+              // Create a new job update register
+              await TaigaJobUpdateEndpoint().create(
+                  session,
+                  TaigaJobUpdates(
+                    jobId: canCreate.id!,
+                    type: canCreate.type + ' ' + payload.actionType,
+                    status: canCreate.status,
+                    details: detail,
+                    dateTimeEpoch:
+                        DateTime.now().millisecondsSinceEpoch ~/ 1000,
+                  ));
+
+              //  Verify if the change made was a new comment, and store it
+              if (payload.change!.comment != '') {
+                TaigaJobCommentariesEndpoint().create(
                     session,
-                    TaigaJobUpdates(
-                      jobId: canCreate.id!,
-                      type: canCreate.type + ' ' + payload.actionType,
-                      status: canCreate.status,
-                      details: detail,
-                      dateTimeEpoch:
-                          DateTime.now().millisecondsSinceEpoch ~/ 1000,
-                    ));
-
-                //  Verify if the change made was a new comment, and store it
-                if (payload.change!.comment != '') {
-                  TaigaJobCommentariesEndpoint().create(
-                      session,
-                      TaigaJobCommentaries(
-                          userId: 1,
-                          jobIdId: canCreate.id!,
-                          details: payload.change!.comment!,
-                          dateTime: DateTime.now()));
-                }
+                    TaigaJobCommentaries(
+                        userId: 1,
+                        jobIdId: canCreate.id!,
+                        details: payload.change!.comment!,
+                        dateTime: DateTime.now()));
               }
             }
           }
