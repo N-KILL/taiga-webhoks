@@ -1,6 +1,9 @@
 import 'package:serverpod/serverpod.dart';
+import 'package:taiga_consumer_server/src/future_calls/mailer_service_call.dart';
+import 'package:taiga_consumer_server/src/web/routes/git_lab.dart';
 
 import 'package:taiga_consumer_server/src/web/routes/root.dart';
+import 'package:taiga_consumer_server/src/web/routes/taiga.dart';
 
 import 'src/generated/protocol.dart';
 import 'src/generated/endpoints.dart';
@@ -17,15 +20,27 @@ void run(List<String> args) async {
     Endpoints(),
   );
 
-  // If you are using any future calls, they need to be registered here.
-  // pod.registerFutureCall(ExampleFutureCall(), 'exampleFutureCall');
+  // Register a Future call for the mail service
+  //? Note: This is hardcoded by the moment
+  pod.registerFutureCall(
+    SendUpdatesFutureCall(),
+    'mailUpdateNotification',
+  );
+  pod.futureCallAtTime(
+    'mailUpdateNotification',
+    null,
+    DateTime.now(),
+  );
 
   // Setup a default page at the web root.
-  pod.webServer.addRoute(DefaultRouteRoot(), '/');
+  pod.webServer.addRoute(
+    DefaultRouteRoot(),
+    '/',
+  );
 
   // Taiga
   pod.webServer.addRoute(
-    RouteRoot(),
+    TaigaRoute(),
     '/webhook',
   );
 
@@ -38,7 +53,10 @@ void run(List<String> args) async {
   // pod.webServer.addRoute(RouteRoot(), '/index.html');
   // Serve all files in the /static directory.
   pod.webServer.addRoute(
-    RouteStaticDirectory(serverDirectory: 'static', basePath: '/'),
+    RouteStaticDirectory(
+      serverDirectory: 'static',
+      basePath: '/',
+    ),
     '/*',
   );
 

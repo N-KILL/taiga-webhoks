@@ -50,10 +50,12 @@ class MyHomePageState extends State<MyHomePage> {
   // `_resultMessage` or `_errorMessage` field, depending on if the call
   // is successful.
   void _callHello() async {
+    //? This is commented because I've deleted the example endpoint, and I don't
+    //? use front by the moment
     try {
-      final result = await client.example.hello(_textEditingController.text);
+      // final result = await client.example.hello(_textEditingController.text);
       setState(() {
-        _resultMessage = result.toString();
+        // _resultMessage = result.toString();
       });
     } catch (e) {
       setState(() {

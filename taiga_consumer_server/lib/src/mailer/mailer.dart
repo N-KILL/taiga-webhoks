@@ -84,8 +84,3 @@ Future<bool> sendMail({
   }
 }
 
-void main() async {
-  final returned =
-      await sendMail(email: 'club_dog2@hotmail.com', message: 'Mensaje Test');
-  print(returned);
-}

@@ -1,4 +1,4 @@
-import 'package:taiga_consumer_server/src/endpoints/taiga_job_updates_endpoint.dart';
+import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoints.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
@@ -13,14 +13,14 @@ class MessageGenerator {
   /// Create an `html` format message to send inside of an `email`, this message
   /// if for notify job updates. You can filter this updates by the [project]
   /// parameter, and the time of the update based on the
-  /// [TaigaJobUpdateEndpoint.readFilteringByEpoch] `endpoint`
+  /// [TaigaJobEndpoints.taigaJobUpdatesReadFilteringByEpoch] `endpoint`
   ///
   /// <hr>
   ///
   /// ! `Important` This is meant to be used with the data, we receive from the
-  /// [TaigaJobUpdateEndpoint.readFilteringByEpoch] or any other which have the
-  /// insert parameter to bring the data of the job related into the update
-  /// instance.
+  /// [TaigaJobEndpoints.taigaJobUpdatesReadFilteringByEpoch] or any other which
+  /// have the insert parameter to bring the data of the job related into the
+  /// update instance.
   ///
   /// If you're trying to use this, maybe it breaks, because can't read any job
   /// detail related to an update instance. This need at least one per jobId.
@@ -288,18 +288,20 @@ class MessageGenerator {
     <body>
         <img src="https://media.licdn.com/dms/image/D4D0BAQHqI1Z_2RFAxw/company-logo_200_200/0/1666121335245/nidus_dev_logo?e=1713398400&v=beta&t=W95VYfiZU_F84DFd_G2w3FgeuXeivoYG4Ktr0rA4_oU" alt="Logo de Nidus Dev">
         <div>
-            <h1 class="desktop-only"> Estos son los ultimos cambios en el proyecto: ${project.title} </h1>
-            <h1 class="mobile-only"> Estos son los ultimos cambios en el proyecto: ${project.title} </h1>
+            <h1> Estos son los ultimos cambios en el proyecto: ${project.title} </h1>
         </div>
         <div class="container">    
             <div></div>
 
             <div>
-                <h2 class="desktop-only">Cambios realizados:</h2>
-                <h3 class="mobile-only">Cambios realizados:</h3>
+                <h2 class="desktop-only"> Tareas con cambios ${listOfJob.length} </h2>
+                <h3 class="desktop-only"> Detalles de los cambios:</h3>
+                <h3 class="mobile-only"> Tareas con cambios ${listOfJob.length} </h3>
+                <h3 class="mobile-only"> Detalles de los cambios:</h3>
             </div>
 
-            <div></div>
+            <div>
+            </div>
 
         </div>
 

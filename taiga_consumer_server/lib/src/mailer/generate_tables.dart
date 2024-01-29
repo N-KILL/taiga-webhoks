@@ -8,6 +8,4 @@ void main() async {
     dbPassword: 'EabAagcEGfCgdF1E5dCG6-6gF--B4aDg',
     port: 46802,
   ).initialFixture('public');
-
-  print('ok');
 }

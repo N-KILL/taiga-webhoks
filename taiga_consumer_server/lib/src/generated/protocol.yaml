@@ -1,40 +1,30 @@
-example:
-  - hello:
-anotherExample:
-crud:
-  - create:
-  - read:
-  - update:
-  - delete:
 taigaProject:
-  - create:
-  - createOnBulk:
-  - readById:
-  - readByTitle:
-  - readByTaigaProjectId:
-  - updateById:
-  - deleteById:
-taigaJobCommentaries:
-  - create:
-  - createOnBulk:
-  - readById:
-  - updateById:
-  - deleteById:
-taigaJob:
-  - create:
-  - createOnBulk:
-  - readById:
-  - readByTitle:
-  - readByType:
-  - readByStatus:
-  - readByProjectIdAndRefNumber:
-  - updateById:
-  - deleteById:
-taigaJobUpdate:
-  - create:
-  - createOnBulk:
-  - readById:
-  - readFilteringByEpoch:
-  - readByStatus:
-  - updateById:
-  - deleteById:
+  - projectCreate:
+  - projectCreateOnBulk:
+  - projectReadById:
+  - projectReadByTitle:
+  - projectReadByTaigaProjectId:
+  - projectUpdateProject:
+  - projectDeleteProject:
+  - projectDeleteProjectById:
+taigaJobEndpoints:
+  - taigaJobCreate:
+  - taigaJobCreateOnBulk:
+  - taigaJobReadById:
+  - taigaJobReadByTitle:
+  - taigaJobReadByType:
+  - taigaJobReadByStatus:
+  - taigaJobReadByProjectIdAndRefNumber:
+  - taigaJobUpdateById:
+  - TaigaJobDeleteById:
+  - taigaJobUpdatesCreate:
+  - taigaJobUpdatesCreateOnBulk:
+  - taigaJobUpdatesReadById:
+  - taigaJobUpdatesReadFilteringByEpoch:
+  - taigaJobUpdatesUpdateById:
+  - taigaJobUpdatesDeleteById:
+  - taigaJobCommentariesCreate:
+  - taigaJobCommentariesCreateOnBulk:
+  - taigaJobCommentariesReadById:
+  - taigaJobCommentariesUpdateById:
+  - taigaJobCommentariesDeleteById:
