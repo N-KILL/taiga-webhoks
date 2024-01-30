@@ -1,0 +1,10 @@
+class: HuData
+table: hu_data
+fields:
+  name: String,
+  refNum: int
+  status: HuStatus,
+  readyForDev: bool,
+  sprint: Sprint?, relation
+  statusCard: StatusCard?, relation
+  

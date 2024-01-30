@@ -20,17 +20,17 @@ void run(List<String> args) async {
     Endpoints(),
   );
 
-  // Register a Future call for the mail service
-  //? Note: This is hardcoded by the moment
-  pod.registerFutureCall(
-    SendUpdatesFutureCall(),
-    'mailUpdateNotification',
-  );
-  pod.futureCallAtTime(
-    'mailUpdateNotification',
-    null,
-    DateTime.now(),
-  );
+  // // Register a Future call for the mail service
+  // //? Note: This is hardcoded by the moment
+  // pod.registerFutureCall(
+  //   SendUpdatesFutureCall(),
+  //   'mailUpdateNotification',
+  // );
+  // pod.futureCallAtTime(
+  //   'mailUpdateNotification',
+  //   null,
+  //   DateTime.now(),
+  // );
 
   // Setup a default page at the web root.
   pod.webServer.addRoute(

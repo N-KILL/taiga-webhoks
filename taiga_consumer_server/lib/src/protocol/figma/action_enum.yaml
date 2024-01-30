@@ -1,0 +1,8 @@
+enum: ActionType
+serialized: byName
+values:
+ - createHu
+ - updateHuStatus
+ - attachToSprint
+ - updateHuStatusCard
+ - updateReadyForDevStatus

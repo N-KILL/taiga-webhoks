@@ -1,0 +1,556 @@
+/* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
+/*   To generate run: "serverpod generate"    */
+
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: public_member_api_docs
+// ignore_for_file: implementation_imports
+// ignore_for_file: use_super_parameters
+// ignore_for_file: type_literal_in_constant_pattern
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:serverpod/serverpod.dart' as _i1;
+import '../../protocol.dart' as _i2;
+
+abstract class FigmaAction extends _i1.TableRow {
+  FigmaAction._({
+    int? id,
+    required this.action,
+    required this.huDataId,
+    this.huData,
+  }) : super(id);
+
+  factory FigmaAction({
+    int? id,
+    required String action,
+    required int huDataId,
+    _i2.HuData? huData,
+  }) = _FigmaActionImpl;
+
+  factory FigmaAction.fromJson(
+    Map<String, dynamic> jsonSerialization,
+    _i1.SerializationManager serializationManager,
+  ) {
+    return FigmaAction(
+      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
+      action:
+          serializationManager.deserialize<String>(jsonSerialization['action']),
+      huDataId:
+          serializationManager.deserialize<int>(jsonSerialization['huDataId']),
+      huData: serializationManager
+          .deserialize<_i2.HuData?>(jsonSerialization['huData']),
+    );
+  }
+
+  static final t = FigmaActionTable();
+
+  static const db = FigmaActionRepository._();
+
+  String action;
+
+  int huDataId;
+
+  _i2.HuData? huData;
+
+  @override
+  _i1.Table get table => t;
+
+  FigmaAction copyWith({
+    int? id,
+    String? action,
+    int? huDataId,
+    _i2.HuData? huData,
+  });
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      'action': action,
+      'huDataId': huDataId,
+      if (huData != null) 'huData': huData,
+    };
+  }
+
+  @override
+  @Deprecated('Will be removed in 2.0.0')
+  Map<String, dynamic> toJsonForDatabase() {
+    return {
+      if (id != null) 'id': id,
+      'action': action,
+      'huDataId': huDataId,
+    };
+  }
+
+  @override
+  Map<String, dynamic> allToJson() {
+    return {
+      if (id != null) 'id': id,
+      'action': action,
+      'huDataId': huDataId,
+      if (huData != null) 'huData': huData,
+    };
+  }
+
+  @override
+  void setColumn(
+    String columnName,
+    value,
+  ) {
+    switch (columnName) {
+      case 'id':
+        id = value;
+        return;
+      case 'action':
+        action = value;
+        return;
+      case 'huDataId':
+        huDataId = value;
+        return;
+      default:
+        throw UnimplementedError();
+    }
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
+  static Future<List<FigmaAction>> find(
+    _i1.Session session, {
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? limit,
+    int? offset,
+    _i1.Column? orderBy,
+    List<_i1.Order>? orderByList,
+    bool orderDescending = false,
+    bool useCache = true,
+    _i1.Transaction? transaction,
+    FigmaActionInclude? include,
+  }) async {
+    return session.db.find<FigmaAction>(
+      where: where != null ? where(FigmaAction.t) : null,
+      limit: limit,
+      offset: offset,
+      orderBy: orderBy,
+      orderByList: orderByList,
+      orderDescending: orderDescending,
+      useCache: useCache,
+      transaction: transaction,
+      include: include,
+    );
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
+  static Future<FigmaAction?> findSingleRow(
+    _i1.Session session, {
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? offset,
+    _i1.Column? orderBy,
+    bool orderDescending = false,
+    bool useCache = true,
+    _i1.Transaction? transaction,
+    FigmaActionInclude? include,
+  }) async {
+    return session.db.findSingleRow<FigmaAction>(
+      where: where != null ? where(FigmaAction.t) : null,
+      offset: offset,
+      orderBy: orderBy,
+      orderDescending: orderDescending,
+      useCache: useCache,
+      transaction: transaction,
+      include: include,
+    );
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
+  static Future<FigmaAction?> findById(
+    _i1.Session session,
+    int id, {
+    FigmaActionInclude? include,
+  }) async {
+    return session.db.findById<FigmaAction>(
+      id,
+      include: include,
+    );
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
+  static Future<int> delete(
+    _i1.Session session, {
+    required _i1.WhereExpressionBuilder<FigmaActionTable> where,
+    _i1.Transaction? transaction,
+  }) async {
+    return session.db.delete<FigmaAction>(
+      where: where(FigmaAction.t),
+      transaction: transaction,
+    );
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
+  static Future<bool> deleteRow(
+    _i1.Session session,
+    FigmaAction row, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.db.deleteRow(
+      row,
+      transaction: transaction,
+    );
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
+  static Future<bool> update(
+    _i1.Session session,
+    FigmaAction row, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.db.update(
+      row,
+      transaction: transaction,
+    );
+  }
+
+  @Deprecated(
+      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
+  static Future<void> insert(
+    _i1.Session session,
+    FigmaAction row, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.db.insert(
+      row,
+      transaction: transaction,
+    );
+  }
+
+  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
+  static Future<int> count(
+    _i1.Session session, {
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? limit,
+    bool useCache = true,
+    _i1.Transaction? transaction,
+  }) async {
+    return session.db.count<FigmaAction>(
+      where: where != null ? where(FigmaAction.t) : null,
+      limit: limit,
+      useCache: useCache,
+      transaction: transaction,
+    );
+  }
+
+  static FigmaActionInclude include({_i2.HuDataInclude? huData}) {
+    return FigmaActionInclude._(huData: huData);
+  }
+
+  static FigmaActionIncludeList includeList({
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? limit,
+    int? offset,
+    _i1.OrderByBuilder<FigmaActionTable>? orderBy,
+    bool orderDescending = false,
+    _i1.OrderByListBuilder<FigmaActionTable>? orderByList,
+    FigmaActionInclude? include,
+  }) {
+    return FigmaActionIncludeList._(
+      where: where,
+      limit: limit,
+      offset: offset,
+      orderBy: orderBy?.call(FigmaAction.t),
+      orderDescending: orderDescending,
+      orderByList: orderByList?.call(FigmaAction.t),
+      include: include,
+    );
+  }
+}
+
+class _Undefined {}
+
+class _FigmaActionImpl extends FigmaAction {
+  _FigmaActionImpl({
+    int? id,
+    required String action,
+    required int huDataId,
+    _i2.HuData? huData,
+  }) : super._(
+          id: id,
+          action: action,
+          huDataId: huDataId,
+          huData: huData,
+        );
+
+  @override
+  FigmaAction copyWith({
+    Object? id = _Undefined,
+    String? action,
+    int? huDataId,
+    Object? huData = _Undefined,
+  }) {
+    return FigmaAction(
+      id: id is int? ? id : this.id,
+      action: action ?? this.action,
+      huDataId: huDataId ?? this.huDataId,
+      huData: huData is _i2.HuData? ? huData : this.huData?.copyWith(),
+    );
+  }
+}
+
+class FigmaActionTable extends _i1.Table {
+  FigmaActionTable({super.tableRelation}) : super(tableName: 'figma_action') {
+    action = _i1.ColumnString(
+      'action',
+      this,
+    );
+    huDataId = _i1.ColumnInt(
+      'huDataId',
+      this,
+    );
+  }
+
+  late final _i1.ColumnString action;
+
+  late final _i1.ColumnInt huDataId;
+
+  _i2.HuDataTable? _huData;
+
+  _i2.HuDataTable get huData {
+    if (_huData != null) return _huData!;
+    _huData = _i1.createRelationTable(
+      relationFieldName: 'huData',
+      field: FigmaAction.t.huDataId,
+      foreignField: _i2.HuData.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.HuDataTable(tableRelation: foreignTableRelation),
+    );
+    return _huData!;
+  }
+
+  @override
+  List<_i1.Column> get columns => [
+        id,
+        action,
+        huDataId,
+      ];
+
+  @override
+  _i1.Table? getRelationTable(String relationField) {
+    if (relationField == 'huData') {
+      return huData;
+    }
+    return null;
+  }
+}
+
+@Deprecated('Use FigmaActionTable.t instead.')
+FigmaActionTable tFigmaAction = FigmaActionTable();
+
+class FigmaActionInclude extends _i1.IncludeObject {
+  FigmaActionInclude._({_i2.HuDataInclude? huData}) {
+    _huData = huData;
+  }
+
+  _i2.HuDataInclude? _huData;
+
+  @override
+  Map<String, _i1.Include?> get includes => {'huData': _huData};
+
+  @override
+  _i1.Table get table => FigmaAction.t;
+}
+
+class FigmaActionIncludeList extends _i1.IncludeList {
+  FigmaActionIncludeList._({
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    super.limit,
+    super.offset,
+    super.orderBy,
+    super.orderDescending,
+    super.orderByList,
+    super.include,
+  }) {
+    super.where = where?.call(FigmaAction.t);
+  }
+
+  @override
+  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+
+  @override
+  _i1.Table get table => FigmaAction.t;
+}
+
+class FigmaActionRepository {
+  const FigmaActionRepository._();
+
+  final attachRow = const FigmaActionAttachRowRepository._();
+
+  Future<List<FigmaAction>> find(
+    _i1.Session session, {
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? limit,
+    int? offset,
+    _i1.OrderByBuilder<FigmaActionTable>? orderBy,
+    bool orderDescending = false,
+    _i1.OrderByListBuilder<FigmaActionTable>? orderByList,
+    _i1.Transaction? transaction,
+    FigmaActionInclude? include,
+  }) async {
+    return session.dbNext.find<FigmaAction>(
+      where: where?.call(FigmaAction.t),
+      orderBy: orderBy?.call(FigmaAction.t),
+      orderByList: orderByList?.call(FigmaAction.t),
+      orderDescending: orderDescending,
+      limit: limit,
+      offset: offset,
+      transaction: transaction,
+      include: include,
+    );
+  }
+
+  Future<FigmaAction?> findFirstRow(
+    _i1.Session session, {
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? offset,
+    _i1.OrderByBuilder<FigmaActionTable>? orderBy,
+    bool orderDescending = false,
+    _i1.OrderByListBuilder<FigmaActionTable>? orderByList,
+    _i1.Transaction? transaction,
+    FigmaActionInclude? include,
+  }) async {
+    return session.dbNext.findFirstRow<FigmaAction>(
+      where: where?.call(FigmaAction.t),
+      orderBy: orderBy?.call(FigmaAction.t),
+      orderByList: orderByList?.call(FigmaAction.t),
+      orderDescending: orderDescending,
+      offset: offset,
+      transaction: transaction,
+      include: include,
+    );
+  }
+
+  Future<FigmaAction?> findById(
+    _i1.Session session,
+    int id, {
+    _i1.Transaction? transaction,
+    FigmaActionInclude? include,
+  }) async {
+    return session.dbNext.findById<FigmaAction>(
+      id,
+      transaction: transaction,
+      include: include,
+    );
+  }
+
+  Future<List<FigmaAction>> insert(
+    _i1.Session session,
+    List<FigmaAction> rows, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.insert<FigmaAction>(
+      rows,
+      transaction: transaction,
+    );
+  }
+
+  Future<FigmaAction> insertRow(
+    _i1.Session session,
+    FigmaAction row, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.insertRow<FigmaAction>(
+      row,
+      transaction: transaction,
+    );
+  }
+
+  Future<List<FigmaAction>> update(
+    _i1.Session session,
+    List<FigmaAction> rows, {
+    _i1.ColumnSelections<FigmaActionTable>? columns,
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.update<FigmaAction>(
+      rows,
+      columns: columns?.call(FigmaAction.t),
+      transaction: transaction,
+    );
+  }
+
+  Future<FigmaAction> updateRow(
+    _i1.Session session,
+    FigmaAction row, {
+    _i1.ColumnSelections<FigmaActionTable>? columns,
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.updateRow<FigmaAction>(
+      row,
+      columns: columns?.call(FigmaAction.t),
+      transaction: transaction,
+    );
+  }
+
+  Future<List<int>> delete(
+    _i1.Session session,
+    List<FigmaAction> rows, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.delete<FigmaAction>(
+      rows,
+      transaction: transaction,
+    );
+  }
+
+  Future<int> deleteRow(
+    _i1.Session session,
+    FigmaAction row, {
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.deleteRow<FigmaAction>(
+      row,
+      transaction: transaction,
+    );
+  }
+
+  Future<List<int>> deleteWhere(
+    _i1.Session session, {
+    required _i1.WhereExpressionBuilder<FigmaActionTable> where,
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.deleteWhere<FigmaAction>(
+      where: where(FigmaAction.t),
+      transaction: transaction,
+    );
+  }
+
+  Future<int> count(
+    _i1.Session session, {
+    _i1.WhereExpressionBuilder<FigmaActionTable>? where,
+    int? limit,
+    _i1.Transaction? transaction,
+  }) async {
+    return session.dbNext.count<FigmaAction>(
+      where: where?.call(FigmaAction.t),
+      limit: limit,
+      transaction: transaction,
+    );
+  }
+}
+
+class FigmaActionAttachRowRepository {
+  const FigmaActionAttachRowRepository._();
+
+  Future<void> huData(
+    _i1.Session session,
+    FigmaAction figmaAction,
+    _i2.HuData huData,
+  ) async {
+    if (figmaAction.id == null) {
+      throw ArgumentError.notNull('figmaAction.id');
+    }
+    if (huData.id == null) {
+      throw ArgumentError.notNull('huData.id');
+    }
+
+    var $figmaAction = figmaAction.copyWith(huDataId: huData.id);
+    await session.dbNext.updateRow<FigmaAction>(
+      $figmaAction,
+      columns: [FigmaAction.t.huDataId],
+    );
+  }
+}

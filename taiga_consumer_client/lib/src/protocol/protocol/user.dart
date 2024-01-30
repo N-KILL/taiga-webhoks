@@ -14,6 +14,7 @@ abstract class User extends _i1.SerializableEntity {
   User._({
     this.id,
     required this.username,
+    required this.userAvatar,
     required this.taigaId,
     required this.gitHubId,
     required this.gitLabId,
@@ -22,6 +23,7 @@ abstract class User extends _i1.SerializableEntity {
   factory User({
     int? id,
     required String username,
+    required String userAvatar,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
@@ -35,6 +37,8 @@ abstract class User extends _i1.SerializableEntity {
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       username: serializationManager
           .deserialize<String>(jsonSerialization['username']),
+      userAvatar: serializationManager
+          .deserialize<String>(jsonSerialization['userAvatar']),
       taigaId:
           serializationManager.deserialize<int>(jsonSerialization['taigaId']),
       gitHubId:
@@ -49,17 +53,25 @@ abstract class User extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
+  /// Status of the job
   String username;
 
+  /// Url of the user avatar
+  String userAvatar;
+
+  /// Id of the Taiga account of the user
   int taigaId;
 
+  /// Id of the GitHub account of the user
   int gitHubId;
 
+  /// Id of the GitLab account of the user
   int gitLabId;
 
   User copyWith({
     int? id,
     String? username,
+    String? userAvatar,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -69,6 +81,7 @@ abstract class User extends _i1.SerializableEntity {
     return {
       if (id != null) 'id': id,
       'username': username,
+      'userAvatar': userAvatar,
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -82,12 +95,14 @@ class _UserImpl extends User {
   _UserImpl({
     int? id,
     required String username,
+    required String userAvatar,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
   }) : super._(
           id: id,
           username: username,
+          userAvatar: userAvatar,
           taigaId: taigaId,
           gitHubId: gitHubId,
           gitLabId: gitLabId,
@@ -97,6 +112,7 @@ class _UserImpl extends User {
   User copyWith({
     Object? id = _Undefined,
     String? username,
+    String? userAvatar,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -104,6 +120,7 @@ class _UserImpl extends User {
     return User(
       id: id is int? ? id : this.id,
       username: username ?? this.username,
+      userAvatar: userAvatar ?? this.userAvatar,
       taigaId: taigaId ?? this.taigaId,
       gitHubId: gitHubId ?? this.gitHubId,
       gitLabId: gitLabId ?? this.gitLabId,

@@ -1,0 +1,8 @@
+class: AmountOfDays
+table: figma_day_counter
+fields:
+    preparation: String
+    development: String
+    approbation: String
+    finalApprobation: String
+    quality: String,

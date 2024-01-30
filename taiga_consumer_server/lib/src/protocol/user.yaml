@@ -1,7 +1,18 @@
 class: User
 table: user
 fields:
-  username: String  # Status of the job
-  taigaId: int      # Id of the Taiga account of the user          
-  gitHubId: int     # Id of the GitHub account of the user
-  gitLabId: int     # Id of the GitLab account of the user
+  
+  ### Status of the job
+  username: String    
+  
+  ### Url of the user avatar
+  userAvatar: String
+  
+  ### Id of the Taiga account of the user          
+  taigaId: int      
+  
+  ### Id of the GitHub account of the user
+  gitHubId: int     
+  
+  ### Id of the GitLab account of the user
+  gitLabId: int     

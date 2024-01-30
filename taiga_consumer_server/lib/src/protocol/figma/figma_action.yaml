@@ -1,0 +1,6 @@
+class: FigmaAction
+table: figma_action
+fields:
+  action: String
+  huData: HuData?, relation 
+  

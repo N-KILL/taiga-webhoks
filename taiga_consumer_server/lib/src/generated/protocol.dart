@@ -11,19 +11,35 @@ library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixe
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'protocol/taiga/taiga_job.dart' as _i3;
-import 'protocol/taiga/taiga_job_commentaries.dart' as _i4;
-import 'protocol/taiga/taiga_job_updates.dart' as _i5;
-import 'protocol/taiga/taiga_project.dart' as _i6;
-import 'protocol/user.dart' as _i7;
+import 'protocol/figma/action_enum.dart' as _i3;
+import 'protocol/figma/day_counter.dart' as _i4;
+import 'protocol/figma/figma_action.dart' as _i5;
+import 'protocol/figma/figma_hu_data.dart' as _i6;
+import 'protocol/figma/hu_status_enum.dart' as _i7;
+import 'protocol/figma/sprint.dart' as _i8;
+import 'protocol/figma/status_card.dart' as _i9;
+import 'protocol/figma/status_card_detail.dart' as _i10;
+import 'protocol/taiga/taiga_job.dart' as _i11;
+import 'protocol/taiga/taiga_job_commentaries.dart' as _i12;
+import 'protocol/taiga/taiga_job_updates.dart' as _i13;
+import 'protocol/taiga/taiga_project.dart' as _i14;
+import 'protocol/user.dart' as _i15;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
-    as _i8;
+    as _i16;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
-    as _i9;
+    as _i17;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
-    as _i10;
+    as _i18;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
-    as _i11;
+    as _i19;
+export 'protocol/figma/action_enum.dart';
+export 'protocol/figma/day_counter.dart';
+export 'protocol/figma/figma_action.dart';
+export 'protocol/figma/figma_hu_data.dart';
+export 'protocol/figma/hu_status_enum.dart';
+export 'protocol/figma/sprint.dart';
+export 'protocol/figma/status_card.dart';
+export 'protocol/figma/status_card_detail.dart';
 export 'protocol/taiga/taiga_job.dart';
 export 'protocol/taiga/taiga_job_commentaries.dart';
 export 'protocol/taiga/taiga_job_updates.dart';
@@ -40,6 +56,418 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
+    _i2.TableDefinition(
+      name: 'figma_action',
+      dartName: 'FigmaAction',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'figma_action_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'action',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'huDataId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'figma_action_fk_0',
+          columns: ['huDataId'],
+          referenceTable: 'hu_data',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'figma_action_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'figma_day_counter',
+      dartName: 'AmountOfDays',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'figma_day_counter_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'preparation',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'development',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'approbation',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'finalApprobation',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'quality',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'figma_day_counter_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'hu_data',
+      dartName: 'HuData',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'hu_data_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'refNum',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'status',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'protocol:HuStatus',
+        ),
+        _i2.ColumnDefinition(
+          name: 'readyForDev',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+        ),
+        _i2.ColumnDefinition(
+          name: 'sprintId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'statusCardId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'hu_data_fk_0',
+          columns: ['sprintId'],
+          referenceTable: 'sprint_data',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'hu_data_fk_1',
+          columns: ['statusCardId'],
+          referenceTable: 'status_card',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'hu_data_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'sprint_data',
+      dartName: 'Sprint',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'sprint_data_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'sprint_data_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'status_card',
+      dartName: 'StatusCard',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'status_card_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'approvedId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'developmentId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'internalTestId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'externalTestId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'amountOfDaysId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'status_card_fk_0',
+          columns: ['approvedId'],
+          referenceTable: 'user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'status_card_fk_1',
+          columns: ['developmentId'],
+          referenceTable: 'user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'status_card_fk_2',
+          columns: ['internalTestId'],
+          referenceTable: 'user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'status_card_fk_3',
+          columns: ['externalTestId'],
+          referenceTable: 'user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'status_card_fk_4',
+          columns: ['amountOfDaysId'],
+          referenceTable: 'figma_day_counter',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'status_card_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'status_card_details',
+      dartName: 'StatusCardDetails',
+      schema: 'public',
+      module: 'taiga_consumer',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'status_card_details_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'byUserId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'date',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'status_card_details_fk_0',
+          columns: ['byUserId'],
+          referenceTable: 'user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'status_card_details_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     _i2.TableDefinition(
       name: 'taiga_job',
       dartName: 'TaigaJob',
@@ -349,6 +777,12 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
+          name: 'userAvatar',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
           name: 'taigaId',
           columnType: _i2.ColumnType.integer,
           isNullable: false,
@@ -397,97 +831,149 @@ class Protocol extends _i1.SerializationManagerServer {
     if (customConstructors.containsKey(t)) {
       return customConstructors[t]!(data, this) as T;
     }
-    if (t == _i3.TaigaJob) {
-      return _i3.TaigaJob.fromJson(data, this) as T;
+    if (t == _i3.ActionType) {
+      return _i3.ActionType.fromJson(data) as T;
     }
-    if (t == _i4.TaigaJobCommentaries) {
-      return _i4.TaigaJobCommentaries.fromJson(data, this) as T;
+    if (t == _i4.AmountOfDays) {
+      return _i4.AmountOfDays.fromJson(data, this) as T;
     }
-    if (t == _i5.TaigaJobUpdates) {
-      return _i5.TaigaJobUpdates.fromJson(data, this) as T;
+    if (t == _i5.FigmaAction) {
+      return _i5.FigmaAction.fromJson(data, this) as T;
     }
-    if (t == _i6.TaigaProject) {
-      return _i6.TaigaProject.fromJson(data, this) as T;
+    if (t == _i6.HuData) {
+      return _i6.HuData.fromJson(data, this) as T;
     }
-    if (t == _i7.User) {
-      return _i7.User.fromJson(data, this) as T;
+    if (t == _i7.HuStatus) {
+      return _i7.HuStatus.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i3.TaigaJob?>()) {
-      return (data != null ? _i3.TaigaJob.fromJson(data, this) : null) as T;
+    if (t == _i8.Sprint) {
+      return _i8.Sprint.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i4.TaigaJobCommentaries?>()) {
-      return (data != null
-          ? _i4.TaigaJobCommentaries.fromJson(data, this)
-          : null) as T;
+    if (t == _i9.StatusCard) {
+      return _i9.StatusCard.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i5.TaigaJobUpdates?>()) {
-      return (data != null ? _i5.TaigaJobUpdates.fromJson(data, this) : null)
+    if (t == _i10.StatusCardDetails) {
+      return _i10.StatusCardDetails.fromJson(data, this) as T;
+    }
+    if (t == _i11.TaigaJob) {
+      return _i11.TaigaJob.fromJson(data, this) as T;
+    }
+    if (t == _i12.TaigaJobCommentaries) {
+      return _i12.TaigaJobCommentaries.fromJson(data, this) as T;
+    }
+    if (t == _i13.TaigaJobUpdates) {
+      return _i13.TaigaJobUpdates.fromJson(data, this) as T;
+    }
+    if (t == _i14.TaigaProject) {
+      return _i14.TaigaProject.fromJson(data, this) as T;
+    }
+    if (t == _i15.User) {
+      return _i15.User.fromJson(data, this) as T;
+    }
+    if (t == _i1.getType<_i3.ActionType?>()) {
+      return (data != null ? _i3.ActionType.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i4.AmountOfDays?>()) {
+      return (data != null ? _i4.AmountOfDays.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i5.FigmaAction?>()) {
+      return (data != null ? _i5.FigmaAction.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i6.HuData?>()) {
+      return (data != null ? _i6.HuData.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i7.HuStatus?>()) {
+      return (data != null ? _i7.HuStatus.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i8.Sprint?>()) {
+      return (data != null ? _i8.Sprint.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i9.StatusCard?>()) {
+      return (data != null ? _i9.StatusCard.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i10.StatusCardDetails?>()) {
+      return (data != null ? _i10.StatusCardDetails.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i6.TaigaProject?>()) {
-      return (data != null ? _i6.TaigaProject.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i11.TaigaJob?>()) {
+      return (data != null ? _i11.TaigaJob.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i7.User?>()) {
-      return (data != null ? _i7.User.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<List<_i8.TaigaProject>?>()) {
+    if (t == _i1.getType<_i12.TaigaJobCommentaries?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i8.TaigaProject>(e)).toList()
+          ? _i12.TaigaJobCommentaries.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i13.TaigaJobUpdates?>()) {
+      return (data != null ? _i13.TaigaJobUpdates.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i14.TaigaProject?>()) {
+      return (data != null ? _i14.TaigaProject.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i15.User?>()) {
+      return (data != null ? _i15.User.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<List<_i16.TaigaProject>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i16.TaigaProject>(e))
+              .toList()
           : null) as dynamic;
     }
-    if (t == List<_i8.TaigaProject>) {
+    if (t == List<_i16.TaigaProject>) {
       return (data as List)
-          .map((e) => deserialize<_i8.TaigaProject>(e))
+          .map((e) => deserialize<_i16.TaigaProject>(e))
           .toList() as dynamic;
     }
-    if (t == _i1.getType<List<_i9.TaigaJob>?>()) {
+    if (t == _i1.getType<List<_i17.TaigaJob>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i9.TaigaJob>) {
-      return (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
+    if (t == List<_i17.TaigaJob>) {
+      return (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           as dynamic;
     }
-    if (t == _i1.getType<List<_i9.TaigaJob>?>()) {
+    if (t == _i1.getType<List<_i17.TaigaJob>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i9.TaigaJob>?>()) {
+    if (t == _i1.getType<List<_i17.TaigaJob>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i9.TaigaJob>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i10.TaigaJobUpdates>?>()) {
+    if (t == _i1.getType<List<_i18.TaigaJobUpdates>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i10.TaigaJobUpdates>(e))
+              .map((e) => deserialize<_i18.TaigaJobUpdates>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i10.TaigaJobUpdates>) {
+    if (t == List<_i18.TaigaJobUpdates>) {
       return (data as List)
-          .map((e) => deserialize<_i10.TaigaJobUpdates>(e))
+          .map((e) => deserialize<_i18.TaigaJobUpdates>(e))
           .toList() as dynamic;
     }
-    if (t == _i1.getType<List<_i10.TaigaJobUpdates>?>()) {
+    if (t == _i1.getType<List<_i18.TaigaJobUpdates>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i10.TaigaJobUpdates>(e))
+              .map((e) => deserialize<_i18.TaigaJobUpdates>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i11.TaigaJobCommentaries>?>()) {
+    if (t == _i1.getType<List<_i19.TaigaJobCommentaries>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i11.TaigaJobCommentaries>(e))
+              .map((e) => deserialize<_i19.TaigaJobCommentaries>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i11.TaigaJobCommentaries>) {
+    if (t == List<_i19.TaigaJobCommentaries>) {
       return (data as List)
-          .map((e) => deserialize<_i11.TaigaJobCommentaries>(e))
+          .map((e) => deserialize<_i19.TaigaJobCommentaries>(e))
           .toList() as dynamic;
     }
     try {
@@ -498,19 +984,43 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   String? getClassNameForObject(Object data) {
-    if (data is _i3.TaigaJob) {
+    if (data is _i3.ActionType) {
+      return 'ActionType';
+    }
+    if (data is _i4.AmountOfDays) {
+      return 'AmountOfDays';
+    }
+    if (data is _i5.FigmaAction) {
+      return 'FigmaAction';
+    }
+    if (data is _i6.HuData) {
+      return 'HuData';
+    }
+    if (data is _i7.HuStatus) {
+      return 'HuStatus';
+    }
+    if (data is _i8.Sprint) {
+      return 'Sprint';
+    }
+    if (data is _i9.StatusCard) {
+      return 'StatusCard';
+    }
+    if (data is _i10.StatusCardDetails) {
+      return 'StatusCardDetails';
+    }
+    if (data is _i11.TaigaJob) {
       return 'TaigaJob';
     }
-    if (data is _i4.TaigaJobCommentaries) {
+    if (data is _i12.TaigaJobCommentaries) {
       return 'TaigaJobCommentaries';
     }
-    if (data is _i5.TaigaJobUpdates) {
+    if (data is _i13.TaigaJobUpdates) {
       return 'TaigaJobUpdates';
     }
-    if (data is _i6.TaigaProject) {
+    if (data is _i14.TaigaProject) {
       return 'TaigaProject';
     }
-    if (data is _i7.User) {
+    if (data is _i15.User) {
       return 'User';
     }
     return super.getClassNameForObject(data);
@@ -518,20 +1028,44 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'] == 'ActionType') {
+      return deserialize<_i3.ActionType>(data['data']);
+    }
+    if (data['className'] == 'AmountOfDays') {
+      return deserialize<_i4.AmountOfDays>(data['data']);
+    }
+    if (data['className'] == 'FigmaAction') {
+      return deserialize<_i5.FigmaAction>(data['data']);
+    }
+    if (data['className'] == 'HuData') {
+      return deserialize<_i6.HuData>(data['data']);
+    }
+    if (data['className'] == 'HuStatus') {
+      return deserialize<_i7.HuStatus>(data['data']);
+    }
+    if (data['className'] == 'Sprint') {
+      return deserialize<_i8.Sprint>(data['data']);
+    }
+    if (data['className'] == 'StatusCard') {
+      return deserialize<_i9.StatusCard>(data['data']);
+    }
+    if (data['className'] == 'StatusCardDetails') {
+      return deserialize<_i10.StatusCardDetails>(data['data']);
+    }
     if (data['className'] == 'TaigaJob') {
-      return deserialize<_i3.TaigaJob>(data['data']);
+      return deserialize<_i11.TaigaJob>(data['data']);
     }
     if (data['className'] == 'TaigaJobCommentaries') {
-      return deserialize<_i4.TaigaJobCommentaries>(data['data']);
+      return deserialize<_i12.TaigaJobCommentaries>(data['data']);
     }
     if (data['className'] == 'TaigaJobUpdates') {
-      return deserialize<_i5.TaigaJobUpdates>(data['data']);
+      return deserialize<_i13.TaigaJobUpdates>(data['data']);
     }
     if (data['className'] == 'TaigaProject') {
-      return deserialize<_i6.TaigaProject>(data['data']);
+      return deserialize<_i14.TaigaProject>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i7.User>(data['data']);
+      return deserialize<_i15.User>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -545,16 +1079,28 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i3.TaigaJob:
-        return _i3.TaigaJob.t;
-      case _i4.TaigaJobCommentaries:
-        return _i4.TaigaJobCommentaries.t;
-      case _i5.TaigaJobUpdates:
-        return _i5.TaigaJobUpdates.t;
-      case _i6.TaigaProject:
-        return _i6.TaigaProject.t;
-      case _i7.User:
-        return _i7.User.t;
+      case _i4.AmountOfDays:
+        return _i4.AmountOfDays.t;
+      case _i5.FigmaAction:
+        return _i5.FigmaAction.t;
+      case _i6.HuData:
+        return _i6.HuData.t;
+      case _i8.Sprint:
+        return _i8.Sprint.t;
+      case _i9.StatusCard:
+        return _i9.StatusCard.t;
+      case _i10.StatusCardDetails:
+        return _i10.StatusCardDetails.t;
+      case _i11.TaigaJob:
+        return _i11.TaigaJob.t;
+      case _i12.TaigaJobCommentaries:
+        return _i12.TaigaJobCommentaries.t;
+      case _i13.TaigaJobUpdates:
+        return _i13.TaigaJobUpdates.t;
+      case _i14.TaigaProject:
+        return _i14.TaigaProject.t;
+      case _i15.User:
+        return _i15.User.t;
     }
     return null;
   }

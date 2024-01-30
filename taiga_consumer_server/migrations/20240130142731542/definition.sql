@@ -1,6 +1,69 @@
 BEGIN;
 
 --
+-- Class FigmaAction as table figma_action
+--
+CREATE TABLE "figma_action" (
+    "id" serial PRIMARY KEY,
+    "action" text NOT NULL,
+    "huDataId" integer NOT NULL
+);
+
+--
+-- Class AmountOfDays as table figma_day_counter
+--
+CREATE TABLE "figma_day_counter" (
+    "id" serial PRIMARY KEY,
+    "preparation" text NOT NULL,
+    "development" text NOT NULL,
+    "approbation" text NOT NULL,
+    "finalApprobation" text NOT NULL,
+    "quality" text NOT NULL
+);
+
+--
+-- Class HuData as table hu_data
+--
+CREATE TABLE "hu_data" (
+    "id" serial PRIMARY KEY,
+    "name" text NOT NULL,
+    "refNum" integer NOT NULL,
+    "status" text NOT NULL,
+    "readyForDev" boolean NOT NULL,
+    "sprintId" integer NOT NULL,
+    "statusCardId" integer NOT NULL
+);
+
+--
+-- Class Sprint as table sprint_data
+--
+CREATE TABLE "sprint_data" (
+    "id" serial PRIMARY KEY,
+    "name" text NOT NULL
+);
+
+--
+-- Class StatusCard as table status_card
+--
+CREATE TABLE "status_card" (
+    "id" serial PRIMARY KEY,
+    "approvedId" integer NOT NULL,
+    "developmentId" integer NOT NULL,
+    "internalTestId" integer NOT NULL,
+    "externalTestId" integer NOT NULL,
+    "amountOfDaysId" integer NOT NULL
+);
+
+--
+-- Class StatusCardDetails as table status_card_details
+--
+CREATE TABLE "status_card_details" (
+    "id" serial PRIMARY KEY,
+    "byUserId" integer NOT NULL,
+    "date" timestamp without time zone NOT NULL
+);
+
+--
 -- Class TaigaJob as table taiga_job
 --
 CREATE TABLE "taiga_job" (
@@ -52,6 +115,7 @@ CREATE TABLE "taiga_project" (
 CREATE TABLE "user" (
     "id" serial PRIMARY KEY,
     "username" text NOT NULL,
+    "userAvatar" text NOT NULL,
     "taigaId" integer NOT NULL,
     "gitHubId" integer NOT NULL,
     "gitLabId" integer NOT NULL
@@ -278,6 +342,76 @@ CREATE INDEX "serverpod_session_log_touched_idx" ON "serverpod_session_log" USIN
 CREATE INDEX "serverpod_session_log_isopen_idx" ON "serverpod_session_log" USING btree ("isOpen");
 
 --
+-- Foreign relations for "figma_action" table
+--
+ALTER TABLE ONLY "figma_action"
+    ADD CONSTRAINT "figma_action_fk_0"
+    FOREIGN KEY("huDataId")
+    REFERENCES "hu_data"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "hu_data" table
+--
+ALTER TABLE ONLY "hu_data"
+    ADD CONSTRAINT "hu_data_fk_0"
+    FOREIGN KEY("sprintId")
+    REFERENCES "sprint_data"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "hu_data"
+    ADD CONSTRAINT "hu_data_fk_1"
+    FOREIGN KEY("statusCardId")
+    REFERENCES "status_card"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "status_card" table
+--
+ALTER TABLE ONLY "status_card"
+    ADD CONSTRAINT "status_card_fk_0"
+    FOREIGN KEY("approvedId")
+    REFERENCES "user"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "status_card"
+    ADD CONSTRAINT "status_card_fk_1"
+    FOREIGN KEY("developmentId")
+    REFERENCES "user"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "status_card"
+    ADD CONSTRAINT "status_card_fk_2"
+    FOREIGN KEY("internalTestId")
+    REFERENCES "user"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "status_card"
+    ADD CONSTRAINT "status_card_fk_3"
+    FOREIGN KEY("externalTestId")
+    REFERENCES "user"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "status_card"
+    ADD CONSTRAINT "status_card_fk_4"
+    FOREIGN KEY("amountOfDaysId")
+    REFERENCES "figma_day_counter"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "status_card_details" table
+--
+ALTER TABLE ONLY "status_card_details"
+    ADD CONSTRAINT "status_card_details_fk_0"
+    FOREIGN KEY("byUserId")
+    REFERENCES "user"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
 -- Foreign relations for "taiga_job" table
 --
 ALTER TABLE ONLY "taiga_job"
@@ -354,9 +488,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR taiga_consumer
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('taiga_consumer', '20240126131446828', now())
+    VALUES ('taiga_consumer', '20240130142731542', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240126131446828', "timestamp" = now();
+    DO UPDATE SET "version" = '20240130142731542', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

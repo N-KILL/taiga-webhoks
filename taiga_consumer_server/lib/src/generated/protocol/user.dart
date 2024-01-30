@@ -14,6 +14,7 @@ abstract class User extends _i1.TableRow {
   User._({
     int? id,
     required this.username,
+    required this.userAvatar,
     required this.taigaId,
     required this.gitHubId,
     required this.gitLabId,
@@ -22,6 +23,7 @@ abstract class User extends _i1.TableRow {
   factory User({
     int? id,
     required String username,
+    required String userAvatar,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
@@ -35,6 +37,8 @@ abstract class User extends _i1.TableRow {
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       username: serializationManager
           .deserialize<String>(jsonSerialization['username']),
+      userAvatar: serializationManager
+          .deserialize<String>(jsonSerialization['userAvatar']),
       taigaId:
           serializationManager.deserialize<int>(jsonSerialization['taigaId']),
       gitHubId:
@@ -48,12 +52,19 @@ abstract class User extends _i1.TableRow {
 
   static const db = UserRepository._();
 
+  /// Status of the job
   String username;
 
+  /// Url of the user avatar
+  String userAvatar;
+
+  /// Id of the Taiga account of the user
   int taigaId;
 
+  /// Id of the GitHub account of the user
   int gitHubId;
 
+  /// Id of the GitLab account of the user
   int gitLabId;
 
   @override
@@ -62,6 +73,7 @@ abstract class User extends _i1.TableRow {
   User copyWith({
     int? id,
     String? username,
+    String? userAvatar,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -71,6 +83,7 @@ abstract class User extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'username': username,
+      'userAvatar': userAvatar,
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -83,6 +96,7 @@ abstract class User extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'username': username,
+      'userAvatar': userAvatar,
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -94,6 +108,7 @@ abstract class User extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'username': username,
+      'userAvatar': userAvatar,
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -111,6 +126,9 @@ abstract class User extends _i1.TableRow {
         return;
       case 'username':
         username = value;
+        return;
+      case 'userAvatar':
+        userAvatar = value;
         return;
       case 'taigaId':
         taigaId = value;
@@ -274,12 +292,14 @@ class _UserImpl extends User {
   _UserImpl({
     int? id,
     required String username,
+    required String userAvatar,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
   }) : super._(
           id: id,
           username: username,
+          userAvatar: userAvatar,
           taigaId: taigaId,
           gitHubId: gitHubId,
           gitLabId: gitLabId,
@@ -289,6 +309,7 @@ class _UserImpl extends User {
   User copyWith({
     Object? id = _Undefined,
     String? username,
+    String? userAvatar,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -296,6 +317,7 @@ class _UserImpl extends User {
     return User(
       id: id is int? ? id : this.id,
       username: username ?? this.username,
+      userAvatar: userAvatar ?? this.userAvatar,
       taigaId: taigaId ?? this.taigaId,
       gitHubId: gitHubId ?? this.gitHubId,
       gitLabId: gitLabId ?? this.gitLabId,
@@ -307,6 +329,10 @@ class UserTable extends _i1.Table {
   UserTable({super.tableRelation}) : super(tableName: 'user') {
     username = _i1.ColumnString(
       'username',
+      this,
+    );
+    userAvatar = _i1.ColumnString(
+      'userAvatar',
       this,
     );
     taigaId = _i1.ColumnInt(
@@ -323,18 +349,26 @@ class UserTable extends _i1.Table {
     );
   }
 
+  /// Status of the job
   late final _i1.ColumnString username;
 
+  /// Url of the user avatar
+  late final _i1.ColumnString userAvatar;
+
+  /// Id of the Taiga account of the user
   late final _i1.ColumnInt taigaId;
 
+  /// Id of the GitHub account of the user
   late final _i1.ColumnInt gitHubId;
 
+  /// Id of the GitLab account of the user
   late final _i1.ColumnInt gitLabId;
 
   @override
   List<_i1.Column> get columns => [
         id,
         username,
+        userAvatar,
         taigaId,
         gitHubId,
         gitLabId,
