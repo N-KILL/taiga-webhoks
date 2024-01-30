@@ -26,7 +26,8 @@ class SendUpdatesFutureCall extends FutureCall {
       mailUpdateNotificationCron(
         session: session,
         project: projectDetails,
-        hours: [8],
+        minutes: [1],
+        hours: [11],
         email: 'club_dog2@hotmail.com',
       );
     }

@@ -97,7 +97,7 @@ Future<void> mailUpdateNotificationCron({
         // If the message have content
         if (message != null) {
           // Send an email to the email selected on the parameters
-          final mailStatus = sendMail(
+          final mailStatus = await sendMail(
             email: email,
             message: message,
           );

@@ -61,7 +61,7 @@ Future<bool> sendMail({
       port: 46802,
     ),
     // TODO(Nacho): Esto a futuro tiene q ser .env
-    email: 'testingnid1234@outlook.es',
+    email: 'testingn1dus@hotmail.com',
     displayName: 'testingnid1234@outlook.es',
     password: 'TestNidus1234_',
     serverProvider: ServerProvider.outlook,
