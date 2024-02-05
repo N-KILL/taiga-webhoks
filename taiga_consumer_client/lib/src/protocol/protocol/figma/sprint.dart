@@ -14,11 +14,13 @@ abstract class Sprint extends _i1.SerializableEntity {
   Sprint._({
     this.id,
     required this.name,
+    required this.taigaId,
   });
 
   factory Sprint({
     int? id,
     required String name,
+    required int taigaId,
   }) = _SprintImpl;
 
   factory Sprint.fromJson(
@@ -28,6 +30,8 @@ abstract class Sprint extends _i1.SerializableEntity {
     return Sprint(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
+      taigaId:
+          serializationManager.deserialize<int>(jsonSerialization['taigaId']),
     );
   }
 
@@ -38,15 +42,19 @@ abstract class Sprint extends _i1.SerializableEntity {
 
   String name;
 
+  int taigaId;
+
   Sprint copyWith({
     int? id,
     String? name,
+    int? taigaId,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
       'name': name,
+      'taigaId': taigaId,
     };
   }
 }
@@ -57,19 +65,23 @@ class _SprintImpl extends Sprint {
   _SprintImpl({
     int? id,
     required String name,
+    required int taigaId,
   }) : super._(
           id: id,
           name: name,
+          taigaId: taigaId,
         );
 
   @override
   Sprint copyWith({
     Object? id = _Undefined,
     String? name,
+    int? taigaId,
   }) {
     return Sprint(
       id: id is int? ? id : this.id,
       name: name ?? this.name,
+      taigaId: taigaId ?? this.taigaId,
     );
   }
 }

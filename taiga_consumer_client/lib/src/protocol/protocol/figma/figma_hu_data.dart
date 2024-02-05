@@ -18,9 +18,9 @@ abstract class HuData extends _i1.SerializableEntity {
     required this.refNum,
     required this.status,
     required this.readyForDev,
-    required this.sprintId,
+    this.sprintId,
     this.sprint,
-    required this.statusCardId,
+    this.statusCardId,
     this.statusCard,
   });
 
@@ -30,9 +30,9 @@ abstract class HuData extends _i1.SerializableEntity {
     required int refNum,
     required _i2.HuStatus status,
     required bool readyForDev,
-    required int sprintId,
+    int? sprintId,
     _i2.Sprint? sprint,
-    required int statusCardId,
+    int? statusCardId,
     _i2.StatusCard? statusCard,
   }) = _HuDataImpl;
 
@@ -50,11 +50,11 @@ abstract class HuData extends _i1.SerializableEntity {
       readyForDev: serializationManager
           .deserialize<bool>(jsonSerialization['readyForDev']),
       sprintId:
-          serializationManager.deserialize<int>(jsonSerialization['sprintId']),
+          serializationManager.deserialize<int?>(jsonSerialization['sprintId']),
       sprint: serializationManager
           .deserialize<_i2.Sprint?>(jsonSerialization['sprint']),
       statusCardId: serializationManager
-          .deserialize<int>(jsonSerialization['statusCardId']),
+          .deserialize<int?>(jsonSerialization['statusCardId']),
       statusCard: serializationManager
           .deserialize<_i2.StatusCard?>(jsonSerialization['statusCard']),
     );
@@ -73,11 +73,11 @@ abstract class HuData extends _i1.SerializableEntity {
 
   bool readyForDev;
 
-  int sprintId;
+  int? sprintId;
 
   _i2.Sprint? sprint;
 
-  int statusCardId;
+  int? statusCardId;
 
   _i2.StatusCard? statusCard;
 
@@ -98,12 +98,12 @@ abstract class HuData extends _i1.SerializableEntity {
       if (id != null) 'id': id,
       'name': name,
       'refNum': refNum,
-      'status': status,
+      'status': status.toJson(),
       'readyForDev': readyForDev,
-      'sprintId': sprintId,
-      if (sprint != null) 'sprint': sprint,
-      'statusCardId': statusCardId,
-      if (statusCard != null) 'statusCard': statusCard,
+      if (sprintId != null) 'sprintId': sprintId,
+      if (sprint != null) 'sprint': sprint?.toJson(),
+      if (statusCardId != null) 'statusCardId': statusCardId,
+      if (statusCard != null) 'statusCard': statusCard?.toJson(),
     };
   }
 }
@@ -117,9 +117,9 @@ class _HuDataImpl extends HuData {
     required int refNum,
     required _i2.HuStatus status,
     required bool readyForDev,
-    required int sprintId,
+    int? sprintId,
     _i2.Sprint? sprint,
-    required int statusCardId,
+    int? statusCardId,
     _i2.StatusCard? statusCard,
   }) : super._(
           id: id,
@@ -140,9 +140,9 @@ class _HuDataImpl extends HuData {
     int? refNum,
     _i2.HuStatus? status,
     bool? readyForDev,
-    int? sprintId,
+    Object? sprintId = _Undefined,
     Object? sprint = _Undefined,
-    int? statusCardId,
+    Object? statusCardId = _Undefined,
     Object? statusCard = _Undefined,
   }) {
     return HuData(
@@ -151,9 +151,9 @@ class _HuDataImpl extends HuData {
       refNum: refNum ?? this.refNum,
       status: status ?? this.status,
       readyForDev: readyForDev ?? this.readyForDev,
-      sprintId: sprintId ?? this.sprintId,
+      sprintId: sprintId is int? ? sprintId : this.sprintId,
       sprint: sprint is _i2.Sprint? ? sprint : this.sprint?.copyWith(),
-      statusCardId: statusCardId ?? this.statusCardId,
+      statusCardId: statusCardId is int? ? statusCardId : this.statusCardId,
       statusCard: statusCard is _i2.StatusCard?
           ? statusCard
           : this.statusCard?.copyWith(),

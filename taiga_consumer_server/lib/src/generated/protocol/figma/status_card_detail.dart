@@ -14,16 +14,16 @@ import '../../protocol.dart' as _i2;
 abstract class StatusCardDetails extends _i1.TableRow {
   StatusCardDetails._({
     int? id,
-    required this.byUserId,
+    this.byUserId,
     this.byUser,
     required this.date,
   }) : super(id);
 
   factory StatusCardDetails({
     int? id,
-    required int byUserId,
+    int? byUserId,
     _i2.User? byUser,
-    required DateTime date,
+    required String date,
   }) = _StatusCardDetailsImpl;
 
   factory StatusCardDetails.fromJson(
@@ -33,11 +33,10 @@ abstract class StatusCardDetails extends _i1.TableRow {
     return StatusCardDetails(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       byUserId:
-          serializationManager.deserialize<int>(jsonSerialization['byUserId']),
+          serializationManager.deserialize<int?>(jsonSerialization['byUserId']),
       byUser: serializationManager
           .deserialize<_i2.User?>(jsonSerialization['byUser']),
-      date:
-          serializationManager.deserialize<DateTime>(jsonSerialization['date']),
+      date: serializationManager.deserialize<String>(jsonSerialization['date']),
     );
   }
 
@@ -45,11 +44,11 @@ abstract class StatusCardDetails extends _i1.TableRow {
 
   static const db = StatusCardDetailsRepository._();
 
-  int byUserId;
+  int? byUserId;
 
   _i2.User? byUser;
 
-  DateTime date;
+  String date;
 
   @override
   _i1.Table get table => t;
@@ -58,14 +57,14 @@ abstract class StatusCardDetails extends _i1.TableRow {
     int? id,
     int? byUserId,
     _i2.User? byUser,
-    DateTime? date,
+    String? date,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'byUserId': byUserId,
-      if (byUser != null) 'byUser': byUser,
+      if (byUserId != null) 'byUserId': byUserId,
+      if (byUser != null) 'byUser': byUser?.toJson(),
       'date': date,
     };
   }
@@ -74,7 +73,7 @@ abstract class StatusCardDetails extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'byUserId': byUserId,
       'date': date,
     };
@@ -84,13 +83,14 @@ abstract class StatusCardDetails extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       if (id != null) 'id': id,
-      'byUserId': byUserId,
-      if (byUser != null) 'byUser': byUser,
+      if (byUserId != null) 'byUserId': byUserId,
+      if (byUser != null) 'byUser': byUser?.allToJson(),
       'date': date,
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,
@@ -265,9 +265,9 @@ class _Undefined {}
 class _StatusCardDetailsImpl extends StatusCardDetails {
   _StatusCardDetailsImpl({
     int? id,
-    required int byUserId,
+    int? byUserId,
     _i2.User? byUser,
-    required DateTime date,
+    required String date,
   }) : super._(
           id: id,
           byUserId: byUserId,
@@ -278,13 +278,13 @@ class _StatusCardDetailsImpl extends StatusCardDetails {
   @override
   StatusCardDetails copyWith({
     Object? id = _Undefined,
-    int? byUserId,
+    Object? byUserId = _Undefined,
     Object? byUser = _Undefined,
-    DateTime? date,
+    String? date,
   }) {
     return StatusCardDetails(
       id: id is int? ? id : this.id,
-      byUserId: byUserId ?? this.byUserId,
+      byUserId: byUserId is int? ? byUserId : this.byUserId,
       byUser: byUser is _i2.User? ? byUser : this.byUser?.copyWith(),
       date: date ?? this.date,
     );
@@ -298,7 +298,7 @@ class StatusCardDetailsTable extends _i1.Table {
       'byUserId',
       this,
     );
-    date = _i1.ColumnDateTime(
+    date = _i1.ColumnString(
       'date',
       this,
     );
@@ -308,7 +308,7 @@ class StatusCardDetailsTable extends _i1.Table {
 
   _i2.UserTable? _byUser;
 
-  late final _i1.ColumnDateTime date;
+  late final _i1.ColumnString date;
 
   _i2.UserTable get byUser {
     if (_byUser != null) return _byUser!;
@@ -380,6 +380,8 @@ class StatusCardDetailsRepository {
   const StatusCardDetailsRepository._();
 
   final attachRow = const StatusCardDetailsAttachRowRepository._();
+
+  final detachRow = const StatusCardDetailsDetachRowRepository._();
 
   Future<List<StatusCardDetails>> find(
     _i1.Session session, {
@@ -551,6 +553,25 @@ class StatusCardDetailsAttachRowRepository {
     var $statusCardDetails = statusCardDetails.copyWith(byUserId: byUser.id);
     await session.dbNext.updateRow<StatusCardDetails>(
       $statusCardDetails,
+      columns: [StatusCardDetails.t.byUserId],
+    );
+  }
+}
+
+class StatusCardDetailsDetachRowRepository {
+  const StatusCardDetailsDetachRowRepository._();
+
+  Future<void> byUser(
+    _i1.Session session,
+    StatusCardDetails statuscarddetails,
+  ) async {
+    if (statuscarddetails.id == null) {
+      throw ArgumentError.notNull('statuscarddetails.id');
+    }
+
+    var $statuscarddetails = statuscarddetails.copyWith(byUserId: null);
+    await session.dbNext.updateRow<StatusCardDetails>(
+      $statuscarddetails,
       columns: [StatusCardDetails.t.byUserId],
     );
   }

@@ -1,8 +1,8 @@
 class: StatusCard
 table: status_card
 fields:
-  approved: User?, relation
-  development: User?, relation
-  internalTest: User?, relation
-  externalTest: User?, relation
-  amountOfDays: AmountOfDays?, relation
+  approved: StatusCardDetails?, relation(optional)
+  development: StatusCardDetails?, relation(optional)
+  internalTest: StatusCardDetails?, relation(optional)
+  externalTest: StatusCardDetails?, relation(optional)
+  amountOfDays: AmountOfDays?, relation(optional)

@@ -114,13 +114,13 @@ abstract class TaigaJobUpdates extends _i1.SerializableEntity {
     return {
       if (id != null) 'id': id,
       'jobId': jobId,
-      if (job != null) 'job': job,
+      if (job != null) 'job': job?.toJson(),
       'type': type,
       'status': status,
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
-      if (comment != null) 'comment': comment,
+      if (comment != null) 'comment': comment?.toJson(),
     };
   }
 }

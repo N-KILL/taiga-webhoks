@@ -19,10 +19,34 @@
             "name": "action",
             "columnType": 0,
             "isNullable": false,
-            "dartType": "String"
+            "dartType": "protocol:ActionType"
           },
           {
             "name": "huDataId",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "isActive",
+            "columnType": 1,
+            "isNullable": false,
+            "dartType": "bool"
+          },
+          {
+            "name": "creationDate",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "inactiveSince",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "projectId",
             "columnType": 2,
             "isNullable": false,
             "dartType": "int"
@@ -35,6 +59,19 @@
               "huDataId"
             ],
             "referenceTable": "hu_data",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "figma_action_fk_1",
+            "columns": [
+              "projectId"
+            ],
+            "referenceTable": "taiga_project",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -166,14 +203,14 @@
           {
             "name": "sprintId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "statusCardId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           }
         ],
         "foreignKeys": [
@@ -241,6 +278,12 @@
             "columnType": 0,
             "isNullable": false,
             "dartType": "String"
+          },
+          {
+            "name": "taigaId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
           }
         ],
         "foreignKeys": [],
@@ -279,32 +322,32 @@
           {
             "name": "approvedId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "developmentId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "internalTestId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "externalTestId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "amountOfDaysId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           }
         ],
         "foreignKeys": [
@@ -313,7 +356,7 @@
             "columns": [
               "approvedId"
             ],
-            "referenceTable": "user",
+            "referenceTable": "status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -326,7 +369,7 @@
             "columns": [
               "developmentId"
             ],
-            "referenceTable": "user",
+            "referenceTable": "status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -339,7 +382,7 @@
             "columns": [
               "internalTestId"
             ],
-            "referenceTable": "user",
+            "referenceTable": "status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -352,7 +395,7 @@
             "columns": [
               "externalTestId"
             ],
-            "referenceTable": "user",
+            "referenceTable": "status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -409,14 +452,14 @@
           {
             "name": "byUserId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "date",
-            "columnType": 4,
+            "columnType": 0,
             "isNullable": false,
-            "dartType": "DateTime"
+            "dartType": "String"
           }
         ],
         "foreignKeys": [

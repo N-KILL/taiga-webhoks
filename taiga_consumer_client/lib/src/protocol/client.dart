@@ -10,15 +10,62 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/figma/figma_action.dart'
     as _i3;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/figma/figma_hu_data.dart'
     as _i4;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/figma/sprint.dart'
     as _i5;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.dart'
     as _i6;
-import 'protocol.dart' as _i7;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
+    as _i7;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
+    as _i8;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
+    as _i9;
+import 'protocol.dart' as _i10;
+
+/// This class [FigmaEndpoint] is used to send information to the figma plugin
+/// https://github.com/N-KILL/Nidus-Figma-Plugin
+///
+/// Those are the models relates to this endpoint:
+/// <ul>
+/// </ul>
+/// {@category Endpoint}
+class EndpointFigma extends _i1.EndpointRef {
+  EndpointFigma(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'figma';
+
+  /// This [figmaResponse] method, is the one who's called, by the figma plugin
+  /// this have the parameter [projectName], which is used to filter the details
+  /// of the projects
+  /// This [registerNewAction] endpoint is for register a new action into the db
+  /// register
+  _i2.Future<String> registerNewAction(
+          {required _i3.FigmaAction figmaAction}) =>
+      caller.callServerEndpoint<String>(
+        'figma',
+        'registerNewAction',
+        {'figmaAction': figmaAction},
+      );
+
+  _i2.Future<String> registerNewHUData({required _i4.HuData huData}) =>
+      caller.callServerEndpoint<String>(
+        'figma',
+        'registerNewHUData',
+        {'huData': huData},
+      );
+
+  _i2.Future<_i5.Sprint?> getSprintDataByTaigaId({required dynamic taigaId}) =>
+      caller.callServerEndpoint<_i5.Sprint?>(
+        'figma',
+        'getSprintDataByTaigaId',
+        {'taigaId': taigaId},
+      );
+}
 
 /// This class [TaigaProjectEndpoint] is used to manage the project data in the
 /// database. Have al the CRUD operators (Create, Read, Update, Delete) to the
@@ -31,9 +78,9 @@ class EndpointTaigaProject extends _i1.EndpointRef {
   String get name => 'taigaProject';
 
   /// This [projectCreate] is used to create a [TaigaProject] in the database.
-  _i2.Future<_i3.TaigaProject?> projectCreate(
-          {required _i3.TaigaProject taigaProject}) =>
-      caller.callServerEndpoint<_i3.TaigaProject?>(
+  _i2.Future<_i6.TaigaProject?> projectCreate(
+          {required _i6.TaigaProject taigaProject}) =>
+      caller.callServerEndpoint<_i6.TaigaProject?>(
         'taigaProject',
         'projectCreate',
         {'taigaProject': taigaProject},
@@ -41,9 +88,9 @@ class EndpointTaigaProject extends _i1.EndpointRef {
 
   /// This [projectCreateOnBulk] is used to create multiple [TaigaProject] in the
   /// database.
-  _i2.Future<List<_i3.TaigaProject>?> projectCreateOnBulk(
-          {required List<_i3.TaigaProject> taigaProject}) =>
-      caller.callServerEndpoint<List<_i3.TaigaProject>?>(
+  _i2.Future<List<_i6.TaigaProject>?> projectCreateOnBulk(
+          {required List<_i6.TaigaProject> taigaProject}) =>
+      caller.callServerEndpoint<List<_i6.TaigaProject>?>(
         'taigaProject',
         'projectCreateOnBulk',
         {'taigaProject': taigaProject},
@@ -51,8 +98,8 @@ class EndpointTaigaProject extends _i1.EndpointRef {
 
   /// This [projectReadById] is used to read a [TaigaProject] from the database
   /// using his [id]
-  _i2.Future<_i3.TaigaProject?> projectReadById({required int id}) =>
-      caller.callServerEndpoint<_i3.TaigaProject?>(
+  _i2.Future<_i6.TaigaProject?> projectReadById({required int id}) =>
+      caller.callServerEndpoint<_i6.TaigaProject?>(
         'taigaProject',
         'projectReadById',
         {'id': id},
@@ -60,9 +107,9 @@ class EndpointTaigaProject extends _i1.EndpointRef {
 
   /// This [projectReadByTitle] is used to read a [TaigaProject] from the
   /// database using his [projectTitle]
-  _i2.Future<_i3.TaigaProject?> projectReadByTitle(
+  _i2.Future<_i6.TaigaProject?> projectReadByTitle(
           {required String projectTitle}) =>
-      caller.callServerEndpoint<_i3.TaigaProject?>(
+      caller.callServerEndpoint<_i6.TaigaProject?>(
         'taigaProject',
         'projectReadByTitle',
         {'projectTitle': projectTitle},
@@ -70,9 +117,9 @@ class EndpointTaigaProject extends _i1.EndpointRef {
 
   /// This [projectReadByTaigaProjectId] is used to read a [TaigaProject] from
   /// the database using his [id] from `Taiga`
-  _i2.Future<_i3.TaigaProject?> projectReadByTaigaProjectId(
+  _i2.Future<_i6.TaigaProject?> projectReadByTaigaProjectId(
           {required int id}) =>
-      caller.callServerEndpoint<_i3.TaigaProject?>(
+      caller.callServerEndpoint<_i6.TaigaProject?>(
         'taigaProject',
         'projectReadByTaigaProjectId',
         {'id': id},
@@ -86,9 +133,9 @@ class EndpointTaigaProject extends _i1.EndpointRef {
   ///
   /// <h5> Using a [TaigaProject] without id, will make the endpoint fail, and
   /// return null</h5>
-  _i2.Future<_i3.TaigaProject?> projectUpdateProject(
-          {required _i3.TaigaProject taigaProject}) =>
-      caller.callServerEndpoint<_i3.TaigaProject?>(
+  _i2.Future<_i6.TaigaProject?> projectUpdateProject(
+          {required _i6.TaigaProject taigaProject}) =>
+      caller.callServerEndpoint<_i6.TaigaProject?>(
         'taigaProject',
         'projectUpdateProject',
         {'taigaProject': taigaProject},
@@ -97,7 +144,7 @@ class EndpointTaigaProject extends _i1.EndpointRef {
   /// This [projectDeleteProject] is used to delete a [TaigaProject] from the
   /// database, using the info of a [taigaProject]
   _i2.Future<int?> projectDeleteProject(
-          {required _i3.TaigaProject taigaProject}) =>
+          {required _i6.TaigaProject taigaProject}) =>
       caller.callServerEndpoint<int?>(
         'taigaProject',
         'projectDeleteProject',
@@ -114,7 +161,7 @@ class EndpointTaigaProject extends _i1.EndpointRef {
       );
 }
 
-/// This class [TaigaJobEndpoints] have all the CRUD methods (CREATE, READ,
+/// This class [TaigaJobEndpoint] have all the CRUD methods (CREATE, READ,
 /// UPDATE, DELETE) to modify a job related model on the database.
 ///
 /// Those are the models relates to this endpoint:
@@ -124,63 +171,63 @@ class EndpointTaigaProject extends _i1.EndpointRef {
 /// <li>[TaigaJobCommentaries]</li>
 /// </ul>
 /// {@category Endpoint}
-class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
-  EndpointTaigaJobEndpoints(_i1.EndpointCaller caller) : super(caller);
+class EndpointTaigaJob extends _i1.EndpointRef {
+  EndpointTaigaJob(_i1.EndpointCaller caller) : super(caller);
 
   @override
-  String get name => 'taigaJobEndpoints';
+  String get name => 'taigaJob';
 
   /// This [taigaJobCreate] is used to store a [TaigaJob] in the database
-  _i2.Future<_i4.TaigaJob?> taigaJobCreate({required _i4.TaigaJob taigaJob}) =>
-      caller.callServerEndpoint<_i4.TaigaJob?>(
-        'taigaJobEndpoints',
+  _i2.Future<_i7.TaigaJob?> taigaJobCreate({required _i7.TaigaJob taigaJob}) =>
+      caller.callServerEndpoint<_i7.TaigaJob?>(
+        'taigaJob',
         'taigaJobCreate',
         {'taigaJob': taigaJob},
       );
 
   /// This [taigaJobCreateOnBulk] is used to store a bunch of [TaigaJob] in the
   /// database
-  _i2.Future<List<_i4.TaigaJob>?> taigaJobCreateOnBulk(
-          {required List<_i4.TaigaJob> taigaJob}) =>
-      caller.callServerEndpoint<List<_i4.TaigaJob>?>(
-        'taigaJobEndpoints',
+  _i2.Future<List<_i7.TaigaJob>?> taigaJobCreateOnBulk(
+          {required List<_i7.TaigaJob> taigaJob}) =>
+      caller.callServerEndpoint<List<_i7.TaigaJob>?>(
+        'taigaJob',
         'taigaJobCreateOnBulk',
         {'taigaJob': taigaJob},
       );
 
   /// This [taigaJobReadById] method, is used to read a [TaigaJob] from the
   /// database, using his [id]
-  _i2.Future<_i4.TaigaJob?> taigaJobReadById({required int id}) =>
-      caller.callServerEndpoint<_i4.TaigaJob?>(
-        'taigaJobEndpoints',
+  _i2.Future<_i7.TaigaJob?> taigaJobReadById({required int id}) =>
+      caller.callServerEndpoint<_i7.TaigaJob?>(
+        'taigaJob',
         'taigaJobReadById',
         {'id': id},
       );
 
   /// This [taigaJobReadByTitle] method, is used to read a [TaigaJob] from the
   /// database, using his [title]
-  _i2.Future<_i4.TaigaJob?> taigaJobReadByTitle({required String title}) =>
-      caller.callServerEndpoint<_i4.TaigaJob?>(
-        'taigaJobEndpoints',
+  _i2.Future<_i7.TaigaJob?> taigaJobReadByTitle({required String title}) =>
+      caller.callServerEndpoint<_i7.TaigaJob?>(
+        'taigaJob',
         'taigaJobReadByTitle',
         {'title': title},
       );
 
   /// This [taigaJobReadByType] method, is used to read a list of [TaigaJob]
   /// from the database, using his [type]
-  _i2.Future<List<_i4.TaigaJob>?> taigaJobReadByType({required String type}) =>
-      caller.callServerEndpoint<List<_i4.TaigaJob>?>(
-        'taigaJobEndpoints',
+  _i2.Future<List<_i7.TaigaJob>?> taigaJobReadByType({required String type}) =>
+      caller.callServerEndpoint<List<_i7.TaigaJob>?>(
+        'taigaJob',
         'taigaJobReadByType',
         {'type': type},
       );
 
   /// This [taigaJobReadByType] method, is used to read a list of [TaigaJob]
   /// from the database, using his [status]
-  _i2.Future<List<_i4.TaigaJob>?> taigaJobReadByStatus(
+  _i2.Future<List<_i7.TaigaJob>?> taigaJobReadByStatus(
           {required String status}) =>
-      caller.callServerEndpoint<List<_i4.TaigaJob>?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<List<_i7.TaigaJob>?>(
+        'taigaJob',
         'taigaJobReadByStatus',
         {'status': status},
       );
@@ -188,12 +235,12 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   /// This [taigaJobReadByProjectIdAndRefNumber] is used for read a TaigaJob
   /// based on his [projectId] and [taigaRefNumber]. Which is specific is unique
   /// per project
-  _i2.Future<_i4.TaigaJob?> taigaJobReadByProjectIdAndRefNumber({
+  _i2.Future<_i7.TaigaJob?> taigaJobReadByProjectIdAndRefNumber({
     required int projectId,
     required int taigaRefNumber,
   }) =>
-      caller.callServerEndpoint<_i4.TaigaJob?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<_i7.TaigaJob?>(
+        'taigaJob',
         'taigaJobReadByProjectIdAndRefNumber',
         {
           'projectId': projectId,
@@ -205,12 +252,12 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   ///
   /// This will find a [TaigaJob] object on the database, based on the [id],
   /// and will be modified with the parameter [taigaJob].
-  _i2.Future<_i4.TaigaJob?> taigaJobUpdateById({
-    required _i4.TaigaJob taigaJob,
+  _i2.Future<_i7.TaigaJob?> taigaJobUpdateById({
+    required _i7.TaigaJob taigaJob,
     required int id,
   }) =>
-      caller.callServerEndpoint<_i4.TaigaJob?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<_i7.TaigaJob?>(
+        'taigaJob',
         'taigaJobUpdateById',
         {
           'taigaJob': taigaJob,
@@ -222,36 +269,36 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   /// using his id
   _i2.Future<int?> TaigaJobDeleteById({required int id}) =>
       caller.callServerEndpoint<int?>(
-        'taigaJobEndpoints',
+        'taigaJob',
         'TaigaJobDeleteById',
         {'id': id},
       );
 
   /// This [taigaJobUpdatesCreate] is for create a register of a
   /// [TaigaJobUpdates] on the database
-  _i2.Future<_i5.TaigaJobUpdates?> taigaJobUpdatesCreate(
-          {required _i5.TaigaJobUpdates taigaJobUpdates}) =>
-      caller.callServerEndpoint<_i5.TaigaJobUpdates?>(
-        'taigaJobEndpoints',
+  _i2.Future<_i8.TaigaJobUpdates?> taigaJobUpdatesCreate(
+          {required _i8.TaigaJobUpdates taigaJobUpdates}) =>
+      caller.callServerEndpoint<_i8.TaigaJobUpdates?>(
+        'taigaJob',
         'taigaJobUpdatesCreate',
         {'taigaJobUpdates': taigaJobUpdates},
       );
 
   /// This [taigaJobUpdatesCreateOnBulk] is for create a bunch of
   /// [TaigaJobUpdates] at the same time.
-  _i2.Future<List<_i5.TaigaJobUpdates>?> taigaJobUpdatesCreateOnBulk(
-          {required List<_i5.TaigaJobUpdates> taigaJobUpdates}) =>
-      caller.callServerEndpoint<List<_i5.TaigaJobUpdates>?>(
-        'taigaJobEndpoints',
+  _i2.Future<List<_i8.TaigaJobUpdates>?> taigaJobUpdatesCreateOnBulk(
+          {required List<_i8.TaigaJobUpdates> taigaJobUpdates}) =>
+      caller.callServerEndpoint<List<_i8.TaigaJobUpdates>?>(
+        'taigaJob',
         'taigaJobUpdatesCreateOnBulk',
         {'taigaJobUpdates': taigaJobUpdates},
       );
 
   /// This [taigaJobUpdatesReadById] is used to read a [TaigaJobUpdates] by his
   /// [id]
-  _i2.Future<_i5.TaigaJobUpdates?> taigaJobUpdatesReadById({required int id}) =>
-      caller.callServerEndpoint<_i5.TaigaJobUpdates?>(
-        'taigaJobEndpoints',
+  _i2.Future<_i8.TaigaJobUpdates?> taigaJobUpdatesReadById({required int id}) =>
+      caller.callServerEndpoint<_i8.TaigaJobUpdates?>(
+        'taigaJob',
         'taigaJobUpdatesReadById',
         {'id': id},
       );
@@ -259,12 +306,12 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   /// This [taigaJobUpdatesReadFilteringByEpoch] is used to filter by dateTime,
   /// but using epoch format, this have a [min] and [max] parameter, so will
   /// grab all the data between those two.
-  _i2.Future<List<_i5.TaigaJobUpdates>?> taigaJobUpdatesReadFilteringByEpoch({
+  _i2.Future<List<_i8.TaigaJobUpdates>?> taigaJobUpdatesReadFilteringByEpoch({
     required int min,
     required int max,
   }) =>
-      caller.callServerEndpoint<List<_i5.TaigaJobUpdates>?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<List<_i8.TaigaJobUpdates>?>(
+        'taigaJob',
         'taigaJobUpdatesReadFilteringByEpoch',
         {
           'min': min,
@@ -275,12 +322,12 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   /// This [taigaJobUpdatesUpdateById] is used to update a [TaigaJobUpdates]
   /// using an [id] and a [taigaJobUpdates] which is a [TaigaJobUpdates]
   /// instance
-  _i2.Future<_i5.TaigaJobUpdates?> taigaJobUpdatesUpdateById({
+  _i2.Future<_i8.TaigaJobUpdates?> taigaJobUpdatesUpdateById({
     required int id,
-    required _i5.TaigaJobUpdates taigaJobUpdates,
+    required _i8.TaigaJobUpdates taigaJobUpdates,
   }) =>
-      caller.callServerEndpoint<_i5.TaigaJobUpdates?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<_i8.TaigaJobUpdates?>(
+        'taigaJob',
         'taigaJobUpdatesUpdateById',
         {
           'id': id,
@@ -292,49 +339,49 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   /// using his id
   _i2.Future<int?> taigaJobUpdatesDeleteById({required int id}) =>
       caller.callServerEndpoint<int?>(
-        'taigaJobEndpoints',
+        'taigaJob',
         'taigaJobUpdatesDeleteById',
         {'id': id},
       );
 
   /// This [taigaJobCommentariesCreate] is used to create a
   /// [taigaJobCommentaries]
-  _i2.Future<_i6.TaigaJobCommentaries?> taigaJobCommentariesCreate(
-          {required _i6.TaigaJobCommentaries taigaJobCommentaries}) =>
-      caller.callServerEndpoint<_i6.TaigaJobCommentaries?>(
-        'taigaJobEndpoints',
+  _i2.Future<_i9.TaigaJobCommentaries?> taigaJobCommentariesCreate(
+          {required _i9.TaigaJobCommentaries taigaJobCommentaries}) =>
+      caller.callServerEndpoint<_i9.TaigaJobCommentaries?>(
+        'taigaJob',
         'taigaJobCommentariesCreate',
         {'taigaJobCommentaries': taigaJobCommentaries},
       );
 
   /// This [taigaJobCommentariesCreateOnBulk] is used to create a bunch of
   /// [taigaJobCommentaries] at the same time.
-  _i2.Future<List<_i6.TaigaJobCommentaries>?> taigaJobCommentariesCreateOnBulk(
-          {required List<_i6.TaigaJobCommentaries> taigaJobCommentaries}) =>
-      caller.callServerEndpoint<List<_i6.TaigaJobCommentaries>?>(
-        'taigaJobEndpoints',
+  _i2.Future<List<_i9.TaigaJobCommentaries>?> taigaJobCommentariesCreateOnBulk(
+          {required List<_i9.TaigaJobCommentaries> taigaJobCommentaries}) =>
+      caller.callServerEndpoint<List<_i9.TaigaJobCommentaries>?>(
+        'taigaJob',
         'taigaJobCommentariesCreateOnBulk',
         {'taigaJobCommentaries': taigaJobCommentaries},
       );
 
   /// This [taigaJobCommentariesReadById] is for read a [TaigaJobCommentaries]
   /// using his id
-  _i2.Future<_i6.TaigaJobCommentaries?> taigaJobCommentariesReadById(
+  _i2.Future<_i9.TaigaJobCommentaries?> taigaJobCommentariesReadById(
           {required int id}) =>
-      caller.callServerEndpoint<_i6.TaigaJobCommentaries?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<_i9.TaigaJobCommentaries?>(
+        'taigaJob',
         'taigaJobCommentariesReadById',
         {'id': id},
       );
 
   /// This [taigaJobCommentariesUpdateById] is for update a comment by his [id]
   /// and a [taigaJobCommentaries] which is a [TaigaJobCommentaries] instance
-  _i2.Future<_i6.TaigaJobCommentaries?> taigaJobCommentariesUpdateById({
-    required _i6.TaigaJobCommentaries taigaJobCommentaries,
+  _i2.Future<_i9.TaigaJobCommentaries?> taigaJobCommentariesUpdateById({
+    required _i9.TaigaJobCommentaries taigaJobCommentaries,
     required int id,
   }) =>
-      caller.callServerEndpoint<_i6.TaigaJobCommentaries?>(
-        'taigaJobEndpoints',
+      caller.callServerEndpoint<_i9.TaigaJobCommentaries?>(
+        'taigaJob',
         'taigaJobCommentariesUpdateById',
         {
           'taigaJobCommentaries': taigaJobCommentaries,
@@ -346,7 +393,7 @@ class EndpointTaigaJobEndpoints extends _i1.EndpointRef {
   /// [TaigaJobCommentaries] using his [id]
   _i2.Future<bool> taigaJobCommentariesDeleteById({required int id}) =>
       caller.callServerEndpoint<bool>(
-        'taigaJobEndpoints',
+        'taigaJob',
         'taigaJobCommentariesDeleteById',
         {'id': id},
       );
@@ -361,24 +408,28 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i7.Protocol(),
+          _i10.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
           connectionTimeout: connectionTimeout,
         ) {
+    figma = EndpointFigma(this);
     taigaProject = EndpointTaigaProject(this);
-    taigaJobEndpoints = EndpointTaigaJobEndpoints(this);
+    taigaJob = EndpointTaigaJob(this);
   }
+
+  late final EndpointFigma figma;
 
   late final EndpointTaigaProject taigaProject;
 
-  late final EndpointTaigaJobEndpoints taigaJobEndpoints;
+  late final EndpointTaigaJob taigaJob;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'figma': figma,
         'taigaProject': taigaProject,
-        'taigaJobEndpoints': taigaJobEndpoints,
+        'taigaJob': taigaJob,
       };
 
   @override

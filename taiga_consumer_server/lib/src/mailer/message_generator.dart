@@ -13,12 +13,12 @@ class MessageGenerator {
   /// Create an `html` format message to send inside of an `email`, this message
   /// if for notify job updates. You can filter this updates by the [project]
   /// parameter, and the time of the update based on the
-  /// [TaigaJobEndpoints.taigaJobUpdatesReadFilteringByEpoch] `endpoint`
+  /// [TaigaJobEndpoint.taigaJobUpdatesReadFilteringByEpoch] `endpoint`
   ///
   /// <hr>
   ///
   /// ! `Important` This is meant to be used with the data, we receive from the
-  /// [TaigaJobEndpoints.taigaJobUpdatesReadFilteringByEpoch] or any other which
+  /// [TaigaJobEndpoint.taigaJobUpdatesReadFilteringByEpoch] or any other which
   /// have the insert parameter to bring the data of the job related into the
   /// update instance.
   ///

@@ -101,7 +101,7 @@ abstract class TaigaJob extends _i1.SerializableEntity {
       'status': status,
       'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
-      if (project != null) 'project': project,
+      if (project != null) 'project': project?.toJson(),
     };
   }
 }

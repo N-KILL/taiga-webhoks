@@ -1,8 +1,8 @@
 enum: ActionType
 serialized: byName
 values:
- - createHu
- - updateHuStatus
- - attachToSprint
- - updateHuStatusCard
- - updateReadyForDevStatus
+ - create_hu
+ - update_hu_status
+ - attach_to_sprint
+ - update_hu_status_card
+ - update_ready_for_dev_status

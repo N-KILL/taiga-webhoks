@@ -103,7 +103,7 @@ abstract class TaigaJob extends _i1.TableRow {
       'status': status,
       'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
-      if (project != null) 'project': project,
+      if (project != null) 'project': project?.toJson(),
     };
   }
 
@@ -111,7 +111,7 @@ abstract class TaigaJob extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'type': type,
       'title': title,
       'description': description,
@@ -131,11 +131,12 @@ abstract class TaigaJob extends _i1.TableRow {
       'status': status,
       'taigaRefNumber': taigaRefNumber,
       'projectId': projectId,
-      if (project != null) 'project': project,
+      if (project != null) 'project': project?.allToJson(),
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,

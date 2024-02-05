@@ -5,7 +5,7 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_upd
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/user.dart';
 
-/// This class [TaigaJobEndpoints] have all the CRUD methods (CREATE, READ,
+/// This class [TaigaJobEndpoint] have all the CRUD methods (CREATE, READ,
 /// UPDATE, DELETE) to modify a job related model on the database.
 ///
 /// Those are the models relates to this endpoint:
@@ -14,7 +14,7 @@ import 'package:taiga_consumer_server/src/generated/protocol/user.dart';
 /// <li>[TaigaJobUpdates]</li>
 /// <li>[TaigaJobCommentaries]</li>
 /// </ul>
-class TaigaJobEndpoints extends Endpoint {
+class TaigaJobEndpoint extends Endpoint {
   /// This [taigaJobCreate] is used to store a [TaigaJob] in the database
   Future<TaigaJob?> taigaJobCreate(
     Session session, {
@@ -25,13 +25,13 @@ class TaigaJobEndpoints extends Endpoint {
       final response = await TaigaJob.db.insertRow(session, taigaJob);
 
       // Create a session.log with the response data
-      session.log('TaigaJobEndpoints taigaJobCreate Response: \n $response');
+      session.log('TaigaJobEndpoint taigaJobCreate Response: \n $response');
 
       // If can create, return the response
       return response;
     } catch (e) {
       // Create a session.log saying an error ocurred
-      session.log('TaigaJobEndpoints taigaJobCreate Failed... Returning null',
+      session.log('TaigaJobEndpoint taigaJobCreate Failed... Returning null',
           level: LogLevel.warning);
 
       // If can't create return null
@@ -50,13 +50,13 @@ class TaigaJobEndpoints extends Endpoint {
       final response = await TaigaJob.db.insert(session, taigaJob);
 
       // Create a session.log with the response data
-      session.log('TaigaJobEndpoints createOnBulk Response: \n $response');
+      session.log('TaigaJobEndpoint createOnBulk Response: \n $response');
 
       // If can create, return the response
       return response;
     } catch (e) {
       // Create a session.log saying an error ocurred
-      session.log('TaigaJobEndpoints createOnBulk Failed... Returning null',
+      session.log('TaigaJobEndpoint createOnBulk Failed... Returning null',
           level: LogLevel.warning);
 
       // If can't create return null
@@ -83,21 +83,21 @@ class TaigaJobEndpoints extends Endpoint {
       // If can read any job with that id, return null, otherwise return the data
       if (response != null) {
         // Create a session.log with the response
-        session.log('TaigaJobEndpoints readById Response: \n $response');
+        session.log('TaigaJobEndpoint readById Response: \n $response');
 
         // Return the response data
         return response;
       } else {
         // Create a session.log with the response
         session.log(
-          'TaigaJobEndpoints readById cannot find any project with that id $response',
+          'TaigaJobEndpoint readById cannot find any project with that id $response',
         );
 
         // Return null
         return null;
       }
     } catch (e) {
-      session.log('TaigaJobEndpoints readById Failed... Returning null',
+      session.log('TaigaJobEndpoint readById Failed... Returning null',
           level: LogLevel.warning);
       return null;
     }
@@ -123,14 +123,14 @@ class TaigaJobEndpoints extends Endpoint {
       if (response != null) {
         // Create a session.log with the response
         session.log(
-            'TaigaJobEndpoints taigaJobReadByTitle Response: \n $response');
+            'TaigaJobEndpoint taigaJobReadByTitle Response: \n $response');
 
         // Return the response data
         return response;
       } else {
         // Create a session.log with the response
         session.log(
-          'TaigaJobEndpoints taigaJobReadByTitle cannot find any project with that id $response',
+          'TaigaJobEndpoint taigaJobReadByTitle cannot find any project with that id $response',
         );
 
         // Return null
@@ -139,7 +139,7 @@ class TaigaJobEndpoints extends Endpoint {
     } catch (e) {
       // If any error happens, create a log saying that
       session.log(
-          'TaigaJobEndpoints taigaJobReadByTitle Failed... Returning null',
+          'TaigaJobEndpoint taigaJobReadByTitle Failed... Returning null',
           level: LogLevel.warning);
 
       // and return null
@@ -165,14 +165,14 @@ class TaigaJobEndpoints extends Endpoint {
 
       // Create a session.log with the response
       session
-          .log('TaigaJobEndpoints taigaJobReadByTitle Response: \n $response');
+          .log('TaigaJobEndpoint taigaJobReadByTitle Response: \n $response');
 
       // Return the response data
       return response;
     } catch (e) {
       // If any error happens, create a log saying that
       session.log(
-          'TaigaJobEndpoints taigaJobReadByTitle Failed... Returning null',
+          'TaigaJobEndpoint taigaJobReadByTitle Failed... Returning null',
           level: LogLevel.warning);
 
       // and return null
@@ -198,14 +198,14 @@ class TaigaJobEndpoints extends Endpoint {
 
       // Create a log with the response data
       session
-          .log('TaigaJobEndpoints taigaJobReadByStatus Response: \n $response');
+          .log('TaigaJobEndpoint taigaJobReadByStatus Response: \n $response');
 
       // And return the response
       return response;
     } catch (e) {
       // If any error happens, create a log saying that
       session.log(
-          'TaigaJobEndpoints taigaJobReadByStatus Failed... Returning null',
+          'TaigaJobEndpoint taigaJobReadByStatus Failed... Returning null',
           level: LogLevel.warning);
 
       // and return null
@@ -237,14 +237,14 @@ class TaigaJobEndpoints extends Endpoint {
       if (response != null) {
         // Create a log with the response data
         session.log(
-            'TaigaJobEndpoints readByProjectIdAndRefNumber Response: \n $response');
+            'TaigaJobEndpoint readByProjectIdAndRefNumber Response: \n $response');
 
         // And return the data
         return response;
       } else {
         session.log(
           // Create a log saying cant found any TaigaJob
-          'TaigaJobEndpoints readByProjectIdAndRefNumber cannot found any TaigaJob',
+          'TaigaJobEndpoint readByProjectIdAndRefNumber cannot found any TaigaJob',
           level: LogLevel.warning,
         );
 
@@ -254,7 +254,7 @@ class TaigaJobEndpoints extends Endpoint {
     } catch (e) {
       // If any error happens, create a log saying that
       session.log(
-          'TaigaJobEndpoints readByProjectIdAndRefNumber Failed... Returning null',
+          'TaigaJobEndpoint readByProjectIdAndRefNumber Failed... Returning null',
           level: LogLevel.warning);
 
       // And return null
@@ -293,7 +293,7 @@ class TaigaJobEndpoints extends Endpoint {
         );
 
         // Create a session.log with the response data
-        session.log('TaigaJobEndpoints updateById Response: \n $response');
+        session.log('TaigaJobEndpoint updateById Response: \n $response');
 
         // And return the response
         return response;
@@ -301,14 +301,14 @@ class TaigaJobEndpoints extends Endpoint {
 
       // If can find any job with the id on the parameters
       session.log(
-          'TaigaJobEndpoints updateById Failed... cannot find any job with that id',
+          'TaigaJobEndpoint updateById Failed... cannot find any job with that id',
           level: LogLevel.warning);
 
       // And return the null
       return null;
     } catch (e) {
       // If any error happens, create a log saying that
-      session.log('TaigaJobEndpoints updateById Failed... Returning null',
+      session.log('TaigaJobEndpoint updateById Failed... Returning null',
           level: LogLevel.warning);
 
       // And return the null
@@ -332,7 +332,7 @@ class TaigaJobEndpoints extends Endpoint {
         final response = await TaigaJob.db.deleteRow(session, findRow);
 
         // Create a session.log with the response data
-        session.log('TaigaJobEndpoints deleteById Response: \n $response');
+        session.log('TaigaJobEndpoint deleteById Response: \n $response');
 
         // And return the response data
         return response;
@@ -341,7 +341,7 @@ class TaigaJobEndpoints extends Endpoint {
 
         // Create a session.log saying cant find any job
         session.log(
-            'TaigaJobEndpoints deleteById Failed... cannot find any job with the id. Returning null',
+            'TaigaJobEndpoint deleteById Failed... cannot find any job with the id. Returning null',
             level: LogLevel.warning);
 
         // And return null
@@ -349,7 +349,7 @@ class TaigaJobEndpoints extends Endpoint {
       }
     } catch (e) {
       // Create a session.log saying an error ocurred
-      session.log('TaigaJobEndpoints deleteById Failed... Returning null',
+      session.log('TaigaJobEndpoint deleteById Failed... Returning null',
           level: LogLevel.warning);
 
       // And return null
@@ -370,13 +370,13 @@ class TaigaJobEndpoints extends Endpoint {
 
       // Create a session.log with the response data
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesCreate Response: \n $response');
+          'TaigaJobEndpoint taigaJobUpdatesCreate Response: \n $response');
 
       // And return the response data
       return response;
     } catch (e) {
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesCreate Failed... Returning null',
+          'TaigaJobEndpoint taigaJobUpdatesCreate Failed... Returning null',
           level: LogLevel.warning);
       return null;
     }
@@ -395,14 +395,14 @@ class TaigaJobEndpoints extends Endpoint {
 
       // Create a session.log with the response data
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesCreateOnBulk Response: \n $response');
+          'TaigaJobEndpoint taigaJobUpdatesCreateOnBulk Response: \n $response');
 
       // And return the response data
       return response;
     } catch (e) {
       // Create a session.log saying the task failed
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesCreateOnBulk Failed... Returning null',
+          'TaigaJobEndpoint taigaJobUpdatesCreateOnBulk Failed... Returning null',
           level: LogLevel.warning);
 
       // And return null
@@ -424,7 +424,7 @@ class TaigaJobEndpoints extends Endpoint {
       if (response != null) {
         // Create a session.log with the response data
         session.log(
-            'TaigaJobEndpoints taigaJobUpdatesReadById Response: \n $response');
+            'TaigaJobEndpoint taigaJobUpdatesReadById Response: \n $response');
 
         // And return the response data
         return response;
@@ -433,14 +433,14 @@ class TaigaJobEndpoints extends Endpoint {
 
         // Create a session.log saying cant found any update with that id
         session.log(
-            'TaigaJobEndpoints taigaJobUpdatesReadById cannot found any update with that id... Returning null',
+            'TaigaJobEndpoint taigaJobUpdatesReadById cannot found any update with that id... Returning null',
             level: LogLevel.warning);
 
         // And return null
         return null;
       }
     } catch (e) {
-      session.log('TaigaJobEndpoints readById Failed... Returning null',
+      session.log('TaigaJobEndpoint readById Failed... Returning null',
           level: LogLevel.warning);
 
       // And return null
@@ -471,14 +471,14 @@ class TaigaJobEndpoints extends Endpoint {
 
       // Create a session.log with the response data
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesReadFilteringByEpoch Response: \n $response');
+          'TaigaJobEndpoint taigaJobUpdatesReadFilteringByEpoch Response: \n $response');
 
       // And return the response data
       return response;
     } catch (e) {
       // Create a session.log saying the task failed
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesReadFilteringByEpoch Failed... Returning null',
+          'TaigaJobEndpoint taigaJobUpdatesReadFilteringByEpoch Failed... Returning null',
           level: LogLevel.warning);
 
       // And return the response null
@@ -516,21 +516,21 @@ class TaigaJobEndpoints extends Endpoint {
 
         // Create a session.log with the response data
         session.log(
-            'TaigaJobEndpoints taigaJobUpdatesUpdateById Response: \n $response');
+            'TaigaJobEndpoint taigaJobUpdatesUpdateById Response: \n $response');
 
         // And return the response
         return response;
       }
       // Create a session.log saying cannot find the element
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesUpdateById Failed, cannot find any element by that id... Returning null',
+          'TaigaJobEndpoint taigaJobUpdatesUpdateById Failed, cannot find any element by that id... Returning null',
           level: LogLevel.warning);
 
       // And return null
       return null;
     } catch (e) {}
     // Create a session.log saying the task failed
-    session.log('TaigaJobEndpoints updateById Failed... Returning null',
+    session.log('TaigaJobEndpoint updateById Failed... Returning null',
         level: LogLevel.warning);
 
     // And return null
@@ -549,20 +549,20 @@ class TaigaJobEndpoints extends Endpoint {
       if (findRow != null) {
         final response = await TaigaJobUpdates.db.deleteRow(session, findRow);
         session.log(
-            'TaigaJobEndpoints taigaJobUpdatesDeleteById Response: \n $response');
+            'TaigaJobEndpoint taigaJobUpdatesDeleteById Response: \n $response');
         return response;
       }
 
       // Create a session.log saying cannot fin any job
       session.log(
-          'TaigaJobEndpoints taigaJobUpdatesDeleteById Failed, cannot find any job update with that id... Returning null',
+          'TaigaJobEndpoint taigaJobUpdatesDeleteById Failed, cannot find any job update with that id... Returning null',
           level: LogLevel.warning);
 
       // And return null
       return null;
     } catch (e) {}
     // Create a session.log saying the task failed
-    session.log('TaigaJobEndpoints deleteById Failed... Returning null',
+    session.log('TaigaJobEndpoint deleteById Failed... Returning null',
         level: LogLevel.warning);
 
     // And return null

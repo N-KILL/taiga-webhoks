@@ -11,30 +11,30 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 
 enum HuStatus with _i1.SerializableEntity {
-  newStatus,
-  refinandoseStatus,
-  ilustrandoseStatus,
-  pensandoseStatus,
-  listaStatus,
-  aprobandoseStatus,
-  postergadoStatus;
+  NUEVA,
+  REFINANDOSE,
+  ILUSTRANDOSE,
+  PENSANDOSE,
+  LISTA,
+  APROBANDOSE,
+  POSTERGADO;
 
   static HuStatus? fromJson(String name) {
     switch (name) {
-      case 'newStatus':
-        return newStatus;
-      case 'refinandoseStatus':
-        return refinandoseStatus;
-      case 'ilustrandoseStatus':
-        return ilustrandoseStatus;
-      case 'pensandoseStatus':
-        return pensandoseStatus;
-      case 'listaStatus':
-        return listaStatus;
-      case 'aprobandoseStatus':
-        return aprobandoseStatus;
-      case 'postergadoStatus':
-        return postergadoStatus;
+      case 'NUEVA':
+        return NUEVA;
+      case 'REFINANDOSE':
+        return REFINANDOSE;
+      case 'ILUSTRANDOSE':
+        return ILUSTRANDOSE;
+      case 'PENSANDOSE':
+        return PENSANDOSE;
+      case 'LISTA':
+        return LISTA;
+      case 'APROBANDOSE':
+        return APROBANDOSE;
+      case 'POSTERGADO':
+        return POSTERGADO;
       default:
         return null;
     }

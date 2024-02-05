@@ -1,6 +1,32 @@
+### This class [FigmaAction] is used to create models, to interact 
+### with the figma plugin <https://github.com/N-KILL/Nidus-Figma-Plugin>
+### 
+### Also this model, have the bool isActive to indicate is the action
+### has been used or not. The idea is to keep it active, until pass 24Hrs
+### since the use on figma
 class: FigmaAction
 table: figma_action
 fields:
-  action: String
-  huData: HuData?, relation 
+  ### This is a enum to filter through the actions types
+  action: ActionType
+
+  ### This is data about the UserStory
+  huData: HuData?, relation(optional)
+
+  ### Bool used to indicate the status of the action
+  ### This have to be by default on True, and after 24Hrs
+  ### of been used by the plugin have to set as false
+  ### The plugin will call an endpoint to get all the active
+  ### actions related to one project
+  isActive: bool
+
+  ### This is the date when the action was registered on the database
+  creationDate: DateTime
+
+  ### This is the date when the action was set as inactive
+  inactiveSince: DateTime?
+
+  ### This is the project related to this action
+  ### this value has to been used, to filter the actions by project
+  project: TaigaProject?, relation
   

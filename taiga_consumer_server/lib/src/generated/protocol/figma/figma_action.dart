@@ -10,20 +10,37 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../../protocol.dart' as _i2;
+import 'package:serverpod_serialization/serverpod_serialization.dart';
 
+/// This class [FigmaAction] is used to create models, to interact
+/// with the figma plugin <https://github.com/N-KILL/Nidus-Figma-Plugin>
+///
+/// Also this model, have the bool isActive to indicate is the action
+/// has been used or not. The idea is to keep it active, until pass 24Hrs
+/// since the use on figma
 abstract class FigmaAction extends _i1.TableRow {
   FigmaAction._({
     int? id,
     required this.action,
-    required this.huDataId,
+    this.huDataId,
     this.huData,
+    required this.isActive,
+    required this.creationDate,
+    this.inactiveSince,
+    required this.projectId,
+    this.project,
   }) : super(id);
 
   factory FigmaAction({
     int? id,
-    required String action,
-    required int huDataId,
+    required _i2.ActionType action,
+    int? huDataId,
     _i2.HuData? huData,
+    required bool isActive,
+    required DateTime creationDate,
+    DateTime? inactiveSince,
+    required int projectId,
+    _i2.TaigaProject? project,
   }) = _FigmaActionImpl;
 
   factory FigmaAction.fromJson(
@@ -32,12 +49,22 @@ abstract class FigmaAction extends _i1.TableRow {
   ) {
     return FigmaAction(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      action:
-          serializationManager.deserialize<String>(jsonSerialization['action']),
+      action: serializationManager
+          .deserialize<_i2.ActionType>(jsonSerialization['action']),
       huDataId:
-          serializationManager.deserialize<int>(jsonSerialization['huDataId']),
+          serializationManager.deserialize<int?>(jsonSerialization['huDataId']),
       huData: serializationManager
           .deserialize<_i2.HuData?>(jsonSerialization['huData']),
+      isActive:
+          serializationManager.deserialize<bool>(jsonSerialization['isActive']),
+      creationDate: serializationManager
+          .deserialize<DateTime>(jsonSerialization['creationDate']),
+      inactiveSince: serializationManager
+          .deserialize<DateTime?>(jsonSerialization['inactiveSince']),
+      projectId:
+          serializationManager.deserialize<int>(jsonSerialization['projectId']),
+      project: serializationManager
+          .deserialize<_i2.TaigaProject?>(jsonSerialization['project']),
     );
   }
 
@@ -45,28 +72,59 @@ abstract class FigmaAction extends _i1.TableRow {
 
   static const db = FigmaActionRepository._();
 
-  String action;
+  /// This is a enum to filter through the actions types
+  _i2.ActionType action;
 
-  int huDataId;
+  int? huDataId;
 
+  /// This is data about the UserStory
   _i2.HuData? huData;
+
+  /// Bool used to indicate the status of the action
+  /// This have to be by default on True, and after 24Hrs
+  /// of been used by the plugin have to set as false
+  /// The plugin will call an endpoint to get all the active
+  /// actions related to one project
+  bool isActive;
+
+  /// This is the date when the action was registered on the database
+  DateTime creationDate;
+
+  /// This is the date when the action was set as inactive
+  DateTime? inactiveSince;
+
+  int projectId;
+
+  /// This is the project related to this action
+  /// this value has to been used, to filter the actions by project
+  _i2.TaigaProject? project;
 
   @override
   _i1.Table get table => t;
 
   FigmaAction copyWith({
     int? id,
-    String? action,
+    _i2.ActionType? action,
     int? huDataId,
     _i2.HuData? huData,
+    bool? isActive,
+    DateTime? creationDate,
+    DateTime? inactiveSince,
+    int? projectId,
+    _i2.TaigaProject? project,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'action': action,
-      'huDataId': huDataId,
-      if (huData != null) 'huData': huData,
+      'action': action.toJson(),
+      if (huDataId != null) 'huDataId': huDataId,
+      if (huData != null) 'huData': huData?.toJson(),
+      'isActive': isActive,
+      'creationDate': creationDate.toJson(),
+      if (inactiveSince != null) 'inactiveSince': inactiveSince?.toJson(),
+      'projectId': projectId,
+      if (project != null) 'project': project?.toJson(),
     };
   }
 
@@ -74,9 +132,13 @@ abstract class FigmaAction extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'action': action,
       'huDataId': huDataId,
+      'isActive': isActive,
+      'creationDate': creationDate,
+      'inactiveSince': inactiveSince,
+      'projectId': projectId,
     };
   }
 
@@ -84,13 +146,19 @@ abstract class FigmaAction extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       if (id != null) 'id': id,
-      'action': action,
-      'huDataId': huDataId,
-      if (huData != null) 'huData': huData,
+      'action': action.toJson(),
+      if (huDataId != null) 'huDataId': huDataId,
+      if (huData != null) 'huData': huData?.allToJson(),
+      'isActive': isActive,
+      'creationDate': creationDate.toJson(),
+      if (inactiveSince != null) 'inactiveSince': inactiveSince?.toJson(),
+      'projectId': projectId,
+      if (project != null) 'project': project?.allToJson(),
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,
@@ -104,6 +172,18 @@ abstract class FigmaAction extends _i1.TableRow {
         return;
       case 'huDataId':
         huDataId = value;
+        return;
+      case 'isActive':
+        isActive = value;
+        return;
+      case 'creationDate':
+        creationDate = value;
+        return;
+      case 'inactiveSince':
+        inactiveSince = value;
+        return;
+      case 'projectId':
+        projectId = value;
         return;
       default:
         throw UnimplementedError();
@@ -235,8 +315,14 @@ abstract class FigmaAction extends _i1.TableRow {
     );
   }
 
-  static FigmaActionInclude include({_i2.HuDataInclude? huData}) {
-    return FigmaActionInclude._(huData: huData);
+  static FigmaActionInclude include({
+    _i2.HuDataInclude? huData,
+    _i2.TaigaProjectInclude? project,
+  }) {
+    return FigmaActionInclude._(
+      huData: huData,
+      project: project,
+    );
   }
 
   static FigmaActionIncludeList includeList({
@@ -265,49 +351,109 @@ class _Undefined {}
 class _FigmaActionImpl extends FigmaAction {
   _FigmaActionImpl({
     int? id,
-    required String action,
-    required int huDataId,
+    required _i2.ActionType action,
+    int? huDataId,
     _i2.HuData? huData,
+    required bool isActive,
+    required DateTime creationDate,
+    DateTime? inactiveSince,
+    required int projectId,
+    _i2.TaigaProject? project,
   }) : super._(
           id: id,
           action: action,
           huDataId: huDataId,
           huData: huData,
+          isActive: isActive,
+          creationDate: creationDate,
+          inactiveSince: inactiveSince,
+          projectId: projectId,
+          project: project,
         );
 
   @override
   FigmaAction copyWith({
     Object? id = _Undefined,
-    String? action,
-    int? huDataId,
+    _i2.ActionType? action,
+    Object? huDataId = _Undefined,
     Object? huData = _Undefined,
+    bool? isActive,
+    DateTime? creationDate,
+    Object? inactiveSince = _Undefined,
+    int? projectId,
+    Object? project = _Undefined,
   }) {
     return FigmaAction(
       id: id is int? ? id : this.id,
       action: action ?? this.action,
-      huDataId: huDataId ?? this.huDataId,
+      huDataId: huDataId is int? ? huDataId : this.huDataId,
       huData: huData is _i2.HuData? ? huData : this.huData?.copyWith(),
+      isActive: isActive ?? this.isActive,
+      creationDate: creationDate ?? this.creationDate,
+      inactiveSince:
+          inactiveSince is DateTime? ? inactiveSince : this.inactiveSince,
+      projectId: projectId ?? this.projectId,
+      project:
+          project is _i2.TaigaProject? ? project : this.project?.copyWith(),
     );
   }
 }
 
 class FigmaActionTable extends _i1.Table {
   FigmaActionTable({super.tableRelation}) : super(tableName: 'figma_action') {
-    action = _i1.ColumnString(
+    action = _i1.ColumnEnum(
       'action',
       this,
+      _i1.EnumSerialization.byName,
     );
     huDataId = _i1.ColumnInt(
       'huDataId',
       this,
     );
+    isActive = _i1.ColumnBool(
+      'isActive',
+      this,
+    );
+    creationDate = _i1.ColumnDateTime(
+      'creationDate',
+      this,
+    );
+    inactiveSince = _i1.ColumnDateTime(
+      'inactiveSince',
+      this,
+    );
+    projectId = _i1.ColumnInt(
+      'projectId',
+      this,
+    );
   }
 
-  late final _i1.ColumnString action;
+  /// This is a enum to filter through the actions types
+  late final _i1.ColumnEnum<_i2.ActionType> action;
 
   late final _i1.ColumnInt huDataId;
 
+  /// This is data about the UserStory
   _i2.HuDataTable? _huData;
+
+  /// Bool used to indicate the status of the action
+  /// This have to be by default on True, and after 24Hrs
+  /// of been used by the plugin have to set as false
+  /// The plugin will call an endpoint to get all the active
+  /// actions related to one project
+  late final _i1.ColumnBool isActive;
+
+  /// This is the date when the action was registered on the database
+  late final _i1.ColumnDateTime creationDate;
+
+  /// This is the date when the action was set as inactive
+  late final _i1.ColumnDateTime inactiveSince;
+
+  late final _i1.ColumnInt projectId;
+
+  /// This is the project related to this action
+  /// this value has to been used, to filter the actions by project
+  _i2.TaigaProjectTable? _project;
 
   _i2.HuDataTable get huData {
     if (_huData != null) return _huData!;
@@ -322,17 +468,37 @@ class FigmaActionTable extends _i1.Table {
     return _huData!;
   }
 
+  _i2.TaigaProjectTable get project {
+    if (_project != null) return _project!;
+    _project = _i1.createRelationTable(
+      relationFieldName: 'project',
+      field: FigmaAction.t.projectId,
+      foreignField: _i2.TaigaProject.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.TaigaProjectTable(tableRelation: foreignTableRelation),
+    );
+    return _project!;
+  }
+
   @override
   List<_i1.Column> get columns => [
         id,
         action,
         huDataId,
+        isActive,
+        creationDate,
+        inactiveSince,
+        projectId,
       ];
 
   @override
   _i1.Table? getRelationTable(String relationField) {
     if (relationField == 'huData') {
       return huData;
+    }
+    if (relationField == 'project') {
+      return project;
     }
     return null;
   }
@@ -342,14 +508,23 @@ class FigmaActionTable extends _i1.Table {
 FigmaActionTable tFigmaAction = FigmaActionTable();
 
 class FigmaActionInclude extends _i1.IncludeObject {
-  FigmaActionInclude._({_i2.HuDataInclude? huData}) {
+  FigmaActionInclude._({
+    _i2.HuDataInclude? huData,
+    _i2.TaigaProjectInclude? project,
+  }) {
     _huData = huData;
+    _project = project;
   }
 
   _i2.HuDataInclude? _huData;
 
+  _i2.TaigaProjectInclude? _project;
+
   @override
-  Map<String, _i1.Include?> get includes => {'huData': _huData};
+  Map<String, _i1.Include?> get includes => {
+        'huData': _huData,
+        'project': _project,
+      };
 
   @override
   _i1.Table get table => FigmaAction.t;
@@ -379,6 +554,8 @@ class FigmaActionRepository {
   const FigmaActionRepository._();
 
   final attachRow = const FigmaActionAttachRowRepository._();
+
+  final detachRow = const FigmaActionDetachRowRepository._();
 
   Future<List<FigmaAction>> find(
     _i1.Session session, {
@@ -550,6 +727,44 @@ class FigmaActionAttachRowRepository {
     var $figmaAction = figmaAction.copyWith(huDataId: huData.id);
     await session.dbNext.updateRow<FigmaAction>(
       $figmaAction,
+      columns: [FigmaAction.t.huDataId],
+    );
+  }
+
+  Future<void> project(
+    _i1.Session session,
+    FigmaAction figmaAction,
+    _i2.TaigaProject project,
+  ) async {
+    if (figmaAction.id == null) {
+      throw ArgumentError.notNull('figmaAction.id');
+    }
+    if (project.id == null) {
+      throw ArgumentError.notNull('project.id');
+    }
+
+    var $figmaAction = figmaAction.copyWith(projectId: project.id);
+    await session.dbNext.updateRow<FigmaAction>(
+      $figmaAction,
+      columns: [FigmaAction.t.projectId],
+    );
+  }
+}
+
+class FigmaActionDetachRowRepository {
+  const FigmaActionDetachRowRepository._();
+
+  Future<void> huData(
+    _i1.Session session,
+    FigmaAction figmaaction,
+  ) async {
+    if (figmaaction.id == null) {
+      throw ArgumentError.notNull('figmaaction.id');
+    }
+
+    var $figmaaction = figmaaction.copyWith(huDataId: null);
+    await session.dbNext.updateRow<FigmaAction>(
+      $figmaaction,
       columns: [FigmaAction.t.huDataId],
     );
   }

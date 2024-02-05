@@ -14,29 +14,29 @@ import '../../protocol.dart' as _i2;
 abstract class StatusCard extends _i1.SerializableEntity {
   StatusCard._({
     this.id,
-    required this.approvedId,
+    this.approvedId,
     this.approved,
-    required this.developmentId,
+    this.developmentId,
     this.development,
-    required this.internalTestId,
+    this.internalTestId,
     this.internalTest,
-    required this.externalTestId,
+    this.externalTestId,
     this.externalTest,
-    required this.amountOfDaysId,
+    this.amountOfDaysId,
     this.amountOfDays,
   });
 
   factory StatusCard({
     int? id,
-    required int approvedId,
-    _i2.User? approved,
-    required int developmentId,
-    _i2.User? development,
-    required int internalTestId,
-    _i2.User? internalTest,
-    required int externalTestId,
-    _i2.User? externalTest,
-    required int amountOfDaysId,
+    int? approvedId,
+    _i2.StatusCardDetails? approved,
+    int? developmentId,
+    _i2.StatusCardDetails? development,
+    int? internalTestId,
+    _i2.StatusCardDetails? internalTest,
+    int? externalTestId,
+    _i2.StatusCardDetails? externalTest,
+    int? amountOfDaysId,
     _i2.AmountOfDays? amountOfDays,
   }) = _StatusCardImpl;
 
@@ -47,23 +47,23 @@ abstract class StatusCard extends _i1.SerializableEntity {
     return StatusCard(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       approvedId: serializationManager
-          .deserialize<int>(jsonSerialization['approvedId']),
+          .deserialize<int?>(jsonSerialization['approvedId']),
       approved: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['approved']),
+          .deserialize<_i2.StatusCardDetails?>(jsonSerialization['approved']),
       developmentId: serializationManager
-          .deserialize<int>(jsonSerialization['developmentId']),
-      development: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['development']),
+          .deserialize<int?>(jsonSerialization['developmentId']),
+      development: serializationManager.deserialize<_i2.StatusCardDetails?>(
+          jsonSerialization['development']),
       internalTestId: serializationManager
-          .deserialize<int>(jsonSerialization['internalTestId']),
-      internalTest: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['internalTest']),
+          .deserialize<int?>(jsonSerialization['internalTestId']),
+      internalTest: serializationManager.deserialize<_i2.StatusCardDetails?>(
+          jsonSerialization['internalTest']),
       externalTestId: serializationManager
-          .deserialize<int>(jsonSerialization['externalTestId']),
-      externalTest: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['externalTest']),
+          .deserialize<int?>(jsonSerialization['externalTestId']),
+      externalTest: serializationManager.deserialize<_i2.StatusCardDetails?>(
+          jsonSerialization['externalTest']),
       amountOfDaysId: serializationManager
-          .deserialize<int>(jsonSerialization['amountOfDaysId']),
+          .deserialize<int?>(jsonSerialization['amountOfDaysId']),
       amountOfDays: serializationManager
           .deserialize<_i2.AmountOfDays?>(jsonSerialization['amountOfDays']),
     );
@@ -74,36 +74,36 @@ abstract class StatusCard extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
-  int approvedId;
+  int? approvedId;
 
-  _i2.User? approved;
+  _i2.StatusCardDetails? approved;
 
-  int developmentId;
+  int? developmentId;
 
-  _i2.User? development;
+  _i2.StatusCardDetails? development;
 
-  int internalTestId;
+  int? internalTestId;
 
-  _i2.User? internalTest;
+  _i2.StatusCardDetails? internalTest;
 
-  int externalTestId;
+  int? externalTestId;
 
-  _i2.User? externalTest;
+  _i2.StatusCardDetails? externalTest;
 
-  int amountOfDaysId;
+  int? amountOfDaysId;
 
   _i2.AmountOfDays? amountOfDays;
 
   StatusCard copyWith({
     int? id,
     int? approvedId,
-    _i2.User? approved,
+    _i2.StatusCardDetails? approved,
     int? developmentId,
-    _i2.User? development,
+    _i2.StatusCardDetails? development,
     int? internalTestId,
-    _i2.User? internalTest,
+    _i2.StatusCardDetails? internalTest,
     int? externalTestId,
-    _i2.User? externalTest,
+    _i2.StatusCardDetails? externalTest,
     int? amountOfDaysId,
     _i2.AmountOfDays? amountOfDays,
   });
@@ -111,16 +111,16 @@ abstract class StatusCard extends _i1.SerializableEntity {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'approvedId': approvedId,
-      if (approved != null) 'approved': approved,
-      'developmentId': developmentId,
-      if (development != null) 'development': development,
-      'internalTestId': internalTestId,
-      if (internalTest != null) 'internalTest': internalTest,
-      'externalTestId': externalTestId,
-      if (externalTest != null) 'externalTest': externalTest,
-      'amountOfDaysId': amountOfDaysId,
-      if (amountOfDays != null) 'amountOfDays': amountOfDays,
+      if (approvedId != null) 'approvedId': approvedId,
+      if (approved != null) 'approved': approved?.toJson(),
+      if (developmentId != null) 'developmentId': developmentId,
+      if (development != null) 'development': development?.toJson(),
+      if (internalTestId != null) 'internalTestId': internalTestId,
+      if (internalTest != null) 'internalTest': internalTest?.toJson(),
+      if (externalTestId != null) 'externalTestId': externalTestId,
+      if (externalTest != null) 'externalTest': externalTest?.toJson(),
+      if (amountOfDaysId != null) 'amountOfDaysId': amountOfDaysId,
+      if (amountOfDays != null) 'amountOfDays': amountOfDays?.toJson(),
     };
   }
 }
@@ -130,15 +130,15 @@ class _Undefined {}
 class _StatusCardImpl extends StatusCard {
   _StatusCardImpl({
     int? id,
-    required int approvedId,
-    _i2.User? approved,
-    required int developmentId,
-    _i2.User? development,
-    required int internalTestId,
-    _i2.User? internalTest,
-    required int externalTestId,
-    _i2.User? externalTest,
-    required int amountOfDaysId,
+    int? approvedId,
+    _i2.StatusCardDetails? approved,
+    int? developmentId,
+    _i2.StatusCardDetails? development,
+    int? internalTestId,
+    _i2.StatusCardDetails? internalTest,
+    int? externalTestId,
+    _i2.StatusCardDetails? externalTest,
+    int? amountOfDaysId,
     _i2.AmountOfDays? amountOfDays,
   }) : super._(
           id: id,
@@ -157,33 +157,39 @@ class _StatusCardImpl extends StatusCard {
   @override
   StatusCard copyWith({
     Object? id = _Undefined,
-    int? approvedId,
+    Object? approvedId = _Undefined,
     Object? approved = _Undefined,
-    int? developmentId,
+    Object? developmentId = _Undefined,
     Object? development = _Undefined,
-    int? internalTestId,
+    Object? internalTestId = _Undefined,
     Object? internalTest = _Undefined,
-    int? externalTestId,
+    Object? externalTestId = _Undefined,
     Object? externalTest = _Undefined,
-    int? amountOfDaysId,
+    Object? amountOfDaysId = _Undefined,
     Object? amountOfDays = _Undefined,
   }) {
     return StatusCard(
       id: id is int? ? id : this.id,
-      approvedId: approvedId ?? this.approvedId,
-      approved: approved is _i2.User? ? approved : this.approved?.copyWith(),
-      developmentId: developmentId ?? this.developmentId,
-      development:
-          development is _i2.User? ? development : this.development?.copyWith(),
-      internalTestId: internalTestId ?? this.internalTestId,
-      internalTest: internalTest is _i2.User?
+      approvedId: approvedId is int? ? approvedId : this.approvedId,
+      approved: approved is _i2.StatusCardDetails?
+          ? approved
+          : this.approved?.copyWith(),
+      developmentId: developmentId is int? ? developmentId : this.developmentId,
+      development: development is _i2.StatusCardDetails?
+          ? development
+          : this.development?.copyWith(),
+      internalTestId:
+          internalTestId is int? ? internalTestId : this.internalTestId,
+      internalTest: internalTest is _i2.StatusCardDetails?
           ? internalTest
           : this.internalTest?.copyWith(),
-      externalTestId: externalTestId ?? this.externalTestId,
-      externalTest: externalTest is _i2.User?
+      externalTestId:
+          externalTestId is int? ? externalTestId : this.externalTestId,
+      externalTest: externalTest is _i2.StatusCardDetails?
           ? externalTest
           : this.externalTest?.copyWith(),
-      amountOfDaysId: amountOfDaysId ?? this.amountOfDaysId,
+      amountOfDaysId:
+          amountOfDaysId is int? ? amountOfDaysId : this.amountOfDaysId,
       amountOfDays: amountOfDays is _i2.AmountOfDays?
           ? amountOfDays
           : this.amountOfDays?.copyWith(),

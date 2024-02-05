@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:serverpod/serverpod.dart';
+import 'package:taiga_consumer_server/src/endpoints/figma_endpoints.dart';
+import 'package:taiga_consumer_server/src/helpers/figma/figma_status_converter.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 
 import 'package:taiga_rest_models/taiga_rest_models.dart';
 
 import 'package:taiga_consumer_server/src/generated/protocol.dart';
-import 'package:taiga_consumer_server/src/helper/detail_generator.dart';
+import 'package:taiga_consumer_server/src/helpers/mail/detail_generator.dart';
 import 'package:taiga_consumer_server/src/endpoints/project_endpoint.dart';
 import 'package:taiga_consumer_server/src/endpoints/taiga_job_endpoints.dart';
 
@@ -76,7 +78,7 @@ class TaigaRoute extends WidgetRoute {
         );
 
         // Create the item in the database
-        final canCreate = await TaigaJobEndpoints().taigaJobCreate(
+        final canCreate = await TaigaJobEndpoint().taigaJobCreate(
           session,
           taigaJob: job,
         );
@@ -85,7 +87,7 @@ class TaigaRoute extends WidgetRoute {
         // create an taiga job update instance on db
         if (canCreate != null) {
           // Create a new job update register
-          await TaigaJobEndpoints().taigaJobUpdatesCreate(
+          await TaigaJobEndpoint().taigaJobUpdatesCreate(
             session,
             taigaJobUpdates: TaigaJobUpdates(
               jobId: canCreate.id!,
@@ -122,7 +124,7 @@ class TaigaRoute extends WidgetRoute {
 
           // Verify if the job already exist
           final readJob =
-              await TaigaJobEndpoints().taigaJobReadByProjectIdAndRefNumber(
+              await TaigaJobEndpoint().taigaJobReadByProjectIdAndRefNumber(
             session,
             projectId: getProjectById.id!,
             taigaRefNumber: printData.referenceNumber,
@@ -131,7 +133,7 @@ class TaigaRoute extends WidgetRoute {
           // If the job already exist on the database
           if (readJob != null) {
             // Update the values with the new detected on
-            final canUpdate = await TaigaJobEndpoints().taigaJobUpdateById(
+            final canUpdate = await TaigaJobEndpoint().taigaJobUpdateById(
               session,
               id: readJob.id!,
               taigaJob: job,
@@ -144,7 +146,7 @@ class TaigaRoute extends WidgetRoute {
               // a commentary instance on database
               if (payload.change!.comment != '') {
                 final commentDetails =
-                    await TaigaJobEndpoints().taigaJobCommentariesCreate(
+                    await TaigaJobEndpoint().taigaJobCommentariesCreate(
                   session,
                   taigaJobCommentaries: TaigaJobCommentaries(
                     userId: 1,
@@ -158,7 +160,7 @@ class TaigaRoute extends WidgetRoute {
                 // register of the Update, with the comment id
                 if (commentDetails != null) {
                   // Create a new job update register
-                  await TaigaJobEndpoints().taigaJobUpdatesCreate(
+                  await TaigaJobEndpoint().taigaJobUpdatesCreate(
                     session,
                     taigaJobUpdates: TaigaJobUpdates(
                       jobId: canUpdate.id!,
@@ -174,7 +176,7 @@ class TaigaRoute extends WidgetRoute {
               } // If the change made wasn't a commentary
               else {
                 // Create a new job update register
-                await TaigaJobEndpoints().taigaJobUpdatesCreate(
+                await TaigaJobEndpoint().taigaJobUpdatesCreate(
                   session,
                   taigaJobUpdates: TaigaJobUpdates(
                     jobId: canUpdate.id!,
@@ -190,7 +192,7 @@ class TaigaRoute extends WidgetRoute {
           } // If the job do not exist on the database
           else {
             // Create the item in the database
-            final canCreate = await TaigaJobEndpoints().taigaJobCreate(
+            final canCreate = await TaigaJobEndpoint().taigaJobCreate(
               session,
               taigaJob: job,
             );
@@ -198,7 +200,7 @@ class TaigaRoute extends WidgetRoute {
             // If can create the item
             if (canCreate != null && canCreate.id != null) {
               // Create a new job update register
-              await TaigaJobEndpoints().taigaJobUpdatesCreate(
+              await TaigaJobEndpoint().taigaJobUpdatesCreate(
                 session,
                 taigaJobUpdates: TaigaJobUpdates(
                   jobId: canCreate.id!,
@@ -211,7 +213,7 @@ class TaigaRoute extends WidgetRoute {
 
               //  Verify if the change made was a new comment, and store it
               if (payload.change!.comment != '') {
-                TaigaJobEndpoints().taigaJobCommentariesCreate(
+                TaigaJobEndpoint().taigaJobCommentariesCreate(
                   session,
                   taigaJobCommentaries: TaigaJobCommentaries(
                     userId: 1,
@@ -223,6 +225,48 @@ class TaigaRoute extends WidgetRoute {
               }
             }
           }
+        }
+      }
+
+      // This is the part of the function which interact to the figma plugin
+      if (payload.jobType == 'userstory' && getProjectById != null) {
+        final huDetails = HuData(
+          name: printData.jobName,
+          refNum: printData.referenceNumber,
+          status: figmaStatusConverter(
+            huStatus: printData.jobStatus.statusName,
+          ),
+          readyForDev: false,
+          sprint: null,
+        );
+
+        var huData;
+
+        // Try to get the register of te hu
+        huData = await FigmaEndpoint().getHUData(session, huData: huDetails);
+
+        if (huData == null) {
+          // Generate a register of an hu_data
+          huData = await FigmaEndpoint().registerNewHUData(
+            session,
+            huData: huDetails,
+          );
+        }
+
+        if (payload.actionType == 'create') {
+          // Register a new action
+          FigmaEndpoint().registerNewAction(
+            session,
+            figmaAction: FigmaAction(
+                action: ActionType.create_hu,
+                isActive: true,
+                creationDate: DateTime.now(),
+                inactiveSince: null,
+                projectId: getProjectById.id!,
+                huDataId: huData.id),
+          );
+        } else if (payload.actionType == 'change') {
+          // TODO(Nacho): Manejar cambios
         }
       }
     } catch (e, st) {

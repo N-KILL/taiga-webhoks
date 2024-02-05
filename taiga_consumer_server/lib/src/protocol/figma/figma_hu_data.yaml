@@ -5,6 +5,6 @@ fields:
   refNum: int
   status: HuStatus,
   readyForDev: bool,
-  sprint: Sprint?, relation
-  statusCard: StatusCard?, relation
+  sprint: Sprint?, relation(optional)
+  statusCard: StatusCard?, relation(optional)
   

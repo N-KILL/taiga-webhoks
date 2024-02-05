@@ -90,11 +90,11 @@ abstract class TaigaJobCommentaries extends _i1.SerializableEntity {
     return {
       if (id != null) 'id': id,
       'jobIdId': jobIdId,
-      if (jobId != null) 'jobId': jobId,
+      if (jobId != null) 'jobId': jobId?.toJson(),
       'details': details,
-      'dateTime': dateTime,
+      'dateTime': dateTime.toJson(),
       'userId': userId,
-      if (user != null) 'user': user,
+      if (user != null) 'user': user?.toJson(),
     };
   }
 }

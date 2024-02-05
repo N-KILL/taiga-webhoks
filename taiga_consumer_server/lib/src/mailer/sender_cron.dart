@@ -80,7 +80,7 @@ Future<void> mailUpdateNotificationCron({
 
       // This var store all the update information filtered
       final lastDayUpdates =
-          await TaigaJobEndpoints().taigaJobUpdatesReadFilteringByEpoch(
+          await TaigaJobEndpoint().taigaJobUpdatesReadFilteringByEpoch(
         session,
         min: (timeEpochOnSeconds - secondsInDay),
         max: timeEpochOnSeconds,

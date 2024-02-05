@@ -1,10 +1,10 @@
 enum: HuStatus
 serialized: byName
 values:
- - newStatus
- - refinandoseStatus
- - ilustrandoseStatus
- - pensandoseStatus
- - listaStatus
- - aprobandoseStatus
- - postergadoStatus
+ - NUEVA
+ - REFINANDOSE
+ - ILUSTRANDOSE
+ - PENSANDOSE
+ - LISTA
+ - APROBANDOSE
+ - POSTERGADO

@@ -2,10 +2,10 @@ import 'package:communication_service/communication_service.dart';
 
 void main() async {
   await PostgresStrategy(
-    host: 'monorail.proxy.rlwy.net',
-    databaseName: 'railway',
-    userName: 'postgres',
-    dbPassword: 'EabAagcEGfCgdF1E5dCG6-6gF--B4aDg',
-    port: 46802,
+      host: 'alcanza-qa.cd2usnwrufvg.us-east-2.rds.amazonaws.com',
+      databaseName: 'defaultdb',
+      userName: 'postgresadmin',
+      dbPassword: '1Tzb7l18FSBEELjn',
+      port: 5432,
   ).initialFixture('public');
 }

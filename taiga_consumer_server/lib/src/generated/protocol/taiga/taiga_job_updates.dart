@@ -116,13 +116,13 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'jobId': jobId,
-      if (job != null) 'job': job,
+      if (job != null) 'job': job?.toJson(),
       'type': type,
       'status': status,
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
-      if (comment != null) 'comment': comment,
+      if (comment != null) 'comment': comment?.toJson(),
     };
   }
 
@@ -130,13 +130,13 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'jobId': jobId,
       'type': type,
       'status': status,
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
-      if (commentId != null) 'commentId': commentId,
+      'commentId': commentId,
     };
   }
 
@@ -145,17 +145,18 @@ abstract class TaigaJobUpdates extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'jobId': jobId,
-      if (job != null) 'job': job,
+      if (job != null) 'job': job?.allToJson(),
       'type': type,
       'status': status,
       'details': details,
       'dateTimeEpoch': dateTimeEpoch,
       if (commentId != null) 'commentId': commentId,
-      if (comment != null) 'comment': comment,
+      if (comment != null) 'comment': comment?.allToJson(),
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,

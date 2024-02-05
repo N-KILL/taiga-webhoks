@@ -14,29 +14,29 @@ import '../../protocol.dart' as _i2;
 abstract class StatusCard extends _i1.TableRow {
   StatusCard._({
     int? id,
-    required this.approvedId,
+    this.approvedId,
     this.approved,
-    required this.developmentId,
+    this.developmentId,
     this.development,
-    required this.internalTestId,
+    this.internalTestId,
     this.internalTest,
-    required this.externalTestId,
+    this.externalTestId,
     this.externalTest,
-    required this.amountOfDaysId,
+    this.amountOfDaysId,
     this.amountOfDays,
   }) : super(id);
 
   factory StatusCard({
     int? id,
-    required int approvedId,
-    _i2.User? approved,
-    required int developmentId,
-    _i2.User? development,
-    required int internalTestId,
-    _i2.User? internalTest,
-    required int externalTestId,
-    _i2.User? externalTest,
-    required int amountOfDaysId,
+    int? approvedId,
+    _i2.StatusCardDetails? approved,
+    int? developmentId,
+    _i2.StatusCardDetails? development,
+    int? internalTestId,
+    _i2.StatusCardDetails? internalTest,
+    int? externalTestId,
+    _i2.StatusCardDetails? externalTest,
+    int? amountOfDaysId,
     _i2.AmountOfDays? amountOfDays,
   }) = _StatusCardImpl;
 
@@ -47,23 +47,23 @@ abstract class StatusCard extends _i1.TableRow {
     return StatusCard(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       approvedId: serializationManager
-          .deserialize<int>(jsonSerialization['approvedId']),
+          .deserialize<int?>(jsonSerialization['approvedId']),
       approved: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['approved']),
+          .deserialize<_i2.StatusCardDetails?>(jsonSerialization['approved']),
       developmentId: serializationManager
-          .deserialize<int>(jsonSerialization['developmentId']),
-      development: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['development']),
+          .deserialize<int?>(jsonSerialization['developmentId']),
+      development: serializationManager.deserialize<_i2.StatusCardDetails?>(
+          jsonSerialization['development']),
       internalTestId: serializationManager
-          .deserialize<int>(jsonSerialization['internalTestId']),
-      internalTest: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['internalTest']),
+          .deserialize<int?>(jsonSerialization['internalTestId']),
+      internalTest: serializationManager.deserialize<_i2.StatusCardDetails?>(
+          jsonSerialization['internalTest']),
       externalTestId: serializationManager
-          .deserialize<int>(jsonSerialization['externalTestId']),
-      externalTest: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['externalTest']),
+          .deserialize<int?>(jsonSerialization['externalTestId']),
+      externalTest: serializationManager.deserialize<_i2.StatusCardDetails?>(
+          jsonSerialization['externalTest']),
       amountOfDaysId: serializationManager
-          .deserialize<int>(jsonSerialization['amountOfDaysId']),
+          .deserialize<int?>(jsonSerialization['amountOfDaysId']),
       amountOfDays: serializationManager
           .deserialize<_i2.AmountOfDays?>(jsonSerialization['amountOfDays']),
     );
@@ -73,23 +73,23 @@ abstract class StatusCard extends _i1.TableRow {
 
   static const db = StatusCardRepository._();
 
-  int approvedId;
+  int? approvedId;
 
-  _i2.User? approved;
+  _i2.StatusCardDetails? approved;
 
-  int developmentId;
+  int? developmentId;
 
-  _i2.User? development;
+  _i2.StatusCardDetails? development;
 
-  int internalTestId;
+  int? internalTestId;
 
-  _i2.User? internalTest;
+  _i2.StatusCardDetails? internalTest;
 
-  int externalTestId;
+  int? externalTestId;
 
-  _i2.User? externalTest;
+  _i2.StatusCardDetails? externalTest;
 
-  int amountOfDaysId;
+  int? amountOfDaysId;
 
   _i2.AmountOfDays? amountOfDays;
 
@@ -99,13 +99,13 @@ abstract class StatusCard extends _i1.TableRow {
   StatusCard copyWith({
     int? id,
     int? approvedId,
-    _i2.User? approved,
+    _i2.StatusCardDetails? approved,
     int? developmentId,
-    _i2.User? development,
+    _i2.StatusCardDetails? development,
     int? internalTestId,
-    _i2.User? internalTest,
+    _i2.StatusCardDetails? internalTest,
     int? externalTestId,
-    _i2.User? externalTest,
+    _i2.StatusCardDetails? externalTest,
     int? amountOfDaysId,
     _i2.AmountOfDays? amountOfDays,
   });
@@ -113,16 +113,16 @@ abstract class StatusCard extends _i1.TableRow {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'approvedId': approvedId,
-      if (approved != null) 'approved': approved,
-      'developmentId': developmentId,
-      if (development != null) 'development': development,
-      'internalTestId': internalTestId,
-      if (internalTest != null) 'internalTest': internalTest,
-      'externalTestId': externalTestId,
-      if (externalTest != null) 'externalTest': externalTest,
-      'amountOfDaysId': amountOfDaysId,
-      if (amountOfDays != null) 'amountOfDays': amountOfDays,
+      if (approvedId != null) 'approvedId': approvedId,
+      if (approved != null) 'approved': approved?.toJson(),
+      if (developmentId != null) 'developmentId': developmentId,
+      if (development != null) 'development': development?.toJson(),
+      if (internalTestId != null) 'internalTestId': internalTestId,
+      if (internalTest != null) 'internalTest': internalTest?.toJson(),
+      if (externalTestId != null) 'externalTestId': externalTestId,
+      if (externalTest != null) 'externalTest': externalTest?.toJson(),
+      if (amountOfDaysId != null) 'amountOfDaysId': amountOfDaysId,
+      if (amountOfDays != null) 'amountOfDays': amountOfDays?.toJson(),
     };
   }
 
@@ -130,7 +130,7 @@ abstract class StatusCard extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'approvedId': approvedId,
       'developmentId': developmentId,
       'internalTestId': internalTestId,
@@ -143,20 +143,21 @@ abstract class StatusCard extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       if (id != null) 'id': id,
-      'approvedId': approvedId,
-      if (approved != null) 'approved': approved,
-      'developmentId': developmentId,
-      if (development != null) 'development': development,
-      'internalTestId': internalTestId,
-      if (internalTest != null) 'internalTest': internalTest,
-      'externalTestId': externalTestId,
-      if (externalTest != null) 'externalTest': externalTest,
-      'amountOfDaysId': amountOfDaysId,
-      if (amountOfDays != null) 'amountOfDays': amountOfDays,
+      if (approvedId != null) 'approvedId': approvedId,
+      if (approved != null) 'approved': approved?.allToJson(),
+      if (developmentId != null) 'developmentId': developmentId,
+      if (development != null) 'development': development?.allToJson(),
+      if (internalTestId != null) 'internalTestId': internalTestId,
+      if (internalTest != null) 'internalTest': internalTest?.allToJson(),
+      if (externalTestId != null) 'externalTestId': externalTestId,
+      if (externalTest != null) 'externalTest': externalTest?.allToJson(),
+      if (amountOfDaysId != null) 'amountOfDaysId': amountOfDaysId,
+      if (amountOfDays != null) 'amountOfDays': amountOfDays?.allToJson(),
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,
@@ -311,10 +312,10 @@ abstract class StatusCard extends _i1.TableRow {
   }
 
   static StatusCardInclude include({
-    _i2.UserInclude? approved,
-    _i2.UserInclude? development,
-    _i2.UserInclude? internalTest,
-    _i2.UserInclude? externalTest,
+    _i2.StatusCardDetailsInclude? approved,
+    _i2.StatusCardDetailsInclude? development,
+    _i2.StatusCardDetailsInclude? internalTest,
+    _i2.StatusCardDetailsInclude? externalTest,
     _i2.AmountOfDaysInclude? amountOfDays,
   }) {
     return StatusCardInclude._(
@@ -352,15 +353,15 @@ class _Undefined {}
 class _StatusCardImpl extends StatusCard {
   _StatusCardImpl({
     int? id,
-    required int approvedId,
-    _i2.User? approved,
-    required int developmentId,
-    _i2.User? development,
-    required int internalTestId,
-    _i2.User? internalTest,
-    required int externalTestId,
-    _i2.User? externalTest,
-    required int amountOfDaysId,
+    int? approvedId,
+    _i2.StatusCardDetails? approved,
+    int? developmentId,
+    _i2.StatusCardDetails? development,
+    int? internalTestId,
+    _i2.StatusCardDetails? internalTest,
+    int? externalTestId,
+    _i2.StatusCardDetails? externalTest,
+    int? amountOfDaysId,
     _i2.AmountOfDays? amountOfDays,
   }) : super._(
           id: id,
@@ -379,33 +380,39 @@ class _StatusCardImpl extends StatusCard {
   @override
   StatusCard copyWith({
     Object? id = _Undefined,
-    int? approvedId,
+    Object? approvedId = _Undefined,
     Object? approved = _Undefined,
-    int? developmentId,
+    Object? developmentId = _Undefined,
     Object? development = _Undefined,
-    int? internalTestId,
+    Object? internalTestId = _Undefined,
     Object? internalTest = _Undefined,
-    int? externalTestId,
+    Object? externalTestId = _Undefined,
     Object? externalTest = _Undefined,
-    int? amountOfDaysId,
+    Object? amountOfDaysId = _Undefined,
     Object? amountOfDays = _Undefined,
   }) {
     return StatusCard(
       id: id is int? ? id : this.id,
-      approvedId: approvedId ?? this.approvedId,
-      approved: approved is _i2.User? ? approved : this.approved?.copyWith(),
-      developmentId: developmentId ?? this.developmentId,
-      development:
-          development is _i2.User? ? development : this.development?.copyWith(),
-      internalTestId: internalTestId ?? this.internalTestId,
-      internalTest: internalTest is _i2.User?
+      approvedId: approvedId is int? ? approvedId : this.approvedId,
+      approved: approved is _i2.StatusCardDetails?
+          ? approved
+          : this.approved?.copyWith(),
+      developmentId: developmentId is int? ? developmentId : this.developmentId,
+      development: development is _i2.StatusCardDetails?
+          ? development
+          : this.development?.copyWith(),
+      internalTestId:
+          internalTestId is int? ? internalTestId : this.internalTestId,
+      internalTest: internalTest is _i2.StatusCardDetails?
           ? internalTest
           : this.internalTest?.copyWith(),
-      externalTestId: externalTestId ?? this.externalTestId,
-      externalTest: externalTest is _i2.User?
+      externalTestId:
+          externalTestId is int? ? externalTestId : this.externalTestId,
+      externalTest: externalTest is _i2.StatusCardDetails?
           ? externalTest
           : this.externalTest?.copyWith(),
-      amountOfDaysId: amountOfDaysId ?? this.amountOfDaysId,
+      amountOfDaysId:
+          amountOfDaysId is int? ? amountOfDaysId : this.amountOfDaysId,
       amountOfDays: amountOfDays is _i2.AmountOfDays?
           ? amountOfDays
           : this.amountOfDays?.copyWith(),
@@ -439,72 +446,72 @@ class StatusCardTable extends _i1.Table {
 
   late final _i1.ColumnInt approvedId;
 
-  _i2.UserTable? _approved;
+  _i2.StatusCardDetailsTable? _approved;
 
   late final _i1.ColumnInt developmentId;
 
-  _i2.UserTable? _development;
+  _i2.StatusCardDetailsTable? _development;
 
   late final _i1.ColumnInt internalTestId;
 
-  _i2.UserTable? _internalTest;
+  _i2.StatusCardDetailsTable? _internalTest;
 
   late final _i1.ColumnInt externalTestId;
 
-  _i2.UserTable? _externalTest;
+  _i2.StatusCardDetailsTable? _externalTest;
 
   late final _i1.ColumnInt amountOfDaysId;
 
   _i2.AmountOfDaysTable? _amountOfDays;
 
-  _i2.UserTable get approved {
+  _i2.StatusCardDetailsTable get approved {
     if (_approved != null) return _approved!;
     _approved = _i1.createRelationTable(
       relationFieldName: 'approved',
       field: StatusCard.t.approvedId,
-      foreignField: _i2.User.t.id,
+      foreignField: _i2.StatusCardDetails.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.UserTable(tableRelation: foreignTableRelation),
+          _i2.StatusCardDetailsTable(tableRelation: foreignTableRelation),
     );
     return _approved!;
   }
 
-  _i2.UserTable get development {
+  _i2.StatusCardDetailsTable get development {
     if (_development != null) return _development!;
     _development = _i1.createRelationTable(
       relationFieldName: 'development',
       field: StatusCard.t.developmentId,
-      foreignField: _i2.User.t.id,
+      foreignField: _i2.StatusCardDetails.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.UserTable(tableRelation: foreignTableRelation),
+          _i2.StatusCardDetailsTable(tableRelation: foreignTableRelation),
     );
     return _development!;
   }
 
-  _i2.UserTable get internalTest {
+  _i2.StatusCardDetailsTable get internalTest {
     if (_internalTest != null) return _internalTest!;
     _internalTest = _i1.createRelationTable(
       relationFieldName: 'internalTest',
       field: StatusCard.t.internalTestId,
-      foreignField: _i2.User.t.id,
+      foreignField: _i2.StatusCardDetails.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.UserTable(tableRelation: foreignTableRelation),
+          _i2.StatusCardDetailsTable(tableRelation: foreignTableRelation),
     );
     return _internalTest!;
   }
 
-  _i2.UserTable get externalTest {
+  _i2.StatusCardDetailsTable get externalTest {
     if (_externalTest != null) return _externalTest!;
     _externalTest = _i1.createRelationTable(
       relationFieldName: 'externalTest',
       field: StatusCard.t.externalTestId,
-      foreignField: _i2.User.t.id,
+      foreignField: _i2.StatusCardDetails.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.UserTable(tableRelation: foreignTableRelation),
+          _i2.StatusCardDetailsTable(tableRelation: foreignTableRelation),
     );
     return _externalTest!;
   }
@@ -558,10 +565,10 @@ StatusCardTable tStatusCard = StatusCardTable();
 
 class StatusCardInclude extends _i1.IncludeObject {
   StatusCardInclude._({
-    _i2.UserInclude? approved,
-    _i2.UserInclude? development,
-    _i2.UserInclude? internalTest,
-    _i2.UserInclude? externalTest,
+    _i2.StatusCardDetailsInclude? approved,
+    _i2.StatusCardDetailsInclude? development,
+    _i2.StatusCardDetailsInclude? internalTest,
+    _i2.StatusCardDetailsInclude? externalTest,
     _i2.AmountOfDaysInclude? amountOfDays,
   }) {
     _approved = approved;
@@ -571,13 +578,13 @@ class StatusCardInclude extends _i1.IncludeObject {
     _amountOfDays = amountOfDays;
   }
 
-  _i2.UserInclude? _approved;
+  _i2.StatusCardDetailsInclude? _approved;
 
-  _i2.UserInclude? _development;
+  _i2.StatusCardDetailsInclude? _development;
 
-  _i2.UserInclude? _internalTest;
+  _i2.StatusCardDetailsInclude? _internalTest;
 
-  _i2.UserInclude? _externalTest;
+  _i2.StatusCardDetailsInclude? _externalTest;
 
   _i2.AmountOfDaysInclude? _amountOfDays;
 
@@ -618,6 +625,8 @@ class StatusCardRepository {
   const StatusCardRepository._();
 
   final attachRow = const StatusCardAttachRowRepository._();
+
+  final detachRow = const StatusCardDetachRowRepository._();
 
   Future<List<StatusCard>> find(
     _i1.Session session, {
@@ -777,7 +786,7 @@ class StatusCardAttachRowRepository {
   Future<void> approved(
     _i1.Session session,
     StatusCard statusCard,
-    _i2.User approved,
+    _i2.StatusCardDetails approved,
   ) async {
     if (statusCard.id == null) {
       throw ArgumentError.notNull('statusCard.id');
@@ -796,7 +805,7 @@ class StatusCardAttachRowRepository {
   Future<void> development(
     _i1.Session session,
     StatusCard statusCard,
-    _i2.User development,
+    _i2.StatusCardDetails development,
   ) async {
     if (statusCard.id == null) {
       throw ArgumentError.notNull('statusCard.id');
@@ -815,7 +824,7 @@ class StatusCardAttachRowRepository {
   Future<void> internalTest(
     _i1.Session session,
     StatusCard statusCard,
-    _i2.User internalTest,
+    _i2.StatusCardDetails internalTest,
   ) async {
     if (statusCard.id == null) {
       throw ArgumentError.notNull('statusCard.id');
@@ -834,7 +843,7 @@ class StatusCardAttachRowRepository {
   Future<void> externalTest(
     _i1.Session session,
     StatusCard statusCard,
-    _i2.User externalTest,
+    _i2.StatusCardDetails externalTest,
   ) async {
     if (statusCard.id == null) {
       throw ArgumentError.notNull('statusCard.id');
@@ -865,6 +874,85 @@ class StatusCardAttachRowRepository {
     var $statusCard = statusCard.copyWith(amountOfDaysId: amountOfDays.id);
     await session.dbNext.updateRow<StatusCard>(
       $statusCard,
+      columns: [StatusCard.t.amountOfDaysId],
+    );
+  }
+}
+
+class StatusCardDetachRowRepository {
+  const StatusCardDetachRowRepository._();
+
+  Future<void> approved(
+    _i1.Session session,
+    StatusCard statuscard,
+  ) async {
+    if (statuscard.id == null) {
+      throw ArgumentError.notNull('statuscard.id');
+    }
+
+    var $statuscard = statuscard.copyWith(approvedId: null);
+    await session.dbNext.updateRow<StatusCard>(
+      $statuscard,
+      columns: [StatusCard.t.approvedId],
+    );
+  }
+
+  Future<void> development(
+    _i1.Session session,
+    StatusCard statuscard,
+  ) async {
+    if (statuscard.id == null) {
+      throw ArgumentError.notNull('statuscard.id');
+    }
+
+    var $statuscard = statuscard.copyWith(developmentId: null);
+    await session.dbNext.updateRow<StatusCard>(
+      $statuscard,
+      columns: [StatusCard.t.developmentId],
+    );
+  }
+
+  Future<void> internalTest(
+    _i1.Session session,
+    StatusCard statuscard,
+  ) async {
+    if (statuscard.id == null) {
+      throw ArgumentError.notNull('statuscard.id');
+    }
+
+    var $statuscard = statuscard.copyWith(internalTestId: null);
+    await session.dbNext.updateRow<StatusCard>(
+      $statuscard,
+      columns: [StatusCard.t.internalTestId],
+    );
+  }
+
+  Future<void> externalTest(
+    _i1.Session session,
+    StatusCard statuscard,
+  ) async {
+    if (statuscard.id == null) {
+      throw ArgumentError.notNull('statuscard.id');
+    }
+
+    var $statuscard = statuscard.copyWith(externalTestId: null);
+    await session.dbNext.updateRow<StatusCard>(
+      $statuscard,
+      columns: [StatusCard.t.externalTestId],
+    );
+  }
+
+  Future<void> amountOfDays(
+    _i1.Session session,
+    StatusCard statuscard,
+  ) async {
+    if (statuscard.id == null) {
+      throw ArgumentError.notNull('statuscard.id');
+    }
+
+    var $statuscard = statuscard.copyWith(amountOfDaysId: null);
+    await session.dbNext.updateRow<StatusCard>(
+      $statuscard,
       columns: [StatusCard.t.amountOfDaysId],
     );
   }

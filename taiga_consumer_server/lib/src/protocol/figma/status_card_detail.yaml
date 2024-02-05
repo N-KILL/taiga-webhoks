@@ -1,5 +1,5 @@
 class: StatusCardDetails
 table: status_card_details
 fields:
-  byUser: User?, relation
-  date: DateTime
+  byUser: User?, relation(optional)
+  date: String

@@ -1,3 +1,7 @@
+figma:
+  - registerNewAction:
+  - registerNewHUData:
+  - getSprintDataByTaigaId:
 taigaProject:
   - projectCreate:
   - projectCreateOnBulk:
@@ -7,7 +11,7 @@ taigaProject:
   - projectUpdateProject:
   - projectDeleteProject:
   - projectDeleteProjectById:
-taigaJobEndpoints:
+taigaJob:
   - taigaJobCreate:
   - taigaJobCreateOnBulk:
   - taigaJobReadById:

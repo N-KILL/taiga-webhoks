@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../../protocol.dart' as _i2;
+import 'package:serverpod_serialization/serverpod_serialization.dart';
 
 /// This class is for storage the all the commentaries made into a Job on Taiga
 /// Have direct relation to the TaigaJob table
@@ -92,11 +93,11 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'jobIdId': jobIdId,
-      if (jobId != null) 'jobId': jobId,
+      if (jobId != null) 'jobId': jobId?.toJson(),
       'details': details,
-      'dateTime': dateTime,
+      'dateTime': dateTime.toJson(),
       'userId': userId,
-      if (user != null) 'user': user,
+      if (user != null) 'user': user?.toJson(),
     };
   }
 
@@ -104,7 +105,7 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'jobIdId': jobIdId,
       'details': details,
       'dateTime': dateTime,
@@ -117,15 +118,16 @@ abstract class TaigaJobCommentaries extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'jobIdId': jobIdId,
-      if (jobId != null) 'jobId': jobId,
+      if (jobId != null) 'jobId': jobId?.allToJson(),
       'details': details,
-      'dateTime': dateTime,
+      'dateTime': dateTime.toJson(),
       'userId': userId,
-      if (user != null) 'user': user,
+      if (user != null) 'user': user?.allToJson(),
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,

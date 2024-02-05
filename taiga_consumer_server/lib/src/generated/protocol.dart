@@ -73,10 +73,34 @@ class Protocol extends _i1.SerializationManagerServer {
           name: 'action',
           columnType: _i2.ColumnType.text,
           isNullable: false,
-          dartType: 'String',
+          dartType: 'protocol:ActionType',
         ),
         _i2.ColumnDefinition(
           name: 'huDataId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: true,
+          dartType: 'int?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'isActive',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+        ),
+        _i2.ColumnDefinition(
+          name: 'creationDate',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'inactiveSince',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: true,
+          dartType: 'DateTime?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'projectId',
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int',
@@ -92,7 +116,17 @@ class Protocol extends _i1.SerializationManagerServer {
           onUpdate: _i2.ForeignKeyAction.noAction,
           onDelete: _i2.ForeignKeyAction.noAction,
           matchType: null,
-        )
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'figma_action_fk_1',
+          columns: ['projectId'],
+          referenceTable: 'taiga_project',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
       ],
       indexes: [
         _i2.IndexDefinition(
@@ -213,14 +247,14 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ColumnDefinition(
           name: 'sprintId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'statusCardId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
       ],
       foreignKeys: [
@@ -281,6 +315,12 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: false,
           dartType: 'String',
         ),
+        _i2.ColumnDefinition(
+          name: 'taigaId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
       ],
       foreignKeys: [],
       indexes: [
@@ -316,39 +356,39 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ColumnDefinition(
           name: 'approvedId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'developmentId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'internalTestId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'externalTestId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'amountOfDaysId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'status_card_fk_0',
           columns: ['approvedId'],
-          referenceTable: 'user',
+          referenceTable: 'status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -358,7 +398,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'status_card_fk_1',
           columns: ['developmentId'],
-          referenceTable: 'user',
+          referenceTable: 'status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -368,7 +408,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'status_card_fk_2',
           columns: ['internalTestId'],
-          referenceTable: 'user',
+          referenceTable: 'status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -378,7 +418,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'status_card_fk_3',
           columns: ['externalTestId'],
-          referenceTable: 'user',
+          referenceTable: 'status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -429,14 +469,14 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ColumnDefinition(
           name: 'byUserId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'date',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          columnType: _i2.ColumnType.text,
           isNullable: false,
-          dartType: 'DateTime',
+          dartType: 'String',
         ),
       ],
       foreignKeys: [

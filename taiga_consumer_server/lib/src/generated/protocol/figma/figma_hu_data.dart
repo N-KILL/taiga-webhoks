@@ -18,9 +18,9 @@ abstract class HuData extends _i1.TableRow {
     required this.refNum,
     required this.status,
     required this.readyForDev,
-    required this.sprintId,
+    this.sprintId,
     this.sprint,
-    required this.statusCardId,
+    this.statusCardId,
     this.statusCard,
   }) : super(id);
 
@@ -30,9 +30,9 @@ abstract class HuData extends _i1.TableRow {
     required int refNum,
     required _i2.HuStatus status,
     required bool readyForDev,
-    required int sprintId,
+    int? sprintId,
     _i2.Sprint? sprint,
-    required int statusCardId,
+    int? statusCardId,
     _i2.StatusCard? statusCard,
   }) = _HuDataImpl;
 
@@ -50,11 +50,11 @@ abstract class HuData extends _i1.TableRow {
       readyForDev: serializationManager
           .deserialize<bool>(jsonSerialization['readyForDev']),
       sprintId:
-          serializationManager.deserialize<int>(jsonSerialization['sprintId']),
+          serializationManager.deserialize<int?>(jsonSerialization['sprintId']),
       sprint: serializationManager
           .deserialize<_i2.Sprint?>(jsonSerialization['sprint']),
       statusCardId: serializationManager
-          .deserialize<int>(jsonSerialization['statusCardId']),
+          .deserialize<int?>(jsonSerialization['statusCardId']),
       statusCard: serializationManager
           .deserialize<_i2.StatusCard?>(jsonSerialization['statusCard']),
     );
@@ -72,11 +72,11 @@ abstract class HuData extends _i1.TableRow {
 
   bool readyForDev;
 
-  int sprintId;
+  int? sprintId;
 
   _i2.Sprint? sprint;
 
-  int statusCardId;
+  int? statusCardId;
 
   _i2.StatusCard? statusCard;
 
@@ -100,12 +100,12 @@ abstract class HuData extends _i1.TableRow {
       if (id != null) 'id': id,
       'name': name,
       'refNum': refNum,
-      'status': status,
+      'status': status.toJson(),
       'readyForDev': readyForDev,
-      'sprintId': sprintId,
-      if (sprint != null) 'sprint': sprint,
-      'statusCardId': statusCardId,
-      if (statusCard != null) 'statusCard': statusCard,
+      if (sprintId != null) 'sprintId': sprintId,
+      if (sprint != null) 'sprint': sprint?.toJson(),
+      if (statusCardId != null) 'statusCardId': statusCardId,
+      if (statusCard != null) 'statusCard': statusCard?.toJson(),
     };
   }
 
@@ -113,7 +113,7 @@ abstract class HuData extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'name': name,
       'refNum': refNum,
       'status': status,
@@ -129,16 +129,17 @@ abstract class HuData extends _i1.TableRow {
       if (id != null) 'id': id,
       'name': name,
       'refNum': refNum,
-      'status': status,
+      'status': status.toJson(),
       'readyForDev': readyForDev,
-      'sprintId': sprintId,
-      if (sprint != null) 'sprint': sprint,
-      'statusCardId': statusCardId,
-      if (statusCard != null) 'statusCard': statusCard,
+      if (sprintId != null) 'sprintId': sprintId,
+      if (sprint != null) 'sprint': sprint?.allToJson(),
+      if (statusCardId != null) 'statusCardId': statusCardId,
+      if (statusCard != null) 'statusCard': statusCard?.allToJson(),
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,
@@ -335,9 +336,9 @@ class _HuDataImpl extends HuData {
     required int refNum,
     required _i2.HuStatus status,
     required bool readyForDev,
-    required int sprintId,
+    int? sprintId,
     _i2.Sprint? sprint,
-    required int statusCardId,
+    int? statusCardId,
     _i2.StatusCard? statusCard,
   }) : super._(
           id: id,
@@ -358,9 +359,9 @@ class _HuDataImpl extends HuData {
     int? refNum,
     _i2.HuStatus? status,
     bool? readyForDev,
-    int? sprintId,
+    Object? sprintId = _Undefined,
     Object? sprint = _Undefined,
-    int? statusCardId,
+    Object? statusCardId = _Undefined,
     Object? statusCard = _Undefined,
   }) {
     return HuData(
@@ -369,9 +370,9 @@ class _HuDataImpl extends HuData {
       refNum: refNum ?? this.refNum,
       status: status ?? this.status,
       readyForDev: readyForDev ?? this.readyForDev,
-      sprintId: sprintId ?? this.sprintId,
+      sprintId: sprintId is int? ? sprintId : this.sprintId,
       sprint: sprint is _i2.Sprint? ? sprint : this.sprint?.copyWith(),
-      statusCardId: statusCardId ?? this.statusCardId,
+      statusCardId: statusCardId is int? ? statusCardId : this.statusCardId,
       statusCard: statusCard is _i2.StatusCard?
           ? statusCard
           : this.statusCard?.copyWith(),
@@ -523,6 +524,8 @@ class HuDataRepository {
   const HuDataRepository._();
 
   final attachRow = const HuDataAttachRowRepository._();
+
+  final detachRow = const HuDataDetachRowRepository._();
 
   Future<List<HuData>> find(
     _i1.Session session, {
@@ -713,6 +716,40 @@ class HuDataAttachRowRepository {
     var $huData = huData.copyWith(statusCardId: statusCard.id);
     await session.dbNext.updateRow<HuData>(
       $huData,
+      columns: [HuData.t.statusCardId],
+    );
+  }
+}
+
+class HuDataDetachRowRepository {
+  const HuDataDetachRowRepository._();
+
+  Future<void> sprint(
+    _i1.Session session,
+    HuData hudata,
+  ) async {
+    if (hudata.id == null) {
+      throw ArgumentError.notNull('hudata.id');
+    }
+
+    var $hudata = hudata.copyWith(sprintId: null);
+    await session.dbNext.updateRow<HuData>(
+      $hudata,
+      columns: [HuData.t.sprintId],
+    );
+  }
+
+  Future<void> statusCard(
+    _i1.Session session,
+    HuData hudata,
+  ) async {
+    if (hudata.id == null) {
+      throw ArgumentError.notNull('hudata.id');
+    }
+
+    var $hudata = hudata.copyWith(statusCardId: null);
+    await session.dbNext.updateRow<HuData>(
+      $hudata,
       columns: [HuData.t.statusCardId],
     );
   }

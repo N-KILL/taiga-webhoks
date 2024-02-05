@@ -6,7 +6,11 @@ BEGIN;
 CREATE TABLE "figma_action" (
     "id" serial PRIMARY KEY,
     "action" text NOT NULL,
-    "huDataId" integer NOT NULL
+    "huDataId" integer,
+    "isActive" boolean NOT NULL,
+    "creationDate" timestamp without time zone NOT NULL,
+    "inactiveSince" timestamp without time zone,
+    "projectId" integer NOT NULL
 );
 
 --
@@ -30,8 +34,8 @@ CREATE TABLE "hu_data" (
     "refNum" integer NOT NULL,
     "status" text NOT NULL,
     "readyForDev" boolean NOT NULL,
-    "sprintId" integer NOT NULL,
-    "statusCardId" integer NOT NULL
+    "sprintId" integer,
+    "statusCardId" integer
 );
 
 --
@@ -39,7 +43,8 @@ CREATE TABLE "hu_data" (
 --
 CREATE TABLE "sprint_data" (
     "id" serial PRIMARY KEY,
-    "name" text NOT NULL
+    "name" text NOT NULL,
+    "taigaId" integer NOT NULL
 );
 
 --
@@ -47,11 +52,11 @@ CREATE TABLE "sprint_data" (
 --
 CREATE TABLE "status_card" (
     "id" serial PRIMARY KEY,
-    "approvedId" integer NOT NULL,
-    "developmentId" integer NOT NULL,
-    "internalTestId" integer NOT NULL,
-    "externalTestId" integer NOT NULL,
-    "amountOfDaysId" integer NOT NULL
+    "approvedId" integer,
+    "developmentId" integer,
+    "internalTestId" integer,
+    "externalTestId" integer,
+    "amountOfDaysId" integer
 );
 
 --
@@ -59,8 +64,8 @@ CREATE TABLE "status_card" (
 --
 CREATE TABLE "status_card_details" (
     "id" serial PRIMARY KEY,
-    "byUserId" integer NOT NULL,
-    "date" timestamp without time zone NOT NULL
+    "byUserId" integer,
+    "date" text NOT NULL
 );
 
 --
@@ -350,6 +355,12 @@ ALTER TABLE ONLY "figma_action"
     REFERENCES "hu_data"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
+ALTER TABLE ONLY "figma_action"
+    ADD CONSTRAINT "figma_action_fk_1"
+    FOREIGN KEY("projectId")
+    REFERENCES "taiga_project"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
 
 --
 -- ACTION CREATE FOREIGN KEY
@@ -373,25 +384,25 @@ ALTER TABLE ONLY "hu_data"
 ALTER TABLE ONLY "status_card"
     ADD CONSTRAINT "status_card_fk_0"
     FOREIGN KEY("approvedId")
-    REFERENCES "user"("id")
+    REFERENCES "status_card_details"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "status_card"
     ADD CONSTRAINT "status_card_fk_1"
     FOREIGN KEY("developmentId")
-    REFERENCES "user"("id")
+    REFERENCES "status_card_details"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "status_card"
     ADD CONSTRAINT "status_card_fk_2"
     FOREIGN KEY("internalTestId")
-    REFERENCES "user"("id")
+    REFERENCES "status_card_details"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "status_card"
     ADD CONSTRAINT "status_card_fk_3"
     FOREIGN KEY("externalTestId")
-    REFERENCES "user"("id")
+    REFERENCES "status_card_details"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "status_card"
@@ -488,9 +499,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR taiga_consumer
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('taiga_consumer', '20240130142731542', now())
+    VALUES ('taiga_consumer', '20240205144126208', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240130142731542', "timestamp" = now();
+    DO UPDATE SET "version" = '20240205144126208', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

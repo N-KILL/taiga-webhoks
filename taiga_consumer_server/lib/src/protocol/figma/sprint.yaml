@@ -1,4 +1,5 @@
 class: Sprint
 table: sprint_data
 fields:
-  name: String,
+  name: String
+  taigaId: int

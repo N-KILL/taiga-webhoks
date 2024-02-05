@@ -14,16 +14,16 @@ import '../../protocol.dart' as _i2;
 abstract class StatusCardDetails extends _i1.SerializableEntity {
   StatusCardDetails._({
     this.id,
-    required this.byUserId,
+    this.byUserId,
     this.byUser,
     required this.date,
   });
 
   factory StatusCardDetails({
     int? id,
-    required int byUserId,
+    int? byUserId,
     _i2.User? byUser,
-    required DateTime date,
+    required String date,
   }) = _StatusCardDetailsImpl;
 
   factory StatusCardDetails.fromJson(
@@ -33,11 +33,10 @@ abstract class StatusCardDetails extends _i1.SerializableEntity {
     return StatusCardDetails(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       byUserId:
-          serializationManager.deserialize<int>(jsonSerialization['byUserId']),
+          serializationManager.deserialize<int?>(jsonSerialization['byUserId']),
       byUser: serializationManager
           .deserialize<_i2.User?>(jsonSerialization['byUser']),
-      date:
-          serializationManager.deserialize<DateTime>(jsonSerialization['date']),
+      date: serializationManager.deserialize<String>(jsonSerialization['date']),
     );
   }
 
@@ -46,24 +45,24 @@ abstract class StatusCardDetails extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
-  int byUserId;
+  int? byUserId;
 
   _i2.User? byUser;
 
-  DateTime date;
+  String date;
 
   StatusCardDetails copyWith({
     int? id,
     int? byUserId,
     _i2.User? byUser,
-    DateTime? date,
+    String? date,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'byUserId': byUserId,
-      if (byUser != null) 'byUser': byUser,
+      if (byUserId != null) 'byUserId': byUserId,
+      if (byUser != null) 'byUser': byUser?.toJson(),
       'date': date,
     };
   }
@@ -74,9 +73,9 @@ class _Undefined {}
 class _StatusCardDetailsImpl extends StatusCardDetails {
   _StatusCardDetailsImpl({
     int? id,
-    required int byUserId,
+    int? byUserId,
     _i2.User? byUser,
-    required DateTime date,
+    required String date,
   }) : super._(
           id: id,
           byUserId: byUserId,
@@ -87,13 +86,13 @@ class _StatusCardDetailsImpl extends StatusCardDetails {
   @override
   StatusCardDetails copyWith({
     Object? id = _Undefined,
-    int? byUserId,
+    Object? byUserId = _Undefined,
     Object? byUser = _Undefined,
-    DateTime? date,
+    String? date,
   }) {
     return StatusCardDetails(
       id: id is int? ? id : this.id,
-      byUserId: byUserId ?? this.byUserId,
+      byUserId: byUserId is int? ? byUserId : this.byUserId,
       byUser: byUser is _i2.User? ? byUser : this.byUser?.copyWith(),
       date: date ?? this.date,
     );

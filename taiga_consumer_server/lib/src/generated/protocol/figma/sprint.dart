@@ -14,11 +14,13 @@ abstract class Sprint extends _i1.TableRow {
   Sprint._({
     int? id,
     required this.name,
+    required this.taigaId,
   }) : super(id);
 
   factory Sprint({
     int? id,
     required String name,
+    required int taigaId,
   }) = _SprintImpl;
 
   factory Sprint.fromJson(
@@ -28,6 +30,8 @@ abstract class Sprint extends _i1.TableRow {
     return Sprint(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
+      taigaId:
+          serializationManager.deserialize<int>(jsonSerialization['taigaId']),
     );
   }
 
@@ -37,18 +41,22 @@ abstract class Sprint extends _i1.TableRow {
 
   String name;
 
+  int taigaId;
+
   @override
   _i1.Table get table => t;
 
   Sprint copyWith({
     int? id,
     String? name,
+    int? taigaId,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
       'name': name,
+      'taigaId': taigaId,
     };
   }
 
@@ -56,8 +64,9 @@ abstract class Sprint extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0')
   Map<String, dynamic> toJsonForDatabase() {
     return {
-      if (id != null) 'id': id,
+      'id': id,
       'name': name,
+      'taigaId': taigaId,
     };
   }
 
@@ -66,10 +75,12 @@ abstract class Sprint extends _i1.TableRow {
     return {
       if (id != null) 'id': id,
       'name': name,
+      'taigaId': taigaId,
     };
   }
 
   @override
+  @Deprecated('Will be removed in 2.0.0')
   void setColumn(
     String columnName,
     value,
@@ -80,6 +91,9 @@ abstract class Sprint extends _i1.TableRow {
         return;
       case 'name':
         name = value;
+        return;
+      case 'taigaId':
+        taigaId = value;
         return;
       default:
         throw UnimplementedError();
@@ -234,19 +248,23 @@ class _SprintImpl extends Sprint {
   _SprintImpl({
     int? id,
     required String name,
+    required int taigaId,
   }) : super._(
           id: id,
           name: name,
+          taigaId: taigaId,
         );
 
   @override
   Sprint copyWith({
     Object? id = _Undefined,
     String? name,
+    int? taigaId,
   }) {
     return Sprint(
       id: id is int? ? id : this.id,
       name: name ?? this.name,
+      taigaId: taigaId ?? this.taigaId,
     );
   }
 }
@@ -257,14 +275,21 @@ class SprintTable extends _i1.Table {
       'name',
       this,
     );
+    taigaId = _i1.ColumnInt(
+      'taigaId',
+      this,
+    );
   }
 
   late final _i1.ColumnString name;
+
+  late final _i1.ColumnInt taigaId;
 
   @override
   List<_i1.Column> get columns => [
         id,
         name,
+        taigaId,
       ];
 }
 
