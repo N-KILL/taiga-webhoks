@@ -23,14 +23,16 @@ import 'protocol/taiga/taiga_job_commentaries.dart' as _i11;
 import 'protocol/taiga/taiga_job_updates.dart' as _i12;
 import 'protocol/taiga/taiga_project.dart' as _i13;
 import 'protocol/user.dart' as _i14;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/figma/figma_action.dart'
     as _i15;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_project.dart'
     as _i16;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job.dart'
     as _i17;
-import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_updates.dart'
     as _i18;
+import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
+    as _i19;
 export 'protocol/figma/action_enum.dart';
 export 'protocol/figma/day_counter.dart';
 export 'protocol/figma/figma_action.dart';
@@ -147,66 +149,71 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i14.User?>()) {
       return (data != null ? _i14.User.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<List<_i15.TaigaProject>?>()) {
+    if (t == _i1.getType<List<_i15.FigmaAction>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i15.FigmaAction>(e)).toList()
+          : null) as dynamic;
+    }
+    if (t == _i1.getType<List<_i16.TaigaProject>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i15.TaigaProject>(e))
+              .map((e) => deserialize<_i16.TaigaProject>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i15.TaigaProject>) {
+    if (t == List<_i16.TaigaProject>) {
       return (data as List)
-          .map((e) => deserialize<_i15.TaigaProject>(e))
+          .map((e) => deserialize<_i16.TaigaProject>(e))
           .toList() as dynamic;
     }
-    if (t == _i1.getType<List<_i16.TaigaJob>?>()) {
+    if (t == _i1.getType<List<_i17.TaigaJob>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.TaigaJob>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i16.TaigaJob>) {
-      return (data as List).map((e) => deserialize<_i16.TaigaJob>(e)).toList()
+    if (t == List<_i17.TaigaJob>) {
+      return (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           as dynamic;
     }
-    if (t == _i1.getType<List<_i16.TaigaJob>?>()) {
+    if (t == _i1.getType<List<_i17.TaigaJob>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.TaigaJob>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i16.TaigaJob>?>()) {
+    if (t == _i1.getType<List<_i17.TaigaJob>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.TaigaJob>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.TaigaJob>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i17.TaigaJobUpdates>?>()) {
+    if (t == _i1.getType<List<_i18.TaigaJobUpdates>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i17.TaigaJobUpdates>(e))
+              .map((e) => deserialize<_i18.TaigaJobUpdates>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i17.TaigaJobUpdates>) {
+    if (t == List<_i18.TaigaJobUpdates>) {
       return (data as List)
-          .map((e) => deserialize<_i17.TaigaJobUpdates>(e))
+          .map((e) => deserialize<_i18.TaigaJobUpdates>(e))
           .toList() as dynamic;
     }
-    if (t == _i1.getType<List<_i17.TaigaJobUpdates>?>()) {
+    if (t == _i1.getType<List<_i18.TaigaJobUpdates>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i17.TaigaJobUpdates>(e))
+              .map((e) => deserialize<_i18.TaigaJobUpdates>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i18.TaigaJobCommentaries>?>()) {
+    if (t == _i1.getType<List<_i19.TaigaJobCommentaries>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i18.TaigaJobCommentaries>(e))
+              .map((e) => deserialize<_i19.TaigaJobCommentaries>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i18.TaigaJobCommentaries>) {
+    if (t == List<_i19.TaigaJobCommentaries>) {
       return (data as List)
-          .map((e) => deserialize<_i18.TaigaJobCommentaries>(e))
+          .map((e) => deserialize<_i19.TaigaJobCommentaries>(e))
           .toList() as dynamic;
     }
     return super.deserialize<T>(data, t);

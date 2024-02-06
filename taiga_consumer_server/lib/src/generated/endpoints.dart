@@ -52,6 +52,24 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'figma',
       endpoint: endpoints['figma']!,
       methodConnectors: {
+        'figmaResponse': _i1.MethodConnector(
+          name: 'figmaResponse',
+          params: {
+            'projectName': _i1.ParameterDescription(
+              name: 'projectName',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).figmaResponse(
+            session,
+            projectName: params['projectName'],
+          ),
+        ),
         'registerNewAction': _i1.MethodConnector(
           name: 'registerNewAction',
           params: {
@@ -104,6 +122,24 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['figma'] as _i2.FigmaEndpoint).getSprintDataByTaigaId(
             session,
             taigaId: params['taigaId'],
+          ),
+        ),
+        'getHUData': _i1.MethodConnector(
+          name: 'getHUData',
+          params: {
+            'huData': _i1.ParameterDescription(
+              name: 'huData',
+              type: _i1.getType<_i6.HuData>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).getHUData(
+            session,
+            huData: params['huData'],
           ),
         ),
       },

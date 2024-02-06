@@ -42,18 +42,26 @@ class EndpointFigma extends _i1.EndpointRef {
   /// This [figmaResponse] method, is the one who's called, by the figma plugin
   /// this have the parameter [projectName], which is used to filter the details
   /// of the projects
+  _i2.Future<List<_i3.FigmaAction>?> figmaResponse(
+          {required String projectName}) =>
+      caller.callServerEndpoint<List<_i3.FigmaAction>?>(
+        'figma',
+        'figmaResponse',
+        {'projectName': projectName},
+      );
+
   /// This [registerNewAction] endpoint is for register a new action into the db
   /// register
-  _i2.Future<String> registerNewAction(
+  _i2.Future<_i3.FigmaAction> registerNewAction(
           {required _i3.FigmaAction figmaAction}) =>
-      caller.callServerEndpoint<String>(
+      caller.callServerEndpoint<_i3.FigmaAction>(
         'figma',
         'registerNewAction',
         {'figmaAction': figmaAction},
       );
 
-  _i2.Future<String> registerNewHUData({required _i4.HuData huData}) =>
-      caller.callServerEndpoint<String>(
+  _i2.Future<_i4.HuData> registerNewHUData({required _i4.HuData huData}) =>
+      caller.callServerEndpoint<_i4.HuData>(
         'figma',
         'registerNewHUData',
         {'huData': huData},
@@ -64,6 +72,13 @@ class EndpointFigma extends _i1.EndpointRef {
         'figma',
         'getSprintDataByTaigaId',
         {'taigaId': taigaId},
+      );
+
+  _i2.Future<_i4.HuData?> getHUData({required _i4.HuData huData}) =>
+      caller.callServerEndpoint<_i4.HuData?>(
+        'figma',
+        'getHUData',
+        {'huData': huData},
       );
 }
 

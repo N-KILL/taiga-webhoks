@@ -1,7 +1,9 @@
 figma:
+  - figmaResponse:
   - registerNewAction:
   - registerNewHUData:
   - getSprintDataByTaigaId:
+  - getHUData:
 taigaProject:
   - projectCreate:
   - projectCreateOnBulk:

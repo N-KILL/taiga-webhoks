@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/endpoints/figma_endpoints.dart';
+import 'package:taiga_consumer_server/src/helpers/date_formatter.dart';
 import 'package:taiga_consumer_server/src/helpers/figma/figma_status_converter.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 
@@ -252,6 +253,9 @@ class TaigaRoute extends WidgetRoute {
             huData: huDetails,
           );
         }
+
+        // TODO(Nacho): Fix, use date parser
+        // Need to modify the models, to accept date on string format
 
         if (payload.actionType == 'create') {
           // Register a new action
