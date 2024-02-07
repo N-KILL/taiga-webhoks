@@ -118,12 +118,8 @@ class FigmaEndpoint extends Endpoint {
         modify.sprintId = huData.sprintId;
         modify.status = huData.status;
         modify.statusCardId = huData.statusCardId;
+        modify.readyForDev = huData.readyForDev;
 
-        // If the status is 'Lista'
-        if (huData.status == HuStatus.LISTA) {
-          // Put into ReadyForDev
-          modify.readyForDev = true;
-        }
         // Try to update the HuData data on the database
         final response = await HuData.db.updateRow(
           session,
