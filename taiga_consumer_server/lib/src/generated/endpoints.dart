@@ -106,6 +106,24 @@ class Endpoints extends _i1.EndpointDispatch {
             huData: params['huData'],
           ),
         ),
+        'updateHuData': _i1.MethodConnector(
+          name: 'updateHuData',
+          params: {
+            'huData': _i1.ParameterDescription(
+              name: 'huData',
+              type: _i1.getType<_i6.HuData>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).updateHuData(
+            session,
+            huData: params['huData'],
+          ),
+        ),
         'getSprintDataByTaigaId': _i1.MethodConnector(
           name: 'getSprintDataByTaigaId',
           params: {
@@ -124,12 +142,12 @@ class Endpoints extends _i1.EndpointDispatch {
             taigaId: params['taigaId'],
           ),
         ),
-        'getHUData': _i1.MethodConnector(
-          name: 'getHUData',
+        'getSprintDataBySprintName': _i1.MethodConnector(
+          name: 'getSprintDataBySprintName',
           params: {
-            'huData': _i1.ParameterDescription(
-              name: 'huData',
-              type: _i1.getType<_i6.HuData>(),
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String>(),
               nullable: false,
             )
           },
@@ -137,9 +155,58 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint)
+                  .getSprintDataBySprintName(
+            session,
+            name: params['name'],
+          ),
+        ),
+        'createSprint': _i1.MethodConnector(
+          name: 'createSprint',
+          params: {
+            'taigaId': _i1.ParameterDescription(
+              name: 'taigaId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'name': _i1.ParameterDescription(
+              name: 'name',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).createSprint(
+            session,
+            taigaId: params['taigaId'],
+            name: params['name'],
+          ),
+        ),
+        'getHUData': _i1.MethodConnector(
+          name: 'getHUData',
+          params: {
+            'huDataName': _i1.ParameterDescription(
+              name: 'huDataName',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'huDataRefNum': _i1.ParameterDescription(
+              name: 'huDataRefNum',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
               (endpoints['figma'] as _i2.FigmaEndpoint).getHUData(
             session,
-            huData: params['huData'],
+            huDataName: params['huDataName'],
+            huDataRefNum: params['huDataRefNum'],
           ),
         ),
       },

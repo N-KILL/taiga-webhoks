@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/endpoints/figma_endpoints.dart';
-import 'package:taiga_consumer_server/src/helpers/date_formatter.dart';
 import 'package:taiga_consumer_server/src/helpers/figma/figma_status_converter.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 
@@ -40,16 +39,16 @@ class TaigaRoute extends WidgetRoute {
 
       // Convert the data of the payload into an instance of TaigaData
       //? TaigaData has different type of data, based on the type of job
-      final printData = payload.data as TaigaData;
+      final payloadTaigaData = payload.data as TaigaData;
 
       // Print the info of the project
-      session.log('Project details: ${printData.fromProject}');
+      session.log('Project details: ${payloadTaigaData.fromProject}');
 
       // Get the project Id if exist
       var getProjectById =
           await TaigaProjectEndpoint().projectReadByTaigaProjectId(
         session,
-        id: printData.fromProject.projectId,
+        id: payloadTaigaData.fromProject.projectId,
       );
 
       // If cant get the project details, means that the project its not register
@@ -58,8 +57,8 @@ class TaigaRoute extends WidgetRoute {
         getProjectById = await TaigaProjectEndpoint().projectCreate(
           session,
           taigaProject: TaigaProject(
-            title: printData.fromProject.projectName,
-            taigaId: printData.fromProject.projectId,
+            title: payloadTaigaData.fromProject.projectName,
+            taigaId: payloadTaigaData.fromProject.projectId,
           ),
         );
       }
@@ -69,13 +68,13 @@ class TaigaRoute extends WidgetRoute {
         //Create a TaigaJob Instance
         final job = TaigaJob(
           type: payload.jobType,
-          title: printData.jobName,
-          description: printData.jobDescription != null
-              ? printData.jobDescription!
+          title: payloadTaigaData.jobName,
+          description: payloadTaigaData.jobDescription != null
+              ? payloadTaigaData.jobDescription!
               : ' ',
-          status: printData.jobStatus.statusName,
+          status: payloadTaigaData.jobStatus.statusName,
           projectId: getProjectById.id!,
-          taigaRefNumber: printData.referenceNumber,
+          taigaRefNumber: payloadTaigaData.referenceNumber,
         );
 
         // Create the item in the database
@@ -114,13 +113,13 @@ class TaigaRoute extends WidgetRoute {
           // Create a TaigaJob instance with the data
           final job = TaigaJob(
             type: payload.jobType,
-            title: printData.jobName,
-            description: printData.jobDescription != null
-                ? printData.jobDescription!
+            title: payloadTaigaData.jobName,
+            description: payloadTaigaData.jobDescription != null
+                ? payloadTaigaData.jobDescription!
                 : ' ',
-            status: printData.jobStatus.statusName,
+            status: payloadTaigaData.jobStatus.statusName,
             projectId: getProjectById.id!,
-            taigaRefNumber: printData.referenceNumber,
+            taigaRefNumber: payloadTaigaData.referenceNumber,
           );
 
           // Verify if the job already exist
@@ -128,7 +127,7 @@ class TaigaRoute extends WidgetRoute {
               await TaigaJobEndpoint().taigaJobReadByProjectIdAndRefNumber(
             session,
             projectId: getProjectById.id!,
-            taigaRefNumber: printData.referenceNumber,
+            taigaRefNumber: payloadTaigaData.referenceNumber,
           );
 
           // If the job already exist on the database
@@ -229,48 +228,206 @@ class TaigaRoute extends WidgetRoute {
         }
       }
 
+      // TODO(Nacho): Handlear los cambios
+      // Cada vez que haya un cambio en una HU, generar la accion, esta si ya
+      // existe y esta activa, no se va a pisar.
+      // Y solo actualizar la HU, en base al cambio.
+
       // This is the part of the function which interact to the figma plugin
       if (payload.jobType == 'userstory' && getProjectById != null) {
-        final huDetails = HuData(
-          name: printData.jobName,
-          refNum: printData.referenceNumber,
-          status: figmaStatusConverter(
-            huStatus: printData.jobStatus.statusName,
-          ),
-          readyForDev: false,
-          sprint: null,
-        );
+        // Turn the payload.data into a TaigaUserStoryData instance
+        final payloadUsData = payload.data as TaigaUserStoryData;
 
-        var huData;
+        if (payload.actionType == 'create') {
+          // Create a HuData Instance
+          final huDetails = HuData(
+            name: payloadUsData.jobName,
+            refNum: payloadUsData.referenceNumber,
+            status: figmaStatusConverter(
+              huStatus: payloadUsData.jobStatus.statusName,
+            ),
+            readyForDev: false,
+            sprint: null,
+          );
 
-        // Try to get the register of te hu
-        huData = await FigmaEndpoint().getHUData(session, huData: huDetails);
-
-        if (huData == null) {
-          // Generate a register of an hu_data
-          huData = await FigmaEndpoint().registerNewHUData(
+          // Register a new HUData
+          final huDataInfo = await FigmaEndpoint().registerNewHUData(
             session,
             huData: huDetails,
           );
-        }
 
-        // TODO(Nacho): Fix, use date parser
-        // Need to modify the models, to accept date on string format
-
-        if (payload.actionType == 'create') {
           // Register a new action
           FigmaEndpoint().registerNewAction(
             session,
             figmaAction: FigmaAction(
-                action: ActionType.create_hu,
-                isActive: true,
-                creationDate: DateTime.now(),
-                inactiveSince: null,
-                projectId: getProjectById.id!,
-                huDataId: huData.id),
+              action: ActionType.create_hu,
+              isActive: true,
+              creationDate: DateTime.now(),
+              inactiveSince: null,
+              projectId: getProjectById.id!,
+              huDataId: huDataInfo.id,
+            ),
           );
         } else if (payload.actionType == 'change') {
           // TODO(Nacho): Manejar cambios
+
+          // If the sprint has been modified
+          if (payload.change?.difference?.relatedSprint != null &&
+              payloadUsData.relatedSprint != null) {
+            // Try to get the sprint information
+            var sprintInfo = await FigmaEndpoint().getSprintDataByTaigaId(
+              session,
+              taigaId: payloadUsData.relatedSprint?.sprintId,
+            );
+
+            // If the sprint is not registered on the database
+            if (sprintInfo == null) {
+              // Register the sprint
+              sprintInfo = await FigmaEndpoint().createSprint(
+                session,
+                taigaId: payloadUsData.relatedSprint!.sprintId,
+                name: payloadUsData.relatedSprint!.sprintName,
+              );
+            }
+
+            // Once we have sprintInfo
+            if (sprintInfo != null) {
+              // Create a HuData Instance with the sprint
+              final huDetails = HuData(
+                name: payloadUsData.jobName,
+                refNum: payloadUsData.referenceNumber,
+                status: figmaStatusConverter(
+                  huStatus: payloadUsData.jobStatus.statusName,
+                ),
+                readyForDev: false,
+                sprintId: sprintInfo.id!,
+              );
+
+              // Create an aux to store huDataInfo
+              var huDataInfo = null;
+
+              // Try to update theHuData
+              huDataInfo = FigmaEndpoint().updateHuData(
+                session,
+                huData: huDetails,
+              );
+
+              // If can't update theHuData
+              if (huDataInfo == null) {
+                // Register a new HUData
+                final huDataInfo = await FigmaEndpoint().registerNewHUData(
+                  session,
+                  huData: huDetails,
+                );
+
+                // Register a new action
+                FigmaEndpoint().registerNewAction(
+                  session,
+                  figmaAction: FigmaAction(
+                    action: ActionType.attach_to_sprint,
+                    isActive: true,
+                    creationDate: DateTime.now(),
+                    inactiveSince: null,
+                    projectId: getProjectById.id!,
+                    huDataId: huDataInfo.id,
+                  ),
+                );
+              } else {
+                // Register a new action
+                FigmaEndpoint().registerNewAction(
+                  session,
+                  figmaAction: FigmaAction(
+                    action: ActionType.attach_to_sprint,
+                    isActive: true,
+                    creationDate: DateTime.now(),
+                    inactiveSince: null,
+                    projectId: getProjectById.id!,
+                    huDataId: huDataInfo.id,
+                  ),
+                );
+              }
+            }
+          }
+          if (payload.change?.difference?.status != null) {
+            // Aux to manage the ReadyForDev status
+            var readyForDevAux = false;
+
+            // If the new status is 'lista'
+            if (payload.change?.difference?.status?.newValue == 'Lista') {
+              // Set the ReadyForDev on True
+              readyForDevAux = true;
+            }
+
+            // Create a HuData Instance with the new data
+            final huDetails = HuData(
+              name: payloadUsData.jobName,
+              refNum: payloadUsData.referenceNumber,
+              status: figmaStatusConverter(
+                huStatus: payloadUsData.jobStatus.statusName,
+              ),
+              readyForDev: readyForDevAux,
+            );
+
+            // Create an aux to store huDataInfo
+            var huDataInfo = null;
+
+            // Try to update theHuData
+            huDataInfo = FigmaEndpoint().updateHuData(
+              session,
+              huData: huDetails,
+            );
+
+            // If can't update theHuData
+            if (huDataInfo == null) {
+              // Register a new HUData
+              final huDataInfo = await FigmaEndpoint().registerNewHUData(
+                session,
+                huData: huDetails,
+              );
+
+              // Register a new action
+              FigmaEndpoint().registerNewAction(
+                session,
+                figmaAction: FigmaAction(
+                  action: ActionType.update_hu_status,
+                  isActive: true,
+                  creationDate: DateTime.now(),
+                  inactiveSince: null,
+                  projectId: getProjectById.id!,
+                  huDataId: huDataInfo.id,
+                ),
+              );
+            } else {
+              // Register a new action
+              FigmaEndpoint().registerNewAction(
+                session,
+                figmaAction: FigmaAction(
+                  action: ActionType.update_hu_status,
+                  isActive: true,
+                  creationDate: DateTime.now(),
+                  inactiveSince: null,
+                  projectId: getProjectById.id!,
+                  huDataId: huDataInfo.id,
+                ),
+              );
+            }
+
+            // If the status of the US is 'Lista', put it on ReadyForDev
+            if (readyForDevAux) {
+              // Register a new action
+              FigmaEndpoint().registerNewAction(
+                session,
+                figmaAction: FigmaAction(
+                  action: ActionType.update_ready_for_dev_status,
+                  isActive: true,
+                  creationDate: DateTime.now(),
+                  inactiveSince: null,
+                  projectId: getProjectById.id!,
+                  huDataId: huDataInfo.id,
+                ),
+              );
+            }
+          }
         }
       }
     } catch (e, st) {

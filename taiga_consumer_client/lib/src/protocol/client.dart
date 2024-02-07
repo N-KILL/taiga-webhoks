@@ -51,7 +51,8 @@ class EndpointFigma extends _i1.EndpointRef {
       );
 
   /// This [registerNewAction] endpoint is for register a new action into the db
-  /// register
+  /// register. And if already exist any action of the same type, and its active
+  /// in this case, don't do any. Because it will works anyway
   _i2.Future<_i3.FigmaAction> registerNewAction(
           {required _i3.FigmaAction figmaAction}) =>
       caller.callServerEndpoint<_i3.FigmaAction>(
@@ -67,6 +68,13 @@ class EndpointFigma extends _i1.EndpointRef {
         {'huData': huData},
       );
 
+  _i2.Future<_i4.HuData?> updateHuData({required _i4.HuData huData}) =>
+      caller.callServerEndpoint<_i4.HuData?>(
+        'figma',
+        'updateHuData',
+        {'huData': huData},
+      );
+
   _i2.Future<_i5.Sprint?> getSprintDataByTaigaId({required dynamic taigaId}) =>
       caller.callServerEndpoint<_i5.Sprint?>(
         'figma',
@@ -74,11 +82,37 @@ class EndpointFigma extends _i1.EndpointRef {
         {'taigaId': taigaId},
       );
 
-  _i2.Future<_i4.HuData?> getHUData({required _i4.HuData huData}) =>
+  _i2.Future<_i5.Sprint?> getSprintDataBySprintName({required String name}) =>
+      caller.callServerEndpoint<_i5.Sprint?>(
+        'figma',
+        'getSprintDataBySprintName',
+        {'name': name},
+      );
+
+  _i2.Future<_i5.Sprint?> createSprint({
+    required int taigaId,
+    required String name,
+  }) =>
+      caller.callServerEndpoint<_i5.Sprint?>(
+        'figma',
+        'createSprint',
+        {
+          'taigaId': taigaId,
+          'name': name,
+        },
+      );
+
+  _i2.Future<_i4.HuData?> getHUData({
+    required String huDataName,
+    required int huDataRefNum,
+  }) =>
       caller.callServerEndpoint<_i4.HuData?>(
         'figma',
         'getHUData',
-        {'huData': huData},
+        {
+          'huDataName': huDataName,
+          'huDataRefNum': huDataRefNum,
+        },
       );
 }
 
