@@ -24,7 +24,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  serverpod_flutter: 1.2.2
+  serverpod_flutter: 1.2.3
   taiga_consumer_client:
     path: ../taiga_consumer_client
 

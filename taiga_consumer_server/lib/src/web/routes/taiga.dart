@@ -241,14 +241,14 @@ class TaigaRoute extends WidgetRoute {
         if (payload.actionType == 'create') {
           // Create a HuData Instance
           final huDetails = HuData(
-            name: payloadUsData.jobName,
-            refNum: payloadUsData.referenceNumber,
-            status: figmaStatusConverter(
-              huStatus: payloadUsData.jobStatus.statusName,
-            ),
-            readyForDev: false,
-            sprint: null,
-          );
+              name: payloadUsData.jobName,
+              refNum: payloadUsData.referenceNumber,
+              status: figmaStatusConverter(
+                huStatus: payloadUsData.jobStatus.statusName,
+              ),
+              readyForDev: false,
+              sprint: null,
+              projectId: getProjectById.id!);
 
           // Register a new HUData
           final huDataInfo = await FigmaEndpoint().registerNewHUData(
@@ -301,15 +301,14 @@ class TaigaRoute extends WidgetRoute {
                 ),
                 readyForDev: false,
                 sprintId: sprintInfo.id!,
+                projectId: getProjectById.id!,
               );
 
               // Create an aux to store huDataInfo
-              var huDataInfo = null;
-
-              // Try to update theHuData
-              huDataInfo = FigmaEndpoint().updateHuData(
+              var huDataInfo = await FigmaEndpoint().getHUData(
                 session,
-                huData: huDetails,
+                projectId: getProjectById.id!,
+                huDataRefNum: huDetails.refNum,
               );
 
               // If can't update theHuData
@@ -333,6 +332,12 @@ class TaigaRoute extends WidgetRoute {
                   ),
                 );
               } else {
+                // Update theHuData
+                await FigmaEndpoint().updateHuData(
+                  session,
+                  huData: huDetails,
+                );
+
                 // Register a new action
                 FigmaEndpoint().registerNewAction(
                   session,
@@ -366,21 +371,20 @@ class TaigaRoute extends WidgetRoute {
                 huStatus: payloadUsData.jobStatus.statusName,
               ),
               readyForDev: readyForDevAux,
+              projectId: getProjectById.id!,
             );
 
             // Create an aux to store huDataInfo
-            var huDataInfo = null;
-
-            // Try to update theHuData
-            huDataInfo = FigmaEndpoint().updateHuData(
+            var huDataInfo = await FigmaEndpoint().getHUData(
               session,
-              huData: huDetails,
+              projectId: getProjectById.id!,
+              huDataRefNum: huDetails.refNum,
             );
 
             // If can't update theHuData
             if (huDataInfo == null) {
               // Register a new HUData
-              final huDataInfo = await FigmaEndpoint().registerNewHUData(
+              huDataInfo = await FigmaEndpoint().registerNewHUData(
                 session,
                 huData: huDetails,
               );
@@ -397,7 +401,29 @@ class TaigaRoute extends WidgetRoute {
                   huDataId: huDataInfo.id,
                 ),
               );
+
+              // If the status of the US is 'Lista', put it on ReadyForDev
+              if (readyForDevAux) {
+                // Register a new action
+                FigmaEndpoint().registerNewAction(
+                  session,
+                  figmaAction: FigmaAction(
+                    action: ActionType.update_ready_for_dev_status,
+                    isActive: true,
+                    creationDate: DateTime.now(),
+                    inactiveSince: null,
+                    projectId: getProjectById.id!,
+                    huDataId: huDataInfo.id,
+                  ),
+                );
+              }
             } else {
+              // Try to update theHuData
+              await FigmaEndpoint().updateHuData(
+                session,
+                huData: huDetails,
+              );
+
               // Register a new action
               FigmaEndpoint().registerNewAction(
                 session,
@@ -410,22 +436,22 @@ class TaigaRoute extends WidgetRoute {
                   huDataId: huDataInfo.id,
                 ),
               );
-            }
 
-            // If the status of the US is 'Lista', put it on ReadyForDev
-            if (readyForDevAux) {
-              // Register a new action
-              FigmaEndpoint().registerNewAction(
-                session,
-                figmaAction: FigmaAction(
-                  action: ActionType.update_ready_for_dev_status,
-                  isActive: true,
-                  creationDate: DateTime.now(),
-                  inactiveSince: null,
-                  projectId: getProjectById.id!,
-                  huDataId: huDataInfo.id,
-                ),
-              );
+              // If the status of the US is 'Lista', put it on ReadyForDev
+              if (readyForDevAux) {
+                // Register a new action
+                FigmaEndpoint().registerNewAction(
+                  session,
+                  figmaAction: FigmaAction(
+                    action: ActionType.update_ready_for_dev_status,
+                    isActive: true,
+                    creationDate: DateTime.now(),
+                    inactiveSince: null,
+                    projectId: getProjectById.id!,
+                    huDataId: huDataInfo.id,
+                  ),
+                );
+              }
             }
           }
         }

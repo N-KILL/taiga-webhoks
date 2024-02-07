@@ -188,9 +188,9 @@ class Endpoints extends _i1.EndpointDispatch {
         'getHUData': _i1.MethodConnector(
           name: 'getHUData',
           params: {
-            'huDataName': _i1.ParameterDescription(
-              name: 'huDataName',
-              type: _i1.getType<String>(),
+            'projectId': _i1.ParameterDescription(
+              name: 'projectId',
+              type: _i1.getType<int>(),
               nullable: false,
             ),
             'huDataRefNum': _i1.ParameterDescription(
@@ -205,7 +205,7 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['figma'] as _i2.FigmaEndpoint).getHUData(
             session,
-            huDataName: params['huDataName'],
+            projectId: params['projectId'],
             huDataRefNum: params['huDataRefNum'],
           ),
         ),

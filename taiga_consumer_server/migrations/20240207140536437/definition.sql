@@ -1,7 +1,7 @@
 BEGIN;
 
 --
--- ACTION CREATE TABLE
+-- Class FigmaAction as table figma_action
 --
 CREATE TABLE "figma_action" (
     "id" serial PRIMARY KEY,
@@ -14,7 +14,7 @@ CREATE TABLE "figma_action" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class AmountOfDays as table figma_day_counter
 --
 CREATE TABLE "figma_day_counter" (
     "id" serial PRIMARY KEY,
@@ -26,7 +26,7 @@ CREATE TABLE "figma_day_counter" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class HuData as table hu_data
 --
 CREATE TABLE "hu_data" (
     "id" serial PRIMARY KEY,
@@ -35,11 +35,12 @@ CREATE TABLE "hu_data" (
     "status" text NOT NULL,
     "readyForDev" boolean NOT NULL,
     "sprintId" integer,
-    "statusCardId" integer
+    "statusCardId" integer,
+    "projectId" integer NOT NULL
 );
 
 --
--- ACTION CREATE TABLE
+-- Class Sprint as table sprint_data
 --
 CREATE TABLE "sprint_data" (
     "id" serial PRIMARY KEY,
@@ -48,7 +49,7 @@ CREATE TABLE "sprint_data" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class StatusCard as table status_card
 --
 CREATE TABLE "status_card" (
     "id" serial PRIMARY KEY,
@@ -60,7 +61,7 @@ CREATE TABLE "status_card" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class StatusCardDetails as table status_card_details
 --
 CREATE TABLE "status_card_details" (
     "id" serial PRIMARY KEY,
@@ -69,7 +70,7 @@ CREATE TABLE "status_card_details" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class TaigaJob as table taiga_job
 --
 CREATE TABLE "taiga_job" (
     "id" serial PRIMARY KEY,
@@ -82,7 +83,7 @@ CREATE TABLE "taiga_job" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class TaigaJobCommentaries as table taiga_job_commentaries
 --
 CREATE TABLE "taiga_job_commentaries" (
     "id" serial PRIMARY KEY,
@@ -93,7 +94,7 @@ CREATE TABLE "taiga_job_commentaries" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class TaigaJobUpdates as table taiga_job_updates
 --
 CREATE TABLE "taiga_job_updates" (
     "id" serial PRIMARY KEY,
@@ -106,7 +107,7 @@ CREATE TABLE "taiga_job_updates" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class TaigaProject as table taiga_project
 --
 CREATE TABLE "taiga_project" (
     "id" serial PRIMARY KEY,
@@ -115,7 +116,7 @@ CREATE TABLE "taiga_project" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class User as table user
 --
 CREATE TABLE "user" (
     "id" serial PRIMARY KEY,
@@ -127,7 +128,7 @@ CREATE TABLE "user" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class AuthKey as table serverpod_auth_key
 --
 CREATE TABLE "serverpod_auth_key" (
     "id" serial PRIMARY KEY,
@@ -141,7 +142,7 @@ CREATE TABLE "serverpod_auth_key" (
 CREATE INDEX "serverpod_auth_key_userId_idx" ON "serverpod_auth_key" USING btree ("userId");
 
 --
--- ACTION CREATE TABLE
+-- Class CloudStorageEntry as table serverpod_cloud_storage
 --
 CREATE TABLE "serverpod_cloud_storage" (
     "id" serial PRIMARY KEY,
@@ -158,7 +159,7 @@ CREATE UNIQUE INDEX "serverpod_cloud_storage_path_idx" ON "serverpod_cloud_stora
 CREATE INDEX "serverpod_cloud_storage_expiration" ON "serverpod_cloud_storage" USING btree ("expiration");
 
 --
--- ACTION CREATE TABLE
+-- Class CloudStorageDirectUploadEntry as table serverpod_cloud_storage_direct_upload
 --
 CREATE TABLE "serverpod_cloud_storage_direct_upload" (
     "id" serial PRIMARY KEY,
@@ -172,7 +173,7 @@ CREATE TABLE "serverpod_cloud_storage_direct_upload" (
 CREATE UNIQUE INDEX "serverpod_cloud_storage_direct_upload_storage_path" ON "serverpod_cloud_storage_direct_upload" USING btree ("storageId", "path");
 
 --
--- ACTION CREATE TABLE
+-- Class FutureCallEntry as table serverpod_future_call
 --
 CREATE TABLE "serverpod_future_call" (
     "id" serial PRIMARY KEY,
@@ -189,7 +190,7 @@ CREATE INDEX "serverpod_future_call_serverId_idx" ON "serverpod_future_call" USI
 CREATE INDEX "serverpod_future_call_identifier_idx" ON "serverpod_future_call" USING btree ("identifier");
 
 --
--- ACTION CREATE TABLE
+-- Class ServerHealthConnectionInfo as table serverpod_health_connection_info
 --
 CREATE TABLE "serverpod_health_connection_info" (
     "id" serial PRIMARY KEY,
@@ -205,7 +206,7 @@ CREATE TABLE "serverpod_health_connection_info" (
 CREATE UNIQUE INDEX "serverpod_health_connection_info_timestamp_idx" ON "serverpod_health_connection_info" USING btree ("timestamp", "serverId", "granularity");
 
 --
--- ACTION CREATE TABLE
+-- Class ServerHealthMetric as table serverpod_health_metric
 --
 CREATE TABLE "serverpod_health_metric" (
     "id" serial PRIMARY KEY,
@@ -221,7 +222,7 @@ CREATE TABLE "serverpod_health_metric" (
 CREATE UNIQUE INDEX "serverpod_health_metric_timestamp_idx" ON "serverpod_health_metric" USING btree ("timestamp", "serverId", "name", "granularity");
 
 --
--- ACTION CREATE TABLE
+-- Class LogEntry as table serverpod_log
 --
 CREATE TABLE "serverpod_log" (
     "id" serial PRIMARY KEY,
@@ -241,7 +242,7 @@ CREATE TABLE "serverpod_log" (
 CREATE INDEX "serverpod_log_sessionLogId_idx" ON "serverpod_log" USING btree ("sessionLogId");
 
 --
--- ACTION CREATE TABLE
+-- Class MessageLogEntry as table serverpod_message_log
 --
 CREATE TABLE "serverpod_message_log" (
     "id" serial PRIMARY KEY,
@@ -258,7 +259,7 @@ CREATE TABLE "serverpod_message_log" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class MethodInfo as table serverpod_method
 --
 CREATE TABLE "serverpod_method" (
     "id" serial PRIMARY KEY,
@@ -270,7 +271,7 @@ CREATE TABLE "serverpod_method" (
 CREATE UNIQUE INDEX "serverpod_method_endpoint_method_idx" ON "serverpod_method" USING btree ("endpoint", "method");
 
 --
--- ACTION CREATE TABLE
+-- Class DatabaseMigrationVersion as table serverpod_migrations
 --
 CREATE TABLE "serverpod_migrations" (
     "id" serial PRIMARY KEY,
@@ -283,7 +284,7 @@ CREATE TABLE "serverpod_migrations" (
 CREATE UNIQUE INDEX "serverpod_migrations_ids" ON "serverpod_migrations" USING btree ("module");
 
 --
--- ACTION CREATE TABLE
+-- Class QueryLogEntry as table serverpod_query_log
 --
 CREATE TABLE "serverpod_query_log" (
     "id" serial PRIMARY KEY,
@@ -303,7 +304,7 @@ CREATE TABLE "serverpod_query_log" (
 CREATE INDEX "serverpod_query_log_sessionLogId_idx" ON "serverpod_query_log" USING btree ("sessionLogId");
 
 --
--- ACTION CREATE TABLE
+-- Class ReadWriteTestEntry as table serverpod_readwrite_test
 --
 CREATE TABLE "serverpod_readwrite_test" (
     "id" serial PRIMARY KEY,
@@ -311,7 +312,7 @@ CREATE TABLE "serverpod_readwrite_test" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class RuntimeSettings as table serverpod_runtime_settings
 --
 CREATE TABLE "serverpod_runtime_settings" (
     "id" serial PRIMARY KEY,
@@ -322,7 +323,7 @@ CREATE TABLE "serverpod_runtime_settings" (
 );
 
 --
--- ACTION CREATE TABLE
+-- Class SessionLogEntry as table serverpod_session_log
 --
 CREATE TABLE "serverpod_session_log" (
     "id" serial PRIMARY KEY,
@@ -347,7 +348,7 @@ CREATE INDEX "serverpod_session_log_touched_idx" ON "serverpod_session_log" USIN
 CREATE INDEX "serverpod_session_log_isopen_idx" ON "serverpod_session_log" USING btree ("isOpen");
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "figma_action" table
 --
 ALTER TABLE ONLY "figma_action"
     ADD CONSTRAINT "figma_action_fk_0"
@@ -363,7 +364,7 @@ ALTER TABLE ONLY "figma_action"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "hu_data" table
 --
 ALTER TABLE ONLY "hu_data"
     ADD CONSTRAINT "hu_data_fk_0"
@@ -377,9 +378,15 @@ ALTER TABLE ONLY "hu_data"
     REFERENCES "status_card"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
+ALTER TABLE ONLY "hu_data"
+    ADD CONSTRAINT "hu_data_fk_2"
+    FOREIGN KEY("projectId")
+    REFERENCES "taiga_project"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "status_card" table
 --
 ALTER TABLE ONLY "status_card"
     ADD CONSTRAINT "status_card_fk_0"
@@ -413,7 +420,7 @@ ALTER TABLE ONLY "status_card"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "status_card_details" table
 --
 ALTER TABLE ONLY "status_card_details"
     ADD CONSTRAINT "status_card_details_fk_0"
@@ -423,7 +430,7 @@ ALTER TABLE ONLY "status_card_details"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "taiga_job" table
 --
 ALTER TABLE ONLY "taiga_job"
     ADD CONSTRAINT "taiga_job_fk_0"
@@ -433,7 +440,7 @@ ALTER TABLE ONLY "taiga_job"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "taiga_job_commentaries" table
 --
 ALTER TABLE ONLY "taiga_job_commentaries"
     ADD CONSTRAINT "taiga_job_commentaries_fk_0"
@@ -449,7 +456,7 @@ ALTER TABLE ONLY "taiga_job_commentaries"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "taiga_job_updates" table
 --
 ALTER TABLE ONLY "taiga_job_updates"
     ADD CONSTRAINT "taiga_job_updates_fk_0"
@@ -465,7 +472,7 @@ ALTER TABLE ONLY "taiga_job_updates"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "serverpod_log" table
 --
 ALTER TABLE ONLY "serverpod_log"
     ADD CONSTRAINT "serverpod_log_fk_0"
@@ -475,7 +482,7 @@ ALTER TABLE ONLY "serverpod_log"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "serverpod_message_log" table
 --
 ALTER TABLE ONLY "serverpod_message_log"
     ADD CONSTRAINT "serverpod_message_log_fk_0"
@@ -485,7 +492,7 @@ ALTER TABLE ONLY "serverpod_message_log"
     ON UPDATE NO ACTION;
 
 --
--- ACTION CREATE FOREIGN KEY
+-- Foreign relations for "serverpod_query_log" table
 --
 ALTER TABLE ONLY "serverpod_query_log"
     ADD CONSTRAINT "serverpod_query_log_fk_0"
@@ -499,9 +506,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR taiga_consumer
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('taiga_consumer', '20240205144126208', now())
+    VALUES ('taiga_consumer', '20240207140536437', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240205144126208', "timestamp" = now();
+    DO UPDATE SET "version" = '20240207140536437', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

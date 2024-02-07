@@ -211,6 +211,12 @@
             "columnType": 2,
             "isNullable": true,
             "dartType": "int?"
+          },
+          {
+            "name": "projectId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
           }
         ],
         "foreignKeys": [
@@ -233,6 +239,19 @@
               "statusCardId"
             ],
             "referenceTable": "status_card",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "hu_data_fk_2",
+            "columns": [
+              "projectId"
+            ],
+            "referenceTable": "taiga_project",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"

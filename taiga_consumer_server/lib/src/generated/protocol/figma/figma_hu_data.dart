@@ -22,6 +22,8 @@ abstract class HuData extends _i1.TableRow {
     this.sprint,
     this.statusCardId,
     this.statusCard,
+    required this.projectId,
+    this.project,
   }) : super(id);
 
   factory HuData({
@@ -34,6 +36,8 @@ abstract class HuData extends _i1.TableRow {
     _i2.Sprint? sprint,
     int? statusCardId,
     _i2.StatusCard? statusCard,
+    required int projectId,
+    _i2.TaigaProject? project,
   }) = _HuDataImpl;
 
   factory HuData.fromJson(
@@ -57,6 +61,10 @@ abstract class HuData extends _i1.TableRow {
           .deserialize<int?>(jsonSerialization['statusCardId']),
       statusCard: serializationManager
           .deserialize<_i2.StatusCard?>(jsonSerialization['statusCard']),
+      projectId:
+          serializationManager.deserialize<int>(jsonSerialization['projectId']),
+      project: serializationManager
+          .deserialize<_i2.TaigaProject?>(jsonSerialization['project']),
     );
   }
 
@@ -80,6 +88,10 @@ abstract class HuData extends _i1.TableRow {
 
   _i2.StatusCard? statusCard;
 
+  int projectId;
+
+  _i2.TaigaProject? project;
+
   @override
   _i1.Table get table => t;
 
@@ -93,6 +105,8 @@ abstract class HuData extends _i1.TableRow {
     _i2.Sprint? sprint,
     int? statusCardId,
     _i2.StatusCard? statusCard,
+    int? projectId,
+    _i2.TaigaProject? project,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -106,6 +120,8 @@ abstract class HuData extends _i1.TableRow {
       if (sprint != null) 'sprint': sprint?.toJson(),
       if (statusCardId != null) 'statusCardId': statusCardId,
       if (statusCard != null) 'statusCard': statusCard?.toJson(),
+      'projectId': projectId,
+      if (project != null) 'project': project?.toJson(),
     };
   }
 
@@ -120,6 +136,7 @@ abstract class HuData extends _i1.TableRow {
       'readyForDev': readyForDev,
       'sprintId': sprintId,
       'statusCardId': statusCardId,
+      'projectId': projectId,
     };
   }
 
@@ -135,6 +152,8 @@ abstract class HuData extends _i1.TableRow {
       if (sprint != null) 'sprint': sprint?.allToJson(),
       if (statusCardId != null) 'statusCardId': statusCardId,
       if (statusCard != null) 'statusCard': statusCard?.allToJson(),
+      'projectId': projectId,
+      if (project != null) 'project': project?.allToJson(),
     };
   }
 
@@ -165,6 +184,9 @@ abstract class HuData extends _i1.TableRow {
         return;
       case 'statusCardId':
         statusCardId = value;
+        return;
+      case 'projectId':
+        projectId = value;
         return;
       default:
         throw UnimplementedError();
@@ -299,10 +321,12 @@ abstract class HuData extends _i1.TableRow {
   static HuDataInclude include({
     _i2.SprintInclude? sprint,
     _i2.StatusCardInclude? statusCard,
+    _i2.TaigaProjectInclude? project,
   }) {
     return HuDataInclude._(
       sprint: sprint,
       statusCard: statusCard,
+      project: project,
     );
   }
 
@@ -340,6 +364,8 @@ class _HuDataImpl extends HuData {
     _i2.Sprint? sprint,
     int? statusCardId,
     _i2.StatusCard? statusCard,
+    required int projectId,
+    _i2.TaigaProject? project,
   }) : super._(
           id: id,
           name: name,
@@ -350,6 +376,8 @@ class _HuDataImpl extends HuData {
           sprint: sprint,
           statusCardId: statusCardId,
           statusCard: statusCard,
+          projectId: projectId,
+          project: project,
         );
 
   @override
@@ -363,6 +391,8 @@ class _HuDataImpl extends HuData {
     Object? sprint = _Undefined,
     Object? statusCardId = _Undefined,
     Object? statusCard = _Undefined,
+    int? projectId,
+    Object? project = _Undefined,
   }) {
     return HuData(
       id: id is int? ? id : this.id,
@@ -376,6 +406,9 @@ class _HuDataImpl extends HuData {
       statusCard: statusCard is _i2.StatusCard?
           ? statusCard
           : this.statusCard?.copyWith(),
+      projectId: projectId ?? this.projectId,
+      project:
+          project is _i2.TaigaProject? ? project : this.project?.copyWith(),
     );
   }
 }
@@ -407,6 +440,10 @@ class HuDataTable extends _i1.Table {
       'statusCardId',
       this,
     );
+    projectId = _i1.ColumnInt(
+      'projectId',
+      this,
+    );
   }
 
   late final _i1.ColumnString name;
@@ -424,6 +461,10 @@ class HuDataTable extends _i1.Table {
   late final _i1.ColumnInt statusCardId;
 
   _i2.StatusCardTable? _statusCard;
+
+  late final _i1.ColumnInt projectId;
+
+  _i2.TaigaProjectTable? _project;
 
   _i2.SprintTable get sprint {
     if (_sprint != null) return _sprint!;
@@ -451,6 +492,19 @@ class HuDataTable extends _i1.Table {
     return _statusCard!;
   }
 
+  _i2.TaigaProjectTable get project {
+    if (_project != null) return _project!;
+    _project = _i1.createRelationTable(
+      relationFieldName: 'project',
+      field: HuData.t.projectId,
+      foreignField: _i2.TaigaProject.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.TaigaProjectTable(tableRelation: foreignTableRelation),
+    );
+    return _project!;
+  }
+
   @override
   List<_i1.Column> get columns => [
         id,
@@ -460,6 +514,7 @@ class HuDataTable extends _i1.Table {
         readyForDev,
         sprintId,
         statusCardId,
+        projectId,
       ];
 
   @override
@@ -469,6 +524,9 @@ class HuDataTable extends _i1.Table {
     }
     if (relationField == 'statusCard') {
       return statusCard;
+    }
+    if (relationField == 'project') {
+      return project;
     }
     return null;
   }
@@ -481,19 +539,24 @@ class HuDataInclude extends _i1.IncludeObject {
   HuDataInclude._({
     _i2.SprintInclude? sprint,
     _i2.StatusCardInclude? statusCard,
+    _i2.TaigaProjectInclude? project,
   }) {
     _sprint = sprint;
     _statusCard = statusCard;
+    _project = project;
   }
 
   _i2.SprintInclude? _sprint;
 
   _i2.StatusCardInclude? _statusCard;
 
+  _i2.TaigaProjectInclude? _project;
+
   @override
   Map<String, _i1.Include?> get includes => {
         'sprint': _sprint,
         'statusCard': _statusCard,
+        'project': _project,
       };
 
   @override
@@ -717,6 +780,25 @@ class HuDataAttachRowRepository {
     await session.dbNext.updateRow<HuData>(
       $huData,
       columns: [HuData.t.statusCardId],
+    );
+  }
+
+  Future<void> project(
+    _i1.Session session,
+    HuData huData,
+    _i2.TaigaProject project,
+  ) async {
+    if (huData.id == null) {
+      throw ArgumentError.notNull('huData.id');
+    }
+    if (project.id == null) {
+      throw ArgumentError.notNull('project.id');
+    }
+
+    var $huData = huData.copyWith(projectId: project.id);
+    await session.dbNext.updateRow<HuData>(
+      $huData,
+      columns: [HuData.t.projectId],
     );
   }
 }

@@ -55,82 +55,6 @@ class FigmaEndpoint extends Endpoint {
         ),
       );
 
-      final data = FigmaAction(
-        action: ActionType.update_hu_status_card,
-        isActive: false,
-        creationDate: DateTime.now(),
-        projectId: 1,
-        huData: HuData(
-          name: 'Generated',
-          refNum: 190,
-          status: HuStatus.POSTERGADO,
-          readyForDev: false,
-          sprint: Sprint(name: name, taigaId: 1),
-          statusCard: StatusCard(
-            approved: StatusCardDetails(
-              byUser: User(
-                username: 'development',
-                userAvatar:
-                    'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                taigaId: 1,
-                gitHubId: 1,
-                gitLabId: 1,
-              ),
-              date: dateFormatter(
-                date: DateTime.now(),
-              ),
-            ),
-            development: StatusCardDetails(
-              byUser: User(
-                username: 'development',
-                userAvatar:
-                    'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                taigaId: 1,
-                gitHubId: 1,
-                gitLabId: 1,
-              ),
-              date: dateFormatter(
-                date: DateTime.now(),
-              ),
-            ),
-            externalTest: StatusCardDetails(
-              byUser: User(
-                username: 'externalTest',
-                userAvatar:
-                    'https://img.freepik.com/foto-gratis/belleza-naturaleza-refleja-aguas-tranquilas-montanas-ia-generativa_188544-7867.jpg?w=1380&t=st=1703263062~exp=1703263662~hmac=7c6ffc2a21b13cf5b60dbf3142ac98e156c3ef4669ae6d83a35dc6ade3299a62',
-                taigaId: 1,
-                gitHubId: 1,
-                gitLabId: 1,
-              ),
-              date: dateFormatter(
-                date: DateTime.now(),
-              ),
-            ),
-            internalTest: StatusCardDetails(
-              byUser: User(
-                username: 'development',
-                userAvatar:
-                    'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                taigaId: 1,
-                gitHubId: 1,
-                gitLabId: 1,
-              ),
-              date: dateFormatter(
-                date: DateTime.now(),
-              ),
-            ),
-            amountOfDays: AmountOfDays(
-              preparation: '1',
-              development: '1',
-              approbation: '1',
-              finalApprobation: '1',
-              quality: '1+3',
-            ),
-          ),
-        ),
-      );
-
-      response.add(data);
       // And return the actions
       return response;
     }
@@ -263,12 +187,13 @@ class FigmaEndpoint extends Endpoint {
 
   Future<HuData?> getHUData(
     Session session, {
-    required String huDataName,
+    required int projectId,
     required int huDataRefNum,
   }) async {
     final response = await HuData.db.findFirstRow(
       session,
-      where: (t) => t.refNum.equals(huDataRefNum) & t.name.equals(huDataName),
+      where: (t) =>
+          t.refNum.equals(huDataRefNum) & t.projectId.equals(projectId),
     );
 
     return response;

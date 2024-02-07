@@ -7,4 +7,5 @@ fields:
   readyForDev: bool,
   sprint: Sprint?, relation(optional)
   statusCard: StatusCard?, relation(optional)
+  project: TaigaProject?, relation
   

@@ -22,6 +22,8 @@ abstract class HuData extends _i1.SerializableEntity {
     this.sprint,
     this.statusCardId,
     this.statusCard,
+    required this.projectId,
+    this.project,
   });
 
   factory HuData({
@@ -34,6 +36,8 @@ abstract class HuData extends _i1.SerializableEntity {
     _i2.Sprint? sprint,
     int? statusCardId,
     _i2.StatusCard? statusCard,
+    required int projectId,
+    _i2.TaigaProject? project,
   }) = _HuDataImpl;
 
   factory HuData.fromJson(
@@ -57,6 +61,10 @@ abstract class HuData extends _i1.SerializableEntity {
           .deserialize<int?>(jsonSerialization['statusCardId']),
       statusCard: serializationManager
           .deserialize<_i2.StatusCard?>(jsonSerialization['statusCard']),
+      projectId:
+          serializationManager.deserialize<int>(jsonSerialization['projectId']),
+      project: serializationManager
+          .deserialize<_i2.TaigaProject?>(jsonSerialization['project']),
     );
   }
 
@@ -81,6 +89,10 @@ abstract class HuData extends _i1.SerializableEntity {
 
   _i2.StatusCard? statusCard;
 
+  int projectId;
+
+  _i2.TaigaProject? project;
+
   HuData copyWith({
     int? id,
     String? name,
@@ -91,6 +103,8 @@ abstract class HuData extends _i1.SerializableEntity {
     _i2.Sprint? sprint,
     int? statusCardId,
     _i2.StatusCard? statusCard,
+    int? projectId,
+    _i2.TaigaProject? project,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -104,6 +118,8 @@ abstract class HuData extends _i1.SerializableEntity {
       if (sprint != null) 'sprint': sprint?.toJson(),
       if (statusCardId != null) 'statusCardId': statusCardId,
       if (statusCard != null) 'statusCard': statusCard?.toJson(),
+      'projectId': projectId,
+      if (project != null) 'project': project?.toJson(),
     };
   }
 }
@@ -121,6 +137,8 @@ class _HuDataImpl extends HuData {
     _i2.Sprint? sprint,
     int? statusCardId,
     _i2.StatusCard? statusCard,
+    required int projectId,
+    _i2.TaigaProject? project,
   }) : super._(
           id: id,
           name: name,
@@ -131,6 +149,8 @@ class _HuDataImpl extends HuData {
           sprint: sprint,
           statusCardId: statusCardId,
           statusCard: statusCard,
+          projectId: projectId,
+          project: project,
         );
 
   @override
@@ -144,6 +164,8 @@ class _HuDataImpl extends HuData {
     Object? sprint = _Undefined,
     Object? statusCardId = _Undefined,
     Object? statusCard = _Undefined,
+    int? projectId,
+    Object? project = _Undefined,
   }) {
     return HuData(
       id: id is int? ? id : this.id,
@@ -157,6 +179,9 @@ class _HuDataImpl extends HuData {
       statusCard: statusCard is _i2.StatusCard?
           ? statusCard
           : this.statusCard?.copyWith(),
+      projectId: projectId ?? this.projectId,
+      project:
+          project is _i2.TaigaProject? ? project : this.project?.copyWith(),
     );
   }
 }

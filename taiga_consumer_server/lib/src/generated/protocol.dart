@@ -258,6 +258,12 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: true,
           dartType: 'int?',
         ),
+        _i2.ColumnDefinition(
+          name: 'projectId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
@@ -274,6 +280,16 @@ class Protocol extends _i1.SerializationManagerServer {
           constraintName: 'hu_data_fk_1',
           columns: ['statusCardId'],
           referenceTable: 'status_card',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'hu_data_fk_2',
+          columns: ['projectId'],
+          referenceTable: 'taiga_project',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,

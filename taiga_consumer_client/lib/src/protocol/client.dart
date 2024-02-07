@@ -103,14 +103,14 @@ class EndpointFigma extends _i1.EndpointRef {
       );
 
   _i2.Future<_i4.HuData?> getHUData({
-    required String huDataName,
+    required int projectId,
     required int huDataRefNum,
   }) =>
       caller.callServerEndpoint<_i4.HuData?>(
         'figma',
         'getHUData',
         {
-          'huDataName': huDataName,
+          'projectId': projectId,
           'huDataRefNum': huDataRefNum,
         },
       );
