@@ -178,6 +178,7 @@ class FigmaEndpoint extends Endpoint {
     Session session, {
     required HuData huData,
   }) async {
+    session.log(huData.toString());
     // If the HuData, have an id.
     if (huData.id != null) {
       // Find the HuData with that id
@@ -193,7 +194,7 @@ class FigmaEndpoint extends Endpoint {
         modify.sprintId = huData.sprintId;
         modify.status = huData.status;
         modify.statusCardId = huData.statusCardId;
-        
+
         // If the status is 'Lista'
         if (huData.status == HuStatus.LISTA) {
           // Put into ReadyForDev
