@@ -40,7 +40,7 @@ class FigmaEndpoint extends Endpoint {
       // Filter all the FigmaActions related
       final response = await FigmaAction.db.find(
         session,
-        where: (t) => t.projectId.equals(project.id),
+        where: (t) => t.projectId.equals(project.id) & t.isActive.equals(true),
         include: FigmaAction.include(
           huData: HuData.include(
             sprint: Sprint.include(),
