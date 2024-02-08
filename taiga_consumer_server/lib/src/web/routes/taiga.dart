@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/endpoints/figma_endpoints.dart';
+import 'package:taiga_consumer_server/src/endpoints/user_endpoints.dart';
+import 'package:taiga_consumer_server/src/helpers/date_formatter.dart';
 import 'package:taiga_consumer_server/src/helpers/figma/figma_status_converter.dart';
 import 'package:taiga_consumer_server/src/web/widgets/default_page_widget.dart';
 
@@ -228,11 +230,6 @@ class TaigaRoute extends WidgetRoute {
         }
       }
 
-      // TODO(Nacho): Handlear los cambios
-      // Cada vez que haya un cambio en una HU, generar la accion, esta si ya
-      // existe y esta activa, no se va a pisar.
-      // Y solo actualizar la HU, en base al cambio.
-
       // This is the part of the function which interact to the figma plugin
       if (payload.jobType == 'userstory' && getProjectById != null) {
         // Turn the payload.data into a TaigaUserStoryData instance
@@ -284,8 +281,6 @@ class TaigaRoute extends WidgetRoute {
             projectId: getProjectById.id!,
             huDataRefNum: payloadUsData.referenceNumber,
           );
-
-          // TODO(Nacho): Manejar cambios
 
           // If the sprint has been modified
           if (payload.change?.difference?.relatedSprint != null &&
@@ -389,6 +384,51 @@ class TaigaRoute extends WidgetRoute {
                 projectId: getProjectById.id!,
                 huDataId: huDataInfo.id,
               ),
+            );
+          }
+
+          // TODO(Nacho): Crear Funcion en el plugin de Taiga
+          // Necesito una funcion para poder leer la data los usuarios
+
+          // Manage the Change into the Status card
+          if (payload.change?.difference?.assignedToUserStory != null) {
+            int? approvedId = null;
+            int? developmentId = null;
+            int? externalTestId = null;
+            int? internalTestId = null;
+
+            for (var userId in payloadUsData.assignedUsers) {
+              var userData = await UserEndpoint().GetUserByTaigaId(
+                session,
+                taigaId: userId,
+              );
+              if (userData != null && userData.taigaRoles.contains('Back')) {
+                developmentId = userData.id;
+              }
+              if (userData != null && userData.taigaRoles.contains('Front')) {
+                developmentId = userData.id;
+              }
+            }
+
+            // If can't get the HU info from db
+            if (huDataInfo == null) {}
+            StatusCard(
+              approvedId: 1,
+              approved: StatusCardDetails(
+                  date: dateFormatter(date: DateTime.now()),
+                  byUserId: approvedId),
+              developmentId: 1,
+              development: StatusCardDetails(
+                  date: dateFormatter(date: DateTime.now()),
+                  byUserId: developmentId),
+              externalTestId: 1,
+              externalTest: StatusCardDetails(
+                  date: dateFormatter(date: DateTime.now()),
+                  byUserId: externalTestId),
+              internalTestId: 1,
+              internalTest: StatusCardDetails(
+                  date: dateFormatter(date: DateTime.now()),
+                  byUserId: internalTestId),
             );
           }
 

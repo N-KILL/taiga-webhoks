@@ -487,7 +487,7 @@
             "columns": [
               "byUserId"
             ],
-            "referenceTable": "user",
+            "referenceTable": "users",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -656,7 +656,7 @@
             "columns": [
               "userId"
             ],
-            "referenceTable": "user",
+            "referenceTable": "users",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -828,7 +828,7 @@
     {
       "type": "createTable",
       "createTable": {
-        "name": "user",
+        "name": "users",
         "dartName": "User",
         "module": "taiga_consumer",
         "schema": "public",
@@ -837,7 +837,7 @@
             "name": "id",
             "columnType": 2,
             "isNullable": false,
-            "columnDefault": "nextval('user_id_seq'::regclass)",
+            "columnDefault": "nextval('users_id_seq'::regclass)",
             "dartType": "int?"
           },
           {
@@ -851,6 +851,18 @@
             "columnType": 0,
             "isNullable": false,
             "dartType": "String"
+          },
+          {
+            "name": "fullName",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "taigaRoles",
+            "columnType": 8,
+            "isNullable": false,
+            "dartType": "List<String>"
           },
           {
             "name": "taigaId",
@@ -874,7 +886,7 @@
         "foreignKeys": [],
         "indexes": [
           {
-            "indexName": "user_pkey",
+            "indexName": "users_pkey",
             "elements": [
               {
                 "type": 0,

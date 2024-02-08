@@ -9,12 +9,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import 'package:serverpod_serialization/serverpod_serialization.dart';
 
 abstract class User extends _i1.TableRow {
   User._({
     int? id,
     required this.username,
     required this.userAvatar,
+    required this.fullName,
+    required this.taigaRoles,
     required this.taigaId,
     required this.gitHubId,
     required this.gitLabId,
@@ -24,6 +27,8 @@ abstract class User extends _i1.TableRow {
     int? id,
     required String username,
     required String userAvatar,
+    required String fullName,
+    required List<String> taigaRoles,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
@@ -39,6 +44,10 @@ abstract class User extends _i1.TableRow {
           .deserialize<String>(jsonSerialization['username']),
       userAvatar: serializationManager
           .deserialize<String>(jsonSerialization['userAvatar']),
+      fullName: serializationManager
+          .deserialize<String>(jsonSerialization['fullName']),
+      taigaRoles: serializationManager
+          .deserialize<List<String>>(jsonSerialization['taigaRoles']),
       taigaId:
           serializationManager.deserialize<int>(jsonSerialization['taigaId']),
       gitHubId:
@@ -58,6 +67,12 @@ abstract class User extends _i1.TableRow {
   /// Url of the user avatar
   String userAvatar;
 
+  /// Full name of the user
+  String fullName;
+
+  /// Roles of the user on Taiga
+  List<String> taigaRoles;
+
   /// Id of the Taiga account of the user
   int taigaId;
 
@@ -74,6 +89,8 @@ abstract class User extends _i1.TableRow {
     int? id,
     String? username,
     String? userAvatar,
+    String? fullName,
+    List<String>? taigaRoles,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -84,6 +101,8 @@ abstract class User extends _i1.TableRow {
       if (id != null) 'id': id,
       'username': username,
       'userAvatar': userAvatar,
+      'fullName': fullName,
+      'taigaRoles': taigaRoles.toJson(),
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -97,6 +116,8 @@ abstract class User extends _i1.TableRow {
       'id': id,
       'username': username,
       'userAvatar': userAvatar,
+      'fullName': fullName,
+      'taigaRoles': taigaRoles,
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -109,6 +130,8 @@ abstract class User extends _i1.TableRow {
       if (id != null) 'id': id,
       'username': username,
       'userAvatar': userAvatar,
+      'fullName': fullName,
+      'taigaRoles': taigaRoles.toJson(),
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -130,6 +153,12 @@ abstract class User extends _i1.TableRow {
         return;
       case 'userAvatar':
         userAvatar = value;
+        return;
+      case 'fullName':
+        fullName = value;
+        return;
+      case 'taigaRoles':
+        taigaRoles = value;
         return;
       case 'taigaId':
         taigaId = value;
@@ -294,6 +323,8 @@ class _UserImpl extends User {
     int? id,
     required String username,
     required String userAvatar,
+    required String fullName,
+    required List<String> taigaRoles,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
@@ -301,6 +332,8 @@ class _UserImpl extends User {
           id: id,
           username: username,
           userAvatar: userAvatar,
+          fullName: fullName,
+          taigaRoles: taigaRoles,
           taigaId: taigaId,
           gitHubId: gitHubId,
           gitLabId: gitLabId,
@@ -311,6 +344,8 @@ class _UserImpl extends User {
     Object? id = _Undefined,
     String? username,
     String? userAvatar,
+    String? fullName,
+    List<String>? taigaRoles,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -319,6 +354,8 @@ class _UserImpl extends User {
       id: id is int? ? id : this.id,
       username: username ?? this.username,
       userAvatar: userAvatar ?? this.userAvatar,
+      fullName: fullName ?? this.fullName,
+      taigaRoles: taigaRoles ?? this.taigaRoles.clone(),
       taigaId: taigaId ?? this.taigaId,
       gitHubId: gitHubId ?? this.gitHubId,
       gitLabId: gitLabId ?? this.gitLabId,
@@ -327,13 +364,21 @@ class _UserImpl extends User {
 }
 
 class UserTable extends _i1.Table {
-  UserTable({super.tableRelation}) : super(tableName: 'user') {
+  UserTable({super.tableRelation}) : super(tableName: 'users') {
     username = _i1.ColumnString(
       'username',
       this,
     );
     userAvatar = _i1.ColumnString(
       'userAvatar',
+      this,
+    );
+    fullName = _i1.ColumnString(
+      'fullName',
+      this,
+    );
+    taigaRoles = _i1.ColumnSerializable(
+      'taigaRoles',
       this,
     );
     taigaId = _i1.ColumnInt(
@@ -356,6 +401,12 @@ class UserTable extends _i1.Table {
   /// Url of the user avatar
   late final _i1.ColumnString userAvatar;
 
+  /// Full name of the user
+  late final _i1.ColumnString fullName;
+
+  /// Roles of the user on Taiga
+  late final _i1.ColumnSerializable taigaRoles;
+
   /// Id of the Taiga account of the user
   late final _i1.ColumnInt taigaId;
 
@@ -370,6 +421,8 @@ class UserTable extends _i1.Table {
         id,
         username,
         userAvatar,
+        fullName,
+        taigaRoles,
         taigaId,
         gitHubId,
         gitLabId,

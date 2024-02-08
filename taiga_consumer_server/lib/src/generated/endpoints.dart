@@ -12,18 +12,20 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/figma_endpoints.dart' as _i2;
 import '../endpoints/project_endpoint.dart' as _i3;
 import '../endpoints/taiga_job_endpoints.dart' as _i4;
+import '../endpoints/user_endpoints.dart' as _i5;
 import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_action.dart'
-    as _i5;
-import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_hu_data.dart'
     as _i6;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_hu_data.dart'
     as _i7;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
     as _i8;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
     as _i9;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
     as _i10;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
+    as _i11;
+import 'package:taiga_consumer_server/src/generated/protocol/user.dart' as _i12;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -45,6 +47,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'taigaJob',
+          null,
+        ),
+      'user': _i5.UserEndpoint()
+        ..initialize(
+          server,
+          'user',
           null,
         ),
     };
@@ -75,7 +83,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'figmaAction': _i1.ParameterDescription(
               name: 'figmaAction',
-              type: _i1.getType<_i5.FigmaAction>(),
+              type: _i1.getType<_i6.FigmaAction>(),
               nullable: false,
             )
           },
@@ -93,7 +101,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'huData': _i1.ParameterDescription(
               name: 'huData',
-              type: _i1.getType<_i6.HuData>(),
+              type: _i1.getType<_i7.HuData>(),
               nullable: false,
             )
           },
@@ -111,7 +119,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'huData': _i1.ParameterDescription(
               name: 'huData',
-              type: _i1.getType<_i6.HuData>(),
+              type: _i1.getType<_i7.HuData>(),
               nullable: false,
             )
           },
@@ -220,7 +228,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i7.TaigaProject>(),
+              type: _i1.getType<_i8.TaigaProject>(),
               nullable: false,
             )
           },
@@ -239,7 +247,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<List<_i7.TaigaProject>>(),
+              type: _i1.getType<List<_i8.TaigaProject>>(),
               nullable: false,
             )
           },
@@ -315,7 +323,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i7.TaigaProject>(),
+              type: _i1.getType<_i8.TaigaProject>(),
               nullable: false,
             )
           },
@@ -334,7 +342,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i7.TaigaProject>(),
+              type: _i1.getType<_i8.TaigaProject>(),
               nullable: false,
             )
           },
@@ -378,7 +386,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i8.TaigaJob>(),
+              type: _i1.getType<_i9.TaigaJob>(),
               nullable: false,
             )
           },
@@ -396,7 +404,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<List<_i8.TaigaJob>>(),
+              type: _i1.getType<List<_i9.TaigaJob>>(),
               nullable: false,
             )
           },
@@ -515,7 +523,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i8.TaigaJob>(),
+              type: _i1.getType<_i9.TaigaJob>(),
               nullable: false,
             ),
             'id': _i1.ParameterDescription(
@@ -559,7 +567,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<_i9.TaigaJobUpdates>(),
+              type: _i1.getType<_i10.TaigaJobUpdates>(),
               nullable: false,
             )
           },
@@ -578,7 +586,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<List<_i9.TaigaJobUpdates>>(),
+              type: _i1.getType<List<_i10.TaigaJobUpdates>>(),
               nullable: false,
             )
           },
@@ -646,7 +654,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<_i9.TaigaJobUpdates>(),
+              type: _i1.getType<_i10.TaigaJobUpdates>(),
               nullable: false,
             ),
           },
@@ -685,7 +693,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<_i10.TaigaJobCommentaries>(),
+              type: _i1.getType<_i11.TaigaJobCommentaries>(),
               nullable: false,
             )
           },
@@ -704,7 +712,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<List<_i10.TaigaJobCommentaries>>(),
+              type: _i1.getType<List<_i11.TaigaJobCommentaries>>(),
               nullable: false,
             )
           },
@@ -742,7 +750,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<_i10.TaigaJobCommentaries>(),
+              type: _i1.getType<_i11.TaigaJobCommentaries>(),
               nullable: false,
             ),
             'id': _i1.ParameterDescription(
@@ -779,6 +787,126 @@ class Endpoints extends _i1.EndpointDispatch {
                   .taigaJobCommentariesDeleteById(
             session,
             id: params['id'],
+          ),
+        ),
+      },
+    );
+    connectors['user'] = _i1.EndpointConnector(
+      name: 'user',
+      endpoint: endpoints['user']!,
+      methodConnectors: {
+        'GetUserById': _i1.MethodConnector(
+          name: 'GetUserById',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).GetUserById(
+            session,
+            id: params['id'],
+          ),
+        ),
+        'GetUserByTaigaId': _i1.MethodConnector(
+          name: 'GetUserByTaigaId',
+          params: {
+            'taigaId': _i1.ParameterDescription(
+              name: 'taigaId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).GetUserByTaigaId(
+            session,
+            taigaId: params['taigaId'],
+          ),
+        ),
+        'GetUserByGitHubId': _i1.MethodConnector(
+          name: 'GetUserByGitHubId',
+          params: {
+            'gitHubId': _i1.ParameterDescription(
+              name: 'gitHubId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).GetUserByGitHubId(
+            session,
+            gitHubId: params['gitHubId'],
+          ),
+        ),
+        'GetUserByGitLabId': _i1.MethodConnector(
+          name: 'GetUserByGitLabId',
+          params: {
+            'gitLabId': _i1.ParameterDescription(
+              name: 'gitLabId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).GetUserByGitLabId(
+            session,
+            gitLabId: params['gitLabId'],
+          ),
+        ),
+        'CreateUser': _i1.MethodConnector(
+          name: 'CreateUser',
+          params: {
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i12.User>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).CreateUser(
+            session,
+            user: params['user'],
+          ),
+        ),
+        'UpdateUserById': _i1.MethodConnector(
+          name: 'UpdateUserById',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i12.User>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).UpdateUserById(
+            session,
+            id: params['id'],
+            user: params['user'],
           ),
         ),
       },

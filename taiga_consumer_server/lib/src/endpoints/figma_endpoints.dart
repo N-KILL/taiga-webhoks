@@ -55,6 +55,88 @@ class FigmaEndpoint extends Endpoint {
         ),
       );
 
+      response.add(
+        FigmaAction(
+          action: ActionType.update_hu_status_card,
+          isActive: true,
+          creationDate: DateTime.now(),
+          projectId: 11,
+          huData: HuData(
+            name: 'Hu Hardcodeada',
+            refNum: 1337,
+            status: HuStatus.POSTERGADO,
+            readyForDev: true,
+            projectId: 11,
+            sprint: Sprint(name: 'Tuki Sprint', taigaId: 5),
+            statusCard: StatusCard(
+              amountOfDays: AmountOfDays(
+                preparation: '1',
+                development: '1',
+                approbation: '1',
+                finalApprobation: '1',
+                quality: '1+2',
+              ),
+              approved: StatusCardDetails(
+                date: dateFormatter(
+                  date: DateTime.now(),
+                ),
+                byUser: User(
+                    username: 'N-K',
+                    userAvatar:
+                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
+                    fullName: 'N-K',
+                    taigaRoles: ['Back'],
+                    taigaId: 1,
+                    gitHubId: 1,
+                    gitLabId: 1),
+              ),
+              development: StatusCardDetails(
+                date: dateFormatter(
+                  date: DateTime.now(),
+                ),
+                byUser: User(
+                    username: 'N-K',
+                    userAvatar:
+                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
+                    fullName: 'N-K',
+                    taigaRoles: ['Back'],
+                    taigaId: 1,
+                    gitHubId: 1,
+                    gitLabId: 1),
+              ),
+              externalTest: StatusCardDetails(
+                date: dateFormatter(
+                  date: DateTime.now(),
+                ),
+                byUser: User(
+                    username: 'N-K',
+                    userAvatar:
+                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
+                    fullName: 'N-K',
+                    taigaRoles: ['Back'],
+                    taigaId: 1,
+                    gitHubId: 1,
+                    gitLabId: 1),
+              ),
+              internalTest: StatusCardDetails(
+                date: dateFormatter(
+                  date: DateTime.now(),
+                ),
+                byUser: User(
+                    username: 'N-K',
+                    userAvatar:
+                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
+                    fullName: 'N-K',
+                    taigaRoles: ['Back'],
+                    taigaId: 1,
+                    gitHubId: 1,
+                    gitLabId: 1),
+              ),
+            ),
+          ),
+        ),
+      );
+
       // And return the actions
       return response;
     }

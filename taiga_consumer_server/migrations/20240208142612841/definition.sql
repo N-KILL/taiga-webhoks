@@ -116,12 +116,14 @@ CREATE TABLE "taiga_project" (
 );
 
 --
--- Class User as table user
+-- Class User as table users
 --
-CREATE TABLE "user" (
+CREATE TABLE "users" (
     "id" serial PRIMARY KEY,
     "username" text NOT NULL,
     "userAvatar" text NOT NULL,
+    "fullName" text NOT NULL,
+    "taigaRoles" json NOT NULL,
     "taigaId" integer NOT NULL,
     "gitHubId" integer NOT NULL,
     "gitLabId" integer NOT NULL
@@ -425,7 +427,7 @@ ALTER TABLE ONLY "status_card"
 ALTER TABLE ONLY "status_card_details"
     ADD CONSTRAINT "status_card_details_fk_0"
     FOREIGN KEY("byUserId")
-    REFERENCES "user"("id")
+    REFERENCES "users"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -451,7 +453,7 @@ ALTER TABLE ONLY "taiga_job_commentaries"
 ALTER TABLE ONLY "taiga_job_commentaries"
     ADD CONSTRAINT "taiga_job_commentaries_fk_1"
     FOREIGN KEY("userId")
-    REFERENCES "user"("id")
+    REFERENCES "users"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -506,9 +508,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR taiga_consumer
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('taiga_consumer', '20240207140536437', now())
+    VALUES ('taiga_consumer', '20240208142612841', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240207140536437', "timestamp" = now();
+    DO UPDATE SET "version" = '20240208142612841', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

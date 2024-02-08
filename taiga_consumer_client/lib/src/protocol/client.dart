@@ -24,7 +24,8 @@ import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_upda
     as _i8;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
     as _i9;
-import 'protocol.dart' as _i10;
+import 'package:taiga_consumer_client/src/protocol/protocol/user.dart' as _i10;
+import 'protocol.dart' as _i11;
 
 /// This class [FigmaEndpoint] is used to send information to the figma plugin
 /// https://github.com/N-KILL/Nidus-Figma-Plugin
@@ -448,6 +449,62 @@ class EndpointTaigaJob extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointUser extends _i1.EndpointRef {
+  EndpointUser(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'user';
+
+  _i2.Future<_i10.User?> GetUserById({required int id}) =>
+      caller.callServerEndpoint<_i10.User?>(
+        'user',
+        'GetUserById',
+        {'id': id},
+      );
+
+  _i2.Future<_i10.User?> GetUserByTaigaId({required int taigaId}) =>
+      caller.callServerEndpoint<_i10.User?>(
+        'user',
+        'GetUserByTaigaId',
+        {'taigaId': taigaId},
+      );
+
+  _i2.Future<_i10.User?> GetUserByGitHubId({required int gitHubId}) =>
+      caller.callServerEndpoint<_i10.User?>(
+        'user',
+        'GetUserByGitHubId',
+        {'gitHubId': gitHubId},
+      );
+
+  _i2.Future<_i10.User?> GetUserByGitLabId({required int gitLabId}) =>
+      caller.callServerEndpoint<_i10.User?>(
+        'user',
+        'GetUserByGitLabId',
+        {'gitLabId': gitLabId},
+      );
+
+  _i2.Future<_i10.User> CreateUser({required _i10.User user}) =>
+      caller.callServerEndpoint<_i10.User>(
+        'user',
+        'CreateUser',
+        {'user': user},
+      );
+
+  _i2.Future<_i10.User?> UpdateUserById({
+    required int id,
+    required _i10.User user,
+  }) =>
+      caller.callServerEndpoint<_i10.User?>(
+        'user',
+        'UpdateUserById',
+        {
+          'id': id,
+          'user': user,
+        },
+      );
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -457,7 +514,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i10.Protocol(),
+          _i11.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -466,6 +523,7 @@ class Client extends _i1.ServerpodClient {
     figma = EndpointFigma(this);
     taigaProject = EndpointTaigaProject(this);
     taigaJob = EndpointTaigaJob(this);
+    user = EndpointUser(this);
   }
 
   late final EndpointFigma figma;
@@ -474,11 +532,14 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointTaigaJob taigaJob;
 
+  late final EndpointUser user;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'figma': figma,
         'taigaProject': taigaProject,
         'taigaJob': taigaJob,
+        'user': user,
       };
 
   @override

@@ -1,5 +1,5 @@
 class: User
-table: user
+table: users
 fields:
   
   ### Status of the job
@@ -7,6 +7,12 @@ fields:
   
   ### Url of the user avatar
   userAvatar: String
+
+  ### Full name of the user
+  fullName: String
+
+  ### Roles of the user on Taiga
+  taigaRoles: List<String>
   
   ### Id of the Taiga account of the user          
   taigaId: int      

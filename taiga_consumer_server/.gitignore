@@ -11,3 +11,6 @@ doc/api/
 
 # Passwords file
 # config/passwords.yaml
+
+# My Files
+lib/src/helpers/user_generator.dart

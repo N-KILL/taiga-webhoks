@@ -37,3 +37,10 @@ taigaJob:
   - taigaJobCommentariesReadById:
   - taigaJobCommentariesUpdateById:
   - taigaJobCommentariesDeleteById:
+user:
+  - GetUserById:
+  - GetUserByTaigaId:
+  - GetUserByGitHubId:
+  - GetUserByGitLabId:
+  - CreateUser:
+  - UpdateUserById:

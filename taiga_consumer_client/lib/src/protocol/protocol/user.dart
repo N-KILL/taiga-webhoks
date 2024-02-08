@@ -15,6 +15,8 @@ abstract class User extends _i1.SerializableEntity {
     this.id,
     required this.username,
     required this.userAvatar,
+    required this.fullName,
+    required this.taigaRoles,
     required this.taigaId,
     required this.gitHubId,
     required this.gitLabId,
@@ -24,6 +26,8 @@ abstract class User extends _i1.SerializableEntity {
     int? id,
     required String username,
     required String userAvatar,
+    required String fullName,
+    required List<String> taigaRoles,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
@@ -39,6 +43,10 @@ abstract class User extends _i1.SerializableEntity {
           .deserialize<String>(jsonSerialization['username']),
       userAvatar: serializationManager
           .deserialize<String>(jsonSerialization['userAvatar']),
+      fullName: serializationManager
+          .deserialize<String>(jsonSerialization['fullName']),
+      taigaRoles: serializationManager
+          .deserialize<List<String>>(jsonSerialization['taigaRoles']),
       taigaId:
           serializationManager.deserialize<int>(jsonSerialization['taigaId']),
       gitHubId:
@@ -59,6 +67,12 @@ abstract class User extends _i1.SerializableEntity {
   /// Url of the user avatar
   String userAvatar;
 
+  /// Full name of the user
+  String fullName;
+
+  /// Roles of the user on Taiga
+  List<String> taigaRoles;
+
   /// Id of the Taiga account of the user
   int taigaId;
 
@@ -72,6 +86,8 @@ abstract class User extends _i1.SerializableEntity {
     int? id,
     String? username,
     String? userAvatar,
+    String? fullName,
+    List<String>? taigaRoles,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -82,6 +98,8 @@ abstract class User extends _i1.SerializableEntity {
       if (id != null) 'id': id,
       'username': username,
       'userAvatar': userAvatar,
+      'fullName': fullName,
+      'taigaRoles': taigaRoles.toJson(),
       'taigaId': taigaId,
       'gitHubId': gitHubId,
       'gitLabId': gitLabId,
@@ -96,6 +114,8 @@ class _UserImpl extends User {
     int? id,
     required String username,
     required String userAvatar,
+    required String fullName,
+    required List<String> taigaRoles,
     required int taigaId,
     required int gitHubId,
     required int gitLabId,
@@ -103,6 +123,8 @@ class _UserImpl extends User {
           id: id,
           username: username,
           userAvatar: userAvatar,
+          fullName: fullName,
+          taigaRoles: taigaRoles,
           taigaId: taigaId,
           gitHubId: gitHubId,
           gitLabId: gitLabId,
@@ -113,6 +135,8 @@ class _UserImpl extends User {
     Object? id = _Undefined,
     String? username,
     String? userAvatar,
+    String? fullName,
+    List<String>? taigaRoles,
     int? taigaId,
     int? gitHubId,
     int? gitLabId,
@@ -121,6 +145,8 @@ class _UserImpl extends User {
       id: id is int? ? id : this.id,
       username: username ?? this.username,
       userAvatar: userAvatar ?? this.userAvatar,
+      fullName: fullName ?? this.fullName,
+      taigaRoles: taigaRoles ?? this.taigaRoles.clone(),
       taigaId: taigaId ?? this.taigaId,
       gitHubId: gitHubId ?? this.gitHubId,
       gitLabId: gitLabId ?? this.gitLabId,

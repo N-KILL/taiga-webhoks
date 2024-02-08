@@ -501,7 +501,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'status_card_details_fk_0',
           columns: ['byUserId'],
-          referenceTable: 'user',
+          referenceTable: 'users',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -657,7 +657,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'taiga_job_commentaries_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'users',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -816,7 +816,7 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
-      name: 'user',
+      name: 'users',
       dartName: 'User',
       schema: 'public',
       module: 'taiga_consumer',
@@ -826,7 +826,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'user_id_seq\'::regclass)',
+          columnDefault: 'nextval(\'users_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
           name: 'username',
@@ -839,6 +839,18 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.text,
           isNullable: false,
           dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'fullName',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'taigaRoles',
+          columnType: _i2.ColumnType.json,
+          isNullable: false,
+          dartType: 'List<String>',
         ),
         _i2.ColumnDefinition(
           name: 'taigaId',
@@ -862,7 +874,7 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [],
       indexes: [
         _i2.IndexDefinition(
-          indexName: 'user_pkey',
+          indexName: 'users_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
@@ -971,6 +983,10 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (t == _i1.getType<_i15.User?>()) {
       return (data != null ? _i15.User.fromJson(data, this) : null) as T;
+    }
+    if (t == List<String>) {
+      return (data as List).map((e) => deserialize<String>(e)).toList()
+          as dynamic;
     }
     if (t == _i1.getType<List<_i16.FigmaAction>?>()) {
       return (data != null
