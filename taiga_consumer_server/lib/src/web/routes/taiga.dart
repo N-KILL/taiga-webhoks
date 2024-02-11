@@ -347,6 +347,66 @@ class TaigaRoute extends WidgetRoute {
 
           // Manage the Status Change
           if (payload.change?.difference?.status != null) {
+            // Get the new status into an HuStatus enum value
+            final statusNewValue = figmaStatusConverter(
+              huStatus: payload.change?.difference?.status?.newValue,
+            );
+
+            // This is used to handle the status card
+            if (statusNewValue == HuStatus.LISTA ||
+                statusNewValue == HuStatus.DESARROLLANDOSE ||
+                statusNewValue == HuStatus.TESTEANDOSE ||
+                statusNewValue == HuStatus.UAT) {
+              // Get the info if the person who move the kanban
+              final performer = await UserEndpoint().GetUserByTaigaId(
+                session,
+                taigaId: payload.performer.id,
+              );
+
+              // If can get the info of the performer
+              if (performer != null && huDataInfo != null) {
+                // Generate a StatusCard instance with the data
+                final statusCardDetails =
+                    await FigmaEndpoint().registerStatusDetails(
+                  session,
+                  statusCardDetails: StatusCardDetails(
+                    date: dateFormatter(
+                      date: DateTime.now(),
+                    ),
+                    byUserId: performer.id,
+                  ),
+                );
+
+                // This is just a validation to prevent errors
+                if (huDataInfo.id != null) {
+                  // Update the status card of the User story
+                  final actionStatus = await FigmaEndpoint().updateStatusCard(
+                    session,
+                    fromUserStoryId: huDataInfo.id!,
+                    updateValue: statusNewValue,
+                    statusCardDetails: statusCardDetails,
+                  );
+                  if (actionStatus != null && getProjectById.id != null) {
+                    await FigmaEndpoint().registerNewAction(
+                      session,
+                      figmaAction: FigmaAction(
+                        action: ActionType.update_hu_status_card,
+                        isActive: true,
+                        creationDate: DateTime.now(),
+                        projectId: getProjectById.id!,
+                      ),
+                    );
+                  } else {
+                    throw ('Error: Was not possible to register the new action');
+                  }
+                } else {
+                  throw ('Error: Was not possible to get information of the user story');
+                }
+              } else {
+                throw ('Error: The performer of the action is not register on the database');
+              }
+            }
+
             // Create a HuData Instance with the new data
             final huDetails = HuData(
               name: payloadUsData.jobName,
@@ -384,51 +444,6 @@ class TaigaRoute extends WidgetRoute {
                 projectId: getProjectById.id!,
                 huDataId: huDataInfo.id,
               ),
-            );
-          }
-
-          // TODO(Nacho): Crear Funcion en el plugin de Taiga
-          // Necesito una funcion para poder leer la data los usuarios
-
-          // Manage the Change into the Status card
-          if (payload.change?.difference?.assignedToUserStory != null) {
-            int? approvedId = null;
-            int? developmentId = null;
-            int? externalTestId = null;
-            int? internalTestId = null;
-
-            for (var userId in payloadUsData.assignedUsers) {
-              var userData = await UserEndpoint().GetUserByTaigaId(
-                session,
-                taigaId: userId,
-              );
-              if (userData != null && userData.taigaRoles.contains('Back')) {
-                developmentId = userData.id;
-              }
-              if (userData != null && userData.taigaRoles.contains('Front')) {
-                developmentId = userData.id;
-              }
-            }
-
-            // If can't get the HU info from db
-            if (huDataInfo == null) {}
-            StatusCard(
-              approvedId: 1,
-              approved: StatusCardDetails(
-                  date: dateFormatter(date: DateTime.now()),
-                  byUserId: approvedId),
-              developmentId: 1,
-              development: StatusCardDetails(
-                  date: dateFormatter(date: DateTime.now()),
-                  byUserId: developmentId),
-              externalTestId: 1,
-              externalTest: StatusCardDetails(
-                  date: dateFormatter(date: DateTime.now()),
-                  byUserId: externalTestId),
-              internalTestId: 1,
-              internalTest: StatusCardDetails(
-                  date: dateFormatter(date: DateTime.now()),
-                  byUserId: internalTestId),
             );
           }
 

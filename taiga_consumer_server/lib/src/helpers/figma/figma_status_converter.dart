@@ -1,14 +1,14 @@
 import 'package:taiga_consumer_server/src/generated/protocol.dart';
 
 /// <h4> Figma Status Converter </h4>
-/// 
+///
 /// This [figmaStatusConverter] function has been made, to convert the status
 /// which came from the `taiga webhook` model, into the figma enum [HuStatus],
 /// this only work with the UserStory status. Because the figma plugin is mean
 /// to manage UserStories.
-/// 
+///
 /// <h4> Note: </h4>
-/// This only work with nidus project values 
+/// This only work with nidus project values
 HuStatus figmaStatusConverter({required String huStatus}) {
   var status;
 
@@ -48,6 +48,29 @@ HuStatus figmaStatusConverter({required String huStatus}) {
     case 'Lista':
       // Turn the var status into: HuStatus.LISTA
       status = HuStatus.LISTA;
+      break;
+    // If the value is 'Postergado'
+
+    case 'Desarrollándose':
+      // Turn the var status into: HuStatus.DESARROLLANDOSE
+      status = HuStatus.DESARROLLANDOSE;
+      break;
+
+    case 'Testeándose':
+      // Turn the var status into: HuStatus.TESTEANDOSE
+      status = HuStatus.TESTEANDOSE;
+      break;
+
+    // If the value is 'Aprobada UAT'
+    case 'Aprobada UAT':
+      // Turn the var status into: HuStatus.UAT
+      status = HuStatus.UAT;
+      break;
+
+    // If the value is 'Terminada'
+    case 'Terminada':
+      // Turn the var status into: HuStatus.TERMINADA
+      status = HuStatus.TERMINADA;
       break;
 
     // If the value is 'Postergado'

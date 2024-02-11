@@ -7,6 +7,10 @@ figma:
   - getSprintDataBySprintName:
   - createSprint:
   - getHUData:
+  - registerStatus:
+  - getStatusCardByUserStoryId:
+  - updateStatusCard:
+  - registerStatusDetails:
 taigaProject:
   - projectCreate:
   - projectCreateOnBulk:

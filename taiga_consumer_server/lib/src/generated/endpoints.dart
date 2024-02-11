@@ -17,15 +17,21 @@ import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_action.
     as _i6;
 import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_hu_data.dart'
     as _i7;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/status_card.dart'
     as _i8;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/hu_status_enum.dart'
     as _i9;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/status_card_detail.dart'
     as _i10;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
     as _i11;
-import 'package:taiga_consumer_server/src/generated/protocol/user.dart' as _i12;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
+    as _i12;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+    as _i13;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
+    as _i14;
+import 'package:taiga_consumer_server/src/generated/protocol/user.dart' as _i15;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -217,6 +223,91 @@ class Endpoints extends _i1.EndpointDispatch {
             huDataRefNum: params['huDataRefNum'],
           ),
         ),
+        'registerStatus': _i1.MethodConnector(
+          name: 'registerStatus',
+          params: {
+            'statusCard': _i1.ParameterDescription(
+              name: 'statusCard',
+              type: _i1.getType<_i8.StatusCard>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).registerStatus(
+            session,
+            statusCard: params['statusCard'],
+          ),
+        ),
+        'getStatusCardByUserStoryId': _i1.MethodConnector(
+          name: 'getStatusCardByUserStoryId',
+          params: {
+            'huDataId': _i1.ParameterDescription(
+              name: 'huDataId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint)
+                  .getStatusCardByUserStoryId(
+            session,
+            huDataId: params['huDataId'],
+          ),
+        ),
+        'updateStatusCard': _i1.MethodConnector(
+          name: 'updateStatusCard',
+          params: {
+            'fromUserStoryId': _i1.ParameterDescription(
+              name: 'fromUserStoryId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'updateValue': _i1.ParameterDescription(
+              name: 'updateValue',
+              type: _i1.getType<_i9.HuStatus>(),
+              nullable: false,
+            ),
+            'statusCardDetails': _i1.ParameterDescription(
+              name: 'statusCardDetails',
+              type: _i1.getType<_i10.StatusCardDetails>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).updateStatusCard(
+            session,
+            fromUserStoryId: params['fromUserStoryId'],
+            updateValue: params['updateValue'],
+            statusCardDetails: params['statusCardDetails'],
+          ),
+        ),
+        'registerStatusDetails': _i1.MethodConnector(
+          name: 'registerStatusDetails',
+          params: {
+            'statusCardDetails': _i1.ParameterDescription(
+              name: 'statusCardDetails',
+              type: _i1.getType<_i10.StatusCardDetails>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).registerStatusDetails(
+            session,
+            statusCardDetails: params['statusCardDetails'],
+          ),
+        ),
       },
     );
     connectors['taigaProject'] = _i1.EndpointConnector(
@@ -228,7 +319,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i8.TaigaProject>(),
+              type: _i1.getType<_i11.TaigaProject>(),
               nullable: false,
             )
           },
@@ -247,7 +338,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<List<_i8.TaigaProject>>(),
+              type: _i1.getType<List<_i11.TaigaProject>>(),
               nullable: false,
             )
           },
@@ -323,7 +414,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i8.TaigaProject>(),
+              type: _i1.getType<_i11.TaigaProject>(),
               nullable: false,
             )
           },
@@ -342,7 +433,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i8.TaigaProject>(),
+              type: _i1.getType<_i11.TaigaProject>(),
               nullable: false,
             )
           },
@@ -386,7 +477,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i9.TaigaJob>(),
+              type: _i1.getType<_i12.TaigaJob>(),
               nullable: false,
             )
           },
@@ -404,7 +495,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<List<_i9.TaigaJob>>(),
+              type: _i1.getType<List<_i12.TaigaJob>>(),
               nullable: false,
             )
           },
@@ -523,7 +614,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i9.TaigaJob>(),
+              type: _i1.getType<_i12.TaigaJob>(),
               nullable: false,
             ),
             'id': _i1.ParameterDescription(
@@ -567,7 +658,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<_i10.TaigaJobUpdates>(),
+              type: _i1.getType<_i13.TaigaJobUpdates>(),
               nullable: false,
             )
           },
@@ -586,7 +677,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<List<_i10.TaigaJobUpdates>>(),
+              type: _i1.getType<List<_i13.TaigaJobUpdates>>(),
               nullable: false,
             )
           },
@@ -654,7 +745,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<_i10.TaigaJobUpdates>(),
+              type: _i1.getType<_i13.TaigaJobUpdates>(),
               nullable: false,
             ),
           },
@@ -693,7 +784,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<_i11.TaigaJobCommentaries>(),
+              type: _i1.getType<_i14.TaigaJobCommentaries>(),
               nullable: false,
             )
           },
@@ -712,7 +803,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<List<_i11.TaigaJobCommentaries>>(),
+              type: _i1.getType<List<_i14.TaigaJobCommentaries>>(),
               nullable: false,
             )
           },
@@ -750,7 +841,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<_i11.TaigaJobCommentaries>(),
+              type: _i1.getType<_i14.TaigaJobCommentaries>(),
               nullable: false,
             ),
             'id': _i1.ParameterDescription(
@@ -872,7 +963,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i12.User>(),
+              type: _i1.getType<_i15.User>(),
               nullable: false,
             )
           },
@@ -895,7 +986,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i12.User>(),
+              type: _i1.getType<_i15.User>(),
               nullable: false,
             ),
           },

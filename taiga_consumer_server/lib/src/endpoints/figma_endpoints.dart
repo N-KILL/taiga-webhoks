@@ -3,6 +3,7 @@ import 'package:taiga_consumer_server/src/generated/protocol.dart';
 import 'package:taiga_consumer_server/src/helpers/date_formatter.dart';
 
 // TODO(Nacho): Create documentation for all the endpoints, and the class
+// Separated by models
 
 // TODO(Nacho): Modify the figma response
 // The figma plugin will crash if some action come with null values,
@@ -274,6 +275,117 @@ class FigmaEndpoint extends Endpoint {
           t.refNum.equals(huDataRefNum) & t.projectId.equals(projectId),
     );
 
+    return response;
+  }
+
+  // CRUD STATUS CARD STUFF
+
+  // TODO(Nacho): Add logger
+
+  Future<StatusCard> registerStatus(
+    Session session, {
+    required StatusCard statusCard,
+  }) async {
+    final response = await StatusCard.db.insertRow(session, statusCard);
+    return response;
+  }
+
+  Future<StatusCard?> getStatusCardByUserStoryId(
+    Session session, {
+    required int huDataId,
+  }) async {
+    final response = await HuData.db.findFirstRow(
+      session,
+      where: (t) => t.id.equals(huDataId),
+      include: HuData.include(
+        statusCard: StatusCard.include(),
+      ),
+    );
+    if (response?.statusCard != null) {
+      return response!.statusCard;
+    }
+    return null;
+  }
+
+  // TODO(Nacho): Handle AmountOfDay values
+  Future<StatusCard?> updateStatusCard(
+    Session session, {
+    // This is the user story we re going to update his status card
+    required int fromUserStoryId,
+
+    // This is the value we re going to update
+    required HuStatus updateValue,
+
+    // This are the details of the value we re going to update
+    required StatusCardDetails statusCardDetails,
+  }) async {
+    var statusCardData = await getStatusCardByUserStoryId(
+      session,
+      huDataId: fromUserStoryId,
+    );
+
+    // If already have an status card, update the values
+    if (statusCardData != null) {
+      // Then update the data based on the type
+      switch (updateValue) {
+        case HuStatus.LISTA:
+          statusCardData.approvedId = statusCardDetails.id;
+          break;
+        case HuStatus.DESARROLLANDOSE:
+          statusCardData.developmentId = statusCardDetails.id;
+          break;
+        case HuStatus.TESTEANDOSE:
+          statusCardData.internalTestId = statusCardDetails.id;
+          break;
+        case HuStatus.UAT:
+          statusCardData.externalTestId = statusCardDetails.id;
+          break;
+        default:
+      }
+      final response = await StatusCard.db.updateRow(
+        session,
+        statusCardData,
+      );
+      return response;
+    } else {
+      // Turn statusCardData to an empty StatusCard
+      statusCardData as StatusCard;
+
+      // Then fill the data based on the type
+      switch (updateValue) {
+        case HuStatus.LISTA:
+          statusCardData.approvedId = statusCardDetails.id;
+          break;
+        case HuStatus.DESARROLLANDOSE:
+          statusCardData.developmentId = statusCardDetails.id;
+          break;
+        case HuStatus.TESTEANDOSE:
+          statusCardData.internalTestId = statusCardDetails.id;
+          break;
+        case HuStatus.UAT:
+          statusCardData.externalTestId = statusCardDetails.id;
+          break;
+        default:
+      }
+
+      final response = await StatusCard.db.insertRow(
+        session,
+        statusCardData,
+      );
+      return response;
+    }
+  }
+
+  // CRUD STATUS CARD DETAILS STUFF
+
+  Future<StatusCardDetails> registerStatusDetails(
+    Session session, {
+    required StatusCardDetails statusCardDetails,
+  }) async {
+    final response = await StatusCardDetails.db.insertRow(
+      session,
+      statusCardDetails,
+    );
     return response;
   }
 }
