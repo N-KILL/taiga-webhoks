@@ -360,6 +360,36 @@ class TaigaRoute extends WidgetRoute {
 
           // Manage the Status Change
           if (payload.change?.difference?.status != null) {
+            // Create a HuData Instance with the new data
+            final huDetails = HuData(
+              name: payloadUsData.jobName,
+              refNum: payloadUsData.referenceNumber,
+              status: figmaStatusConverter(
+                huStatus: payloadUsData.jobStatus.statusName,
+              ),
+              readyForDev: false,
+              projectId: getProjectById.id!,
+            );
+
+            // Try to update theHuData
+            await FigmaEndpoint().updateHuData(
+              session,
+              huData: huDetails,
+            );
+
+            // Register a new action
+            FigmaEndpoint().registerNewAction(
+              session,
+              figmaAction: FigmaAction(
+                action: ActionType.update_hu_status,
+                isActive: true,
+                creationDate: DateTime.now(),
+                inactiveSince: null,
+                projectId: getProjectById.id!,
+                huDataId: huDataInfo.id!,
+              ),
+            );
+            
             // Get the new status into an HuStatus enum value
             final statusNewValue = figmaStatusConverter(
               huStatus: payload.change?.difference?.status?.newValue,
@@ -464,36 +494,6 @@ class TaigaRoute extends WidgetRoute {
                 }
               }
             }
-
-            // Create a HuData Instance with the new data
-            final huDetails = HuData(
-              name: payloadUsData.jobName,
-              refNum: payloadUsData.referenceNumber,
-              status: figmaStatusConverter(
-                huStatus: payloadUsData.jobStatus.statusName,
-              ),
-              readyForDev: false,
-              projectId: getProjectById.id!,
-            );
-
-            // Try to update theHuData
-            await FigmaEndpoint().updateHuData(
-              session,
-              huData: huDetails,
-            );
-
-            // Register a new action
-            FigmaEndpoint().registerNewAction(
-              session,
-              figmaAction: FigmaAction(
-                action: ActionType.update_hu_status,
-                isActive: true,
-                creationDate: DateTime.now(),
-                inactiveSince: null,
-                projectId: getProjectById.id!,
-                huDataId: huDataInfo.id!,
-              ),
-            );
           }
 
           // If the status of the US is 'Lista', put it on ReadyForDev
