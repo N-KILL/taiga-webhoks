@@ -6,19 +6,16 @@ fields:
   username: String    
   
   ### Url of the user avatar
-  userAvatar: String
+  userAvatar: String?
 
   ### Full name of the user
   fullName: String
-
-  ### Roles of the user on Taiga
-  taigaRoles: List<String>
   
   ### Id of the Taiga account of the user          
-  taigaId: int      
+  taigaId: int?      
   
   ### Id of the GitHub account of the user
-  gitHubId: int     
+  gitHubId: int?     
   
   ### Id of the GitLab account of the user
-  gitLabId: int     
+  gitLabId: int?     

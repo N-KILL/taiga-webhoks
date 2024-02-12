@@ -84,8 +84,8 @@ class Endpoints extends _i1.EndpointDispatch {
             projectName: params['projectName'],
           ),
         ),
-        'registerNewAction': _i1.MethodConnector(
-          name: 'registerNewAction',
+        'createNewAction': _i1.MethodConnector(
+          name: 'createNewAction',
           params: {
             'figmaAction': _i1.ParameterDescription(
               name: 'figmaAction',
@@ -97,13 +97,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).registerNewAction(
+              (endpoints['figma'] as _i2.FigmaEndpoint).createNewAction(
             session,
             figmaAction: params['figmaAction'],
           ),
         ),
-        'registerNewHUData': _i1.MethodConnector(
-          name: 'registerNewHUData',
+        'createNewHUData': _i1.MethodConnector(
+          name: 'createNewHUData',
           params: {
             'huData': _i1.ParameterDescription(
               name: 'huData',
@@ -115,7 +115,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).registerNewHUData(
+              (endpoints['figma'] as _i2.FigmaEndpoint).createNewHUData(
             session,
             huData: params['huData'],
           ),
@@ -223,8 +223,8 @@ class Endpoints extends _i1.EndpointDispatch {
             huDataRefNum: params['huDataRefNum'],
           ),
         ),
-        'registerStatusCard': _i1.MethodConnector(
-          name: 'registerStatusCard',
+        'createStatusCard': _i1.MethodConnector(
+          name: 'createStatusCard',
           params: {
             'statusCard': _i1.ParameterDescription(
               name: 'statusCard',
@@ -236,7 +236,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).registerStatusCard(
+              (endpoints['figma'] as _i2.FigmaEndpoint).createStatusCard(
             session,
             statusCard: params['statusCard'],
           ),
@@ -308,8 +308,8 @@ class Endpoints extends _i1.EndpointDispatch {
             statusCardDetails: params['statusCardDetails'],
           ),
         ),
-        'registerStatusDetails': _i1.MethodConnector(
-          name: 'registerStatusDetails',
+        'createStatusDetails': _i1.MethodConnector(
+          name: 'createStatusDetails',
           params: {
             'statusCardDetails': _i1.ParameterDescription(
               name: 'statusCardDetails',
@@ -321,9 +321,27 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).registerStatusDetails(
+              (endpoints['figma'] as _i2.FigmaEndpoint).createStatusDetails(
             session,
             statusCardDetails: params['statusCardDetails'],
+          ),
+        ),
+        'deleteStatusCardDetails': _i1.MethodConnector(
+          name: 'deleteStatusCardDetails',
+          params: {
+            'statusCardDetailsId': _i1.ParameterDescription(
+              name: 'statusCardDetailsId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).deleteStatusCardDetails(
+            session,
+            statusCardDetailsId: params['statusCardDetailsId'],
           ),
         ),
       },
@@ -904,11 +922,20 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'user',
       endpoint: endpoints['user']!,
       methodConnectors: {
-        'GetUserById': _i1.MethodConnector(
-          name: 'GetUserById',
+        'getAllUsers': _i1.MethodConnector(
+          name: 'getAllUsers',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).getAllUsers(session),
+        ),
+        'getUserById': _i1.MethodConnector(
+          name: 'getUserById',
           params: {
-            'id': _i1.ParameterDescription(
-              name: 'id',
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
               type: _i1.getType<int>(),
               nullable: false,
             )
@@ -917,13 +944,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).GetUserById(
+              (endpoints['user'] as _i5.UserEndpoint).getUserById(
             session,
-            id: params['id'],
+            userId: params['userId'],
           ),
         ),
-        'GetUserByTaigaId': _i1.MethodConnector(
-          name: 'GetUserByTaigaId',
+        'getUserByTaigaId': _i1.MethodConnector(
+          name: 'getUserByTaigaId',
           params: {
             'taigaId': _i1.ParameterDescription(
               name: 'taigaId',
@@ -935,13 +962,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).GetUserByTaigaId(
+              (endpoints['user'] as _i5.UserEndpoint).getUserByTaigaId(
             session,
             taigaId: params['taigaId'],
           ),
         ),
-        'GetUserByGitHubId': _i1.MethodConnector(
-          name: 'GetUserByGitHubId',
+        'getUserByGitHubId': _i1.MethodConnector(
+          name: 'getUserByGitHubId',
           params: {
             'gitHubId': _i1.ParameterDescription(
               name: 'gitHubId',
@@ -953,13 +980,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).GetUserByGitHubId(
+              (endpoints['user'] as _i5.UserEndpoint).getUserByGitHubId(
             session,
             gitHubId: params['gitHubId'],
           ),
         ),
-        'GetUserByGitLabId': _i1.MethodConnector(
-          name: 'GetUserByGitLabId',
+        'getUserByGitLabId': _i1.MethodConnector(
+          name: 'getUserByGitLabId',
           params: {
             'gitLabId': _i1.ParameterDescription(
               name: 'gitLabId',
@@ -971,13 +998,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).GetUserByGitLabId(
+              (endpoints['user'] as _i5.UserEndpoint).getUserByGitLabId(
             session,
             gitLabId: params['gitLabId'],
           ),
         ),
-        'CreateUser': _i1.MethodConnector(
-          name: 'CreateUser',
+        'createUser': _i1.MethodConnector(
+          name: 'createUser',
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
@@ -989,16 +1016,34 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).CreateUser(
+              (endpoints['user'] as _i5.UserEndpoint).createUser(
             session,
             user: params['user'],
           ),
         ),
-        'UpdateUserById': _i1.MethodConnector(
-          name: 'UpdateUserById',
+        'createMultipleUsers': _i1.MethodConnector(
+          name: 'createMultipleUsers',
           params: {
-            'id': _i1.ParameterDescription(
-              name: 'id',
+            'users': _i1.ParameterDescription(
+              name: 'users',
+              type: _i1.getType<List<_i15.User>>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).createMultipleUsers(
+            session,
+            users: params['users'],
+          ),
+        ),
+        'updateUserById': _i1.MethodConnector(
+          name: 'updateUserById',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
               type: _i1.getType<int>(),
               nullable: false,
             ),
@@ -1012,10 +1057,59 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).UpdateUserById(
+              (endpoints['user'] as _i5.UserEndpoint).updateUserById(
             session,
-            id: params['id'],
+            userId: params['userId'],
             user: params['user'],
+          ),
+        ),
+        'deleteUser': _i1.MethodConnector(
+          name: 'deleteUser',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint).deleteUser(
+            session,
+            userId: params['userId'],
+          ),
+        ),
+        'GenerateUsersFromTaigaProject': _i1.MethodConnector(
+          name: 'GenerateUsersFromTaigaProject',
+          params: {
+            'taigaUsername': _i1.ParameterDescription(
+              name: 'taigaUsername',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'taigaPassword': _i1.ParameterDescription(
+              name: 'taigaPassword',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'taigaProjectId': _i1.ParameterDescription(
+              name: 'taigaProjectId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i5.UserEndpoint)
+                  .GenerateUsersFromTaigaProject(
+            session,
+            taigaUsername: params['taigaUsername'],
+            taigaPassword: params['taigaPassword'],
+            taigaProjectId: params['taigaProjectId'],
           ),
         ),
       },

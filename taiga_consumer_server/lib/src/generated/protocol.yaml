@@ -1,17 +1,18 @@
 figma:
   - figmaResponse:
-  - registerNewAction:
-  - registerNewHUData:
+  - createNewAction:
+  - createNewHUData:
   - updateHuData:
   - getSprintDataByTaigaId:
   - getSprintDataBySprintName:
   - createSprint:
   - getHUData:
-  - registerStatusCard:
+  - createStatusCard:
   - getStatusCardByUserStoryId:
   - getStatusCardById:
   - updateStatusCard:
-  - registerStatusDetails:
+  - createStatusDetails:
+  - deleteStatusCardDetails:
 taigaProject:
   - projectCreate:
   - projectCreateOnBulk:
@@ -43,9 +44,13 @@ taigaJob:
   - taigaJobCommentariesUpdateById:
   - taigaJobCommentariesDeleteById:
 user:
-  - GetUserById:
-  - GetUserByTaigaId:
-  - GetUserByGitHubId:
-  - GetUserByGitLabId:
-  - CreateUser:
-  - UpdateUserById:
+  - getAllUsers:
+  - getUserById:
+  - getUserByTaigaId:
+  - getUserByGitHubId:
+  - getUserByGitLabId:
+  - createUser:
+  - createMultipleUsers:
+  - updateUserById:
+  - deleteUser:
+  - GenerateUsersFromTaigaProject:

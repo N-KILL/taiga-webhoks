@@ -5,10 +5,13 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_upd
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/user.dart';
 
-/// This class [TaigaJobEndpoint] have all the CRUD methods (CREATE, READ,
-/// UPDATE, DELETE) to modify a job related model on the database.
+// TODO(Nacho): Upgrade all the endpoint
+// Prevent to return null on all methods, except from Get methods
+
+/// This class [TaigaJobEndpoint] have all the CRUD methods to modify a job 
+/// related model on the database.
 ///
-/// Those are the models relates to this endpoint:
+/// </h4>Those are the models relates to this endpoint </h4>
 /// <ul>
 /// <li>[TaigaJob]</li>
 /// <li>[TaigaJobUpdates]</li>

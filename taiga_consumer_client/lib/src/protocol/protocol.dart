@@ -33,6 +33,7 @@ import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_upda
     as _i18;
 import 'package:taiga_consumer_client/src/protocol/protocol/taiga/taiga_job_commentaries.dart'
     as _i19;
+import 'package:taiga_consumer_client/src/protocol/protocol/user.dart' as _i20;
 export 'protocol/figma/action_enum.dart';
 export 'protocol/figma/day_counter.dart';
 export 'protocol/figma/figma_action.dart';
@@ -149,10 +150,6 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i14.User?>()) {
       return (data != null ? _i14.User.fromJson(data, this) : null) as T;
     }
-    if (t == List<String>) {
-      return (data as List).map((e) => deserialize<String>(e)).toList()
-          as dynamic;
-    }
     if (t == _i1.getType<List<_i15.FigmaAction>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<_i15.FigmaAction>(e)).toList()
@@ -219,6 +216,10 @@ class Protocol extends _i1.SerializationManager {
       return (data as List)
           .map((e) => deserialize<_i19.TaigaJobCommentaries>(e))
           .toList() as dynamic;
+    }
+    if (t == List<_i20.User>) {
+      return (data as List).map((e) => deserialize<_i20.User>(e)).toList()
+          as dynamic;
     }
     return super.deserialize<T>(data, t);
   }

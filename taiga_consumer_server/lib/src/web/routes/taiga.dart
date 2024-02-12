@@ -258,13 +258,13 @@ class TaigaRoute extends WidgetRoute {
           );
 
           // Register a new HUData
-          final huDataInfo = await FigmaEndpoint().registerNewHUData(
+          final huDataInfo = await FigmaEndpoint().createNewHUData(
             session,
             huData: huDetails,
           );
 
           // Register a new action
-          FigmaEndpoint().registerNewAction(
+          FigmaEndpoint().createNewAction(
             session,
             figmaAction: FigmaAction(
               action: ActionType.create_hu,
@@ -297,7 +297,7 @@ class TaigaRoute extends WidgetRoute {
             );
 
             // and then register that on the database
-            huDataInfo = await FigmaEndpoint().registerNewHUData(
+            huDataInfo = await FigmaEndpoint().createNewHUData(
               session,
               huData: huDetails,
             );
@@ -335,7 +335,7 @@ class TaigaRoute extends WidgetRoute {
               );
 
               // Register a new action
-              FigmaEndpoint().registerNewAction(
+              FigmaEndpoint().createNewAction(
                 session,
                 figmaAction: FigmaAction(
                   action: ActionType.attach_to_sprint,
@@ -364,7 +364,7 @@ class TaigaRoute extends WidgetRoute {
             );
 
             // Register a new action
-            FigmaEndpoint().registerNewAction(
+            FigmaEndpoint().createNewAction(
               session,
               figmaAction: FigmaAction(
                 action: ActionType.update_hu_status,
@@ -387,7 +387,7 @@ class TaigaRoute extends WidgetRoute {
                 statusNewValue == HuStatus.TESTEANDOSE ||
                 statusNewValue == HuStatus.UAT) {
               // Get the info if the person who move the kanban
-              final performer = await UserEndpoint().GetUserByTaigaId(
+              final performer = await UserEndpoint().getUserByTaigaId(
                 session,
                 taigaId: payload.performer.id,
               );
@@ -396,7 +396,7 @@ class TaigaRoute extends WidgetRoute {
               if (performer != null) {
                 // Generate a StatusCard instance with the data
                 final statusCardDetails =
-                    await FigmaEndpoint().registerStatusDetails(
+                    await FigmaEndpoint().createStatusDetails(
                   session,
                   statusCardDetails: StatusCardDetails(
                     date: dateFormatter(
@@ -441,7 +441,7 @@ class TaigaRoute extends WidgetRoute {
                         break;
                       default:
                     }
-                    statusCardInfo = await FigmaEndpoint().registerStatusCard(
+                    statusCardInfo = await FigmaEndpoint().createStatusCard(
                       session,
                       statusCard: statusCard,
                     );
@@ -461,7 +461,7 @@ class TaigaRoute extends WidgetRoute {
                   );
 
                   // Register a new action 'update_hu_status_card'
-                  await FigmaEndpoint().registerNewAction(
+                  await FigmaEndpoint().createNewAction(
                     session,
                     figmaAction: FigmaAction(
                       action: ActionType.update_hu_status_card,
@@ -495,7 +495,7 @@ class TaigaRoute extends WidgetRoute {
             );
 
             // Register a new action
-            FigmaEndpoint().registerNewAction(
+            FigmaEndpoint().createNewAction(
               session,
               figmaAction: FigmaAction(
                 action: ActionType.update_ready_for_dev_status,

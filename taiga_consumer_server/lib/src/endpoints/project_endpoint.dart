@@ -1,6 +1,8 @@
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart';
 
+// TODO(Nacho): Upgrate endpoints
+
 /// This class [TaigaProjectEndpoint] is used to manage the project data in the
 /// database. Have al the CRUD operators (Create, Read, Update, Delete) to the
 /// project object

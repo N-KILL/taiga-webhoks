@@ -1,14 +1,10 @@
 import 'package:serverpod/serverpod.dart';
 import 'package:taiga_consumer_server/src/generated/protocol.dart';
-import 'package:taiga_consumer_server/src/helpers/date_formatter.dart';
 
 // TODO(Nacho): Create documentation for all the endpoints, and the class
 // Separated by models
 
-// TODO(Nacho): Modify the figma response
-// The figma plugin will crash if some action come with null values,
-// serverpod cannot include stuff who not exist, maybe a filter wil default
-// values? or allow nulls on models?
+// TODO(Nacho): Upgrate endpoints
 
 // TODO(Nacho): Modify the sprint model, to have taiga projectId
 
@@ -46,10 +42,18 @@ class FigmaEndpoint extends Endpoint {
           huData: HuData.include(
             sprint: Sprint.include(),
             statusCard: StatusCard.include(
-              approved: StatusCardDetails.include(byUser: User.include()),
-              development: StatusCardDetails.include(byUser: User.include()),
-              externalTest: StatusCardDetails.include(byUser: User.include()),
-              internalTest: StatusCardDetails.include(byUser: User.include()),
+              approved: StatusCardDetails.include(
+                byUser: User.include(),
+              ),
+              development: StatusCardDetails.include(
+                byUser: User.include(),
+              ),
+              externalTest: StatusCardDetails.include(
+                byUser: User.include(),
+              ),
+              internalTest: StatusCardDetails.include(
+                byUser: User.include(),
+              ),
               amountOfDays: AmountOfDays.include(),
             ),
           ),
@@ -64,10 +68,10 @@ class FigmaEndpoint extends Endpoint {
     return null;
   }
 
-  /// This [registerNewAction] endpoint is for register a new action into the db
-  /// register. And if already exist any action of the same type, and its active
+  /// This [createNewAction] endpoint is for create a new action into the db
+  /// create. And if already exist any action of the same type, and its active
   /// in this case, don't do any. Because it will works anyway
-  Future<FigmaAction> registerNewAction(
+  Future<FigmaAction> createNewAction(
     Session session, {
     required FigmaAction figmaAction,
   }) async {
@@ -91,7 +95,7 @@ class FigmaEndpoint extends Endpoint {
     }
   }
 
-  Future<HuData> registerNewHUData(
+  Future<HuData> createNewHUData(
     Session session, {
     required HuData huData,
   }) async {
@@ -200,7 +204,7 @@ class FigmaEndpoint extends Endpoint {
 
   // TODO(Nacho): Add logger
 
-  Future<StatusCard> registerStatusCard(
+  Future<StatusCard> createStatusCard(
     Session session, {
     required StatusCard statusCard,
   }) async {
@@ -237,6 +241,28 @@ class FigmaEndpoint extends Endpoint {
   }
 
   // TODO(Nacho): Handle AmountOfDay values
+
+  /// This endpoint [updateStatusCard] is used to update the status card of an
+  /// user story.
+  ///
+  /// <h4> Required values </h4>
+  ///
+  /// <ul>
+  /// <li> [statusCardId] : [int] is the status card we re going to update </li>
+  /// <li> [updateValue] : [HuStatus] is the value we re going to update </li>
+  /// <h4> Note: [updateValue] Only can be type: </h4>
+  /// <ul>
+  /// <li> [HuStatus.LISTA] </li>
+  /// <li> [HuStatus.DESARROLLANDOSE] </li>
+  /// <li> [HuStatus.TESTEANDOSE] </li>
+  /// <li> [HuStatus.UAT] </li>
+  /// </ul>
+  /// 
+  /// Any other value will return an <strong>error</strong>
+  /// 
+  /// <li> [statusCardDetails] : [int] are the details of the value we re going 
+  /// to update </li>
+  /// </ul>
   Future<StatusCard> updateStatusCard(
     Session session, {
     // This is the status card we re going to update
@@ -248,41 +274,95 @@ class FigmaEndpoint extends Endpoint {
     // This are the details of the value we re going to update
     required StatusCardDetails statusCardDetails,
   }) async {
-    final statusCardData = await StatusCard.db.findById(session, statusCardId);
+    try {
+      final statusCardData =
+          await StatusCard.db.findById(session, statusCardId);
 
-    // If already have an status card, update the values
-    if (statusCardData != null) {
-      // Then update the data based on the type
-      switch (updateValue) {
-        case HuStatus.LISTA:
-          statusCardData.approvedId = statusCardDetails.id;
-          break;
-        case HuStatus.DESARROLLANDOSE:
-          statusCardData.developmentId = statusCardDetails.id;
-          break;
-        case HuStatus.TESTEANDOSE:
-          statusCardData.internalTestId = statusCardDetails.id;
-          break;
-        case HuStatus.UAT:
-          statusCardData.externalTestId = statusCardDetails.id;
-          break;
-        default:
+      // If already have an status card, update the values
+      if (statusCardData != null) {
+        // Then update the data based on the type
+        switch (updateValue) {
+          case HuStatus.LISTA:
+            // If the statusCard already have a related data, remove it
+            if (statusCardData.approvedId != null) {
+              await deleteStatusCardDetails(
+                session,
+                statusCardDetailsId: statusCardData.approvedId!,
+              );
+            }
+
+            // Then modify the value
+            statusCardData.approvedId = statusCardDetails.id;
+            break;
+
+          case HuStatus.DESARROLLANDOSE:
+            // If the statusCard already have a related data, remove it
+            if (statusCardData.developmentId != null) {
+              await deleteStatusCardDetails(
+                session,
+                statusCardDetailsId: statusCardData.developmentId!,
+              );
+            }
+
+            // Then modify the value
+            statusCardData.developmentId = statusCardDetails.id;
+            break;
+
+          case HuStatus.TESTEANDOSE:
+            // If the statusCard already have a related data, remove it
+            if (statusCardData.internalTestId != null) {
+              await deleteStatusCardDetails(
+                session,
+                statusCardDetailsId: statusCardData.internalTestId!,
+              );
+            }
+
+            // Then modify the value
+            statusCardData.internalTestId = statusCardDetails.id;
+            break;
+
+          case HuStatus.UAT:
+
+            // If the statusCard already have a related data, remove it
+            if (statusCardData.externalTestId != null) {
+              await deleteStatusCardDetails(
+                session,
+                statusCardDetailsId: statusCardData.externalTestId!,
+              );
+            }
+
+            // Then modify the value
+            statusCardData.externalTestId = statusCardDetails.id;
+            break;
+          default:
+            throw (
+              'Status card, is made to work with other values, pls read the doc',
+              LogLevel.error
+            );
+        }
+
+        // Update the user story data
+        final response = await StatusCard.db.updateRow(
+          session,
+          statusCardData,
+        );
+
+        // Then return the updated user story data
+        return response;
+      } else {
+        throw ('Error getting the Status Card related to the User Story');
       }
-
-      // Update the user story data
-      final response = await StatusCard.db.updateRow(
-        session,
-        statusCardData,
+    } catch (e) {
+      throw (
+        'updateStatusCard Failed, error: $e',
+        LogLevel.error,
       );
-      return response;
-    } else {
-      throw ('Error getting the Status Card related to the User Story');
     }
   }
 
   // CRUD STATUS CARD DETAILS STUFF
 
-  Future<StatusCardDetails> registerStatusDetails(
+  Future<StatusCardDetails> createStatusDetails(
     Session session, {
     required StatusCardDetails statusCardDetails,
   }) async {
@@ -291,5 +371,46 @@ class FigmaEndpoint extends Endpoint {
       statusCardDetails,
     );
     return response;
+  }
+
+  /// This endpoint [deleteStatusCardDetails] is used to delete information from
+  /// a StatusCardDetails createed in the database.
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `statusCardDetailsId`: [int] Its the id of the statusCardDetailsId on the
+  /// database <br>
+  Future<int> deleteStatusCardDetails(
+    Session session, {
+    required int statusCardDetailsId,
+  }) async {
+    // Message indication this endpoint is running
+    session.log('Running deleteStatusCardDetails Endpoint');
+
+    try {
+      // Try to delete the StatusCardDetails
+      final statusCardDetailsData =
+          await StatusCardDetails.db.findById(session, statusCardDetailsId);
+      if (statusCardDetailsData != null) {
+        // Remove the StatusCardDetails from the database
+        final id = await StatusCardDetails.db
+            .deleteRow(session, statusCardDetailsData);
+
+        // Then return his id
+        return id;
+      }
+
+      // In case that we can't find any status card detail by that id,
+      // throw an error
+      throw (
+        'Was not possible to found any status card detail with that id: $statusCardDetailsId',
+      );
+    } catch (e) {
+      // throw an error in case of fail
+      throw (
+        'deleteStatusCardDetails Failed, error: $e',
+        LogLevel.error,
+      );
+    }
   }
 }

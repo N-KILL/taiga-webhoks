@@ -34,6 +34,7 @@ import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_upd
     as _i19;
 import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
     as _i20;
+import 'package:taiga_consumer_server/src/generated/protocol/user.dart' as _i21;
 export 'protocol/figma/action_enum.dart';
 export 'protocol/figma/day_counter.dart';
 export 'protocol/figma/figma_action.dart';
@@ -837,8 +838,8 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ColumnDefinition(
           name: 'userAvatar',
           columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
+          isNullable: true,
+          dartType: 'String?',
         ),
         _i2.ColumnDefinition(
           name: 'fullName',
@@ -847,28 +848,22 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
-          name: 'taigaRoles',
-          columnType: _i2.ColumnType.json,
-          isNullable: false,
-          dartType: 'List<String>',
-        ),
-        _i2.ColumnDefinition(
           name: 'taigaId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'gitHubId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
         _i2.ColumnDefinition(
           name: 'gitLabId',
           columnType: _i2.ColumnType.integer,
-          isNullable: false,
-          dartType: 'int',
+          isNullable: true,
+          dartType: 'int?',
         ),
       ],
       foreignKeys: [],
@@ -984,10 +979,6 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i15.User?>()) {
       return (data != null ? _i15.User.fromJson(data, this) : null) as T;
     }
-    if (t == List<String>) {
-      return (data as List).map((e) => deserialize<String>(e)).toList()
-          as dynamic;
-    }
     if (t == _i1.getType<List<_i16.FigmaAction>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<_i16.FigmaAction>(e)).toList()
@@ -1054,6 +1045,10 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data as List)
           .map((e) => deserialize<_i20.TaigaJobCommentaries>(e))
           .toList() as dynamic;
+    }
+    if (t == List<_i21.User>) {
+      return (data as List).map((e) => deserialize<_i21.User>(e)).toList()
+          as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);

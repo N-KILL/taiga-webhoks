@@ -57,21 +57,21 @@ class EndpointFigma extends _i1.EndpointRef {
         {'projectName': projectName},
       );
 
-  /// This [registerNewAction] endpoint is for register a new action into the db
-  /// register. And if already exist any action of the same type, and its active
+  /// This [createNewAction] endpoint is for create a new action into the db
+  /// create. And if already exist any action of the same type, and its active
   /// in this case, don't do any. Because it will works anyway
-  _i2.Future<_i3.FigmaAction> registerNewAction(
+  _i2.Future<_i3.FigmaAction> createNewAction(
           {required _i3.FigmaAction figmaAction}) =>
       caller.callServerEndpoint<_i3.FigmaAction>(
         'figma',
-        'registerNewAction',
+        'createNewAction',
         {'figmaAction': figmaAction},
       );
 
-  _i2.Future<_i4.HuData> registerNewHUData({required _i4.HuData huData}) =>
+  _i2.Future<_i4.HuData> createNewHUData({required _i4.HuData huData}) =>
       caller.callServerEndpoint<_i4.HuData>(
         'figma',
-        'registerNewHUData',
+        'createNewHUData',
         {'huData': huData},
       );
 
@@ -122,11 +122,11 @@ class EndpointFigma extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<_i6.StatusCard> registerStatusCard(
+  _i2.Future<_i6.StatusCard> createStatusCard(
           {required _i6.StatusCard statusCard}) =>
       caller.callServerEndpoint<_i6.StatusCard>(
         'figma',
-        'registerStatusCard',
+        'createStatusCard',
         {'statusCard': statusCard},
       );
 
@@ -145,6 +145,27 @@ class EndpointFigma extends _i1.EndpointRef {
         {'statusCardId': statusCardId},
       );
 
+  /// This endpoint [updateStatusCard] is used to update the status card of an
+  /// user story.
+  ///
+  /// <h4> Required values </h4>
+  ///
+  /// <ul>
+  /// <li> [statusCardId] : [int] is the status card we re going to update </li>
+  /// <li> [updateValue] : [HuStatus] is the value we re going to update </li>
+  /// <h4> Note: [updateValue] Only can be type: </h4>
+  /// <ul>
+  /// <li> [HuStatus.LISTA] </li>
+  /// <li> [HuStatus.DESARROLLANDOSE] </li>
+  /// <li> [HuStatus.TESTEANDOSE] </li>
+  /// <li> [HuStatus.UAT] </li>
+  /// </ul>
+  ///
+  /// Any other value will return an <strong>error</strong>
+  ///
+  /// <li> [statusCardDetails] : [int] are the details of the value we re going
+  /// to update </li>
+  /// </ul>
   _i2.Future<_i6.StatusCard> updateStatusCard({
     required int statusCardId,
     required _i7.HuStatus updateValue,
@@ -160,12 +181,26 @@ class EndpointFigma extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<_i8.StatusCardDetails> registerStatusDetails(
+  _i2.Future<_i8.StatusCardDetails> createStatusDetails(
           {required _i8.StatusCardDetails statusCardDetails}) =>
       caller.callServerEndpoint<_i8.StatusCardDetails>(
         'figma',
-        'registerStatusDetails',
+        'createStatusDetails',
         {'statusCardDetails': statusCardDetails},
+      );
+
+  /// This endpoint [deleteStatusCardDetails] is used to delete information from
+  /// a StatusCardDetails createed in the database.
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `statusCardDetailsId`: [int] Its the id of the statusCardDetailsId on the
+  /// database <br>
+  _i2.Future<int> deleteStatusCardDetails({required int statusCardDetailsId}) =>
+      caller.callServerEndpoint<int>(
+        'figma',
+        'deleteStatusCardDetails',
+        {'statusCardDetailsId': statusCardDetailsId},
       );
 }
 
@@ -263,10 +298,10 @@ class EndpointTaigaProject extends _i1.EndpointRef {
       );
 }
 
-/// This class [TaigaJobEndpoint] have all the CRUD methods (CREATE, READ,
-/// UPDATE, DELETE) to modify a job related model on the database.
+/// This class [TaigaJobEndpoint] have all the CRUD methods to modify a job
+/// related model on the database.
 ///
-/// Those are the models relates to this endpoint:
+/// </h4>Those are the models relates to this endpoint </h4>
 /// <ul>
 /// <li>[TaigaJob]</li>
 /// <li>[TaigaJobUpdates]</li>
@@ -503,6 +538,36 @@ class EndpointTaigaJob extends _i1.EndpointRef {
       );
 }
 
+/// This [UserEndpoint] contains all the CRUD method to interact with an user
+/// from the database.
+/// <h5> NOTE: </h5>
+///
+/// The Read Methods, can return `null` when can't find any [User] information
+///
+/// <h5> CREATE METHODS </h5>
+/// <ul>
+/// <li>[createUser]</li>
+/// <li>[createMultipleUsers]</li>
+/// </ul>
+///
+/// <h5> READ METHODS </h5>
+/// <ul>
+/// <li>[getAllUsers]</li>
+/// <li>[getUserById]</li>
+/// <li>[getUserByTaigaId]</li>
+/// <li>[getUserByGitHubId]</li>
+/// <li>[getUserByGitLabId]</li>
+/// </ul>
+///
+/// <h5> UPDATE METHODS </h5>
+/// <ul>
+/// <li>[updateUserById]</li>
+/// </ul>
+///
+/// <h5> DELETE METHODS </h5>
+/// <ul>
+/// <li>[deleteUser]</li>
+/// </ul>
 /// {@category Endpoint}
 class EndpointUser extends _i1.EndpointRef {
   EndpointUser(_i1.EndpointCaller caller) : super(caller);
@@ -510,51 +575,152 @@ class EndpointUser extends _i1.EndpointRef {
   @override
   String get name => 'user';
 
-  _i2.Future<_i13.User?> GetUserById({required int id}) =>
-      caller.callServerEndpoint<_i13.User?>(
+  /// This endpoint [getAllUsers] is used to get all the users on the database
+  /// Don't require any parameter, just call it.
+  _i2.Future<List<_i13.User>> getAllUsers() =>
+      caller.callServerEndpoint<List<_i13.User>>(
         'user',
-        'GetUserById',
-        {'id': id},
+        'getAllUsers',
+        {},
       );
 
-  _i2.Future<_i13.User?> GetUserByTaigaId({required int taigaId}) =>
+  /// This endpoint [getUserById] is used to get a user from the database using
+  /// his id
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `userId`: [int] Id of the user on the database
+  _i2.Future<_i13.User?> getUserById({required int userId}) =>
       caller.callServerEndpoint<_i13.User?>(
         'user',
-        'GetUserByTaigaId',
+        'getUserById',
+        {'userId': userId},
+      );
+
+  /// This endpoint [getUserByTaigaId] is used to get a user from the database
+  /// using his id of `Taiga`
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `taigaId`: [int] Id of the user on `Taiga`
+  _i2.Future<_i13.User?> getUserByTaigaId({required int taigaId}) =>
+      caller.callServerEndpoint<_i13.User?>(
+        'user',
+        'getUserByTaigaId',
         {'taigaId': taigaId},
       );
 
-  _i2.Future<_i13.User?> GetUserByGitHubId({required int gitHubId}) =>
+  /// This endpoint [getUserByGitHubId] is used to get a user from the database
+  /// using his id of `GitHub`
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `gitHubId`: [int] Id of the user on `GitHub`
+  _i2.Future<_i13.User?> getUserByGitHubId({required int gitHubId}) =>
       caller.callServerEndpoint<_i13.User?>(
         'user',
-        'GetUserByGitHubId',
+        'getUserByGitHubId',
         {'gitHubId': gitHubId},
       );
 
-  _i2.Future<_i13.User?> GetUserByGitLabId({required int gitLabId}) =>
+  /// This endpoint [getUserByGitLabId] is used to get a user from the database
+  /// using his id of `GitLab`
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `gitLabId`: [int] Id of the user on `GitLab`
+  _i2.Future<_i13.User?> getUserByGitLabId({required int gitLabId}) =>
       caller.callServerEndpoint<_i13.User?>(
         'user',
-        'GetUserByGitLabId',
+        'getUserByGitLabId',
         {'gitLabId': gitLabId},
       );
 
-  _i2.Future<_i13.User> CreateUser({required _i13.User user}) =>
+  /// This endpoint [createUser] is used to create a new user register in the
+  /// database
+  /// <h4> Required data: </h4>
+  ///
+  /// `user`: [User] instance with all the user data.
+  _i2.Future<_i13.User> createUser({required _i13.User user}) =>
       caller.callServerEndpoint<_i13.User>(
         'user',
-        'CreateUser',
+        'createUser',
         {'user': user},
       );
 
-  _i2.Future<_i13.User?> UpdateUserById({
-    required int id,
+  /// This endpoint [createUser] is used to create a multiple new user registers
+  /// in the database
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `users`: List[User] instance with all the user data.
+  _i2.Future<List<_i13.User>> createMultipleUsers(
+          {required List<_i13.User> users}) =>
+      caller.callServerEndpoint<List<_i13.User>>(
+        'user',
+        'createMultipleUsers',
+        {'users': users},
+      );
+
+  /// This endpoint [updateUserById] is used to update information from a user
+  /// registered in the database.
+  ///
+  /// <h4> Note: </h4>
+  /// Is recommended to read the user information first with any `get` method,
+  /// and then modify the stuff and call this function, to prevent deleting data
+  /// if the `user` data you give is incomplete.
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `userId`: [int] Its the id of the user on the database <br>
+  /// `user`: [User] instance with all the user data we re going to put
+  _i2.Future<_i13.User> updateUserById({
+    required int userId,
     required _i13.User user,
   }) =>
-      caller.callServerEndpoint<_i13.User?>(
+      caller.callServerEndpoint<_i13.User>(
         'user',
-        'UpdateUserById',
+        'updateUserById',
         {
-          'id': id,
+          'userId': userId,
           'user': user,
+        },
+      );
+
+  /// This endpoint [deleteUser] is used to delete information from a user
+  /// registered in the database.
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `userId`: [int] Its the id of the user on the database <br>
+  _i2.Future<int> deleteUser({required int userId}) =>
+      caller.callServerEndpoint<int>(
+        'user',
+        'deleteUser',
+        {'userId': userId},
+      );
+
+  /// This endpoint [GenerateUsersFromTaigaProject] is used to generate user
+  /// information based on a `Taiga Project`.
+  ///
+  /// <h4> Required data: </h4>
+  ///
+  /// `taigaUsername`: [String] Its the name used to login into `Taiga` <br>
+  /// `taigaPassword`: [String] Its the password used to login into `Taiga` <br>
+  /// `taigaProjectId`: [int] Its the id of the project from we re going to read
+  /// the users
+  _i2.Future<List<_i13.User>> GenerateUsersFromTaigaProject({
+    required String taigaUsername,
+    required String taigaPassword,
+    required int taigaProjectId,
+  }) =>
+      caller.callServerEndpoint<List<_i13.User>>(
+        'user',
+        'GenerateUsersFromTaigaProject',
+        {
+          'taigaUsername': taigaUsername,
+          'taigaPassword': taigaPassword,
+          'taigaProjectId': taigaProjectId,
         },
       );
 }
