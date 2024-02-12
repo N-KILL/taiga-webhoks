@@ -105,35 +105,35 @@ class FigmaEndpoint extends Endpoint {
   }) async {
     session.log(huData.toString());
     // If the HuData, have an id.
-    if (huData.id != null) {
-      // Find the HuData with that id
-      final modify = await HuData.db.findFirstRow(
+
+    // Find the HuData with that id
+    final modify = await HuData.db.findFirstRow(
+      session,
+      where: (t) => t.refNum.equals(huData.refNum),
+    );
+
+    // If can find the HuData with that id
+    if (modify != null) {
+      // Modify the data of the HuData, with the data on the parameters
+      modify.name = huData.name;
+      modify.sprintId = huData.sprintId;
+      modify.status = huData.status;
+      modify.statusCardId = huData.statusCardId;
+      modify.readyForDev = huData.readyForDev;
+
+      // Try to update the HuData data on the database
+      final response = await HuData.db.updateRow(
         session,
-        where: (t) => t.refNum.equals(huData.refNum),
+        modify,
       );
 
-      // If can find the HuData with that id
-      if (modify != null) {
-        // Modify the data of the HuData, with the data on the parameters
-        modify.name = huData.name;
-        modify.sprintId = huData.sprintId;
-        modify.status = huData.status;
-        modify.statusCardId = huData.statusCardId;
-        modify.readyForDev = huData.readyForDev;
+      // Create a session.log with the response data
+      session.log('FigmaEndpoints updateHuData Response: \n $response');
 
-        // Try to update the HuData data on the database
-        final response = await HuData.db.updateRow(
-          session,
-          modify,
-        );
-
-        // Create a session.log with the response data
-        session.log('FigmaEndpoints updateHuData Response: \n $response');
-
-        // If can update the HuData return the response data
-        return response;
-      }
+      // If can update the HuData return the response data
+      return response;
     }
+
     // Create a session.log saying an error ocurred, returning null
     session.log(
       '''FigmaEndpoints updateHuData Failed... Cannot found any HuData with 
