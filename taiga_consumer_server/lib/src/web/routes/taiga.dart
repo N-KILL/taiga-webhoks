@@ -435,6 +435,9 @@ class TaigaRoute extends WidgetRoute {
                   final huDetails = huDataInfo;
                   huDetails.statusCardId = statusCardInfo.id;
 
+                  session.log(
+                      'Este es huDetails despues de actualizar: $huDetails');
+
                   // Update theHuData
                   await FigmaEndpoint().updateHuData(
                     session,
