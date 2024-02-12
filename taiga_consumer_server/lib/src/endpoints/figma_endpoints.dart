@@ -103,6 +103,7 @@ class FigmaEndpoint extends Endpoint {
     Session session, {
     required HuData huData,
   }) async {
+    session.log('Este es huDetails en el endpoint de update huData: $huData');
     // Find the HuData with that id
     final modify = await HuData.db.findFirstRow(
       session,
@@ -117,6 +118,8 @@ class FigmaEndpoint extends Endpoint {
       modify.status = huData.status;
       modify.statusCardId = huData.statusCardId;
       modify.readyForDev = huData.readyForDev;
+
+      session.log('Este es modify despues de ser modificado $modify');
 
       // Try to update the HuData data on the database
       final response = await HuData.db.updateRow(
