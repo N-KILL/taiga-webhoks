@@ -122,11 +122,11 @@ class EndpointFigma extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<_i6.StatusCard> registerStatus(
+  _i2.Future<_i6.StatusCard> registerStatusCard(
           {required _i6.StatusCard statusCard}) =>
       caller.callServerEndpoint<_i6.StatusCard>(
         'figma',
-        'registerStatus',
+        'registerStatusCard',
         {'statusCard': statusCard},
       );
 
@@ -138,16 +138,23 @@ class EndpointFigma extends _i1.EndpointRef {
         {'huDataId': huDataId},
       );
 
-  _i2.Future<_i6.StatusCard?> updateStatusCard({
-    required int fromUserStoryId,
+  _i2.Future<_i6.StatusCard?> getStatusCardById({required int statusCardId}) =>
+      caller.callServerEndpoint<_i6.StatusCard?>(
+        'figma',
+        'getStatusCardById',
+        {'statusCardId': statusCardId},
+      );
+
+  _i2.Future<_i6.StatusCard> updateStatusCard({
+    required int statusCardId,
     required _i7.HuStatus updateValue,
     required _i8.StatusCardDetails statusCardDetails,
   }) =>
-      caller.callServerEndpoint<_i6.StatusCard?>(
+      caller.callServerEndpoint<_i6.StatusCard>(
         'figma',
         'updateStatusCard',
         {
-          'fromUserStoryId': fromUserStoryId,
+          'statusCardId': statusCardId,
           'updateValue': updateValue,
           'statusCardDetails': statusCardDetails,
         },

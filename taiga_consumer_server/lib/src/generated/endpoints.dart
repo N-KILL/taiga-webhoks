@@ -223,8 +223,8 @@ class Endpoints extends _i1.EndpointDispatch {
             huDataRefNum: params['huDataRefNum'],
           ),
         ),
-        'registerStatus': _i1.MethodConnector(
-          name: 'registerStatus',
+        'registerStatusCard': _i1.MethodConnector(
+          name: 'registerStatusCard',
           params: {
             'statusCard': _i1.ParameterDescription(
               name: 'statusCard',
@@ -236,7 +236,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).registerStatus(
+              (endpoints['figma'] as _i2.FigmaEndpoint).registerStatusCard(
             session,
             statusCard: params['statusCard'],
           ),
@@ -260,11 +260,29 @@ class Endpoints extends _i1.EndpointDispatch {
             huDataId: params['huDataId'],
           ),
         ),
+        'getStatusCardById': _i1.MethodConnector(
+          name: 'getStatusCardById',
+          params: {
+            'statusCardId': _i1.ParameterDescription(
+              name: 'statusCardId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i2.FigmaEndpoint).getStatusCardById(
+            session,
+            statusCardId: params['statusCardId'],
+          ),
+        ),
         'updateStatusCard': _i1.MethodConnector(
           name: 'updateStatusCard',
           params: {
-            'fromUserStoryId': _i1.ParameterDescription(
-              name: 'fromUserStoryId',
+            'statusCardId': _i1.ParameterDescription(
+              name: 'statusCardId',
               type: _i1.getType<int>(),
               nullable: false,
             ),
@@ -285,7 +303,7 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['figma'] as _i2.FigmaEndpoint).updateStatusCard(
             session,
-            fromUserStoryId: params['fromUserStoryId'],
+            statusCardId: params['statusCardId'],
             updateValue: params['updateValue'],
             statusCardDetails: params['statusCardDetails'],
           ),

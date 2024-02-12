@@ -7,8 +7,9 @@ figma:
   - getSprintDataBySprintName:
   - createSprint:
   - getHUData:
-  - registerStatus:
+  - registerStatusCard:
   - getStatusCardByUserStoryId:
+  - getStatusCardById:
   - updateStatusCard:
   - registerStatusDetails:
 taigaProject:
