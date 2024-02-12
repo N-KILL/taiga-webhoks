@@ -357,6 +357,7 @@ class TaigaRoute extends WidgetRoute {
                 statusNewValue == HuStatus.DESARROLLANDOSE ||
                 statusNewValue == HuStatus.TESTEANDOSE ||
                 statusNewValue == HuStatus.UAT) {
+              
               // Get the info if the person who move the kanban
               final performer = await UserEndpoint().GetUserByTaigaId(
                 session,
@@ -389,7 +390,10 @@ class TaigaRoute extends WidgetRoute {
                     statusCardDetails: statusCardDetails,
                   );
 
+                  // If the action can be made
                   if (actionStatus != null && getProjectById.id != null) {
+
+                    // Register a new action 'update_hu_status_card'
                     await FigmaEndpoint().registerNewAction(
                       session,
                       figmaAction: FigmaAction(

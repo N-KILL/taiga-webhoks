@@ -349,29 +349,30 @@ class FigmaEndpoint extends Endpoint {
       return response;
     } else {
       // Turn statusCardData to an empty StatusCard
-      statusCardData as StatusCard;
+      final newStatusCard = StatusCard();
 
       // Then fill the data based on the type
       switch (updateValue) {
         case HuStatus.LISTA:
-          statusCardData.approvedId = statusCardDetails.id;
+          newStatusCard.approvedId = statusCardDetails.id;
           break;
         case HuStatus.DESARROLLANDOSE:
-          statusCardData.developmentId = statusCardDetails.id;
+          newStatusCard.developmentId = statusCardDetails.id;
           break;
         case HuStatus.TESTEANDOSE:
-          statusCardData.internalTestId = statusCardDetails.id;
+          newStatusCard.internalTestId = statusCardDetails.id;
           break;
         case HuStatus.UAT:
-          statusCardData.externalTestId = statusCardDetails.id;
+          newStatusCard.externalTestId = statusCardDetails.id;
           break;
         default:
       }
 
       final response = await StatusCard.db.insertRow(
         session,
-        statusCardData,
+        newStatusCard,
       );
+
       return response;
     }
   }
