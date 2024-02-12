@@ -103,9 +103,6 @@ class FigmaEndpoint extends Endpoint {
     Session session, {
     required HuData huData,
   }) async {
-    session.log(huData.toString());
-    // If the HuData, have an id.
-
     // Find the HuData with that id
     final modify = await HuData.db.findFirstRow(
       session,

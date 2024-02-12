@@ -439,6 +439,7 @@ class TaigaRoute extends WidgetRoute {
                       isActive: true,
                       creationDate: DateTime.now(),
                       projectId: getProjectById.id!,
+                      huDataId: huDataInfo.id,
                     ),
                   );
                 } else {
