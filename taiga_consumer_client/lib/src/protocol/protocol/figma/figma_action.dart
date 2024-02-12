@@ -21,7 +21,7 @@ abstract class FigmaAction extends _i1.SerializableEntity {
   FigmaAction._({
     this.id,
     required this.action,
-    this.huDataId,
+    required this.huDataId,
     this.huData,
     required this.isActive,
     required this.creationDate,
@@ -33,7 +33,7 @@ abstract class FigmaAction extends _i1.SerializableEntity {
   factory FigmaAction({
     int? id,
     required _i2.ActionType action,
-    int? huDataId,
+    required int huDataId,
     _i2.HuData? huData,
     required bool isActive,
     required DateTime creationDate,
@@ -51,7 +51,7 @@ abstract class FigmaAction extends _i1.SerializableEntity {
       action: serializationManager
           .deserialize<_i2.ActionType>(jsonSerialization['action']),
       huDataId:
-          serializationManager.deserialize<int?>(jsonSerialization['huDataId']),
+          serializationManager.deserialize<int>(jsonSerialization['huDataId']),
       huData: serializationManager
           .deserialize<_i2.HuData?>(jsonSerialization['huData']),
       isActive:
@@ -75,7 +75,7 @@ abstract class FigmaAction extends _i1.SerializableEntity {
   /// This is a enum to filter through the actions types
   _i2.ActionType action;
 
-  int? huDataId;
+  int huDataId;
 
   /// This is data about the UserStory
   _i2.HuData? huData;
@@ -115,7 +115,7 @@ abstract class FigmaAction extends _i1.SerializableEntity {
     return {
       if (id != null) 'id': id,
       'action': action.toJson(),
-      if (huDataId != null) 'huDataId': huDataId,
+      'huDataId': huDataId,
       if (huData != null) 'huData': huData?.toJson(),
       'isActive': isActive,
       'creationDate': creationDate.toJson(),
@@ -132,7 +132,7 @@ class _FigmaActionImpl extends FigmaAction {
   _FigmaActionImpl({
     int? id,
     required _i2.ActionType action,
-    int? huDataId,
+    required int huDataId,
     _i2.HuData? huData,
     required bool isActive,
     required DateTime creationDate,
@@ -155,7 +155,7 @@ class _FigmaActionImpl extends FigmaAction {
   FigmaAction copyWith({
     Object? id = _Undefined,
     _i2.ActionType? action,
-    Object? huDataId = _Undefined,
+    int? huDataId,
     Object? huData = _Undefined,
     bool? isActive,
     DateTime? creationDate,
@@ -166,7 +166,7 @@ class _FigmaActionImpl extends FigmaAction {
     return FigmaAction(
       id: id is int? ? id : this.id,
       action: action ?? this.action,
-      huDataId: huDataId is int? ? huDataId : this.huDataId,
+      huDataId: huDataId ?? this.huDataId,
       huData: huData is _i2.HuData? ? huData : this.huData?.copyWith(),
       isActive: isActive ?? this.isActive,
       creationDate: creationDate ?? this.creationDate,

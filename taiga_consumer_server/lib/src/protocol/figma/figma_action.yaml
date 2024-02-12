@@ -11,7 +11,7 @@ fields:
   action: ActionType
 
   ### This is data about the UserStory
-  huData: HuData?, relation(optional)
+  huData: HuData?, relation
 
   ### Bool used to indicate the status of the action
   ### This have to be by default on True, and after 24Hrs

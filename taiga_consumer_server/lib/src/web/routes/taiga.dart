@@ -272,7 +272,7 @@ class TaigaRoute extends WidgetRoute {
               creationDate: DateTime.now(),
               inactiveSince: null,
               projectId: getProjectById.id!,
-              huDataId: huDataInfo.id,
+              huDataId: huDataInfo.id!,
             ),
           );
         } else if (payload.actionType == 'change') {
@@ -352,7 +352,7 @@ class TaigaRoute extends WidgetRoute {
                   creationDate: DateTime.now(),
                   inactiveSince: null,
                   projectId: getProjectById.id!,
-                  huDataId: huDataInfo.id,
+                  huDataId: huDataInfo.id!,
                 ),
               );
             }
@@ -390,6 +390,8 @@ class TaigaRoute extends WidgetRoute {
                   ),
                 );
 
+                var statusCardId = null;
+
                 // This is just a validation to prevent errors
                 if (huDataInfo.id != null) {
                   final statusCardInfo =
@@ -425,11 +427,21 @@ class TaigaRoute extends WidgetRoute {
                         break;
                       default:
                     }
-                    await FigmaEndpoint().registerStatusCard(
+                    statusCardId = await FigmaEndpoint().registerStatusCard(
                       session,
                       statusCard: statusCard,
                     );
                   }
+
+                  // Modify the status card id
+                  final huDetails = huDataInfo;
+                  huDetails.statusCardId = statusCardId;
+
+                  // Update theHuData
+                  await FigmaEndpoint().updateHuData(
+                    session,
+                    huData: huDetails,
+                  );
 
                   // Register a new action 'update_hu_status_card'
                   await FigmaEndpoint().registerNewAction(
@@ -439,7 +451,7 @@ class TaigaRoute extends WidgetRoute {
                       isActive: true,
                       creationDate: DateTime.now(),
                       projectId: getProjectById.id!,
-                      huDataId: huDataInfo.id,
+                      huDataId: huDataInfo.id!,
                     ),
                   );
                 } else {
@@ -478,7 +490,7 @@ class TaigaRoute extends WidgetRoute {
                 creationDate: DateTime.now(),
                 inactiveSince: null,
                 projectId: getProjectById.id!,
-                huDataId: huDataInfo.id,
+                huDataId: huDataInfo.id!,
               ),
             );
           }
@@ -511,7 +523,7 @@ class TaigaRoute extends WidgetRoute {
                 creationDate: DateTime.now(),
                 inactiveSince: null,
                 projectId: getProjectById.id!,
-                huDataId: huDataInfo.id,
+                huDataId: huDataInfo.id!,
               ),
             );
           }
