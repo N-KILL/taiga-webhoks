@@ -244,6 +244,7 @@ class TaigaRoute extends WidgetRoute {
           readyForDevAux = true;
         }
 
+        // If have a new user story
         if (payload.actionType == 'create') {
           // Create a HuData Instance
           final huDetails = HuData(
@@ -253,7 +254,6 @@ class TaigaRoute extends WidgetRoute {
               huStatus: payloadUsData.jobStatus.statusName,
             ),
             readyForDev: false,
-            sprint: null,
             projectId: getProjectById.id!,
           );
 
@@ -293,7 +293,6 @@ class TaigaRoute extends WidgetRoute {
                 huStatus: payloadUsData.jobStatus.statusName,
               ),
               readyForDev: false,
-              sprint: null,
               projectId: getProjectById.id!,
             );
 
@@ -326,16 +325,8 @@ class TaigaRoute extends WidgetRoute {
             // Once we have sprintInfo
             if (sprintInfo != null) {
               // Create a HuData Instance with the sprint
-              final huDetails = HuData(
-                name: payloadUsData.jobName,
-                refNum: payloadUsData.referenceNumber,
-                status: figmaStatusConverter(
-                  huStatus: payloadUsData.jobStatus.statusName,
-                ),
-                readyForDev: false,
-                sprintId: sprintInfo.id!,
-                projectId: getProjectById.id!,
-              );
+              final huDetails = huDataInfo;
+              huDetails.sprintId = sprintInfo.id;
 
               // Update theHuData
               await FigmaEndpoint().updateHuData(
@@ -360,18 +351,13 @@ class TaigaRoute extends WidgetRoute {
 
           // Manage the Status Change
           if (payload.change?.difference?.status != null) {
-            // Create a HuData Instance with the new data
-            final huDetails = HuData(
-              name: payloadUsData.jobName,
-              refNum: payloadUsData.referenceNumber,
-              status: figmaStatusConverter(
-                huStatus: payloadUsData.jobStatus.statusName,
-              ),
-              readyForDev: false,
-              projectId: getProjectById.id!,
+            // Modify the status card status
+            final huDetails = huDataInfo;
+            huDetails.status = figmaStatusConverter(
+              huStatus: payloadUsData.jobStatus.statusName,
             );
 
-            // Try to update theHuData
+            // Update the status
             await FigmaEndpoint().updateHuData(
               session,
               huData: huDetails,
@@ -389,7 +375,7 @@ class TaigaRoute extends WidgetRoute {
                 huDataId: huDataInfo.id!,
               ),
             );
-            
+
             // Get the new status into an HuStatus enum value
             final statusNewValue = figmaStatusConverter(
               huStatus: payload.change?.difference?.status?.newValue,
@@ -498,16 +484,9 @@ class TaigaRoute extends WidgetRoute {
 
           // If the status of the US is 'Lista', put it on ReadyForDev
           if (readyForDevAux) {
-            // Create a HuData Instance with the new data
-            final huDetails = HuData(
-              name: payloadUsData.jobName,
-              refNum: payloadUsData.referenceNumber,
-              status: figmaStatusConverter(
-                huStatus: payloadUsData.jobStatus.statusName,
-              ),
-              readyForDev: readyForDevAux,
-              projectId: getProjectById.id!,
-            );
+            // Read the info of the HuData, and then add the new data
+            final huDetails = huDataInfo;
+            huDetails.readyForDev = true;
 
             // Try to update theHuData
             await FigmaEndpoint().updateHuData(
