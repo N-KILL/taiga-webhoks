@@ -390,11 +390,9 @@ class TaigaRoute extends WidgetRoute {
                   ),
                 );
 
-                var statusCardId = null;
-
                 // This is just a validation to prevent errors
                 if (huDataInfo.id != null) {
-                  final statusCardInfo =
+                  var statusCardInfo =
                       await FigmaEndpoint().getStatusCardByUserStoryId(
                     session,
                     huDataId: huDataInfo.id!,
@@ -427,7 +425,7 @@ class TaigaRoute extends WidgetRoute {
                         break;
                       default:
                     }
-                    statusCardId = await FigmaEndpoint().registerStatusCard(
+                    statusCardInfo = await FigmaEndpoint().registerStatusCard(
                       session,
                       statusCard: statusCard,
                     );
@@ -435,7 +433,7 @@ class TaigaRoute extends WidgetRoute {
 
                   // Modify the status card id
                   final huDetails = huDataInfo;
-                  huDetails.statusCardId = statusCardId;
+                  huDetails.statusCardId = statusCardInfo.id;
 
                   // Update theHuData
                   await FigmaEndpoint().updateHuData(
