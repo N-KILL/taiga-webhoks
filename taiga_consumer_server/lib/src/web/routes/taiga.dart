@@ -376,6 +376,8 @@ class TaigaRoute extends WidgetRoute {
                     byUserId: performer.id,
                   ),
                 );
+                
+                session.log(statusCardDetails.toString());
 
                 // This is just a validation to prevent errors
                 if (huDataInfo.id != null) {
@@ -386,6 +388,7 @@ class TaigaRoute extends WidgetRoute {
                     updateValue: statusNewValue,
                     statusCardDetails: statusCardDetails,
                   );
+
                   if (actionStatus != null && getProjectById.id != null) {
                     await FigmaEndpoint().registerNewAction(
                       session,
@@ -403,7 +406,12 @@ class TaigaRoute extends WidgetRoute {
                   throw ('Error: Was not possible to get information of the user story');
                 }
               } else {
-                throw ('Error: The performer of the action is not register on the database');
+                if (performer == null) {
+                  throw ('Error: The performer of the action is not register on the database');
+                }
+                if (huDataInfo == null) {
+                  throw ('Error: The user story not register on the database');
+                }
               }
             }
 
