@@ -26,10 +26,16 @@ void run(List<String> args) async {
     SendUpdatesFutureCall(),
     'mailUpdateNotification',
   );
+
+  // This task have to run 5 minutes after the server boot up
   pod.futureCallAtTime(
     'mailUpdateNotification',
     null,
-    DateTime.now(),
+    DateTime.now().add(
+      Duration(
+        minutes: 5,
+      ),
+    ),
   );
 
   // Setup a default page at the web root.

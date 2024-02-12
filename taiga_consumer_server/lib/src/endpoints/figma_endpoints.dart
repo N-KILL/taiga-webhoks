@@ -46,10 +46,10 @@ class FigmaEndpoint extends Endpoint {
           huData: HuData.include(
             sprint: Sprint.include(),
             statusCard: StatusCard.include(
-              approved: StatusCardDetails.include(),
-              development: StatusCardDetails.include(),
-              externalTest: StatusCardDetails.include(),
-              internalTest: StatusCardDetails.include(),
+              approved: StatusCardDetails.include(byUser: User.include()),
+              development: StatusCardDetails.include(byUser: User.include()),
+              externalTest: StatusCardDetails.include(byUser: User.include()),
+              internalTest: StatusCardDetails.include(byUser: User.include()),
               amountOfDays: AmountOfDays.include(),
             ),
           ),
