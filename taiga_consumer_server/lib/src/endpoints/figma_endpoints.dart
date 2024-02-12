@@ -56,88 +56,6 @@ class FigmaEndpoint extends Endpoint {
         ),
       );
 
-      response.add(
-        FigmaAction(
-          action: ActionType.update_hu_status_card,
-          isActive: true,
-          creationDate: DateTime.now(),
-          projectId: 11,
-          huData: HuData(
-            name: 'Hu Hardcodeada',
-            refNum: 1337,
-            status: HuStatus.POSTERGADO,
-            readyForDev: true,
-            projectId: 11,
-            sprint: Sprint(name: 'Tuki Sprint', taigaId: 5),
-            statusCard: StatusCard(
-              amountOfDays: AmountOfDays(
-                preparation: '1',
-                development: '1',
-                approbation: '1',
-                finalApprobation: '1',
-                quality: '1+2',
-              ),
-              approved: StatusCardDetails(
-                date: dateFormatter(
-                  date: DateTime.now(),
-                ),
-                byUser: User(
-                    username: 'N-K',
-                    userAvatar:
-                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                    fullName: 'N-K',
-                    taigaRoles: ['Back'],
-                    taigaId: 1,
-                    gitHubId: 1,
-                    gitLabId: 1),
-              ),
-              development: StatusCardDetails(
-                date: dateFormatter(
-                  date: DateTime.now(),
-                ),
-                byUser: User(
-                    username: 'N-K',
-                    userAvatar:
-                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                    fullName: 'N-K',
-                    taigaRoles: ['Back'],
-                    taigaId: 1,
-                    gitHubId: 1,
-                    gitLabId: 1),
-              ),
-              externalTest: StatusCardDetails(
-                date: dateFormatter(
-                  date: DateTime.now(),
-                ),
-                byUser: User(
-                    username: 'N-K',
-                    userAvatar:
-                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                    fullName: 'N-K',
-                    taigaRoles: ['Back'],
-                    taigaId: 1,
-                    gitHubId: 1,
-                    gitLabId: 1),
-              ),
-              internalTest: StatusCardDetails(
-                date: dateFormatter(
-                  date: DateTime.now(),
-                ),
-                byUser: User(
-                    username: 'N-K',
-                    userAvatar:
-                        'https://img.freepik.com/foto-gratis/hoja-naturaleza-fondos-patron-ilustracion-planta-telon-fondo-diseno-abstracto-naturaleza-verde-vibrante-papel-tapiz-ilustracion-generativa-ai_188544-12680.jpg?w=1380&t=st=1703263023~exp=1703263623~hmac=3c102b813f6e932205c51ab73a9734de0de2a09d889ec82832ea33c89374ba9b',
-                    fullName: 'N-K',
-                    taigaRoles: ['Back'],
-                    taigaId: 1,
-                    gitHubId: 1,
-                    gitLabId: 1),
-              ),
-            ),
-          ),
-        ),
-      );
-
       // And return the actions
       return response;
     }
@@ -282,7 +200,7 @@ class FigmaEndpoint extends Endpoint {
 
   // TODO(Nacho): Add logger
 
-  Future<StatusCard> registerStatus(
+  Future<StatusCard> registerStatusCard(
     Session session, {
     required StatusCard statusCard,
   }) async {
@@ -307,11 +225,22 @@ class FigmaEndpoint extends Endpoint {
     return null;
   }
 
-  // TODO(Nacho): Handle AmountOfDay values
-  Future<StatusCard?> updateStatusCard(
+  // TODO(Nacho): Add logger, upgrade this base code
+
+  Future<StatusCard?> getStatusCardById(
     Session session, {
-    // This is the user story we re going to update his status card
-    required int fromUserStoryId,
+    required int statusCardId,
+  }) async {
+    final response = await StatusCard.db.findById(session, statusCardId);
+
+    return response;
+  }
+
+  // TODO(Nacho): Handle AmountOfDay values
+  Future<StatusCard> updateStatusCard(
+    Session session, {
+    // This is the status card we re going to update
+    required int statusCardId,
 
     // This is the value we re going to update
     required HuStatus updateValue,
@@ -319,10 +248,7 @@ class FigmaEndpoint extends Endpoint {
     // This are the details of the value we re going to update
     required StatusCardDetails statusCardDetails,
   }) async {
-    var statusCardData = await getStatusCardByUserStoryId(
-      session,
-      huDataId: fromUserStoryId,
-    );
+    final statusCardData = await StatusCard.db.findById(session, statusCardId);
 
     // If already have an status card, update the values
     if (statusCardData != null) {
@@ -342,38 +268,15 @@ class FigmaEndpoint extends Endpoint {
           break;
         default:
       }
+
+      // Update the user story data
       final response = await StatusCard.db.updateRow(
         session,
         statusCardData,
       );
       return response;
     } else {
-      // Turn statusCardData to an empty StatusCard
-      final newStatusCard = StatusCard();
-
-      // Then fill the data based on the type
-      switch (updateValue) {
-        case HuStatus.LISTA:
-          newStatusCard.approvedId = statusCardDetails.id;
-          break;
-        case HuStatus.DESARROLLANDOSE:
-          newStatusCard.developmentId = statusCardDetails.id;
-          break;
-        case HuStatus.TESTEANDOSE:
-          newStatusCard.internalTestId = statusCardDetails.id;
-          break;
-        case HuStatus.UAT:
-          newStatusCard.externalTestId = statusCardDetails.id;
-          break;
-        default:
-      }
-
-      final response = await StatusCard.db.insertRow(
-        session,
-        newStatusCard,
-      );
-
-      return response;
+      throw ('Error getting the Status Card related to the User Story');
     }
   }
 

@@ -247,14 +247,15 @@ class TaigaRoute extends WidgetRoute {
         if (payload.actionType == 'create') {
           // Create a HuData Instance
           final huDetails = HuData(
-              name: payloadUsData.jobName,
-              refNum: payloadUsData.referenceNumber,
-              status: figmaStatusConverter(
-                huStatus: payloadUsData.jobStatus.statusName,
-              ),
-              readyForDev: false,
-              sprint: null,
-              projectId: getProjectById.id!);
+            name: payloadUsData.jobName,
+            refNum: payloadUsData.referenceNumber,
+            status: figmaStatusConverter(
+              huStatus: payloadUsData.jobStatus.statusName,
+            ),
+            readyForDev: false,
+            sprint: null,
+            projectId: getProjectById.id!,
+          );
 
           // Register a new HUData
           final huDataInfo = await FigmaEndpoint().registerNewHUData(
@@ -281,6 +282,27 @@ class TaigaRoute extends WidgetRoute {
             projectId: getProjectById.id!,
             huDataRefNum: payloadUsData.referenceNumber,
           );
+
+          // If can get the Hu Data from the database
+          if (huDataInfo == null) {
+            // Generate a new HuData with basic information
+            final huDetails = HuData(
+              name: payloadUsData.jobName,
+              refNum: payloadUsData.referenceNumber,
+              status: figmaStatusConverter(
+                huStatus: payloadUsData.jobStatus.statusName,
+              ),
+              readyForDev: false,
+              sprint: null,
+              projectId: getProjectById.id!,
+            );
+
+            // and then register that on the database
+            huDataInfo = await FigmaEndpoint().registerNewHUData(
+              session,
+              huData: huDetails,
+            );
+          }
 
           // If the sprint has been modified
           if (payload.change?.difference?.relatedSprint != null &&
@@ -315,20 +337,11 @@ class TaigaRoute extends WidgetRoute {
                 projectId: getProjectById.id!,
               );
 
-              // If can't get theHuData
-              if (huDataInfo == null) {
-                // Register a new HUData
-                huDataInfo = await FigmaEndpoint().registerNewHUData(
-                  session,
-                  huData: huDetails,
-                );
-              } else {
-                // Update theHuData
-                await FigmaEndpoint().updateHuData(
-                  session,
-                  huData: huDetails,
-                );
-              }
+              // Update theHuData
+              await FigmaEndpoint().updateHuData(
+                session,
+                huData: huDetails,
+              );
 
               // Register a new action
               FigmaEndpoint().registerNewAction(
@@ -357,7 +370,6 @@ class TaigaRoute extends WidgetRoute {
                 statusNewValue == HuStatus.DESARROLLANDOSE ||
                 statusNewValue == HuStatus.TESTEANDOSE ||
                 statusNewValue == HuStatus.UAT) {
-              
               // Get the info if the person who move the kanban
               final performer = await UserEndpoint().GetUserByTaigaId(
                 session,
@@ -365,7 +377,7 @@ class TaigaRoute extends WidgetRoute {
               );
 
               // If can get the info of the performer
-              if (performer != null && huDataInfo != null) {
+              if (performer != null) {
                 // Generate a StatusCard instance with the data
                 final statusCardDetails =
                     await FigmaEndpoint().registerStatusDetails(
@@ -377,44 +389,64 @@ class TaigaRoute extends WidgetRoute {
                     byUserId: performer.id,
                   ),
                 );
-                
-                session.log(statusCardDetails.toString());
 
                 // This is just a validation to prevent errors
                 if (huDataInfo.id != null) {
-                  // Update the status card of the User story
-                  final actionStatus = await FigmaEndpoint().updateStatusCard(
+                  final statusCardInfo =
+                      await FigmaEndpoint().getStatusCardByUserStoryId(
                     session,
-                    fromUserStoryId: huDataInfo.id!,
-                    updateValue: statusNewValue,
-                    statusCardDetails: statusCardDetails,
+                    huDataId: huDataInfo.id!,
                   );
-
-                  // If the action can be made
-                  if (actionStatus != null && getProjectById.id != null) {
-
-                    // Register a new action 'update_hu_status_card'
-                    await FigmaEndpoint().registerNewAction(
+                  if (statusCardInfo != null) {
+                    // Update the status card of the User story
+                    await FigmaEndpoint().updateStatusCard(
                       session,
-                      figmaAction: FigmaAction(
-                        action: ActionType.update_hu_status_card,
-                        isActive: true,
-                        creationDate: DateTime.now(),
-                        projectId: getProjectById.id!,
-                      ),
+                      statusCardId: statusCardInfo.id!,
+                      updateValue: statusNewValue,
+                      statusCardDetails: statusCardDetails,
                     );
                   } else {
-                    throw ('Error: Was not possible to register the new action');
+                    // Then update the data based on the type
+                    final statusCard = StatusCard();
+
+                    // Update the data of the status card
+                    switch (statusNewValue) {
+                      case HuStatus.LISTA:
+                        statusCard.approvedId = statusCardDetails.id;
+                        break;
+                      case HuStatus.DESARROLLANDOSE:
+                        statusCard.developmentId = statusCardDetails.id;
+                        break;
+                      case HuStatus.TESTEANDOSE:
+                        statusCard.internalTestId = statusCardDetails.id;
+                        break;
+                      case HuStatus.UAT:
+                        statusCard.externalTestId = statusCardDetails.id;
+                        break;
+                      default:
+                    }
+                    await FigmaEndpoint().registerStatusCard(
+                      session,
+                      statusCard: statusCard,
+                    );
                   }
+
+                  // Register a new action 'update_hu_status_card'
+                  await FigmaEndpoint().registerNewAction(
+                    session,
+                    figmaAction: FigmaAction(
+                      action: ActionType.update_hu_status_card,
+                      isActive: true,
+                      creationDate: DateTime.now(),
+                      projectId: getProjectById.id!,
+                    ),
+                  );
                 } else {
                   throw ('Error: Was not possible to get information of the user story');
                 }
               } else {
                 if (performer == null) {
                   throw ('Error: The performer of the action is not register on the database');
-                }
-                if (huDataInfo == null) {
-                  throw ('Error: The user story not register on the database');
                 }
               }
             }
@@ -430,20 +462,11 @@ class TaigaRoute extends WidgetRoute {
               projectId: getProjectById.id!,
             );
 
-            // If can't get theHuData
-            if (huDataInfo == null) {
-              // Register a new HUData
-              huDataInfo = await FigmaEndpoint().registerNewHUData(
-                session,
-                huData: huDetails,
-              );
-            } else {
-              // Try to update theHuData
-              await FigmaEndpoint().updateHuData(
-                session,
-                huData: huDetails,
-              );
-            }
+            // Try to update theHuData
+            await FigmaEndpoint().updateHuData(
+              session,
+              huData: huDetails,
+            );
 
             // Register a new action
             FigmaEndpoint().registerNewAction(
@@ -472,20 +495,11 @@ class TaigaRoute extends WidgetRoute {
               projectId: getProjectById.id!,
             );
 
-            // If can't get theHuData
-            if (huDataInfo == null) {
-              // Register a new HUData
-              huDataInfo = await FigmaEndpoint().registerNewHUData(
-                session,
-                huData: huDetails,
-              );
-            } else {
-              // Try to update theHuData
-              await FigmaEndpoint().updateHuData(
-                session,
-                huData: huDetails,
-              );
-            }
+            // Try to update theHuData
+            await FigmaEndpoint().updateHuData(
+              session,
+              huData: huDetails,
+            );
 
             // Register a new action
             FigmaEndpoint().registerNewAction(
