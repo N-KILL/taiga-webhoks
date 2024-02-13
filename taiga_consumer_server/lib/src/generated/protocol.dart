@@ -113,7 +113,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'figma_action_fk_0',
           columns: ['huDataId'],
-          referenceTable: 'hu_data',
+          referenceTable: 'figma_hu_data',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -211,7 +211,7 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
-      name: 'hu_data',
+      name: 'figma_hu_data',
       dartName: 'HuData',
       schema: 'public',
       module: 'taiga_consumer',
@@ -221,7 +221,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'hu_data_id_seq\'::regclass)',
+          columnDefault: 'nextval(\'figma_hu_data_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
           name: 'name',
@@ -265,12 +265,18 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: false,
           dartType: 'int',
         ),
+        _i2.ColumnDefinition(
+          name: 'lastStatusUpdate',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
-          constraintName: 'hu_data_fk_0',
+          constraintName: 'figma_hu_data_fk_0',
           columns: ['sprintId'],
-          referenceTable: 'sprint_data',
+          referenceTable: 'figma_sprint_data',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -278,9 +284,9 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'hu_data_fk_1',
+          constraintName: 'figma_hu_data_fk_1',
           columns: ['statusCardId'],
-          referenceTable: 'status_card',
+          referenceTable: 'figma_status_card',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -288,7 +294,7 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'hu_data_fk_2',
+          constraintName: 'figma_hu_data_fk_2',
           columns: ['projectId'],
           referenceTable: 'taiga_project',
           referenceTableSchema: 'public',
@@ -300,7 +306,7 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       indexes: [
         _i2.IndexDefinition(
-          indexName: 'hu_data_pkey',
+          indexName: 'figma_hu_data_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
@@ -316,7 +322,7 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
-      name: 'sprint_data',
+      name: 'figma_sprint_data',
       dartName: 'Sprint',
       schema: 'public',
       module: 'taiga_consumer',
@@ -326,7 +332,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'sprint_data_id_seq\'::regclass)',
+          columnDefault: 'nextval(\'figma_sprint_data_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
           name: 'name',
@@ -344,7 +350,7 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [],
       indexes: [
         _i2.IndexDefinition(
-          indexName: 'sprint_data_pkey',
+          indexName: 'figma_sprint_data_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
@@ -360,7 +366,7 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
-      name: 'status_card',
+      name: 'figma_status_card',
       dartName: 'StatusCard',
       schema: 'public',
       module: 'taiga_consumer',
@@ -370,7 +376,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'status_card_id_seq\'::regclass)',
+          columnDefault: 'nextval(\'figma_status_card_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
           name: 'approvedId',
@@ -405,9 +411,9 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
-          constraintName: 'status_card_fk_0',
+          constraintName: 'figma_status_card_fk_0',
           columns: ['approvedId'],
-          referenceTable: 'status_card_details',
+          referenceTable: 'figma_status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -415,9 +421,9 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'status_card_fk_1',
+          constraintName: 'figma_status_card_fk_1',
           columns: ['developmentId'],
-          referenceTable: 'status_card_details',
+          referenceTable: 'figma_status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -425,9 +431,9 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'status_card_fk_2',
+          constraintName: 'figma_status_card_fk_2',
           columns: ['internalTestId'],
-          referenceTable: 'status_card_details',
+          referenceTable: 'figma_status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -435,9 +441,9 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'status_card_fk_3',
+          constraintName: 'figma_status_card_fk_3',
           columns: ['externalTestId'],
-          referenceTable: 'status_card_details',
+          referenceTable: 'figma_status_card_details',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -445,7 +451,7 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'status_card_fk_4',
+          constraintName: 'figma_status_card_fk_4',
           columns: ['amountOfDaysId'],
           referenceTable: 'figma_day_counter',
           referenceTableSchema: 'public',
@@ -457,7 +463,7 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       indexes: [
         _i2.IndexDefinition(
-          indexName: 'status_card_pkey',
+          indexName: 'figma_status_card_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
@@ -473,7 +479,7 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
-      name: 'status_card_details',
+      name: 'figma_status_card_details',
       dartName: 'StatusCardDetails',
       schema: 'public',
       module: 'taiga_consumer',
@@ -483,7 +489,8 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'status_card_details_id_seq\'::regclass)',
+          columnDefault:
+              'nextval(\'figma_status_card_details_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
           name: 'byUserId',
@@ -500,7 +507,7 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
-          constraintName: 'status_card_details_fk_0',
+          constraintName: 'figma_status_card_details_fk_0',
           columns: ['byUserId'],
           referenceTable: 'users',
           referenceTableSchema: 'public',
@@ -512,7 +519,7 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       indexes: [
         _i2.IndexDefinition(
-          indexName: 'status_card_details_pkey',
+          indexName: 'figma_status_card_details_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(

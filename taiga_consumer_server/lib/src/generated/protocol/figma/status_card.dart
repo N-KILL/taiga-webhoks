@@ -421,7 +421,8 @@ class _StatusCardImpl extends StatusCard {
 }
 
 class StatusCardTable extends _i1.Table {
-  StatusCardTable({super.tableRelation}) : super(tableName: 'status_card') {
+  StatusCardTable({super.tableRelation})
+      : super(tableName: 'figma_status_card') {
     approvedId = _i1.ColumnInt(
       'approvedId',
       this,

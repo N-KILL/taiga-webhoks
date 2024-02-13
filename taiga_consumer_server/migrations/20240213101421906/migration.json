@@ -24,8 +24,8 @@
           {
             "name": "huDataId",
             "columnType": 2,
-            "isNullable": true,
-            "dartType": "int?"
+            "isNullable": false,
+            "dartType": "int"
           },
           {
             "name": "isActive",
@@ -58,7 +58,7 @@
             "columns": [
               "huDataId"
             ],
-            "referenceTable": "hu_data",
+            "referenceTable": "figma_hu_data",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -164,7 +164,7 @@
     {
       "type": "createTable",
       "createTable": {
-        "name": "hu_data",
+        "name": "figma_hu_data",
         "dartName": "HuData",
         "module": "taiga_consumer",
         "schema": "public",
@@ -173,7 +173,7 @@
             "name": "id",
             "columnType": 2,
             "isNullable": false,
-            "columnDefault": "nextval('hu_data_id_seq'::regclass)",
+            "columnDefault": "nextval('figma_hu_data_id_seq'::regclass)",
             "dartType": "int?"
           },
           {
@@ -217,15 +217,21 @@
             "columnType": 2,
             "isNullable": false,
             "dartType": "int"
+          },
+          {
+            "name": "lastStatusUpdate",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
           }
         ],
         "foreignKeys": [
           {
-            "constraintName": "hu_data_fk_0",
+            "constraintName": "figma_hu_data_fk_0",
             "columns": [
               "sprintId"
             ],
-            "referenceTable": "sprint_data",
+            "referenceTable": "figma_sprint_data",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -234,11 +240,11 @@
             "onDelete": 3
           },
           {
-            "constraintName": "hu_data_fk_1",
+            "constraintName": "figma_hu_data_fk_1",
             "columns": [
               "statusCardId"
             ],
-            "referenceTable": "status_card",
+            "referenceTable": "figma_status_card",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -247,7 +253,7 @@
             "onDelete": 3
           },
           {
-            "constraintName": "hu_data_fk_2",
+            "constraintName": "figma_hu_data_fk_2",
             "columns": [
               "projectId"
             ],
@@ -262,7 +268,7 @@
         ],
         "indexes": [
           {
-            "indexName": "hu_data_pkey",
+            "indexName": "figma_hu_data_pkey",
             "elements": [
               {
                 "type": 0,
@@ -280,7 +286,7 @@
     {
       "type": "createTable",
       "createTable": {
-        "name": "sprint_data",
+        "name": "figma_sprint_data",
         "dartName": "Sprint",
         "module": "taiga_consumer",
         "schema": "public",
@@ -289,7 +295,7 @@
             "name": "id",
             "columnType": 2,
             "isNullable": false,
-            "columnDefault": "nextval('sprint_data_id_seq'::regclass)",
+            "columnDefault": "nextval('figma_sprint_data_id_seq'::regclass)",
             "dartType": "int?"
           },
           {
@@ -308,7 +314,7 @@
         "foreignKeys": [],
         "indexes": [
           {
-            "indexName": "sprint_data_pkey",
+            "indexName": "figma_sprint_data_pkey",
             "elements": [
               {
                 "type": 0,
@@ -326,7 +332,7 @@
     {
       "type": "createTable",
       "createTable": {
-        "name": "status_card",
+        "name": "figma_status_card",
         "dartName": "StatusCard",
         "module": "taiga_consumer",
         "schema": "public",
@@ -335,7 +341,7 @@
             "name": "id",
             "columnType": 2,
             "isNullable": false,
-            "columnDefault": "nextval('status_card_id_seq'::regclass)",
+            "columnDefault": "nextval('figma_status_card_id_seq'::regclass)",
             "dartType": "int?"
           },
           {
@@ -371,11 +377,11 @@
         ],
         "foreignKeys": [
           {
-            "constraintName": "status_card_fk_0",
+            "constraintName": "figma_status_card_fk_0",
             "columns": [
               "approvedId"
             ],
-            "referenceTable": "status_card_details",
+            "referenceTable": "figma_status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -384,11 +390,11 @@
             "onDelete": 3
           },
           {
-            "constraintName": "status_card_fk_1",
+            "constraintName": "figma_status_card_fk_1",
             "columns": [
               "developmentId"
             ],
-            "referenceTable": "status_card_details",
+            "referenceTable": "figma_status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -397,11 +403,11 @@
             "onDelete": 3
           },
           {
-            "constraintName": "status_card_fk_2",
+            "constraintName": "figma_status_card_fk_2",
             "columns": [
               "internalTestId"
             ],
-            "referenceTable": "status_card_details",
+            "referenceTable": "figma_status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -410,11 +416,11 @@
             "onDelete": 3
           },
           {
-            "constraintName": "status_card_fk_3",
+            "constraintName": "figma_status_card_fk_3",
             "columns": [
               "externalTestId"
             ],
-            "referenceTable": "status_card_details",
+            "referenceTable": "figma_status_card_details",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -423,7 +429,7 @@
             "onDelete": 3
           },
           {
-            "constraintName": "status_card_fk_4",
+            "constraintName": "figma_status_card_fk_4",
             "columns": [
               "amountOfDaysId"
             ],
@@ -438,7 +444,7 @@
         ],
         "indexes": [
           {
-            "indexName": "status_card_pkey",
+            "indexName": "figma_status_card_pkey",
             "elements": [
               {
                 "type": 0,
@@ -456,7 +462,7 @@
     {
       "type": "createTable",
       "createTable": {
-        "name": "status_card_details",
+        "name": "figma_status_card_details",
         "dartName": "StatusCardDetails",
         "module": "taiga_consumer",
         "schema": "public",
@@ -465,7 +471,7 @@
             "name": "id",
             "columnType": 2,
             "isNullable": false,
-            "columnDefault": "nextval('status_card_details_id_seq'::regclass)",
+            "columnDefault": "nextval('figma_status_card_details_id_seq'::regclass)",
             "dartType": "int?"
           },
           {
@@ -483,7 +489,7 @@
         ],
         "foreignKeys": [
           {
-            "constraintName": "status_card_details_fk_0",
+            "constraintName": "figma_status_card_details_fk_0",
             "columns": [
               "byUserId"
             ],
@@ -498,7 +504,7 @@
         ],
         "indexes": [
           {
-            "indexName": "status_card_details_pkey",
+            "indexName": "figma_status_card_details_pkey",
             "elements": [
               {
                 "type": 0,
@@ -849,8 +855,8 @@
           {
             "name": "userAvatar",
             "columnType": 0,
-            "isNullable": false,
-            "dartType": "String"
+            "isNullable": true,
+            "dartType": "String?"
           },
           {
             "name": "fullName",
@@ -859,28 +865,22 @@
             "dartType": "String"
           },
           {
-            "name": "taigaRoles",
-            "columnType": 8,
-            "isNullable": false,
-            "dartType": "List<String>"
-          },
-          {
             "name": "taigaId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "gitHubId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           },
           {
             "name": "gitLabId",
             "columnType": 2,
-            "isNullable": false,
-            "dartType": "int"
+            "isNullable": true,
+            "dartType": "int?"
           }
         ],
         "foreignKeys": [],

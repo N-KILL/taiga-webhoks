@@ -24,6 +24,7 @@ abstract class HuData extends _i1.SerializableEntity {
     this.statusCard,
     required this.projectId,
     this.project,
+    required this.lastStatusUpdate,
   });
 
   factory HuData({
@@ -38,6 +39,7 @@ abstract class HuData extends _i1.SerializableEntity {
     _i2.StatusCard? statusCard,
     required int projectId,
     _i2.TaigaProject? project,
+    required DateTime lastStatusUpdate,
   }) = _HuDataImpl;
 
   factory HuData.fromJson(
@@ -65,6 +67,8 @@ abstract class HuData extends _i1.SerializableEntity {
           serializationManager.deserialize<int>(jsonSerialization['projectId']),
       project: serializationManager
           .deserialize<_i2.TaigaProject?>(jsonSerialization['project']),
+      lastStatusUpdate: serializationManager
+          .deserialize<DateTime>(jsonSerialization['lastStatusUpdate']),
     );
   }
 
@@ -73,25 +77,48 @@ abstract class HuData extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
+  /// This is the name of the HU
   String name;
 
+  /// This is the ref num used by Taiga to identify the HU
   int refNum;
 
+  /// This is the status of the HU
   _i2.HuStatus status;
 
+  /// If the status is 'Lista para desarrollo', will be marked as
+  /// ready for dev based on this value
   bool readyForDev;
 
   int? sprintId;
 
+  /// This is the Sprint Card related to this HU
   _i2.Sprint? sprint;
 
   int? statusCardId;
 
+  /// This is the Status Card related to this HU
   _i2.StatusCard? statusCard;
 
   int projectId;
 
+  /// This is the Taiga project related to the HU
   _i2.TaigaProject? project;
+
+  /// This is the last time an status update was received
+  /// This only consider few status, if you look at the endpoints who
+  /// interact with this value, you will see they are filtering the
+  /// status to get the values for the Status Card Details. That means
+  /// this will be modified based on the next kanban movements
+  ///
+  /// From: 'Any' to 'Aprobandose' = Preparation value
+  ///
+  /// From: 'Aprobandose' to 'Lista para desarrollar' = Approbation value
+  ///
+  /// From: 'Desarollandose' to 'Testeandose' = Development value
+  ///
+  /// From: Aprobandose to Lista para desarrollar = Approbation value
+  DateTime lastStatusUpdate;
 
   HuData copyWith({
     int? id,
@@ -105,6 +132,7 @@ abstract class HuData extends _i1.SerializableEntity {
     _i2.StatusCard? statusCard,
     int? projectId,
     _i2.TaigaProject? project,
+    DateTime? lastStatusUpdate,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -120,6 +148,7 @@ abstract class HuData extends _i1.SerializableEntity {
       if (statusCard != null) 'statusCard': statusCard?.toJson(),
       'projectId': projectId,
       if (project != null) 'project': project?.toJson(),
+      'lastStatusUpdate': lastStatusUpdate.toJson(),
     };
   }
 }
@@ -139,6 +168,7 @@ class _HuDataImpl extends HuData {
     _i2.StatusCard? statusCard,
     required int projectId,
     _i2.TaigaProject? project,
+    required DateTime lastStatusUpdate,
   }) : super._(
           id: id,
           name: name,
@@ -151,6 +181,7 @@ class _HuDataImpl extends HuData {
           statusCard: statusCard,
           projectId: projectId,
           project: project,
+          lastStatusUpdate: lastStatusUpdate,
         );
 
   @override
@@ -166,6 +197,7 @@ class _HuDataImpl extends HuData {
     Object? statusCard = _Undefined,
     int? projectId,
     Object? project = _Undefined,
+    DateTime? lastStatusUpdate,
   }) {
     return HuData(
       id: id is int? ? id : this.id,
@@ -182,6 +214,7 @@ class _HuDataImpl extends HuData {
       projectId: projectId ?? this.projectId,
       project:
           project is _i2.TaigaProject? ? project : this.project?.copyWith(),
+      lastStatusUpdate: lastStatusUpdate ?? this.lastStatusUpdate,
     );
   }
 }

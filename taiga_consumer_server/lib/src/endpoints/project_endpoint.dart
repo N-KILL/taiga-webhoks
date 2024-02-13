@@ -14,7 +14,10 @@ class TaigaProjectEndpoint extends Endpoint {
   }) async {
     try {
       // This create the project on the db
-      final response = await TaigaProject.db.insertRow(session, taigaProject);
+      final response = await TaigaProject.db.insertRow(
+        session,
+        taigaProject,
+      );
 
       // Create a session.log with the response data
       session.log(
@@ -43,11 +46,15 @@ class TaigaProjectEndpoint extends Endpoint {
   }) async {
     try {
       // Create the projects on the database
-      final response = await TaigaProject.db.insert(session, taigaProject);
+      final response = await TaigaProject.db.insert(
+        session,
+        taigaProject,
+      );
 
       // Create a session.log with the response data
       session.log(
-          'TaigaProjectEndpoint projectCreateOnBulk Response: \n $response');
+        'TaigaProjectEndpoint projectCreateOnBulk Response: \n $response',
+      );
 
       // If can create the projects, return the data of those
       return response;
@@ -71,7 +78,10 @@ class TaigaProjectEndpoint extends Endpoint {
   }) async {
     try {
       // Try to find a project by his id
-      final response = await TaigaProject.db.findById(session, id);
+      final response = await TaigaProject.db.findById(
+        session,
+        id,
+      );
 
       // if it cant found any return null, otherwise, return the response data
       if (response != null) {
@@ -218,7 +228,8 @@ class TaigaProjectEndpoint extends Endpoint {
 
         // Create a session.log with the response data
         session.log(
-            'TaigaProjectEndpoint projectUpdateProject Response: \n $response');
+          'TaigaProjectEndpoint projectUpdateProject Response: \n $response',
+        );
 
         // If can update the project return the response data
         return response;
@@ -243,18 +254,25 @@ class TaigaProjectEndpoint extends Endpoint {
     try {
       // If the project
       if (taigaProject.id != null) {
-        final findRow =
-            await TaigaProject.db.findById(session, taigaProject.id!);
+        final findRow = await TaigaProject.db.findById(
+          session,
+          taigaProject.id!,
+        );
         if (findRow != null) {
-          final response = await TaigaProject.db.deleteRow(session, findRow);
+          final response = await TaigaProject.db.deleteRow(
+            session,
+            findRow,
+          );
           // Create a session.log with the response data
           session.log(
-              'TaigaProjectEndpoint projectDeleteProject Response: \n $response');
+            'TaigaProjectEndpoint projectDeleteProject Response: \n $response',
+          );
           return response;
         }
       }
       session.log(
-          'TaigaProjectEndpoint projectDeleteProject failed, does the project have an id?');
+        'TaigaProjectEndpoint projectDeleteProject failed, does the project have an id?',
+      );
       return null;
     } catch (e) {
       // Create a session.log saying an error ocurred, returning null
@@ -276,15 +294,23 @@ class TaigaProjectEndpoint extends Endpoint {
   }) async {
     try {
       // Get the project
-      final findRow = await TaigaProject.db.findById(session, projectId);
+      final findRow = await TaigaProject.db.findById(
+        session,
+        projectId,
+      );
 
       // If can get the info of the project
       if (findRow != null) {
         // Try to delete the project
-        final response = await TaigaProject.db.deleteRow(session, findRow);
+        final response = await TaigaProject.db.deleteRow(
+          session,
+          findRow,
+        );
 
         // Create a session.log with the response info
-        session.log('TaigaProjectEndpoint deleteById Response: \n $response');
+        session.log(
+          'TaigaProjectEndpoint deleteById Response: \n $response',
+        );
 
         // If can delete the project return the response
         return response;

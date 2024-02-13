@@ -45,12 +45,12 @@ HuStatus figmaStatusConverter({required String huStatus}) {
       break;
 
     // If the value is 'Lista'
-    case 'Lista':
+    case 'Lista para desarrollo':
       // Turn the var status into: HuStatus.LISTA
       status = HuStatus.LISTA;
       break;
-    // If the value is 'Postergado'
 
+    // If the value is 'Desarrollándose'
     case 'Desarrollándose':
       // Turn the var status into: HuStatus.DESARROLLANDOSE
       status = HuStatus.DESARROLLANDOSE;
@@ -67,10 +67,10 @@ HuStatus figmaStatusConverter({required String huStatus}) {
       status = HuStatus.UAT;
       break;
 
-    // If the value is 'Terminada'
-    case 'Terminada':
+    // If the value is 'CERRADA'
+    case 'CERRADA':
       // Turn the var status into: HuStatus.TERMINADA
-      status = HuStatus.TERMINADA;
+      status = HuStatus.CERRADA;
       break;
 
     // If the value is 'Postergado'

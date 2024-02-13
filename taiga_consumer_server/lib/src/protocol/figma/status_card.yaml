@@ -1,5 +1,5 @@
 class: StatusCard
-table: status_card
+table: figma_status_card
 fields:
   approved: StatusCardDetails?, relation(optional)
   development: StatusCardDetails?, relation(optional)

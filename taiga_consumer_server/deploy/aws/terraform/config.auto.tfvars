@@ -28,8 +28,8 @@ enable_redis = false
 # *.example.com to your certificate. You will need to create one certificate
 # for your main region and one for use with Cloudfront that resides in the
 # us-east-1 region.
-hosted_zone_id             = "<YOUR HOSTED ZONE ID>"
-top_domain                 = "<YOUR DOMAIN NAME>"
+hosted_zone_id             = "d544d0ac-6946-415a-93ac-f625c40caf8e"
+top_domain                 = "online"
 certificate_arn            = "<YOUR CERTIFICATE ARN>"
 cloudfront_certificate_arn = "<YOUR CERTIFICATE ARN IN US-EAST-1>"
 

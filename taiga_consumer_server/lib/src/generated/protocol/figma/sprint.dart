@@ -270,7 +270,7 @@ class _SprintImpl extends Sprint {
 }
 
 class SprintTable extends _i1.Table {
-  SprintTable({super.tableRelation}) : super(tableName: 'sprint_data') {
+  SprintTable({super.tableRelation}) : super(tableName: 'figma_sprint_data') {
     name = _i1.ColumnString(
       'name',
       this,

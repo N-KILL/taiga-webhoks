@@ -293,7 +293,7 @@ class _StatusCardDetailsImpl extends StatusCardDetails {
 
 class StatusCardDetailsTable extends _i1.Table {
   StatusCardDetailsTable({super.tableRelation})
-      : super(tableName: 'status_card_details') {
+      : super(tableName: 'figma_status_card_details') {
     byUserId = _i1.ColumnInt(
       'byUserId',
       this,

@@ -1,5 +1,5 @@
 class: Sprint
-table: sprint_data
+table: figma_sprint_data
 fields:
   name: String
   taigaId: int

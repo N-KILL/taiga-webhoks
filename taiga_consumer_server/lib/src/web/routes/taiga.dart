@@ -255,6 +255,7 @@ class TaigaRoute extends WidgetRoute {
             ),
             readyForDev: false,
             projectId: getProjectById.id!,
+            lastStatusUpdate: DateTime.now(),
           );
 
           // Register a new HUData
@@ -277,7 +278,7 @@ class TaigaRoute extends WidgetRoute {
           );
         } else if (payload.actionType == 'change') {
           // Create an aux to store huDataInfo
-          var huDataInfo = await FigmaEndpoint().getHUData(
+          var huDataInfo = await FigmaEndpoint().getHUDataByTaigaInfo(
             session,
             projectId: getProjectById.id!,
             huDataRefNum: payloadUsData.referenceNumber,
@@ -294,6 +295,7 @@ class TaigaRoute extends WidgetRoute {
               ),
               readyForDev: false,
               projectId: getProjectById.id!,
+              lastStatusUpdate: DateTime.now(),
             );
 
             // and then register that on the database
@@ -357,12 +359,6 @@ class TaigaRoute extends WidgetRoute {
               huStatus: payloadUsData.jobStatus.statusName,
             );
 
-            // Update the status
-            await FigmaEndpoint().updateHuData(
-              session,
-              huData: huDetails,
-            );
-
             // Register a new action
             FigmaEndpoint().createNewAction(
               session,
@@ -376,12 +372,20 @@ class TaigaRoute extends WidgetRoute {
               ),
             );
 
+            // This part of the code is used to handle the information of the
+            // status card
+
             // Get the new status into an HuStatus enum value
             final statusNewValue = figmaStatusConverter(
               huStatus: payload.change?.difference?.status?.newValue,
             );
 
-            // This is used to handle the status card
+            // Get the old status into an HuStatus enum value
+            final statusOldValue = figmaStatusConverter(
+              huStatus: payload.change?.difference?.status?.oldValue,
+            );
+
+            // This is used to handle the status card members
             if (statusNewValue == HuStatus.LISTA ||
                 statusNewValue == HuStatus.DESARROLLANDOSE ||
                 statusNewValue == HuStatus.TESTEANDOSE ||
@@ -408,11 +412,14 @@ class TaigaRoute extends WidgetRoute {
 
                 // This is just a validation to prevent errors
                 if (huDataInfo.id != null) {
+                  // Get the status card based on the user story id
                   var statusCardInfo =
                       await FigmaEndpoint().getStatusCardByUserStoryId(
                     session,
                     huDataId: huDataInfo.id!,
                   );
+
+                  // If can get the status card
                   if (statusCardInfo != null) {
                     // Update the status card of the User story
                     await FigmaEndpoint().updateStatusCard(
@@ -447,18 +454,9 @@ class TaigaRoute extends WidgetRoute {
                     );
                   }
 
-                  // Modify the status card id
-                  final huDetails = huDataInfo;
+                  // Update the status card id. This will be made at the end of
+                  // the function
                   huDetails.statusCardId = statusCardInfo.id;
-
-                  session.log(
-                      'Este es huDetails despues de actualizar: $huDetails');
-
-                  // Update theHuData
-                  await FigmaEndpoint().updateHuData(
-                    session,
-                    huData: huDetails,
-                  );
 
                   // Register a new action 'update_hu_status_card'
                   await FigmaEndpoint().createNewAction(
@@ -480,6 +478,113 @@ class TaigaRoute extends WidgetRoute {
                 }
               }
             }
+
+            // This is used to handle the status card amount of days
+
+            // This is for reset the value of a user story, we cant count the
+            // days the user story spend on new, because nobody is taking care
+            // of it, so, once the user story, move from new, to any other
+            // start the counter
+            if (statusOldValue == HuStatus.NUEVA) {
+              huDetails.lastStatusUpdate = DateTime.now();
+            }
+
+            // If the status is 'APROBANDOSE'
+            if (statusNewValue == HuStatus.APROBANDOSE) {
+              if (huDataInfo.id != null) {
+                // Get the status card based on the user story id
+                var statusCardInfo =
+                    await FigmaEndpoint().getStatusCardByUserStoryId(
+                  session,
+                  huDataId: huDataInfo.id!,
+                );
+
+                if (statusCardInfo != null && statusCardInfo.id != null) {
+                  await FigmaEndpoint().updateStatusCard(
+                    session,
+                    statusCardId: statusCardInfo.id!,
+                    updateValue: statusNewValue,
+                    updateAmountOfDays: true,
+                  );
+
+                  // And for last Update the date
+                  huDetails.lastStatusUpdate = DateTime.now();
+                }
+              }
+            }
+
+            // If the status is 'LISTA'
+            if (statusNewValue == HuStatus.LISTA) {
+              if (huDataInfo.id != null) {
+                // Get the status card based on the user story id
+                var statusCardInfo =
+                    await FigmaEndpoint().getStatusCardByUserStoryId(
+                  session,
+                  huDataId: huDataInfo.id!,
+                );
+
+                if (statusCardInfo != null && statusCardInfo.id != null) {
+                  await FigmaEndpoint().updateStatusCard(
+                    session,
+                    statusCardId: statusCardInfo.id!,
+                    updateValue: statusNewValue,
+                    updateAmountOfDays: true,
+                  );
+
+                  // And for last Update the date
+                  huDetails.lastStatusUpdate = DateTime.now();
+                }
+              }
+            }
+            // If the status is 'TESTEANDOSE'
+            if (statusNewValue == HuStatus.TESTEANDOSE) {
+              // Get the status card based on the user story id
+              var statusCardInfo =
+                  await FigmaEndpoint().getStatusCardByUserStoryId(
+                session,
+                huDataId: huDataInfo.id!,
+              );
+
+              if (statusCardInfo != null && statusCardInfo.id != null) {
+                await FigmaEndpoint().updateStatusCard(
+                  session,
+                  statusCardId: statusCardInfo.id!,
+                  updateValue: statusNewValue,
+                  updateAmountOfDays: true,
+                );
+
+                // And for last Update the date
+                huDetails.lastStatusUpdate = DateTime.now();
+              }
+            }
+            // If the status is 'CERRADA' and old value is 'UAT'
+            if (statusNewValue == HuStatus.CERRADA &&
+                statusOldValue == HuStatus.UAT) {
+              // Get the status card based on the user story id
+              var statusCardInfo =
+                  await FigmaEndpoint().getStatusCardByUserStoryId(
+                session,
+                huDataId: huDataInfo.id!,
+              );
+
+              if (statusCardInfo != null && statusCardInfo.id != null) {
+                await FigmaEndpoint().updateStatusCard(
+                  session,
+                  statusCardId: statusCardInfo.id!,
+                  updateValue: statusNewValue,
+                  updateAmountOfDays: true,
+                );
+
+                // And for last Update the date
+                huDetails.lastStatusUpdate = DateTime.now();
+              }
+            }
+            // Once all the things has been done, update the HuData in the
+            // database
+            await FigmaEndpoint().updateHuData(
+              session,
+              huData: huDetails,
+            );
           }
 
           // If the status of the US is 'Lista', put it on ReadyForDev

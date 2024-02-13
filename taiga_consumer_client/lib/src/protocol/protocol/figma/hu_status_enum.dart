@@ -20,7 +20,7 @@ enum HuStatus with _i1.SerializableEntity {
   DESARROLLANDOSE,
   TESTEANDOSE,
   UAT,
-  TERMINADA,
+  CERRADA,
   POSTERGADO;
 
   static HuStatus? fromJson(String name) {
@@ -43,8 +43,8 @@ enum HuStatus with _i1.SerializableEntity {
         return TESTEANDOSE;
       case 'UAT':
         return UAT;
-      case 'TERMINADA':
-        return TERMINADA;
+      case 'CERRADA':
+        return CERRADA;
       case 'POSTERGADO':
         return POSTERGADO;
       default:

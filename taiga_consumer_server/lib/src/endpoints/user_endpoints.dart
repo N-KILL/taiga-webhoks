@@ -12,6 +12,7 @@ import 'package:taiga_consumer_server/src/helpers/user_generator.dart';
 /// <ul>
 /// <li>[createUser]</li>
 /// <li>[createMultipleUsers]</li>
+/// <li>[generateUsersFromTaigaProject]</li>
 /// </ul>
 ///
 /// <h5> READ METHODS </h5>
@@ -37,11 +38,15 @@ class UserEndpoint extends Endpoint {
   /// Don't require any parameter, just call it.
   Future<List<User>> getAllUsers(Session session) async {
     // Message indication this endpoint is running
-    session.log('Running getAllUsers Endpoint');
+    session.log(
+      'Running getAllUsers Endpoint',
+    );
 
     try {
       // Grab all the user information from the database
-      final response = await User.db.find(session);
+      final response = await User.db.find(
+        session,
+      );
 
       // Then return that data
       return response;
@@ -65,11 +70,16 @@ class UserEndpoint extends Endpoint {
     required int userId,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running GetUserById Endpoint');
+    session.log(
+      'Running GetUserById Endpoint',
+    );
 
     try {
       // Try to find any user with that id
-      final response = await User.db.findById(session, userId);
+      final response = await User.db.findById(
+        session,
+        userId,
+      );
 
       // Return the user if can be found
       if (response == null) {
@@ -103,7 +113,9 @@ class UserEndpoint extends Endpoint {
     required int taigaId,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running GetUserByTaigaId Endpoint');
+    session.log(
+      'Running GetUserByTaigaId Endpoint',
+    );
 
     try {
       // Get the first user with the taigaId
@@ -144,7 +156,9 @@ class UserEndpoint extends Endpoint {
     required int gitHubId,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running GetUserByGitHubId Endpoint');
+    session.log(
+      'Running GetUserByGitHubId Endpoint',
+    );
 
     try {
       // Get the first user with the gitHubId
@@ -185,7 +199,9 @@ class UserEndpoint extends Endpoint {
     required int gitLabId,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running GetUserByGitLabId Endpoint');
+    session.log(
+      'Running GetUserByGitLabId Endpoint',
+    );
 
     try {
       // Get the first user with the gitLabId
@@ -225,11 +241,16 @@ class UserEndpoint extends Endpoint {
     required User user,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running CreateUser Endpoint');
+    session.log(
+      'Running CreateUser Endpoint',
+    );
 
     try {
       // Attempt to create the user
-      final response = await User.db.insertRow(session, user);
+      final response = await User.db.insertRow(
+        session,
+        user,
+      );
 
       // Then return the information of the user
       return response;
@@ -253,11 +274,16 @@ class UserEndpoint extends Endpoint {
     required List<User> users,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running CreateMultipleUsers Endpoint');
+    session.log(
+      'Running CreateMultipleUsers Endpoint',
+    );
 
     try {
       // Attempt to create the user
-      final response = await User.db.insert(session, users);
+      final response = await User.db.insert(
+        session,
+        users,
+      );
 
       // Then return the information of the user
       return response;
@@ -288,11 +314,16 @@ class UserEndpoint extends Endpoint {
     required User user,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running UpdateUserById Endpoint');
+    session.log(
+      'Running UpdateUserById Endpoint',
+    );
 
     try {
       // Find the user we re trying to modify
-      final modify = await User.db.findById(session, userId);
+      final modify = await User.db.findById(
+        session,
+        userId,
+      );
 
       // Modify the data based on the new
       if (modify != null) {
@@ -303,14 +334,17 @@ class UserEndpoint extends Endpoint {
         modify.username = user.username;
 
         // Then update the user information on the database
-        final response = await User.db.updateRow(session, modify);
+        final response = await User.db.updateRow(
+          session,
+          modify,
+        );
 
         // And return the new user data
         return response;
       }
 
       // In case the modify call, can't found any user, throw an error
-      throw ('Was not possible to found any user with id: $userId');
+      throw ('Was not possible to found any user with id: $userId',);
     } catch (e) {
       // throw an error in case of fail
       throw (
@@ -331,21 +365,29 @@ class UserEndpoint extends Endpoint {
     required int userId,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running DeleteUser Endpoint');
+    session.log(
+      'Running DeleteUser Endpoint',
+    );
 
     try {
       // Try to delete the user
-      final userData = await User.db.findById(session, userId);
+      final userData = await User.db.findById(
+        session,
+        userId,
+      );
       if (userData != null) {
         // Remove the user from the database
-        final id = await User.db.deleteRow(session, userData);
+        final id = await User.db.deleteRow(
+          session,
+          userData,
+        );
 
         // Then return his id
         return id;
       }
 
       // In case that we can't find any user by that id, throw an error
-      throw ('Was not possible to found any user with that id: $userId');
+      throw ('Was not possible to found any user with that id: $userId',);
     } catch (e) {
       // throw an error in case of fail
       throw (
@@ -355,7 +397,7 @@ class UserEndpoint extends Endpoint {
     }
   }
 
-  /// This endpoint [GenerateUsersFromTaigaProject] is used to generate user
+  /// This endpoint [generateUsersFromTaigaProject] is used to generate user
   /// information based on a `Taiga Project`.
   ///
   /// <h4> Required data: </h4>
@@ -364,14 +406,16 @@ class UserEndpoint extends Endpoint {
   /// `taigaPassword`: [String] Its the password used to login into `Taiga` <br>
   /// `taigaProjectId`: [int] Its the id of the project from we re going to read
   /// the users
-  Future<List<User>> GenerateUsersFromTaigaProject(
+  Future<List<User>> generateUsersFromTaigaProject(
     Session session, {
     required String taigaUsername,
     required String taigaPassword,
     required int taigaProjectId,
   }) async {
     // Message indication this endpoint is running
-    session.log('Running GenerateUsersFromTaigaProject Endpoint');
+    session.log(
+      'Running GenerateUsersFromTaigaProject Endpoint',
+    );
     try {
       // Call the function UserGenerator
       final response = await UserGenerator(

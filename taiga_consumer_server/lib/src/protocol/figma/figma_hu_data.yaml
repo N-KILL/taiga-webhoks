@@ -1,11 +1,39 @@
 class: HuData
-table: hu_data
+table: figma_hu_data
 fields:
+  ### This is the name of the HU
   name: String,
-  refNum: int
+
+  ### This is the ref num used by Taiga to identify the HU
+  refNum: int,
+
+  ### This is the status of the HU
   status: HuStatus,
+
+  ### If the status is 'Lista para desarrollo', will be marked as 
+  ### ready for dev based on this value
   readyForDev: bool,
+
+  ### This is the Sprint Card related to this HU
   sprint: Sprint?, relation(optional)
+
+  ### This is the Status Card related to this HU
   statusCard: StatusCard?, relation(optional)
+
+  ### This is the Taiga project related to the HU 
   project: TaigaProject?, relation
   
+  ### This is the last time an status update was received
+  ### This only consider few status, if you look at the endpoints who
+  ### interact with this value, you will see they are filtering the
+  ### status to get the values for the Status Card Details. That means
+  ### this will be modified based on the next kanban movements
+  ###
+  ### From: 'Any' to 'Aprobandose' = Preparation value
+  ###
+  ### From: 'Aprobandose' to 'Lista para desarrollar' = Approbation value
+  ###
+  ### From: 'Desarollandose' to 'Testeandose' = Development value
+  ###
+  ### From: Aprobandose to Lista para desarrollar = Approbation value
+  lastStatusUpdate: DateTime

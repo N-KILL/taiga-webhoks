@@ -1,3 +1,5 @@
+database:
+  - createFigmaDummies:
 figma:
   - figmaResponse:
   - createNewAction:
@@ -6,13 +8,17 @@ figma:
   - getSprintDataByTaigaId:
   - getSprintDataBySprintName:
   - createSprint:
-  - getHUData:
+  - getHUDataByTaigaInfo:
+  - getHUDataByStatusCard:
   - createStatusCard:
   - getStatusCardByUserStoryId:
   - getStatusCardById:
   - updateStatusCard:
   - createStatusDetails:
   - deleteStatusCardDetails:
+  - getAmountOfDaysById:
+  - createAmountOfDays:
+  - updateAmountOfDaysById:
 taigaProject:
   - projectCreate:
   - projectCreateOnBulk:
@@ -31,7 +37,7 @@ taigaJob:
   - taigaJobReadByStatus:
   - taigaJobReadByProjectIdAndRefNumber:
   - taigaJobUpdateById:
-  - TaigaJobDeleteById:
+  - taigaJobDeleteById:
   - taigaJobUpdatesCreate:
   - taigaJobUpdatesCreateOnBulk:
   - taigaJobUpdatesReadById:
@@ -53,4 +59,4 @@ user:
   - createMultipleUsers:
   - updateUserById:
   - deleteUser:
-  - GenerateUsersFromTaigaProject:
+  - generateUsersFromTaigaProject:

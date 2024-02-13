@@ -9,59 +9,84 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../endpoints/figma_endpoints.dart' as _i2;
-import '../endpoints/project_endpoint.dart' as _i3;
-import '../endpoints/taiga_job_endpoints.dart' as _i4;
-import '../endpoints/user_endpoints.dart' as _i5;
+import '../endpoints/database_basics.dart' as _i2;
+import '../endpoints/figma_endpoints.dart' as _i3;
+import '../endpoints/project_endpoint.dart' as _i4;
+import '../endpoints/taiga_job_endpoints.dart' as _i5;
+import '../endpoints/user_endpoints.dart' as _i6;
 import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_action.dart'
-    as _i6;
-import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_hu_data.dart'
     as _i7;
-import 'package:taiga_consumer_server/src/generated/protocol/figma/status_card.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/figma_hu_data.dart'
     as _i8;
-import 'package:taiga_consumer_server/src/generated/protocol/figma/hu_status_enum.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/status_card.dart'
     as _i9;
-import 'package:taiga_consumer_server/src/generated/protocol/figma/status_card_detail.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/hu_status_enum.dart'
     as _i10;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/status_card_detail.dart'
     as _i11;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/figma/day_counter.dart'
     as _i12;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_project.dart'
     as _i13;
-import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job.dart'
     as _i14;
-import 'package:taiga_consumer_server/src/generated/protocol/user.dart' as _i15;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_updates.dart'
+    as _i15;
+import 'package:taiga_consumer_server/src/generated/protocol/taiga/taiga_job_commentaries.dart'
+    as _i16;
+import 'package:taiga_consumer_server/src/generated/protocol/user.dart' as _i17;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
   void initializeEndpoints(_i1.Server server) {
     var endpoints = <String, _i1.Endpoint>{
-      'figma': _i2.FigmaEndpoint()
+      'database': _i2.databaseEndpoint()
+        ..initialize(
+          server,
+          'database',
+          null,
+        ),
+      'figma': _i3.FigmaEndpoint()
         ..initialize(
           server,
           'figma',
           null,
         ),
-      'taigaProject': _i3.TaigaProjectEndpoint()
+      'taigaProject': _i4.TaigaProjectEndpoint()
         ..initialize(
           server,
           'taigaProject',
           null,
         ),
-      'taigaJob': _i4.TaigaJobEndpoint()
+      'taigaJob': _i5.TaigaJobEndpoint()
         ..initialize(
           server,
           'taigaJob',
           null,
         ),
-      'user': _i5.UserEndpoint()
+      'user': _i6.UserEndpoint()
         ..initialize(
           server,
           'user',
           null,
         ),
     };
+    connectors['database'] = _i1.EndpointConnector(
+      name: 'database',
+      endpoint: endpoints['database']!,
+      methodConnectors: {
+        'createFigmaDummies': _i1.MethodConnector(
+          name: 'createFigmaDummies',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['database'] as _i2.databaseEndpoint)
+                  .createFigmaDummies(session),
+        )
+      },
+    );
     connectors['figma'] = _i1.EndpointConnector(
       name: 'figma',
       endpoint: endpoints['figma']!,
@@ -79,7 +104,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).figmaResponse(
+              (endpoints['figma'] as _i3.FigmaEndpoint).figmaResponse(
             session,
             projectName: params['projectName'],
           ),
@@ -89,7 +114,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'figmaAction': _i1.ParameterDescription(
               name: 'figmaAction',
-              type: _i1.getType<_i6.FigmaAction>(),
+              type: _i1.getType<_i7.FigmaAction>(),
               nullable: false,
             )
           },
@@ -97,7 +122,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).createNewAction(
+              (endpoints['figma'] as _i3.FigmaEndpoint).createNewAction(
             session,
             figmaAction: params['figmaAction'],
           ),
@@ -107,7 +132,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'huData': _i1.ParameterDescription(
               name: 'huData',
-              type: _i1.getType<_i7.HuData>(),
+              type: _i1.getType<_i8.HuData>(),
               nullable: false,
             )
           },
@@ -115,7 +140,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).createNewHUData(
+              (endpoints['figma'] as _i3.FigmaEndpoint).createNewHUData(
             session,
             huData: params['huData'],
           ),
@@ -125,7 +150,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'huData': _i1.ParameterDescription(
               name: 'huData',
-              type: _i1.getType<_i7.HuData>(),
+              type: _i1.getType<_i8.HuData>(),
               nullable: false,
             )
           },
@@ -133,7 +158,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).updateHuData(
+              (endpoints['figma'] as _i3.FigmaEndpoint).updateHuData(
             session,
             huData: params['huData'],
           ),
@@ -151,7 +176,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).getSprintDataByTaigaId(
+              (endpoints['figma'] as _i3.FigmaEndpoint).getSprintDataByTaigaId(
             session,
             taigaId: params['taigaId'],
           ),
@@ -169,7 +194,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint)
+              (endpoints['figma'] as _i3.FigmaEndpoint)
                   .getSprintDataBySprintName(
             session,
             name: params['name'],
@@ -193,14 +218,14 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).createSprint(
+              (endpoints['figma'] as _i3.FigmaEndpoint).createSprint(
             session,
             taigaId: params['taigaId'],
             name: params['name'],
           ),
         ),
-        'getHUData': _i1.MethodConnector(
-          name: 'getHUData',
+        'getHUDataByTaigaInfo': _i1.MethodConnector(
+          name: 'getHUDataByTaigaInfo',
           params: {
             'projectId': _i1.ParameterDescription(
               name: 'projectId',
@@ -217,18 +242,18 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).getHUData(
+              (endpoints['figma'] as _i3.FigmaEndpoint).getHUDataByTaigaInfo(
             session,
             projectId: params['projectId'],
             huDataRefNum: params['huDataRefNum'],
           ),
         ),
-        'createStatusCard': _i1.MethodConnector(
-          name: 'createStatusCard',
+        'getHUDataByStatusCard': _i1.MethodConnector(
+          name: 'getHUDataByStatusCard',
           params: {
-            'statusCard': _i1.ParameterDescription(
-              name: 'statusCard',
-              type: _i1.getType<_i8.StatusCard>(),
+            'statusCardId': _i1.ParameterDescription(
+              name: 'statusCardId',
+              type: _i1.getType<int>(),
               nullable: false,
             )
           },
@@ -236,7 +261,25 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).createStatusCard(
+              (endpoints['figma'] as _i3.FigmaEndpoint).getHUDataByStatusCard(
+            session,
+            statusCardId: params['statusCardId'],
+          ),
+        ),
+        'createStatusCard': _i1.MethodConnector(
+          name: 'createStatusCard',
+          params: {
+            'statusCard': _i1.ParameterDescription(
+              name: 'statusCard',
+              type: _i1.getType<_i9.StatusCard>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i3.FigmaEndpoint).createStatusCard(
             session,
             statusCard: params['statusCard'],
           ),
@@ -254,7 +297,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint)
+              (endpoints['figma'] as _i3.FigmaEndpoint)
                   .getStatusCardByUserStoryId(
             session,
             huDataId: params['huDataId'],
@@ -273,7 +316,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).getStatusCardById(
+              (endpoints['figma'] as _i3.FigmaEndpoint).getStatusCardById(
             session,
             statusCardId: params['statusCardId'],
           ),
@@ -288,12 +331,22 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'updateValue': _i1.ParameterDescription(
               name: 'updateValue',
-              type: _i1.getType<_i9.HuStatus>(),
+              type: _i1.getType<_i10.HuStatus>(),
               nullable: false,
             ),
             'statusCardDetails': _i1.ParameterDescription(
               name: 'statusCardDetails',
-              type: _i1.getType<_i10.StatusCardDetails>(),
+              type: _i1.getType<_i11.StatusCardDetails?>(),
+              nullable: true,
+            ),
+            'updateAmountOfDays': _i1.ParameterDescription(
+              name: 'updateAmountOfDays',
+              type: _i1.getType<bool>(),
+              nullable: false,
+            ),
+            'oldStatusValue': _i1.ParameterDescription(
+              name: 'oldStatusValue',
+              type: _i1.getType<_i10.HuStatus>(),
               nullable: false,
             ),
           },
@@ -301,11 +354,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).updateStatusCard(
+              (endpoints['figma'] as _i3.FigmaEndpoint).updateStatusCard(
             session,
             statusCardId: params['statusCardId'],
             updateValue: params['updateValue'],
             statusCardDetails: params['statusCardDetails'],
+            updateAmountOfDays: params['updateAmountOfDays'],
+            oldStatusValue: params['oldStatusValue'],
           ),
         ),
         'createStatusDetails': _i1.MethodConnector(
@@ -313,7 +368,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'statusCardDetails': _i1.ParameterDescription(
               name: 'statusCardDetails',
-              type: _i1.getType<_i10.StatusCardDetails>(),
+              type: _i1.getType<_i11.StatusCardDetails>(),
               nullable: false,
             )
           },
@@ -321,7 +376,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).createStatusDetails(
+              (endpoints['figma'] as _i3.FigmaEndpoint).createStatusDetails(
             session,
             statusCardDetails: params['statusCardDetails'],
           ),
@@ -339,9 +394,69 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['figma'] as _i2.FigmaEndpoint).deleteStatusCardDetails(
+              (endpoints['figma'] as _i3.FigmaEndpoint).deleteStatusCardDetails(
             session,
             statusCardDetailsId: params['statusCardDetailsId'],
+          ),
+        ),
+        'getAmountOfDaysById': _i1.MethodConnector(
+          name: 'getAmountOfDaysById',
+          params: {
+            'amountOfDaysId': _i1.ParameterDescription(
+              name: 'amountOfDaysId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i3.FigmaEndpoint).getAmountOfDaysById(
+            session,
+            amountOfDaysId: params['amountOfDaysId'],
+          ),
+        ),
+        'createAmountOfDays': _i1.MethodConnector(
+          name: 'createAmountOfDays',
+          params: {
+            'amountOfDays': _i1.ParameterDescription(
+              name: 'amountOfDays',
+              type: _i1.getType<_i12.AmountOfDays>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i3.FigmaEndpoint).createAmountOfDays(
+            session,
+            amountOfDays: params['amountOfDays'],
+          ),
+        ),
+        'updateAmountOfDaysById': _i1.MethodConnector(
+          name: 'updateAmountOfDaysById',
+          params: {
+            'amountOfDaysId': _i1.ParameterDescription(
+              name: 'amountOfDaysId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'amountOfDays': _i1.ParameterDescription(
+              name: 'amountOfDays',
+              type: _i1.getType<_i12.AmountOfDays>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['figma'] as _i3.FigmaEndpoint).updateAmountOfDaysById(
+            session,
+            amountOfDaysId: params['amountOfDaysId'],
+            amountOfDays: params['amountOfDays'],
           ),
         ),
       },
@@ -355,7 +470,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i11.TaigaProject>(),
+              type: _i1.getType<_i13.TaigaProject>(),
               nullable: false,
             )
           },
@@ -363,7 +478,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectCreate(
             session,
             taigaProject: params['taigaProject'],
@@ -374,7 +489,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<List<_i11.TaigaProject>>(),
+              type: _i1.getType<List<_i13.TaigaProject>>(),
               nullable: false,
             )
           },
@@ -382,7 +497,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectCreateOnBulk(
             session,
             taigaProject: params['taigaProject'],
@@ -401,7 +516,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectReadById(
             session,
             id: params['id'],
@@ -420,7 +535,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectReadByTitle(
             session,
             projectTitle: params['projectTitle'],
@@ -439,7 +554,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectReadByTaigaProjectId(
             session,
             id: params['id'],
@@ -450,7 +565,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i11.TaigaProject>(),
+              type: _i1.getType<_i13.TaigaProject>(),
               nullable: false,
             )
           },
@@ -458,7 +573,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectUpdateProject(
             session,
             taigaProject: params['taigaProject'],
@@ -469,7 +584,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaProject': _i1.ParameterDescription(
               name: 'taigaProject',
-              type: _i1.getType<_i11.TaigaProject>(),
+              type: _i1.getType<_i13.TaigaProject>(),
               nullable: false,
             )
           },
@@ -477,7 +592,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectDeleteProject(
             session,
             taigaProject: params['taigaProject'],
@@ -496,7 +611,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaProject'] as _i3.TaigaProjectEndpoint)
+              (endpoints['taigaProject'] as _i4.TaigaProjectEndpoint)
                   .projectDeleteProjectById(
             session,
             projectId: params['projectId'],
@@ -513,7 +628,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i12.TaigaJob>(),
+              type: _i1.getType<_i14.TaigaJob>(),
               nullable: false,
             )
           },
@@ -521,7 +636,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).taigaJobCreate(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).taigaJobCreate(
             session,
             taigaJob: params['taigaJob'],
           ),
@@ -531,7 +646,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<List<_i12.TaigaJob>>(),
+              type: _i1.getType<List<_i14.TaigaJob>>(),
               nullable: false,
             )
           },
@@ -539,7 +654,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobCreateOnBulk(
             session,
             taigaJob: params['taigaJob'],
@@ -558,7 +673,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint).taigaJobReadById(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint).taigaJobReadById(
             session,
             id: params['id'],
           ),
@@ -576,7 +691,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobReadByTitle(
             session,
             title: params['title'],
@@ -595,7 +710,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobReadByType(
             session,
             type: params['type'],
@@ -614,7 +729,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobReadByStatus(
             session,
             status: params['status'],
@@ -638,7 +753,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobReadByProjectIdAndRefNumber(
             session,
             projectId: params['projectId'],
@@ -650,7 +765,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJob': _i1.ParameterDescription(
               name: 'taigaJob',
-              type: _i1.getType<_i12.TaigaJob>(),
+              type: _i1.getType<_i14.TaigaJob>(),
               nullable: false,
             ),
             'id': _i1.ParameterDescription(
@@ -663,15 +778,15 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdateById(
             session,
             taigaJob: params['taigaJob'],
             id: params['id'],
           ),
         ),
-        'TaigaJobDeleteById': _i1.MethodConnector(
-          name: 'TaigaJobDeleteById',
+        'taigaJobDeleteById': _i1.MethodConnector(
+          name: 'taigaJobDeleteById',
           params: {
             'id': _i1.ParameterDescription(
               name: 'id',
@@ -683,8 +798,8 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
-                  .TaigaJobDeleteById(
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
+                  .taigaJobDeleteById(
             session,
             id: params['id'],
           ),
@@ -694,7 +809,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<_i13.TaigaJobUpdates>(),
+              type: _i1.getType<_i15.TaigaJobUpdates>(),
               nullable: false,
             )
           },
@@ -702,7 +817,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdatesCreate(
             session,
             taigaJobUpdates: params['taigaJobUpdates'],
@@ -713,7 +828,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<List<_i13.TaigaJobUpdates>>(),
+              type: _i1.getType<List<_i15.TaigaJobUpdates>>(),
               nullable: false,
             )
           },
@@ -721,7 +836,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdatesCreateOnBulk(
             session,
             taigaJobUpdates: params['taigaJobUpdates'],
@@ -740,7 +855,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdatesReadById(
             session,
             id: params['id'],
@@ -764,7 +879,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdatesReadFilteringByEpoch(
             session,
             min: params['min'],
@@ -781,7 +896,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'taigaJobUpdates': _i1.ParameterDescription(
               name: 'taigaJobUpdates',
-              type: _i1.getType<_i13.TaigaJobUpdates>(),
+              type: _i1.getType<_i15.TaigaJobUpdates>(),
               nullable: false,
             ),
           },
@@ -789,7 +904,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdatesUpdateById(
             session,
             id: params['id'],
@@ -809,7 +924,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobUpdatesDeleteById(
             session,
             id: params['id'],
@@ -820,7 +935,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<_i14.TaigaJobCommentaries>(),
+              type: _i1.getType<_i16.TaigaJobCommentaries>(),
               nullable: false,
             )
           },
@@ -828,7 +943,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobCommentariesCreate(
             session,
             taigaJobCommentaries: params['taigaJobCommentaries'],
@@ -839,7 +954,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<List<_i14.TaigaJobCommentaries>>(),
+              type: _i1.getType<List<_i16.TaigaJobCommentaries>>(),
               nullable: false,
             )
           },
@@ -847,7 +962,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobCommentariesCreateOnBulk(
             session,
             taigaJobCommentaries: params['taigaJobCommentaries'],
@@ -866,7 +981,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobCommentariesReadById(
             session,
             id: params['id'],
@@ -877,7 +992,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'taigaJobCommentaries': _i1.ParameterDescription(
               name: 'taigaJobCommentaries',
-              type: _i1.getType<_i14.TaigaJobCommentaries>(),
+              type: _i1.getType<_i16.TaigaJobCommentaries>(),
               nullable: false,
             ),
             'id': _i1.ParameterDescription(
@@ -890,7 +1005,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobCommentariesUpdateById(
             session,
             taigaJobCommentaries: params['taigaJobCommentaries'],
@@ -910,7 +1025,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['taigaJob'] as _i4.TaigaJobEndpoint)
+              (endpoints['taigaJob'] as _i5.TaigaJobEndpoint)
                   .taigaJobCommentariesDeleteById(
             session,
             id: params['id'],
@@ -929,7 +1044,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).getAllUsers(session),
+              (endpoints['user'] as _i6.UserEndpoint).getAllUsers(session),
         ),
         'getUserById': _i1.MethodConnector(
           name: 'getUserById',
@@ -944,7 +1059,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).getUserById(
+              (endpoints['user'] as _i6.UserEndpoint).getUserById(
             session,
             userId: params['userId'],
           ),
@@ -962,7 +1077,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).getUserByTaigaId(
+              (endpoints['user'] as _i6.UserEndpoint).getUserByTaigaId(
             session,
             taigaId: params['taigaId'],
           ),
@@ -980,7 +1095,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).getUserByGitHubId(
+              (endpoints['user'] as _i6.UserEndpoint).getUserByGitHubId(
             session,
             gitHubId: params['gitHubId'],
           ),
@@ -998,7 +1113,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).getUserByGitLabId(
+              (endpoints['user'] as _i6.UserEndpoint).getUserByGitLabId(
             session,
             gitLabId: params['gitLabId'],
           ),
@@ -1008,7 +1123,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i15.User>(),
+              type: _i1.getType<_i17.User>(),
               nullable: false,
             )
           },
@@ -1016,7 +1131,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).createUser(
+              (endpoints['user'] as _i6.UserEndpoint).createUser(
             session,
             user: params['user'],
           ),
@@ -1026,7 +1141,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'users': _i1.ParameterDescription(
               name: 'users',
-              type: _i1.getType<List<_i15.User>>(),
+              type: _i1.getType<List<_i17.User>>(),
               nullable: false,
             )
           },
@@ -1034,7 +1149,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).createMultipleUsers(
+              (endpoints['user'] as _i6.UserEndpoint).createMultipleUsers(
             session,
             users: params['users'],
           ),
@@ -1049,7 +1164,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i15.User>(),
+              type: _i1.getType<_i17.User>(),
               nullable: false,
             ),
           },
@@ -1057,7 +1172,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).updateUserById(
+              (endpoints['user'] as _i6.UserEndpoint).updateUserById(
             session,
             userId: params['userId'],
             user: params['user'],
@@ -1076,13 +1191,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint).deleteUser(
+              (endpoints['user'] as _i6.UserEndpoint).deleteUser(
             session,
             userId: params['userId'],
           ),
         ),
-        'GenerateUsersFromTaigaProject': _i1.MethodConnector(
-          name: 'GenerateUsersFromTaigaProject',
+        'generateUsersFromTaigaProject': _i1.MethodConnector(
+          name: 'generateUsersFromTaigaProject',
           params: {
             'taigaUsername': _i1.ParameterDescription(
               name: 'taigaUsername',
@@ -1104,8 +1219,8 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i5.UserEndpoint)
-                  .GenerateUsersFromTaigaProject(
+              (endpoints['user'] as _i6.UserEndpoint)
+                  .generateUsersFromTaigaProject(
             session,
             taigaUsername: params['taigaUsername'],
             taigaPassword: params['taigaPassword'],
