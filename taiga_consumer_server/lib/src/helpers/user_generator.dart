@@ -11,7 +11,7 @@ Future<List<User>> UserGenerator(
   required String taigaPassword,
   required int taigaProjectId,
 }) async {
-  // Use the Taiga crendentials to generate a token, this will be used to read
+  // Use the Taiga credentials to generate a token, this will be used to read
   // the project data.
   final auth = await ApiAuth().authenticateWithTaiga(
     username: taigaUsername,
@@ -35,14 +35,13 @@ Future<List<User>> UserGenerator(
   final userList = <User>[];
 
   // Here we re going to turn a TaigaUser instance into a User instance.
-  //? Note: This two values are differents, thats we re turning one into another
+  //? Note: This two values are different, thats we re turning one into another
   //? I recommend to check the models if you want to modify this function for
   //? some reason
   for (final user in projectUsers) {
-    // Create a user instasnce
+    // Create a user instance
     final userData = User(
       username: user.username,
-      userAvatar: '',
       fullName: user.fullName,
       taigaId: user.userId,
     );
