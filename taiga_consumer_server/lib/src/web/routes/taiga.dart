@@ -239,7 +239,9 @@ class TaigaRoute extends WidgetRoute {
         var readyForDevAux = false;
 
         // If the new status is 'lista'
-        if (figmaStatusConverter(huStatus:payloadUsData.jobStatus.statusName) == HuStatus.LISTA) {
+        if (figmaStatusConverter(
+                huStatus: payloadUsData.jobStatus.statusName) ==
+            HuStatus.LISTA) {
           // Set the ReadyForDev on True
           readyForDevAux = true;
         }
@@ -579,6 +581,7 @@ class TaigaRoute extends WidgetRoute {
                 huDetails.lastStatusUpdate = DateTime.now();
               }
             }
+
             // Once all the things has been done, update the HuData in the
             // database
             await FigmaEndpoint().updateHuData(

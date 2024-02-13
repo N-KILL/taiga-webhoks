@@ -112,7 +112,7 @@ class FigmaEndpoint extends Endpoint {
     );
 
     huData.statusCardId = emptyStatusCard.id;
-    
+
     final response = await HuData.db.insertRow(
       session,
       huData,
@@ -535,6 +535,7 @@ class FigmaEndpoint extends Endpoint {
           }
           return statusCardData;
         } else {
+          var deleteStatusCardDetailId = null;
           if (statusCardDetails != null) {
             // Then update the data based on the type
             switch (updateValue) {
@@ -543,10 +544,7 @@ class FigmaEndpoint extends Endpoint {
                 // (Ignoring the dummy :D)
                 if (statusCardData.approvedId != null &&
                     statusCardData.approvedId != 1) {
-                  await deleteStatusCardDetails(
-                    session,
-                    statusCardDetailsId: statusCardData.approvedId!,
-                  );
+                  deleteStatusCardDetailId = statusCardData.approvedId!;
                 }
 
                 // Then modify the value
@@ -558,10 +556,7 @@ class FigmaEndpoint extends Endpoint {
                 // (Ignoring the dummy :D)
                 if (statusCardData.developmentId != null &&
                     statusCardData.developmentId != 1) {
-                  await deleteStatusCardDetails(
-                    session,
-                    statusCardDetailsId: statusCardData.developmentId!,
-                  );
+                  deleteStatusCardDetailId = statusCardData.developmentId!;
                 }
 
                 // Then modify the value
@@ -573,10 +568,7 @@ class FigmaEndpoint extends Endpoint {
                 // (Ignoring the dummy :D)
                 if (statusCardData.internalTestId != null &&
                     statusCardData.internalTestId != 1) {
-                  await deleteStatusCardDetails(
-                    session,
-                    statusCardDetailsId: statusCardData.internalTestId!,
-                  );
+                  deleteStatusCardDetailId = statusCardData.internalTestId!;
                 }
 
                 // Then modify the value
@@ -589,10 +581,7 @@ class FigmaEndpoint extends Endpoint {
                 // (Ignoring the dummy :D)
                 if (statusCardData.externalTestId != null &&
                     statusCardData.externalTestId != 1) {
-                  await deleteStatusCardDetails(
-                    session,
-                    statusCardDetailsId: statusCardData.externalTestId!,
-                  );
+                  deleteStatusCardDetailId = statusCardData.externalTestId!;
                 }
 
                 // Then modify the value
@@ -612,6 +601,16 @@ class FigmaEndpoint extends Endpoint {
               session,
               statusCardData,
             );
+
+            // Delete the old statusCardDetail register
+            //? Note: this is because, we don't want the database full of
+            //? deprecated registers
+            if (deleteStatusCardDetailId != null) {
+              await deleteStatusCardDetails(
+                session,
+                statusCardDetailsId: deleteStatusCardDetailId,
+              );
+            }
             // Then return the updated user story data
             return response;
           } else {
