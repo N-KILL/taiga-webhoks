@@ -14,7 +14,7 @@ enum HuStatus with _i1.SerializableEntity {
   NUEVA,
   REFINANDOSE,
   ILUSTRANDOSE,
-  PENSANDOSE,
+  PESANDOSE,
   APROBANDOSE,
   LISTA,
   DESARROLLANDOSE,
@@ -31,8 +31,8 @@ enum HuStatus with _i1.SerializableEntity {
         return REFINANDOSE;
       case 'ILUSTRANDOSE':
         return ILUSTRANDOSE;
-      case 'PENSANDOSE':
-        return PENSANDOSE;
+      case 'PESANDOSE':
+        return PESANDOSE;
       case 'APROBANDOSE':
         return APROBANDOSE;
       case 'LISTA':

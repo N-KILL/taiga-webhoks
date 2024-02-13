@@ -41,7 +41,7 @@ HuStatus figmaStatusConverter({required String huStatus}) {
     // If the value is 'Pesándose'
     case 'Pesándose':
       // Turn the var status into: HuStatus.PENSANDOSE
-      status = HuStatus.PENSANDOSE;
+      status = HuStatus.PESANDOSE;
       break;
 
     // If the value is 'Lista'

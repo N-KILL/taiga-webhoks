@@ -106,6 +106,13 @@ class FigmaEndpoint extends Endpoint {
     Session session, {
     required HuData huData,
   }) async {
+    final emptyStatusCard = await createStatusCard(
+      session,
+      statusCard: StatusCard(),
+    );
+
+    huData.statusCardId = emptyStatusCard.id;
+    
     final response = await HuData.db.insertRow(
       session,
       huData,
