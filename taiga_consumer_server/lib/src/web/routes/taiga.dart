@@ -239,7 +239,7 @@ class TaigaRoute extends WidgetRoute {
         var readyForDevAux = false;
 
         // If the new status is 'lista'
-        if (payloadUsData.jobStatus.statusName == 'Lista') {
+        if (figmaStatusConverter(huStatus:payloadUsData.jobStatus.statusName) == HuStatus.LISTA) {
           // Set the ReadyForDev on True
           readyForDevAux = true;
         }
