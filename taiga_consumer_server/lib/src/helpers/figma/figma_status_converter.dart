@@ -68,7 +68,7 @@ HuStatus figmaStatusConverter({required String huStatus}) {
       break;
 
     // If the value is 'CERRADA'
-    case 'CERRADA':
+    case 'Cerrada':
       // Turn the var status into: HuStatus.TERMINADA
       status = HuStatus.CERRADA;
       break;
