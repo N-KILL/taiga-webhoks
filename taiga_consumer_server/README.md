@@ -13,3 +13,14 @@ Then you can start the Serverpod server.
 When you are finished, you can shut down Serverpod with `Ctrl-C`, then stop Postgres and Redis.
 
     docker compose stop
+
+
+# THIS PACKAGE DEPENDS ON
+## FIGMA PACKAGE:
+https://github.com/Rodsevich/gestion
+
+## TAIGA PACKAGE:
+https://github.com/Eficetti/taigaREST_models
+
+## GITLAB PACKAGE
+https://github.com/N-KILL/gitlabREST_models
