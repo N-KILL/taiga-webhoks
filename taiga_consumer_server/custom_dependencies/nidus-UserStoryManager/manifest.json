@@ -1,0 +1,18 @@
+{
+  "name": "Nidus-UserStoryManager",
+  "id": "1317480173233026610",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://img.freepik.com",
+      "https://static-00.iconduck.com",
+      "https://taiga-webhoks-production.up.railway.app"
+    ]
+  }
+}
